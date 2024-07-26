@@ -1,28 +1,56 @@
 <script lang="ts">
-import { onMount } from 'svelte';
+import { fade } from 'svelte/transition';
 import { Button } from "$lib/components/ui/button";
 import * as Sheet from "$lib/components/ui/sheet";
-import AppNav from "$lib/AppNav.svelte";
+import { sections } from '$lib/stores/sections';
+import Hero from '$lib/sections/Hero.svelte';
+import Blurbs from '$lib/sections/Blurbs.svelte';
+import ZigZag from '$lib/sections/ZigZag.svelte';
 
-let heroText = "Welcome to Pipewriter";
-let heroSubtext = "Create beautiful wireframes in minutes";
-let blurbs = [
-  { title: "Easy to Use", content: "Intuitive drag-and-drop interface" },
-  { title: "Responsive", content: "Looks great on all devices" },
-  { title: "Customizable", content: "Tailor to your specific needs" }
-];
+function addHero() {
+  sections.update(s => [...s, {
+    type: 'hero',
+    data: { title: "New Hero Section", subtitle: "Add your content here" }
+  }]);
+}
+
+function addBlurbs() {
+  sections.update(s => [...s, {
+    type: 'blurbs',
+    data: {
+      items: [
+        { title: "New Feature", content: "Describe your feature" },
+        { title: "Another Feature", content: "Describe another feature" },
+        { title: "Last Feature", content: "Describe the last feature" }
+      ]
+    }
+  }]);
+}
+
+function addZigZag() {
+  sections.update(s => [...s, {
+    type: 'zigzag',
+    data: {
+      title: "New ZigZag Section",
+      content: "Add your content here",
+      imageUrl: "https://via.placeholder.com/500",
+      reverse: false
+    }
+  }]);
+}
+
+function removeSection(index: number) {
+  sections.update(s => s.filter((_, i) => i !== index));
+}
 
 function handleDragOver(event) {
   event.preventDefault();
 }
-
 </script>
 
-<AppNav />
-
-<main class="flex flex-col min-h-screen bg-background text-foreground">
+<main class="flex flex-col min-h-screen bg-background text-foreground pt-24">
   <Sheet.Root>
-    <Sheet.Trigger class="absolute top-20 right-4">
+    <Sheet.Trigger class="fixed top-20 right-4 z-10">
       <Button variant="outline">Add Elements</Button>
     </Sheet.Trigger>
     <Sheet.Content side="right" class="w-64">
@@ -30,42 +58,24 @@ function handleDragOver(event) {
         <Sheet.Title>Add Elements</Sheet.Title>
       </Sheet.Header>
       <div class="flex flex-col gap-2 p-4">
-        <Button>Add Hero</Button>
-        <Button>Add Zigzag</Button>
-        <Button>Add Blurb</Button>
+        <Button on:click={addHero}>Add Hero</Button>
+        <Button on:click={addBlurbs}>Add Blurbs</Button>
+        <Button on:click={addZigZag}>Add ZigZag</Button>
       </div>
     </Sheet.Content>
   </Sheet.Root>
 
   <div class="flex-1 p-4" on:dragover={handleDragOver}>
-    <!-- Hero Section -->
-    <div class="mb-12 text-center">
-      <h1 class="text-4xl font-bold mb-4">
-        <textarea bind:value={heroText} class="w-full bg-transparent text-center resize-none"></textarea>
-      </h1>
-      <p class="text-xl">
-        <textarea bind:value={heroSubtext} class="w-full bg-transparent text-center resize-none"></textarea>
-      </p>
-    </div>
-
-    <!-- Blurbs -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {#each blurbs as blurb, index}
-        <div class="p-6 bg-secondary rounded-lg shadow-md">
-          <h2 class="text-2xl font-semibold mb-2">
-            <textarea bind:value={blurb.title} class="w-full bg-transparent resize-none"></textarea>
-          </h2>
-          <p>
-            <textarea bind:value={blurb.content} class="w-full bg-transparent resize-none"></textarea>
-          </p>
-        </div>
-      {/each}
-    </div>
+    {#each $sections as section, index (index)}
+      <div transition:fade>
+        {#if section.type === 'hero'}
+          <Hero data={section.data} on:remove={() => removeSection(index)} />
+        {:else if section.type === 'blurbs'}
+          <Blurbs data={section.data} on:remove={() => removeSection(index)} />
+        {:else if section.type === 'zigzag'}
+          <ZigZag data={section.data} on:remove={() => removeSection(index)} />
+        {/if}
+      </div>
+    {/each}
   </div>
 </main>
-
-<style>
-  textarea {
-    overflow: hidden;
-  }
-</style>

@@ -12,7 +12,8 @@ import * as Menubar from "$lib/components/ui/menubar";
 
 <div class="flex justify-between w-screen px-12 py-4">
   <div class="flex items-center gap-1">
-    <h1 class="">Pipewriter</h1>
+    <div>✍️</div>
+		<h1 class="">Pipewriter</h1>
     <Badge variant="outline">beta</Badge>
   </div>
   
