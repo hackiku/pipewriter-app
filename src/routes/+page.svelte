@@ -1,96 +1,71 @@
 <script lang="ts">
+import { onMount } from 'svelte';
+import { Button } from "$lib/components/ui/button";
+import * as Sheet from "$lib/components/ui/sheet";
+import AppNav from "$lib/AppNav.svelte";
 
-import { toggleMode } from "mode-watcher";
-  import { Button } from "$lib/components/ui/button";
-  import { Badge } from "$lib/components/ui/badge";
-  import * as Avatar from "$lib/components/ui/avatar";
-  import { Sun, Moon } from "lucide-svelte";
-	import * as Drawer from "$lib/components/ui/drawer";
-  import * as Menubar from "$lib/components/ui/menubar";
-  import * as Sheet from "$lib/components/ui/sheet";
+let heroText = "Welcome to Pipewriter";
+let heroSubtext = "Create beautiful wireframes in minutes";
+let blurbs = [
+  { title: "Easy to Use", content: "Intuitive drag-and-drop interface" },
+  { title: "Responsive", content: "Looks great on all devices" },
+  { title: "Customizable", content: "Tailor to your specific needs" }
+];
 
-	import ElementsDropper from "$lib/controls/ElementsDropper.svelte";
-
-  const SHEET_SIDES = ["top", "right", "bottom", "left"] as const;
-
-	const side = "right";
+function handleDragOver(event) {
+  event.preventDefault();
+}
 
 </script>
 
+<AppNav />
 
-<div class="flex justify-between w-screen px-12 py-4">
+<main class="flex flex-col min-h-screen bg-background text-foreground">
+  <Sheet.Root>
+    <Sheet.Trigger class="absolute top-20 right-4">
+      <Button variant="outline">Add Elements</Button>
+    </Sheet.Trigger>
+    <Sheet.Content side="right" class="w-64">
+      <Sheet.Header>
+        <Sheet.Title>Add Elements</Sheet.Title>
+      </Sheet.Header>
+      <div class="flex flex-col gap-2 p-4">
+        <Button>Add Hero</Button>
+        <Button>Add Zigzag</Button>
+        <Button>Add Blurb</Button>
+      </div>
+    </Sheet.Content>
+  </Sheet.Root>
 
-	<div class="flex items-center gap-1">
-		<h1 class="">Pipewriter</h1>
-		<!-- <Badge variant="outline">beta</Badge> -->
-		<Badge variant="outline">beta</Badge>
-	</div>
-	
-	<Menubar.Root>
-		<Menubar.Menu>
-			<Menubar.Trigger>File</Menubar.Trigger>
-			<Menubar.Content>
-				<Menubar.Item>
-					New Tab
-					<Menubar.Shortcut>⌘T</Menubar.Shortcut>
-				</Menubar.Item>
-				<Menubar.Item>New Window</Menubar.Item>
-				<Menubar.Separator />
-				<Menubar.Item>Share</Menubar.Item>
-				<Menubar.Separator />
-				<Menubar.Item>Print</Menubar.Item>
-			</Menubar.Content>
-		</Menubar.Menu>
-	</Menubar.Root>
+  <div class="flex-1 p-4" on:dragover={handleDragOver}>
+    <!-- Hero Section -->
+    <div class="mb-12 text-center">
+      <h1 class="text-4xl font-bold mb-4">
+        <textarea bind:value={heroText} class="w-full bg-transparent text-center resize-none"></textarea>
+      </h1>
+      <p class="text-xl">
+        <textarea bind:value={heroSubtext} class="w-full bg-transparent text-center resize-none"></textarea>
+      </p>
+    </div>
 
+    <!-- Blurbs -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {#each blurbs as blurb, index}
+        <div class="p-6 bg-secondary rounded-lg shadow-md">
+          <h2 class="text-2xl font-semibold mb-2">
+            <textarea bind:value={blurb.title} class="w-full bg-transparent resize-none"></textarea>
+          </h2>
+          <p>
+            <textarea bind:value={blurb.content} class="w-full bg-transparent resize-none"></textarea>
+          </p>
+        </div>
+      {/each}
+    </div>
+  </div>
+</main>
 
-	<div class="flex items-center gap-2">
-		<Button on:click={toggleMode} variant="outline" size="icon">
-			<Sun
-				class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-			/>
-			<Moon
-				class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-			/>
-			<span class="sr-only">Toggle theme</span>
-		</Button>
-
-		<Avatar.Root>
-			<Avatar.Image src="https://github.com/shadcn.png" alt="@shadcn" />
-			<Avatar.Fallback>CN</Avatar.Fallback>
-		</Avatar.Root>
-
-	</div>
-	
-</div>
-
-
-<Drawer.Root>
-  <Drawer.Trigger>Open</Drawer.Trigger>
-  <Drawer.Content>
-    <Drawer.Header>
-      <Drawer.Title>Are you sure absolutely sure?</Drawer.Title>
-      <Drawer.Description>This action cannot be undone.</Drawer.Description>
-    </Drawer.Header>
-    <Drawer.Footer>
-      <Button>Submit</Button>
-      <Drawer.Close>Cancel</Drawer.Close>
-    </Drawer.Footer>
-  </Drawer.Content>
-</Drawer.Root>
-
-
-<Sheet.Root>
-  <Sheet.Trigger>Open sheet</Sheet.Trigger>
-  <Sheet.Content {side}>
-    <Sheet.Header>
-      <Sheet.Title>Are you sure absolutely sure?</Sheet.Title>
-      <Sheet.Description>
-        This action cannot be undone. This will permanently delete your account
-        and remove your data from our servers.
-      </Sheet.Description>
-    </Sheet.Header>
-  </Sheet.Content >
-</Sheet.Root>
-
-<!-- <ElementsDropper /> -->
+<style>
+  textarea {
+    overflow: hidden;
+  }
+</style>
