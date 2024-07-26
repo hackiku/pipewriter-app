@@ -1,21 +1,30 @@
 import { writable } from 'svelte/store';
 
-export const sections = writable([
-	{
-		type: 'hero',
-		data: {
-			title: "Welcome to Pipewriter",
-			subtitle: "Create beautiful wireframes in minutes"
-		}
-	},
-	{
-		type: 'blurbs',
-		data: {
-			items: [
-				{ title: "Easy to Use", content: "Intuitive drag-and-drop interface" },
-				{ title: "Responsive", content: "Looks great on all devices" },
-				{ title: "Customizable", content: "Tailor to your specific needs" }
-			]
-		}
-	}
-]);
+type Section = {
+	id: number;
+	type: string;
+	data: any;
+};
+
+export const sections = writable<Section[]>([]);
+
+export function addSection(type: string) {
+	sections.update(s => [...s, {
+		id: Date.now(),
+		type,
+		data: getDefaultData(type)
+	}]);
+}
+
+export function removeSection(id: number) {
+	sections.update(s => s.filter(section => section.id !== id));
+}
+
+export function reorderSections(newOrder: Section[]) {
+	sections.set(newOrder);
+}
+
+function getDefaultData(type: string) {
+	// Return default data for each section type
+	// ... (implement this based on your needs)
+}
