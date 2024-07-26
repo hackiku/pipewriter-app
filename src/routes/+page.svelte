@@ -3,9 +3,11 @@ import { fade } from 'svelte/transition';
 import { Button } from "$lib/components/ui/button";
 import * as Sheet from "$lib/components/ui/sheet";
 import { sections } from '$lib/stores/sections';
+
 import Hero from '$lib/sections/Hero.svelte';
 import Blurbs from '$lib/sections/Blurbs.svelte';
 import ZigZag from '$lib/sections/ZigZag.svelte';
+import Logos from '$lib/sections/Logos.svelte';
 
 function addHero() {
   sections.update(s => [...s, {
@@ -39,6 +41,26 @@ function addZigZag() {
   }]);
 }
 
+
+function addLogos() {
+  sections.update(s => [...s, {
+    id: Date.now(),
+    type: 'logos',
+    data: {
+      title: "You'll be in good company",
+      logos: [
+        { name: 'Logo 1', color: '#FF5733' },
+        { name: 'Logo 2', color: '#33FF57' },
+        { name: 'Logo 3', color: '#3357FF' },
+        { name: 'Logo 4', color: '#FF33F1' },
+        { name: 'Logo 5', color: '#33FFF1' },
+        { name: 'Logo 6', color: '#F1FF33' },
+      ]
+    }
+  }]);
+}
+
+
 function removeSection(index: number) {
   sections.update(s => s.filter((_, i) => i !== index));
 }
@@ -61,10 +83,12 @@ function handleDragOver(event) {
         <Button on:click={addHero}>Add Hero</Button>
         <Button on:click={addBlurbs}>Add Blurbs</Button>
         <Button on:click={addZigZag}>Add ZigZag</Button>
+        <Button on:click={addLogos}>Add Logos</Button>
       </div>
     </Sheet.Content>
   </Sheet.Root>
 
+  <!-- svelte-ignore a11y-no-static-element-interactions -->
   <div class="flex-1 p-4" on:dragover={handleDragOver}>
     {#each $sections as section, index (index)}
       <div transition:fade>
@@ -74,7 +98,9 @@ function handleDragOver(event) {
           <Blurbs data={section.data} on:remove={() => removeSection(index)} />
         {:else if section.type === 'zigzag'}
           <ZigZag data={section.data} on:remove={() => removeSection(index)} />
-        {/if}
+				{:else if section.type === 'logos'}
+  				<Logos data={section.data} on:remove={() => removeSection(index)} />
+		    {/if}
       </div>
     {/each}
   </div>
