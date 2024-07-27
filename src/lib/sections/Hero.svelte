@@ -12,7 +12,7 @@
 </script>
 
 <div class="mb-12 text-center">
-  <h1 class="text-4xl font-bold mb-4">
+  <h1 class="text-4xl font-bold mb-2">
     <textarea 
       bind:value={data.title} 
       on:input={autoGrow}
@@ -33,4 +33,12 @@
   textarea {
     overflow: hidden;
   }
+	[contenteditable] {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  [contenteditable] br {
+    display: none;
+  }
+
 </style>
