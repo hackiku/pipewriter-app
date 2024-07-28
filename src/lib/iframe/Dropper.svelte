@@ -1,4 +1,5 @@
 <!-- $lib/iframe/Dropper.svelte -->
+
 <script lang="ts">
   import { getElement } from '$lib/iframe/elements.ts'; 
   import { createEventDispatcher } from 'svelte';
@@ -18,8 +19,8 @@
   function selectElement(elementId: string) {
     const element = getElement(elementId);
     if (element) {
-      callGAS('getElement', { elementId: element.id, pro: element.pro || false });
-      dispatch('elementSelected', { elementId: element.id, pro: element.pro || false });
+      callGAS('getElement', { elementId: element.id });
+      dispatch('elementSelected', { elementId: element.id });
     }
   }
 </script>
