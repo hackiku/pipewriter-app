@@ -13,7 +13,7 @@
   let pressedColor = '#3801cd';
 </script>
 
-<div class="flex items-center py-2">
+<div class="flex items-center">
 	<!-- title -->
 	<div class="flex-1 flex justify-start gap-2.5 h-full">
 		pipewriter
