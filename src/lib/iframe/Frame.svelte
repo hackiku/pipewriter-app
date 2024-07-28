@@ -1,8 +1,8 @@
 <!-- $lib/iframe/Frame.svelte -->
 <script lang="ts">
   import Dropper from '$lib/iframe/Dropper.svelte';
+  import TopBar from '$lib/iframe/TopBar.svelte';
   // import ElementsDropper from '$lib/iframe/ElementsDropper.svelte';
-  // import TopBar from '$lib/iframe/TopBar.svelte';
   // import BottomBar from '$lib/iframe/BottomBar.svelte';
   import { elements } from '$lib/iframe/elements.ts';
 
@@ -12,11 +12,10 @@
   }
 </script>
 
-
 <!-- --------------------- TOP BAR --------------------------------- -->
 
 <main>
-  <hr class="border">
-  dropper 👇
+	<TopBar />
+	<hr>
   <Dropper {elements} {callGAS} />
 </main>
