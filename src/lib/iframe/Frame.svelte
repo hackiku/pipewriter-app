@@ -14,24 +14,33 @@
 
 <!-- --------------------- TOP BAR --------------------------------- -->
 
-<main class="flex flex-col gap-4">
+<main class="flex flex-col gap-2 overflow-none">
 	
 	<section>
 		<TopBar />
 	</section>
 	
-	<hr>
-  
-	<!-- <div class="h-[50vh] overflow-scroll-y"> -->
-		<div class="h-[50vh] overflow-hidden overflow-y-auto custom-scrollbar">
-			<Dropper {elements} {callGAS} />
-		</div>
-		
-	<hr>
+	<!-- <hr> -->
 	
-	<ColorPicker />
+	<section class="h-[50vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6">
+		<Dropper {elements} {callGAS} />
+	</section>
+		
+	<!-- <hr> -->
+	
+	<section class="mt-6">
+		<ColorPicker />
+	</section>
 
+	<section>
+		<p class="text-xs opacity-30">
+			styles
+		</p>
+	</section>
+
+	<hr class="border-1 border-gray-500 opacity-20 mt-4" />
 </main>
+
 
 
 <style>

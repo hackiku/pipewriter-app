@@ -85,7 +85,7 @@
   </div>
 
 
-  <hr class="border-1 border-gray-500 opacity-20 mt-4" />
+  
 </section>
 
 <style>
