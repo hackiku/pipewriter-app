@@ -16,14 +16,25 @@
     return acc;
   }, {} as Record<string, ElementObject[]>) : {};
 
-  function selectElement(elementId: string) {
-    const element = getElement(elementId);
-    if (element) {
-      callGAS('getElement', { elementId: element.id });
-      dispatch('elementSelected', { elementId: element.id });
+async function selectElement(elementId: string) {
+  console.log(`Selecting element: ${elementId}`);
+  const element = getElement(elementId);
+  if (element) {
+    try {
+      const result = await callGAS('getElement', { elementId: element.id });
+      console.log(`Element fetched successfully: ${elementId}`, result);
+      dispatch('elementSelected', { elementId: element.id, result });
+    } catch (error) {
+      console.error(`Failed to fetch element: ${elementId}`, error);
+      if (error.message.includes("Action not allowed")) {
+        console.warn("This may be due to a permission issue in Google Apps Script.");
+      }
+      dispatch('elementError', { elementId: element.id, error: error.message });
     }
+  } else {
+    console.error(`Element not found: ${elementId}`);
   }
-</script>
+}</script>
 
 {#if Object.entries(groupedByCategory).length > 0}
   {#each Object.entries(groupedByCategory) as [category, categoryElements]}
