@@ -47,15 +47,16 @@ function copyEmail() {
       <X size={24} />
     </button>
     
-    <div class="flex flex-col items-center space-y-6">
-      <div class="text-center space-y-6 max-w-md">
+    <div class="flex flex-col md:flex-row items-center space-y-6">
+      <div class="text-center md:text-start space-y-6 max-w-md">
         <h3 id="modal-title" class="text-4xl font-bold">Say Hi 👋</h3>
-        <p class="text-xl">Or say "You're Hired" if you need UX-sizzly web copy, design and dev.</p>
+        <p class="text-xl">Or say "You're Hired" if you need UX-sizzly web copywriting, design and dev.</p>
         
-				<div class="font-semibold text-3xl flex items-center justify-center">
+				<div class="font-semibold text-3xl flex items-center justify-center md:justify-start">
           <a 
             href="mailto:ivan@pipewriter.io"
-            class="bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] hover:from-[#3644FE] hover:to-[#B345ED] transition-all"
+            class="bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED]
+						hover:underline transition-all"
           >
             ivan@pipewriter.io
           </a>
