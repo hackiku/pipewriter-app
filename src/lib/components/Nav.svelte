@@ -42,10 +42,10 @@ const navItems = [
       </Button>
       <Button 
         on:click={() => showContactModal = true} 
-        variant="outline" 
-        class="rounded-full border-2 bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] border-[#3644FE] hover:text-white hover:bg-gradient-to-r hover:from-[#3644FE] hover:to-[#B345ED] transition-all"
+        variant="primary" 
+        class="rounded-full border-2 bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] border-[#3644FE] hover:text-[#3644FE] hover:bg-gradient-to-r hover:from-[#3644FE] hover:to-[#B345ED] transition-all"
       >
-        Contact
+        Say Hi 👋
       </Button>
     </div>
 

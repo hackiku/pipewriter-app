@@ -15,7 +15,7 @@
       
 			<section class="flex flex-col items-center text-center space-y-6">
         <div class="space-y-4">
-          <!-- <div class="text-sm font-medium text-muted-foreground">type + prototype</div> -->
+          <div class="text-md font-medium text-muted-foreground">type + prototype</div>
           <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold">
             Wireframes for Writers <br class="hsidden sm:inline"> in Google Docs
           </h1>
