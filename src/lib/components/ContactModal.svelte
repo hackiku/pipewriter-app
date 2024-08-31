@@ -1,10 +1,11 @@
-<!-- $lib/components/ContactModal.svelte -->
 <script lang="ts">
 import { createEventDispatcher } from 'svelte';
 import { fade } from 'svelte/transition';
-import { X } from 'lucide-svelte';
+import { X, Copy, Check } from 'lucide-svelte';
+import { writable } from 'svelte/store';
 
 const dispatch = createEventDispatcher();
+const copied = writable(false);
 
 function close() {
   dispatch('close');
@@ -14,6 +15,13 @@ function handleKeydown(event: KeyboardEvent) {
   if (event.key === 'Escape') {
     close();
   }
+}
+
+function copyEmail() {
+  navigator.clipboard.writeText('ivan@pipewriter.io').then(() => {
+    copied.set(true);
+    setTimeout(() => copied.set(false), 2000);
+  });
 }
 </script>
 
@@ -42,15 +50,30 @@ function handleKeydown(event: KeyboardEvent) {
     <div class="flex flex-col items-center space-y-6">
       <div class="text-center space-y-6 max-w-md">
         <h3 id="modal-title" class="text-4xl font-bold">Say Hi 👋</h3>
-        <p class="text-xl">Or, even better, say "You're Hired" if you need UX-sizzly web copy, design and dev.</p>
-        <p class="font-semibold text-3xl">
+        <p class="text-xl">Or say "You're Hired" if you need UX-sizzly web copy, design and dev.</p>
+        
+				<div class="font-semibold text-3xl flex items-center justify-center">
           <a 
             href="mailto:ivan@pipewriter.io"
-            class="bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] hover:text-white hover:underline transition-all"
+            class="bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] hover:from-[#3644FE] hover:to-[#B345ED] transition-all"
           >
             ivan@pipewriter.io
           </a>
-        </p>
+          <button 
+            on:click={copyEmail}
+            class="ml-2 text-gray-500 hover:text-gray-700 transition-colors focus:outline-none"
+            aria-label="Copy email"
+          >
+            {#if $copied}
+              <Check size={24} class="ml-1 mt-1 text-green-500" />
+            {:else}
+              <Copy size={18} class="ml-1 mt-1" />
+            {/if}
+          </button>
+					{#if $copied}
+						<p class="ml-2 text-sm text-green-500 transition-opacity" transition:fade={{duration: 200}}>Copied!</p>
+					{/if}
+        </div>
       </div>
       <div class="w-full max-w-[12em] aspect-[350/480] rounded-lg overflow-hidden pointer-events-none">
         <iframe 

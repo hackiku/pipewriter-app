@@ -19,8 +19,8 @@ const navItems = [
 ];
 </script>
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm
-	mx-4 sm:mx-6 md:mx-16 lg:mx-24 xl:mx-44">
+<nav class="fixed top-4 left-0 right-0 z-50 bg-background shadow-sm rounded-full
+	px-1 md:px-4 mx-4 sm:mx-6 md:mx-16 lg:mx-24 xl:mx-44">
   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
     
 		<a href="/">
@@ -43,7 +43,7 @@ const navItems = [
       <Button 
         on:click={() => showContactModal = true} 
         variant="outline" 
-        class="border-2 bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] border-[#3644FE] hover:text-white hover:bg-gradient-to-r hover:from-[#3644FE] hover:to-[#B345ED] transition-all"
+        class="rounded-full border-2 bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] border-[#3644FE] hover:text-white hover:bg-gradient-to-r hover:from-[#3644FE] hover:to-[#B345ED] transition-all"
       >
         Contact
       </Button>

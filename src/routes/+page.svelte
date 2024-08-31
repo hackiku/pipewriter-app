@@ -9,13 +9,13 @@
 
 <BackgroundPattern />
 
-<div class="flex flex-col min-h-screen">
+<div class="flex flex-col min-h-screen bg-slate-300 dark:bg-slate-950 bg-opacity-20">
   <main class="container mx-auto flex-grow flex flex-col justify-center items-center px-4 py-16">
     <div class="max-w-4xl w-full space-y-12">
       
 			<section class="flex flex-col items-center text-center space-y-6">
         <div class="space-y-4">
-          <div class="text-sm font-medium text-muted-foreground">type + prototype</div>
+          <!-- <div class="text-sm font-medium text-muted-foreground">type + prototype</div> -->
           <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold">
             Wireframes for Writers <br class="hsidden sm:inline"> in Google Docs
           </h1>
@@ -23,7 +23,6 @@
         <EmailForm />
       </section>
 
-      <!-- Uncomment this section when you want to include the LoomVideo -->
       <!-- <section class="w-full">
         <LoomVideo />
       </section> -->
