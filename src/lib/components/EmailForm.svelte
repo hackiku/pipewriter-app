@@ -1,8 +1,6 @@
-<!-- $lib/components/EmailForm.svelte -->
-
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import { Check } from 'lucide-svelte';
+  import { Check, X } from 'lucide-svelte';
 
   let email = '';
   let isSubmitting = false;
@@ -36,6 +34,12 @@
       isSubmitting = false;
     }
   }
+
+  function resetForm() {
+    isSubmitted = false;
+    email = '';
+    errorMessage = '';
+  }
 </script>
 
 {#if !isSubmitted}
@@ -64,12 +68,19 @@
   {/if}
 {:else}
   <div 
-    class="w-full max-w-2xl p-6 rounded-lg bg-gradient-to-r from-[#3644FE] to-[#B345ED] text-white text-center"
+    class="w-full max-w-2xl p-6 rounded-lg bg-gradient-to-r from-[#3644FE] to-[#B345ED] text-white text-center relative"
     transition:fade={{ duration: 300 }}
   >
+    <button
+      on:click={resetForm}
+      class="absolute top-2 right-2 text-white hover:text-gray-200 focus:outline-none"
+      aria-label="Close"
+    >
+      <X size={24} />
+    </button>
     <div class="flex items-center justify-center mb-4">
       <Check size={32} class="mr-2" />
-      <h3 class="text-2xl font-bold">You're in the loop!</h3>
+      <h3 class="text-2xl font-bold">You're in!</h3>
     </div>
     <p class="text-lg">Check your inbox for a welcome message and exciting updates.</p>
   </div>
