@@ -1,5 +1,5 @@
 <script>
-  import "../app.css";
+  import "../../app.css";
 	import AppHeader from "$lib/components/AppHeader.svelte";
 	import Nav from "$lib/components/Nav.svelte";
 
