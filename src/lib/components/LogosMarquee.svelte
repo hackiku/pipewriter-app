@@ -1,4 +1,5 @@
 <!-- $lib/components/LogosMarquee.svelte -->
+
 <script lang="ts">
   const logos = [
     { src: 'portfolio/logos/redocly-logo-white.svg', alt: 'Redocly' },
@@ -12,7 +13,7 @@
   const duplicatedLogos = [...logos, ...logos, ...logos];
 </script>
 
-<div class="w-full overflow-hidden bg-gray-100 dark:bg-gray-800 py-4">
+<div class="w-full overflow-hidden py-4">
   <div class="flex space-x-12 animate-marquee">
     {#each duplicatedLogos as logo}
       <img 

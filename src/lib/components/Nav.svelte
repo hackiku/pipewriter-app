@@ -1,20 +1,21 @@
 <!-- $lib/components/Nav.svelte -->
-
 <script lang="ts">
 import { toggleMode } from "mode-watcher";
 import { Button } from "$lib/components/ui/button";
 import { Badge } from "$lib/components/ui/badge";
 import { Sun, Moon } from "lucide-svelte";
+import ContactModal from "./ContactModal.svelte";
 
 let isOpen = false;
+let showContactModal = false;
 
 const toggleMenu = () => {
   isOpen = !isOpen;
 };
 
 const navItems = [
-  { href: '/app', label: 'App' },
-  { href: '/contact', label: 'Contact' },
+  // { href: '/app', label: 'App' },
+  // { href: '/contact', label: 'Contact' },
 ];
 </script>
 
@@ -24,10 +25,10 @@ const navItems = [
     
 		<a href="/">
 			<div class="flex items-center gap-1">
-						<div>✍️</div>
-						<h1 class="text-lg font-semibold">Pipewriter</h1>
-						<Badge variant="outline">beta</Badge>
-					</div>
+				<div>✍️</div>
+				<h1 class="text-lg font-semibold">Pipewriter</h1>
+				<Badge variant="outline">beta</Badge>
+			</div>
 		</a>
 
     <div class="hidden md:flex items-center space-x-4">
@@ -38,6 +39,13 @@ const navItems = [
         <Sun class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
         <Moon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
         <span class="sr-only">Toggle theme</span>
+      </Button>
+      <Button 
+        on:click={() => showContactModal = true} 
+        variant="outline" 
+        class="border-2 bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] border-[#3644FE] hover:text-white hover:bg-gradient-to-r hover:from-[#3644FE] hover:to-[#B345ED] transition-all"
+      >
+        Contact
       </Button>
     </div>
 
@@ -57,7 +65,17 @@ const navItems = [
         <button on:click={toggleMode} class="block w-full text-left px-3 py-2 text-base font-medium text-foreground">
           Toggle Theme
         </button>
+        <button 
+          on:click={() => showContactModal = true}
+          class="block w-full text-left px-3 py-2 text-base font-medium text-foreground"
+        >
+          Contact
+        </button>
       </div>
     </div>
   {/if}
 </nav>
+
+{#if showContactModal}
+  <ContactModal on:close={() => showContactModal = false} />
+{/if}
