@@ -24,9 +24,9 @@
       </section>
 
       <!-- Uncomment this section when you want to include the LoomVideo -->
-      <section class="w-full">
+      <!-- <section class="w-full">
         <LoomVideo />
-      </section>
+      </section> -->
     </div>
   </main>
 
