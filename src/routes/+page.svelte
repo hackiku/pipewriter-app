@@ -1,10 +1,10 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
-import Nav from '$lib/components/Nav.svelte';
-import { Button } from "$lib/components/ui/button";
-import EmailForm from '$lib/components/EmailForm.svelte';
-import LoomVideo from '$lib/components/LoomVideo.svelte';
-// import Logos from '$lib/components/Logos.svelte';
+	import Nav from '$lib/components/Nav.svelte';
+	import { Button } from "$lib/components/ui/button";
+	import EmailForm from '$lib/components/EmailForm.svelte';
+	import LoomVideo from '$lib/components/LoomVideo.svelte';
+	import Logos from '$lib/components/Logos.svelte';
 </script>
 
 <Nav />
@@ -18,15 +18,14 @@ import LoomVideo from '$lib/components/LoomVideo.svelte';
 
       <EmailForm />
 
-      <Button variant="default" class="bg-gradient-to-r from-[#3644FE] to-[#B345ED]">
+      <!-- <Button variant="default" class="bg-gradient-to-r from-[#3644FE] to-[#B345ED]">
         Start Writing
-      </Button>
+      </Button> -->
     </div>
 
     <LoomVideo />
     <div class="-translate-y-3/4 lg:-translate-y-5/6">
-      <!-- <Logos /> -->
-			logos
+      <Logos />
     </div>
   </section>
 </main>
