@@ -4,7 +4,7 @@
   const lastUpdated = 'Jun 13, 2024';
 </script>
 
-<main class="container mx-auto px-6 sm:px-8 md:px-36 lg:px-44 xl:px-64 py-12 space-y-6">
+<main class="container mt-16 mx-auto px-6 sm:px-8 md:px-36 lg:px-44 xl:px-64 py-12 space-y-6">
 	<h1 class="text-5xl md:text-7xl">Terms of Service</h1>
 
   <p class="inline-block text-sm text-gray-600 bg-gray-500 rounded-xl bg-opacity-20 py-1 px-3">

@@ -18,13 +18,17 @@ const navItems = [
 ];
 </script>
 
-<nav class="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm">
+<nav class="fixed top-0 left-0 right-0 z-50 bg-background shadow-sm
+	mx-4 sm:mx-6 md:mx-16 lg:mx-24 xl:mx-44">
   <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-1">
-      <div>✍️</div>
-      <h1 class="text-lg font-semibold">Pipewriter</h1>
-      <Badge variant="outline">beta</Badge>
-    </div>
+    
+		<a href="/">
+			<div class="flex items-center gap-1">
+						<div>✍️</div>
+						<h1 class="text-lg font-semibold">Pipewriter</h1>
+						<Badge variant="outline">beta</Badge>
+					</div>
+		</a>
 
     <div class="hidden md:flex items-center space-x-4">
       {#each navItems as { href, label }}
