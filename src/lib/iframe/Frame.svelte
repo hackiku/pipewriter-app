@@ -1,5 +1,4 @@
 <!-- $lib/iframe/Frame.svelte -->
-<!-- $lib/iframe/Frame.svelte -->
 
 <script lang="ts">
   import { onMount } from 'svelte';

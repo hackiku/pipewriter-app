@@ -1,5 +1,6 @@
 // $lib/iframe/elements.ts
 
+// TODO fetch damn svgs
 const baseUrlSvg = 'https://pipewriter-newui.web.app/Assets';
 
 // Define the type for element properties
