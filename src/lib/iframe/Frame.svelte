@@ -5,6 +5,7 @@
   import ColorPicker from '$lib/iframe/ColorPicker.svelte';	
   import Dropper from '$lib/iframe/Dropper.svelte';
   import TopBar from '$lib/iframe/TopBar.svelte';	
+  import Tabs from '$lib/iframe/Tabs.svelte';	
   // import BottomBar from '$lib/iframe/BottomBar.svelte';
   import { elements } from '$lib/iframe/elements.ts';
 
@@ -50,8 +51,13 @@
 		<Dropper {elements} {callGAS} on:elementDropped={e => handleElementDrop(e.detail.elementId)} />
 	</section>
 		
-	<!-- <hr> -->
+	<hr>
 	
+	<section class="">
+		<Tabs />
+		</section>
+		
+
 	<section class="mt-6">
 		<ColorPicker on:colorChange={e => handleColorChange(e.detail.color)} />
 	</section>

@@ -9,7 +9,6 @@
     showLabels.update(n => !n);
   }
 
-
   let pressedColor = '#3801cd';
 </script>
 
