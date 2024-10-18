@@ -1,4 +1,4 @@
-<!-- $lib/iframe/Dropper.svelte -->
+<!-- $lib/iframe/ElementCard.svelte -->
 
 <script lang="ts">
   import { getElement } from '$lib/iframe/elements.ts'; 

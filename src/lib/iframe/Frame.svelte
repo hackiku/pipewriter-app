@@ -2,12 +2,12 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
-  import ColorPicker from '$lib/iframe/ColorPicker.svelte';	
-  import Dropper from '$lib/iframe/Dropper.svelte';
-  import TopBar from '$lib/iframe/TopBar.svelte';	
-  import Tabs from '$lib/iframe/Tabs.svelte';	
+  import ColorPicker from './ColorPicker.svelte';	
+  import Dropper from './Dropper.svelte';
+  import TopBar from './TopBar.svelte';	
+  import Tabs from './Tabs.svelte';	
   // import BottomBar from '$lib/iframe/BottomBar.svelte';
-  import { elements } from '$lib/iframe/elements.ts';
+  import { elements } from './elements.ts';
 
   function callGAS(action: string, payload: Record<string, any> = {}) {
     const message = { action, payload };
