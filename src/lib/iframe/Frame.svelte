@@ -45,11 +45,6 @@
   
   <section class="flex justify-between items-center py-2">
     <Tabs />
-		{#if $showInfo}
-			<p class="text-sm opacity-30">
-				Styles
-			</p>
-		{/if}
   </section>
 
   <hr />
