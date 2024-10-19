@@ -4,7 +4,7 @@
   import { toggleMode } from "mode-watcher";
   import { showInfo, chainMode } from '$lib/iframe/stores';
   import { Link, Info, Sun, Moon } from "lucide-svelte";
-  import { Button } from "$lib/components/ui/button";
+  import IconButton from './components/IconButton.svelte';
 
   function toggleShowInfo() {
     showInfo.update(n => !n);
@@ -14,7 +14,12 @@
     chainMode.update(n => !n);
   }
 
-  let pressedColor = '#3801cd';
+  let isDarkMode = false; // You might want to use a store for this
+
+  function handleToggleMode() {
+    isDarkMode = !isDarkMode;
+    toggleMode();
+  }
 </script>
 
 <div class="flex items-center">
@@ -24,32 +29,23 @@
   </div>
   
   <!-- Buttons right -->
-  <div class="flex-1 flex items-center justify-end gap-1">
-    <div class="flex rounded-full gap-2">
-      <!-- Chain Mode Button -->
-      <button on:click={toggleChainMode} title="Chain Mode"
-        class="hover:bg-zinc-100 transition-all rounded-full p-1"
-      >
-        <Link class="h-4 w-4" stroke={$chainMode ? pressedColor : 'gray'} />
-      </button>
-
-      <!-- Show Info Button -->
-      <button on:click={toggleShowInfo} title="Show Info"
-        class="hover:bg-zinc-100 transition-all rounded-full p-1"
-      >
-        <Info class="h-4 w-4" stroke={$showInfo ? pressedColor : 'gray'} />
-      </button>
-  
-      <!-- Dark Mode -->
-      <Button on:click={toggleMode} variant="outline" size="icon">
-        <Sun
-          class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-        />
-        <Moon
-          class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-        />
-        <span class="sr-only">Toggle theme</span>
-      </Button>
-    </div>
+  <div class="flex-1 flex items-center justify-end gap-2">
+    <IconButton
+      icon={Link}
+      selected={$chainMode}
+      tooltip="Chain Mode"
+      onClick={toggleChainMode}
+    />
+    <IconButton
+      icon={Info}
+      selected={$showInfo}
+      tooltip="Show Info"
+      onClick={toggleShowInfo}
+    />
+    <IconButton
+      icon={isDarkMode ? Moon : Sun}
+      tooltip="Toggle Theme"
+      onClick={handleToggleMode}
+    />
   </div>
 </div>

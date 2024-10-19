@@ -2,6 +2,11 @@
   import { Type, Palette } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
   import { fly } from 'svelte/transition';
+	//components
+	import IconButton from "./components/IconButton.svelte"
+	//components
+	import TextStyles from "./TextStyles.svelte"
+
 
   let activeTab: 'text' | 'color' | null = null;
 
@@ -29,6 +34,7 @@
     >
       <Palette class="h-4 w-4" />
     </Button>
+		<IconButton />
   </div>
 
   {#if activeTab}
@@ -38,8 +44,9 @@
     >
       {#if activeTab === 'text'}
         <p>Text styling options go here</p>
-				<DropStyleguide />
-      {:else if activeTab === 'color'}
+				<TextStyles />
+				{:else if activeTab === 'color'}
+				<!-- <DropStyleguide /> -->
         <p>Color options go here</p>
       {/if}
     </div>
