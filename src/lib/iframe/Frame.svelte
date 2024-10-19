@@ -37,7 +37,7 @@
   
   <hr>
   
-  <section class="h-[50vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6s">
+  <section class="h-[48vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6s">
     <Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
   </section>
     

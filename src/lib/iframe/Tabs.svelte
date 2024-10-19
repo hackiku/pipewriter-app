@@ -9,7 +9,7 @@
 	import TextStyles from "./TextStyles.svelte";
   import ColorPicker from "./ColorPicker.svelte";
   import DropStyleguide from "./components/DropStyleguide.svelte";
-  import { Type, Palette, Settings, Code } from "lucide-svelte";
+  import { Type, Palette, Settings, Code, X } from "lucide-svelte";
   import { activeTab, showInfo } from "./stores";
 
 	const BG_STYLE = "bg-blue-600 dark:bg-gray-900 bg-opacity-5"
@@ -17,7 +17,6 @@
   const tabs = {
     text: { icon: Type, tooltip: "Text Styles", component: TextStyles },
     color: { icon: Palette, tooltip: "Color Picker", component: ColorPicker },
-    settings: { icon: Settings, tooltip: "Settings", component: TextStyles },
     ai: { icon: Code, tooltip: "Code", component: DropStyleguide },
   };
 
@@ -65,9 +64,22 @@
 					</Tooltip.Content>
 				</Tooltip.Root>
 			{/each}
+
+	 		{#if $activeTab}
+				<Button
+					variant="ghost"
+					size="icon"
+					class="rounded-full opacity-20 hover:opacity-100 hover:bg-transparent"
+					on:click={() => $activeTab = false}
+				>
+			 	<X class="w-4 h-4" />
+				</Button>
+			{/if}
+
+
 		</div>
 		{#if $showInfo}
-			<h2 class="text-sm opacity-30 ">
+			<h2 class="text-xs font-semibolsd opacity-40 mb-2 uppercasse">
 				Styles
 			</h2>
 		{/if}
@@ -76,7 +88,7 @@
   {#if $activeTab}
     <div
 			class={cn(
-	    	`h-20 p-2 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
+	    	`h-24 p-2 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
 				flex items-center justify-center ${BG_STYLE}`,
 					isFirstTabActive ? "rounded-tl-none" : "rounded-tl-lg"
 			)}
