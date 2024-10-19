@@ -5,7 +5,8 @@
   import Dropper from './Dropper.svelte';
   import TopBar from './TopBar.svelte';	
   import Tabs from './Tabs.svelte';	
-  import { elements } from './elements.ts';
+  import { elements } from './elements';
+  import { showInfo } from './stores';
 
   function callGAS(action: string, payload: Record<string, any> = {}) {
     const message = { action, payload };
@@ -36,23 +37,24 @@
   
   <hr>
   
-  <section class="h-[50vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6">
+  <section class="h-[50vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6s">
     <Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
   </section>
     
   <hr>
   
-  <section>
+  <section class="flex justify-between items-center py-2">
     <Tabs />
+		{#if $showInfo}
+			<p class="text-sm opacity-30">
+				Styles
+			</p>
+		{/if}
   </section>
 
-  <section>
-    <p class="text-xs opacity-30">
-      styles
-    </p>
-  </section>
+  <!-- <hr /> -->
 
-  <hr class="border-1 border-gray-500 opacity-20 mt-4" />
+
 </main>
 
 <style>

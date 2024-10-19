@@ -5,7 +5,6 @@
   import { fly } from 'svelte/transition';
   import TextStyles from "./TextStyles.svelte"
   import ColorPicker from "./ColorPicker.svelte"
-  import IconButton from "./components/IconButton.svelte"
 
   let activeTab: 'text' | 'color' | null = null;
 
@@ -42,7 +41,6 @@
     >
       <Palette class="h-4 w-4" />
     </Button>
-    <IconButton />
   </div>
 
   {#if activeTab}
