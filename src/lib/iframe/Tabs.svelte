@@ -12,7 +12,8 @@
   import { Type, Palette, Settings, Code, X } from "lucide-svelte";
   import { activeTab, showInfo } from "./stores";
 
-	const BG_STYLE = "bg-blue-600 dark:bg-gray-900 bg-opacity-5"
+	const BG_STYLE = 'bg-gray-100 dark:bg-orange-950';
+
 
   const tabs = {
     text: { icon: Type, tooltip: "Text Styles", component: TextStyles },
@@ -33,14 +34,15 @@
     callGAS("changeBg", { color: event.detail.color });
   }
 
-  $: getButtonClass = (tab: string) =>
-    cn(
-      "transition-all duration-200 relative z-10 border border-gray-300 dark:border-gray-600",
-      $activeTab === tab
-        ? `w-10 h-12 rounded-t-full border-b-0 ${BG_STYLE} dark:bg-gray-900`
-        : "w-10 h-10 rounded-full mb-2 hover:bg-gray-100 dark:hover:bg-gray-700"
-    );
-
+$: getButtonClass = (tab: string) =>
+  cn(
+    "transition-all duration-200 relative z-10",
+    $activeTab === tab
+      ? `w-10 h-[calc(3rem+1px)] rounded-t-full ${BG_STYLE}
+         border-t border-l border-r border-gray-300 dark:border-gray-600
+         after:content-[''] after:absolute after:bottom-[-1px] after:left-0 after:right-0 after:h-[1px] after:bg-inherit`
+      : "w-10 h-10 rounded-full mb-2 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
+  );
   $: isFirstTabActive = $activeTab === Object.keys(tabs)[0];
 </script>
 
@@ -65,6 +67,7 @@
 				</Tooltip.Root>
 			{/each}
 
+			<!-- close button -->
 	 		{#if $activeTab}
 				<Button
 					variant="ghost"
@@ -86,14 +89,14 @@
 	</div>
 
   {#if $activeTab}
-    <div
+		<div
 			class={cn(
-	    	`h-24 p-2 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
+				`h-28 p-2 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
 				flex items-center justify-center ${BG_STYLE}`,
-					isFirstTabActive ? "rounded-tl-none" : "rounded-tl-lg"
+				isFirstTabActive ? "rounded-tl-none" : "rounded-tl-lg"
 			)}
-      transition:fade={{ duration: 200 }}
-    >
+			transition:fade={{ duration: 200 }}
+		>
 			<svelte:component
         this={tabs[$activeTab].component}
         on:colorChange={handleColorChange}
