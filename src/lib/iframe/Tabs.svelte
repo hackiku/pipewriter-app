@@ -12,7 +12,8 @@
   import { Type, Palette, Settings, Code } from "lucide-svelte";
   import { activeTab, showInfo } from "./stores";
 
-	
+	const BG_STYLE = "bg-[#000] dark:bg-gray-900 bg-opacity-5"
+
   const tabs = {
     text: { icon: Type, tooltip: "Text Styles", component: TextStyles },
     color: { icon: Palette, tooltip: "Color Picker", component: ColorPicker },
@@ -35,9 +36,9 @@
 
   $: getButtonClass = (tab: string) =>
     cn(
-      "transition-all duration-200 bg-opacity-10 relative z-10 border border-gray-300 dark:border-gray-600",
+      "transition-all duration-200 relative z-10 border border-gray-300 dark:border-gray-600",
       $activeTab === tab
-        ? `w-10 h-12 rounded-t-full border-b-0 bg-gray-200 dark:bg-gray-900`
+        ? `w-10 h-12 rounded-t-full border-b-0 ${BG_STYLE} dark:bg-gray-900`
         : "w-10 h-10 rounded-full mb-2 hover:bg-gray-100 dark:hover:bg-gray-700"
     );
 
@@ -74,13 +75,14 @@
 
   {#if $activeTab}
     <div
-      class={cn(
-        "h-24 p-4 bg-gray-200 dark:bg-gray-900 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative bg-opacity-10",
-        isFirstTabActive ? "rounded-tl-none" : "rounded-tl-lg"
-      )}
+			class={cn(
+	    	`h-16 p-2 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
+				flex items-center justify-center ${BG_STYLE}`,
+					isFirstTabActive ? "rounded-tl-none" : "rounded-tl-lg"
+			)}
       transition:fade={{ duration: 200 }}
     >
-      <svelte:component
+			<svelte:component
         this={tabs[$activeTab].component}
         on:colorChange={handleColorChange}
       />
