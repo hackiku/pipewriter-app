@@ -66,4 +66,5 @@
   </div>
 
   <DropperBar />
+
 </div>
