@@ -30,20 +30,20 @@
   }
 </script>
 
-<main class="flex flex-col gap-2">
+<main class="flex flex-col gap-2 ">
   <section>
     <TopBar />
   </section>
   
   <hr>
   
-  <section class="h-[48vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6s">
+  <section class="h-[34vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6s">
     <Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
   </section>
     
   <hr>
   
-  <section class="flex justify-between items-center py-2">
+  <section class="flex justify-between items-center py-2 ">
     <Tabs />
   </section>
 

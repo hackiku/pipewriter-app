@@ -56,7 +56,13 @@
           {/if}
           <div class="grid grid-cols-3 gap-2">
             {#each categoryElements as element (element.id)}
-              <ElementCard {element} onSelect={selectElement} />
+							<ElementCard 
+								element={element} 
+								onSelect={selectElement}
+								bgColor="bg-white"
+								borderColor="border-gray-200"
+								borderWidth="border"
+							/>
             {/each}
           </div>
         </div>

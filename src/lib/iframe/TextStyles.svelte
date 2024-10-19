@@ -22,7 +22,13 @@
 <div class="flex gap-4 h-full items-center">
 	<div class="w-2/5">
     {#if element}
-      <ElementCard element={element} onSelect={selectElement}/>
+      <ElementCard 
+        element={element} 
+        onSelect={selectElement}
+        bgColor="bg-white"
+        borderColor="border-gray-200"
+        borderWidth="border"
+      />
     {:else}
       <div class="w-full h-full bg-gray-200 flex items-center justify-center">
         <span class="text-gray-500">Element not found</span>
@@ -40,11 +46,6 @@
       icon={Heading}
       label="Update Heading"
       onClick={() => callGAS("asd", {})}
-    />
-    <OutlineButton
-      icon={X}
-      label="Update Heading"
-      onClick={() => callGAS("updateHeading", {})}
     />
   </div>
 </div>

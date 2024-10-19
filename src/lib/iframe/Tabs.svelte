@@ -12,7 +12,7 @@
   import { Type, Palette, Settings, Code, X } from "lucide-svelte";
   import { activeTab, showInfo } from "./stores";
 
-	const BG_STYLE = 'bg-gray-100 dark:bg-orange-950';
+	const BG_STYLE = 'bg-white dark:bg-slate-900';
 
 
   const tabs = {
