@@ -47,7 +47,7 @@
 </script>
 
 <div class="relative h-full">
-  <div class="overflow-y-auto h-full pb-16">
+  <div class="overflow-y-auto h-full pb-6">
     {#if Object.entries(groupedByCategory).length > 0}
       {#each Object.entries(groupedByCategory) as [category, categoryElements]}
         <div class="category-section mb-2">

@@ -7,6 +7,9 @@
 
 <!-- // drop styleguide -->
 
+<div>
+	<DropStyleguide />
+</div>
 
 
 
