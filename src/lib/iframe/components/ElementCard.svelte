@@ -11,7 +11,7 @@
 </script>
 
 <button
-  class="element image relative cursor-copy w-full h-full"
+  class="element image bg-slate-200 bg-opacity-70 rounded-lg relative cursor-copy w-full h-full"
   on:click={handleClick}
   title={element.description}
 >

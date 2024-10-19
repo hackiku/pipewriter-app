@@ -1,7 +1,7 @@
 // $lib/iframe/elements.ts
 
 // TODO fetch damn svgs
-const baseUrlSvg = 'https://pipewriter-newui.web.app/Assets';
+const baseUrlSvg = 'elements';
 
 // Define the type for element properties
 export interface ElementProps {
@@ -39,11 +39,11 @@ const elementsDb: Record<string, ElementProps> = {
 	'background-empty-dark': { category: 'containers', theme: 'dark', description: 'Empty fullwidth background in dark theme' },
 	'background-light-dark': { category: 'containers', theme: 'dark', description: 'Light gray background in dark theme' },
 	'hero': { category: 'content', theme: 'light', description: 'Hero in light theme' },
+	'hero-dark': { category: 'content', theme: 'dark', description: 'Hero in dark theme' },
 	'zz-left': { category: 'content', theme: 'light', description: 'Zigzag text left in light theme' },
 	'zz-right': { category: 'content', theme: 'light', description: 'Zigzag text right in light theme' },
 	'zz-left-dark': { category: 'content', theme: 'dark', description: 'Zigzag text left in dark theme' },
 	'zz-right-dark': { category: 'content', theme: 'dark', description: 'Zigzag text right in dark theme' },
-	'hero-dark': { category: 'content', theme: 'dark', description: 'Hero in dark theme' },
 	'blurbs-3': { category: 'blurbs', theme: 'light', description: '3 horizontal blurbs in light theme' },
 	'blurbs-4': { category: 'blurbs', theme: 'light', description: '4 horizontal blurbs in light theme' },
 	'blurbs-vert-3': { category: 'blurbs', theme: 'light', description: '3 vertical blurbs in light theme' },
@@ -67,7 +67,7 @@ const elementsDb: Record<string, ElementProps> = {
 	'button-2-left-dark': { category: 'buttons', theme: 'dark', description: 'Button 2 left in dark theme' },
 	'button-2-center-dark': { category: 'buttons', theme: 'dark', description: 'Button 2 center in dark theme' },
 	'button-2-right-dark': { category: 'buttons', theme: 'dark', description: 'Button 2 right in dark theme' },
-	// Cards
+	// cards
 	'cards-2-left': { category: 'cards', theme: 'light', description: 'Cards 2 left in light theme' },
 	'cards-2-center': { category: 'cards', theme: 'light', description: 'Cards 2 center in light theme' },
 	'cards-3': { category: 'cards', theme: 'light', description: 'Cards 3 in light theme' },
@@ -80,6 +80,8 @@ const elementsDb: Record<string, ElementProps> = {
 	'cards-2x2-dark': { category: 'cards', theme: 'dark', description: 'Cards 2x2 in dark theme' },
 	'pricing-cards-dark': { category: 'cards', theme: 'dark', description: 'Pricing cards in dark theme' },
 	'cards-6-dark': { category: 'cards', theme: 'dark', description: 'Cards 6 in dark theme' },
+	// styleguide
+	'styleguide': { category: 'cards', theme: 'light', description: 'Editable heading styles' },
 };
 
 export const elements: Record<string, ElementObject> = Object.entries(elementsDb).reduce((acc, [id, props]) => {

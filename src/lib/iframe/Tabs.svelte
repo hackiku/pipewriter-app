@@ -12,7 +12,7 @@
   import { Type, Palette, Settings, Code } from "lucide-svelte";
   import { activeTab, showInfo } from "./stores";
 
-	const BG_STYLE = "bg-[#000] dark:bg-gray-900 bg-opacity-5"
+	const BG_STYLE = "bg-blue-600 dark:bg-gray-900 bg-opacity-5"
 
   const tabs = {
     text: { icon: Type, tooltip: "Text Styles", component: TextStyles },
@@ -76,7 +76,7 @@
   {#if $activeTab}
     <div
 			class={cn(
-	    	`h-16 p-2 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
+	    	`h-20 p-2 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
 				flex items-center justify-center ${BG_STYLE}`,
 					isFirstTabActive ? "rounded-tl-none" : "rounded-tl-lg"
 			)}

@@ -34,6 +34,7 @@
 		"formsnap": "^1.0.1",
 		"gsap": "^3.12.5",
 		"mode-watcher": "^0.4.0",
+		"svelte-color-picker": "^1.0.7",
 		"sveltekit-superforms": "^2.17.0",
 		"tailwind-merge": "^2.4.0",
 		"tailwind-variants": "^0.2.1",
