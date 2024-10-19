@@ -2,11 +2,9 @@
 
 <script lang="ts">
   import { onMount } from 'svelte';
-  import ColorPicker from './ColorPicker.svelte';	
   import Dropper from './Dropper.svelte';
   import TopBar from './TopBar.svelte';	
   import Tabs from './Tabs.svelte';	
-  // import BottomBar from '$lib/iframe/BottomBar.svelte';
   import { elements } from './elements.ts';
 
   function callGAS(action: string, payload: Record<string, any> = {}) {
@@ -15,9 +13,8 @@
   }
 
   function handleMessage(event: MessageEvent) {
-    // Handle messages from Google Apps Script here
     console.log('Received message:', event.data);
-    // You may want to parse the event.data and update your Svelte stores or component state here
+    // Handle messages from Google Apps Script here
   }
 
   onMount(() => {
@@ -27,52 +24,39 @@
     };
   });
 
-  // You might want to add more functions here to handle various actions
-  function handleColorChange(color: string) {
-    callGAS('changeBg', { color });
-  }
-
-  function handleElementDrop(elementId: string) {
-    callGAS('getElement', { elementId });
+  function handleElementDrop(event: CustomEvent<{elementId: string}>) {
+    callGAS('getElement', { elementId: event.detail.elementId });
   }
 </script>
 
-<!-- --------------------- TOP BAR --------------------------------- -->
-
 <main class="flex flex-col gap-2">
-	
-	<section>
-		<TopBar />
-	</section>
-	
-	<hr>
-	
-	<section class="h-[50vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6">
-		<Dropper {elements} {callGAS} on:elementDropped={e => handleElementDrop(e.detail.elementId)} />
-	</section>
-		
-	<hr>
-	
-	<section class="">
-		<Tabs />
-		</section>
-		
+  <section>
+    <TopBar />
+  </section>
+  
+  <hr>
+  
+  <section class="h-[50vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6">
+    <Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
+  </section>
+    
+  <hr>
+  
+  <section>
+    <Tabs />
+  </section>
 
-	<section class="mt-6">
-		<ColorPicker on:colorChange={e => handleColorChange(e.detail.color)} />
-	</section>
+  <section>
+    <p class="text-xs opacity-30">
+      styles
+    </p>
+  </section>
 
-	<section>
-		<p class="text-xs opacity-30">
-			styles
-		</p>
-	</section>
-
-	<hr class="border-1 border-gray-500 opacity-20 mt-4" />
+  <hr class="border-1 border-gray-500 opacity-20 mt-4" />
 </main>
 
 <style>
-	.custom-scrollbar::-webkit-scrollbar {
+  .custom-scrollbar::-webkit-scrollbar {
     width: 8px;
   }
 

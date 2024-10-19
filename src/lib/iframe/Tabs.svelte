@@ -1,17 +1,25 @@
+<!-- $lib/iframe/Tabs.svelte -->
 <script lang="ts">
   import { Type, Palette } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
   import { fly } from 'svelte/transition';
-	//components
-	import IconButton from "./components/IconButton.svelte"
-	//components
-	import TextStyles from "./TextStyles.svelte"
-
+  import TextStyles from "./TextStyles.svelte"
+  import ColorPicker from "./ColorPicker.svelte"
+  import IconButton from "./components/IconButton.svelte"
 
   let activeTab: 'text' | 'color' | null = null;
 
   function toggleTab(tab: 'text' | 'color') {
     activeTab = activeTab === tab ? null : tab;
+  }
+
+  function callGAS(action: string, payload: Record<string, any> = {}) {
+    const message = { action, payload };
+    window.parent.postMessage(JSON.stringify(message), '*');
+  }
+
+  function handleColorChange(event: CustomEvent<{color: string}>) {
+    callGAS('changeBg', { color: event.detail.color });
   }
 </script>
 
@@ -34,7 +42,7 @@
     >
       <Palette class="h-4 w-4" />
     </Button>
-		<IconButton />
+    <IconButton />
   </div>
 
   {#if activeTab}
@@ -43,11 +51,9 @@
       transition:fly="{{ y: -20, duration: 300 }}"
     >
       {#if activeTab === 'text'}
-        <p>Text styling options go here</p>
-				<TextStyles />
-				{:else if activeTab === 'color'}
-				<!-- <DropStyleguide /> -->
-        <p>Color options go here</p>
+        <TextStyles />
+      {:else if activeTab === 'color'}
+        <ColorPicker on:colorChange={handleColorChange} />
       {/if}
     </div>
   {/if}
