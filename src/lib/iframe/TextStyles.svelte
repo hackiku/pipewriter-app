@@ -1,9 +1,13 @@
 <!-- $lib/iframe/TextStyles.svelte -->
 
 <script lang="ts">
-  import IconButton from './components/IconButton.svelte';
-  import { Link, Info, Sun } from "lucide-svelte";
-  import { showInfo, chainMode } from './stores';
-
+	import DropStyleguide from "./components/DropStyleguide.svelte";
+	import { Button } from "$lib/components/ui/button";
  </script>
+
+<!-- // drop styleguide -->
+
+
+
+
 

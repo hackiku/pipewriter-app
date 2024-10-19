@@ -1,24 +1,25 @@
 <!-- $lib/iframe/components/DropStyleguide.svelte -->
 
 <script lang="ts">
-	import { Type } from 'lucide-svelte';
-
-	const callGAS = () => {
-		return null;
-	}
-
+  import { Type } from 'lucide-svelte';
+  import { Button } from "$lib/components/ui/button";
+  
+  function callGAS(action: string, params: Record<string, any>) {
+    const message = { action, params };
+    window.parent.postMessage(JSON.stringify(message), '*');
+  }
 </script>
 
-<!-- Style guide row -->
 <div class="flex justify-between items-center w-full mb-4">
-	<div class="flex gap-2">
-		<button
-			on:click={() => callGAS("getElement", { elementId: "styleguide" })}
-			class="w-7 h-7 bg-gray-500 rounded-full border border-gray-400
-        shadow-md hover:shadow-blue-300 hover:border-brandBlue transition-all"
-			title="Style Guide"
-		>
-			<Type class="h-4 w-4 text-gray-700 mx-auto" />
-		</button>
-	</div>
+  <div class="flex gap-2">
+    <Button
+      variant="outline"
+      size="icon"
+      class="rounded-full bg-gray-500 hover:bg-gray-600 text-white"
+      on:click={() => callGAS("getElement", { elementId: "styleguide" })}
+      title="Style Guide"
+    >
+      <Type class="h-4 w-4" />
+    </Button>
+  </div>
 </div>

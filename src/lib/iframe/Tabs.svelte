@@ -1,58 +1,81 @@
 <!-- $lib/iframe/Tabs.svelte -->
+
 <script lang="ts">
-  import { Type, Palette } from "lucide-svelte";
+  import { fade } from "svelte/transition";
   import { Button } from "$lib/components/ui/button";
-  import { fly } from 'svelte/transition';
-  import TextStyles from "./TextStyles.svelte"
-  import ColorPicker from "./ColorPicker.svelte"
+  import * as Tooltip from "$lib/components/ui/tooltip";
+  import { cn } from "$lib/utils";
+  import TextStyles from "./TextStyles.svelte";
+  import ColorPicker from "./ColorPicker.svelte";
+  import { Type, Palette, Settings } from "lucide-svelte";
+  import { activeTab } from "./stores";
 
-  let activeTab: 'text' | 'color' | null = null;
+  const GRAY_COLOR = "#F3F3F3";
 
-  function toggleTab(tab: 'text' | 'color') {
-    activeTab = activeTab === tab ? null : tab;
+  const tabs = {
+    text: { icon: Type, tooltip: "Text Styles", component: TextStyles },
+    color: { icon: Palette, tooltip: "Color Picker", component: ColorPicker },
+    settings: { icon: Settings, tooltip: "Settings", component: TextStyles },
+  };
+
+  function toggleTab(tab: string) {
+    activeTab.update((current) => (current === tab ? null : tab));
   }
 
   function callGAS(action: string, payload: Record<string, any> = {}) {
     const message = { action, payload };
-    window.parent.postMessage(JSON.stringify(message), '*');
+    window.parent.postMessage(JSON.stringify(message), "*");
   }
 
-  function handleColorChange(event: CustomEvent<{color: string}>) {
-    callGAS('changeBg', { color: event.detail.color });
+  function handleColorChange(event: CustomEvent<{ color: string }>) {
+    callGAS("changeBg", { color: event.detail.color });
   }
+
+  $: getButtonClass = (tab: string) =>
+    cn(
+      "transition-all duration-200 relative z-10 border border-gray-300 z-10",
+      $activeTab === tab
+        ? `w-12 h-14 rounded-t-full border-b-0 bg-[${GRAY_COLOR}]`
+        : "w-12 h-12 rounded-full mb-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+    );
+
+  $: isFirstTabActive = $activeTab === Object.keys(tabs)[0];
 </script>
 
-<div class="flex flex-col">
-  <div class="flex gap-2">
-    <Button 
-      on:click={() => toggleTab('text')} 
-      variant="outline" 
-      size="icon" 
-      class="rounded-full {activeTab === 'text' ? 'bg-gray-200 dark:bg-gray-700' : ''}"
-    >
-      <Type class="h-4 w-4" />
-    </Button>
-
-    <Button 
-      on:click={() => toggleTab('color')} 
-      variant="outline" 
-      size="icon" 
-      class="rounded-full {activeTab === 'color' ? 'bg-gray-200 dark:bg-gray-700' : ''}"
-    >
-      <Palette class="h-4 w-4" />
-    </Button>
+<div class="flex flex-col w-full">
+  <div class="flex relative gap-2">
+    {#each Object.entries(tabs) as [tabKey, tabData]}
+      <Tooltip.Root>
+        <Tooltip.Trigger asChild>
+          <Button
+            variant="ghost"
+            size="icon"
+            class={getButtonClass(tabKey)}
+            on:click={() => toggleTab(tabKey)}
+          >
+            <svelte:component this={tabData.icon} class="h-4 w-4" />
+          </Button>
+        </Tooltip.Trigger>
+        <Tooltip.Content>
+          <p>{tabData.tooltip}</p>
+        </Tooltip.Content>
+      </Tooltip.Root>
+    {/each}
   </div>
 
-  {#if activeTab}
-    <div 
-      class="mt-2 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-gray-300 dark:border-gray-600"
-      transition:fly="{{ y: -20, duration: 300 }}"
+  {#if $activeTab}
+    <div
+      class={cn(
+        "h-24 py-8 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative",
+        isFirstTabActive ? "rounded-tl-none" : "rounded-tl-lg"
+      )}
+      style="background-color: {GRAY_COLOR};"
+      transition:fade={{ duration: 200 }}
     >
-      {#if activeTab === 'text'}
-        <TextStyles />
-      {:else if activeTab === 'color'}
-        <ColorPicker on:colorChange={handleColorChange} />
-      {/if}
+      <svelte:component
+        this={tabs[$activeTab].component}
+        on:colorChange={handleColorChange}
+      />
     </div>
   {/if}
 </div>

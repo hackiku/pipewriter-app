@@ -50,7 +50,7 @@
   <div class="overflow-y-auto h-full pb-16">
     {#if Object.entries(groupedByCategory).length > 0}
       {#each Object.entries(groupedByCategory) as [category, categoryElements]}
-        <div class="category-section mb-4">
+        <div class="category-section mb-2">
           {#if $showInfo}
             <h3 class="text-xs font-normal text-gray-400 mb-1">{category.replace('-', ' ')}</h3>
           {/if}
@@ -67,7 +67,7 @@
   </div>
 
   <div class="absolute bottom-0 right-0 p-2 bg-background">
-    <select value={selectedTheme} on:change={handleThemeChange} class="p-2 border rounded">
+    <select value={selectedTheme} on:change={handleThemeChange} class="p-2 border rounded text-xs">
       <option value="light">light</option>
       <option value="dark">dark</option>
     </select>

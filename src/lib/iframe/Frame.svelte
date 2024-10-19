@@ -52,7 +52,7 @@
 		{/if}
   </section>
 
-  <!-- <hr /> -->
+  <hr />
 
 
 </main>
