@@ -1,10 +1,10 @@
 <!-- $lib/iframe/ColorPicker.svelte -->
 <script lang="ts">
-  import { getElement } from '$lib/iframe/elements.ts'; 
+  import { getElement } from './elements.ts'; 
   import { createEventDispatcher } from 'svelte';
-  import { showLabels } from '$lib/iframe/stores';
+  import { showLabels } from './/stores';
   import { Type } from 'lucide-svelte';
-  import type { ElementObject } from '$lib/iframe/elements.ts'; 
+  import type { ElementObject } from './elements.ts'; 
 
   // Mock data for elements
   const mockElements: Record<string, ElementObject> = {
@@ -70,19 +70,6 @@
     ></button>
   </div>
 
-  <!-- Style guide row -->
-  <div class="flex justify-between items-center w-full mb-4">
-    <div class="flex gap-2">
-      <button
-        on:click={() => callGAS('getElement', { elementId: 'styleguide' })}
-        class="w-7 h-7 bg-gray-500 rounded-full border border-gray-400
-        shadow-md hover:shadow-blue-300 hover:border-brandBlue transition-all"
-        title="Style Guide"
-      >
-        <Type class="h-4 w-4 text-gray-700 mx-auto" />
-      </button>
-    </div>
-  </div>
 
 
   

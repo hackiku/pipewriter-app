@@ -28,7 +28,7 @@ export const googleScripts = {
     payload: {},
     icon: 'path/to/html2doc-icon.svg',
     text: 'Convert HTML to DOC',
-    title: 'HTML to DOC',
+    title: 'HTML to Doc',
     tooltip: 'Convert your HTML content back to DOC format.'
   },
   aiReadDoc: {

@@ -1,7 +1,7 @@
-<!-- $lib/iframe/ElementCard.svelte -->
+<!-- $lib/iframe/Dropper.svelte -->
 
 <script lang="ts">
-  import { getElement } from '$lib/iframe/elements.ts'; 
+  import { getElement } from './elements.ts'; 
   import { createEventDispatcher } from 'svelte';
   import type { ElementObject } from '$lib/iframe/elements.ts'; 
 

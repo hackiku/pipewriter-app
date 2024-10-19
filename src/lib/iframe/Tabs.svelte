@@ -38,6 +38,7 @@
     >
       {#if activeTab === 'text'}
         <p>Text styling options go here</p>
+				<DropStyleguide />
       {:else if activeTab === 'color'}
         <p>Color options go here</p>
       {/if}
