@@ -45,7 +45,7 @@
 		<TopBar />
 	</section>
 	
-	<!-- <hr> -->
+	<hr>
 	
 	<section class="h-[50vh] overflow-hidden overflow-y-auto custom-scrollbar mb-6">
 		<Dropper {elements} {callGAS} on:elementDropped={e => handleElementDrop(e.detail.elementId)} />
