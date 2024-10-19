@@ -68,12 +68,8 @@
 
   <div class="absolute bottom-0 right-0 p-2 bg-background">
     <select value={selectedTheme} on:change={handleThemeChange} class="p-2 border rounded">
-      <option value="light">Light</option>
-      <option value="dark">Dark</option>
+      <option value="light">light</option>
+      <option value="dark">dark</option>
     </select>
   </div>
 </div>
-
-<style>
-  /* Add any additional styles here */
-</style>

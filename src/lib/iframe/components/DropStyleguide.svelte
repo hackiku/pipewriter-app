@@ -1,4 +1,4 @@
-<!-- $lib/iframe/DropStyleguide.svelte -->
+<!-- $lib/iframe/components/DropStyleguide.svelte -->
 
 <script lang="ts">
 	import { Type } from 'lucide-svelte';
