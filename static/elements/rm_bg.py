@@ -2,11 +2,12 @@ import os
 import re
 
 # Define the pattern to match the background rectangle
-pattern = re.compile(r'<rect width="84" height="\d+" rx="8" fill="#F0F0F0"/>')
+# pattern = re.compile(r'<rect width="84" height="\d+" rx="8" fill="#F0F0F0"/>') # light mode
+pattern = re.compile(r'<rect width="84" height="\d+" rx="8" fill="#010914"/>') # dark mode
 
 # Iterate through all SVG files in the current directory
 for filename in os.listdir('.'):
-    if filename.endswith('.svg') and '-dark' not in filename:
+    if filename.endswith('.svg') and 'xxx' not in filename:
         with open(filename, 'r') as file:
             lines = file.readlines()
 

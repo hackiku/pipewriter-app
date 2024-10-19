@@ -4,16 +4,15 @@
   import type { ElementObject } from './elements';
   import { createEventDispatcher } from 'svelte';
   import ElementCard from './components/ElementCard.svelte';
-  import { showInfo } from './stores';
+  import DropperBar from './components/DropperBar.svelte';
+  import { showInfo, elementsTheme } from './stores';
 
   export let elements: Record<string, ElementObject>;
   export let callGAS: (action: string, params: Record<string, any>) => void;
 
   const dispatch = createEventDispatcher();
 
-  let selectedTheme = 'light';
-
-  $: filteredElements = Object.values(elements).filter(el => el.theme === selectedTheme);
+  $: filteredElements = Object.values(elements);
 
   $: groupedByCategory = filteredElements.reduce((acc, el) => {
     if (!acc[el.category]) acc[el.category] = [];
@@ -40,14 +39,10 @@
       console.error(`Element not found: ${elementId}`);
     }
   }
-
-  function handleThemeChange(event: Event) {
-    selectedTheme = (event.target as HTMLSelectElement).value;
-  }
 </script>
 
 <div class="relative h-full">
-  <div class="overflow-y-auto h-full pb-6">
+  <div class="overflow-y-auto h-full pb-16">
     {#if Object.entries(groupedByCategory).length > 0}
       {#each Object.entries(groupedByCategory) as [category, categoryElements]}
         <div class="category-section mb-2">
@@ -56,26 +51,19 @@
           {/if}
           <div class="grid grid-cols-3 gap-2">
             {#each categoryElements as element (element.id)}
-							<ElementCard 
-								element={element} 
-								onSelect={selectElement}
-								bgColor="bg-white"
-								borderColor="border-gray-200"
-								borderWidth="border"
-							/>
+              <ElementCard 
+                {element} 
+                onSelect={selectElement}
+                theme={$elementsTheme}
+              />
             {/each}
           </div>
         </div>
       {/each}
     {:else}
-      <p>No elements available for the current theme.</p>
+      <p>No elements available.</p>
     {/if}
   </div>
 
-  <div class="absolute bottom-0 right-0 p-2 bg-background">
-    <select value={selectedTheme} on:change={handleThemeChange} class="p-2 border rounded text-xs">
-      <option value="light">light</option>
-      <option value="dark">dark</option>
-    </select>
-  </div>
+  <DropperBar />
 </div>

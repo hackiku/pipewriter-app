@@ -23,13 +23,9 @@
 </script>
 
 <div class="flex items-center">
-  <!-- title -->
-  <div class="flex-1 flex justify-start gap-2.5 h-full">
-    
-  </div>
   
   <!-- Buttons right -->
-  <div class="flex-1 flex items-center justify-end gap-2">
+  <div class="flex-1 flex items-center justify-end gap-1">
     <IconButton
       icon={Link}
       selected={$chainMode}
