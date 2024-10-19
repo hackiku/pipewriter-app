@@ -18,7 +18,7 @@
 
 <Button
   variant="outline"
-  class="w-full text-xs"
+  class="w-full text-xs h-full"
   on:click={onClick}
 >
   <svelte:component this={icon} class="h-4 w-4 mr-2" />

@@ -3,7 +3,7 @@
   import { getElement } from './elements';
   import ElementCard from "./components/ElementCard.svelte";
   import OutlineButton from "./components/OutlineButton.svelte";
-  import { Type, Heading } from 'lucide-svelte';
+  import { Type, Heading , X } from 'lucide-svelte';
 
   const elementId = "styleguide";
   const element = getElement(elementId);
@@ -18,8 +18,9 @@
   }
 </script>
 
-<div class="grid grid-cols-2 gap-4">
-  <div>
+
+<div class="flex gap-4 h-full items-center">
+	<div class="w-2/5">
     {#if element}
       <ElementCard element={element} onSelect={selectElement}/>
     {:else}
@@ -28,7 +29,8 @@
       </div>
     {/if}
   </div>
-  <div class="flex flex-col gap-2">
+  
+	<div class="flex flex-col h-full w-3/5 gap-2 justify-center">
     <OutlineButton
       icon={Type}
       label="Style Guide"
@@ -36,6 +38,11 @@
     />
     <OutlineButton
       icon={Heading}
+      label="Update Heading"
+      onClick={() => callGAS("asd", {})}
+    />
+    <OutlineButton
+      icon={X}
       label="Update Heading"
       onClick={() => callGAS("updateHeading", {})}
     />

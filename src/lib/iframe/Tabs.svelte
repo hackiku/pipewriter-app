@@ -91,16 +91,16 @@ $: getButtonClass = (tab: string) =>
   {#if $activeTab}
 		<div
 			class={cn(
-				`h-28 p-2 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
+				`h-28 py-11 px-4 rounded-b-lg rounded-tr-lg border border-gray-300 dark:border-gray-600 relative
 				flex items-center justify-center ${BG_STYLE}`,
 				isFirstTabActive ? "rounded-tl-none" : "rounded-tl-lg"
 			)}
 			transition:fade={{ duration: 200 }}
-		>
-			<svelte:component
-        this={tabs[$activeTab].component}
-        on:colorChange={handleColorChange}
-      />
+		>			
+				<svelte:component
+					this={tabs[$activeTab].component}
+					on:colorChange={handleColorChange}
+      	/>
     </div>
   {/if}
 </div>
