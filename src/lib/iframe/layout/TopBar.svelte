@@ -1,10 +1,10 @@
-<!-- $lib/gdocs/TopBar.svelte -->
+<!-- $lib/iframe/layout/TopBar.svelte -->
 
 <script lang="ts">
   import { toggleMode } from "mode-watcher";
   import { showInfo, chainMode } from '$lib/iframe/stores';
   import { Link, Info, Sun, Moon } from "lucide-svelte";
-  import IconButton from './components/IconButton.svelte';
+  import IconButton from '../components/IconButton.svelte';
 
   function toggleShowInfo() {
     showInfo.update(n => !n);

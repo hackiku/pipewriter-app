@@ -1,11 +1,11 @@
-<!-- $lib/iframe/Dropper.svelte -->
+<!-- $lib/iframe/layout/Dropper.svelte -->
 <script lang="ts">
-  import { getElement } from './elements';
-  import type { ElementObject } from './elements';
+  import { getElement } from '../elements';
+  import type { ElementObject } from '../elements';
   import { createEventDispatcher } from 'svelte';
-  import ElementCard from './components/ElementCard.svelte';
-  import DropperBar from './components/DropperBar.svelte';
-  import { showInfo, elementsTheme } from './stores';
+  import ElementCard from '../components/ElementCard.svelte';
+  import DropperBar from '../components/DropperBar.svelte';
+  import { showInfo, elementsTheme } from '../stores';
 
   export let elements: Record<string, ElementObject>;
   export let callGAS: (action: string, params: Record<string, any>) => void;

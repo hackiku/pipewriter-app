@@ -1,9 +1,10 @@
 <!-- $lib/iframe/Frame.svelte -->
-
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Dropper from './Dropper.svelte';
-  import TopBar from './TopBar.svelte';	
+  import * as Resizable from "$lib/components/ui/resizable";
+  import Dropper from './layout/Dropper.svelte';
+  import TopBar from './layout/TopBar.svelte';	
+  import BottomBar from './layout/BottomBar.svelte';	
   import Tabs from './Tabs.svelte';	
   import { elements } from './elements';
   import { showInfo } from './stores';
@@ -15,7 +16,6 @@
 
   function handleMessage(event: MessageEvent) {
     console.log('Received message:', event.data);
-    // Handle messages from Google Apps Script here
   }
 
   onMount(() => {
@@ -30,26 +30,38 @@
   }
 </script>
 
-<main class="flex flex-col gap-2 ">
-  <section>
+<main class="flex flex-col h-[90vh]">
+  <!-- Top Section -->
+  <section class="flex-none">
     <TopBar />
+    <hr />
   </section>
   
-  <hr>
-  
-  <section class="h-[52vh] overflow-hidden overflow-y-auto custom-scrollbar">
-    <Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
+  <!-- Middle Section with Resizable -->
+  <div class="flex-1 overflow-hidden">
+    <Resizable.PaneGroup direction="vertical" class="h-full">
+      <Resizable.Pane defaultSize={70} minSize={30} maxSize={80}>
+        <section class="h-full overflow-hidden overflow-y-auto custom-scrollbar">
+          <Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
+        </section>
+      </Resizable.Pane>
+      
+      <Resizable.Handle withHandle />
+      
+      <Resizable.Pane defaultSize={30}>
+        <section class="h-full flex flex-col">
+          <div class="flex-1 py-2">
+            <Tabs />
+          </div>
+        </section>
+      </Resizable.Pane>
+    </Resizable.PaneGroup>
+  </div>
+
+  <!-- Bottom Section -->
+  <section class="flex-none border-t border-gray-200 dark:border-gray-700">
+    <BottomBar />
   </section>
-    
-  <hr>
-  
-  <section class="flex justify-between items-center py-2 ">
-    <Tabs />
-  </section>
-
-  <hr />
-
-
 </main>
 
 <style>
