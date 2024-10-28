@@ -2,11 +2,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import * as Resizable from "$lib/components/ui/resizable";
-  import Dropper from './layout/Dropper.svelte';
+  
+	import Dropper from './layout/Dropper.svelte';
   import TopBar from './layout/TopBar.svelte';	
   import BottomBar from './layout/BottomBar.svelte';	
-  import Tabs from './Tabs.svelte';	
-  import { elements } from './elements';
+  import Tabs from './layout/Tabs.svelte';	
+  
+	import { elements } from './elements';
   import { showInfo } from './stores';
 
   function callGAS(action: string, payload: Record<string, any> = {}) {

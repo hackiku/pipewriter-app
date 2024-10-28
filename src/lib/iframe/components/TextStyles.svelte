@@ -1,8 +1,8 @@
-<!-- $lib/iframe/TextStyles.svelte -->
+<!-- $lib/iframe/components/TextStyles.svelte -->
 <script lang="ts">
-  import { getElement } from './elements';
-  import ElementCard from "./components/ElementCard.svelte";
-  import OutlineButton from "./components/OutlineButton.svelte";
+  import { getElement } from '../elements';
+  import ElementCard from "../components/ElementCard.svelte";
+  import OutlineButton from "../components/OutlineButton.svelte";
   import { Type, Heading , X } from 'lucide-svelte';
 
   const elementId = "styleguide";
