@@ -62,12 +62,19 @@
   </div>
 
 
-  <section class="flex-none mt-auto py-3">
+  <!-- <section class="flex-none mt-auto py-3">
 		<Tabs />
-  </section>
+  </section> -->
   <!-- Bottom Section -->
-  <section class="fixed bottom-0 flex-none border-t border-gray-200 dark:border-gray-700">
-    <BottomBar />
+  <section class="fixed bottom-0 w-full flex-none">
+    <div class="mb-2 ">
+			<Tabs />
+		</div>
+    
+		<div class="mb-2 w-2/3 border-t border-gray-200 dark:border-gray-700">
+			<BottomBar />
+		</div>
+		
   </section>
 </main>
 

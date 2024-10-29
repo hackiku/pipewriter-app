@@ -18,7 +18,7 @@
   }
 </script>
 
-<div class="w-full px-4 h-12 border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 flex items-center justify-between">
+<div class="w-full px-3 h-12  flex items-center justify-between">
   <!-- Drive Folder Link -->
   <button
     on:click={openDriveFolder}
