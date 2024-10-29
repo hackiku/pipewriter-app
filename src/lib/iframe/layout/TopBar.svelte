@@ -1,20 +1,19 @@
 <!-- $lib/iframe/layout/TopBar.svelte -->
-
 <script lang="ts">
   import { toggleMode } from "mode-watcher";
-  import { showInfo, chainMode } from '$lib/iframe/stores';
-  import { Link, Info, Sun, Moon } from "lucide-svelte";
+  import { showInfo, zenMode } from '$lib/iframe/stores';
+  import { Info, Sun, Moon, Minimize2 } from "lucide-svelte";
   import IconButton from '../components/IconButton.svelte';
 
   function toggleShowInfo() {
     showInfo.update(n => !n);
   }
 
-  function toggleChainMode() {
-    chainMode.update(n => !n);
+  function toggleZenMode() {
+    zenMode.update(n => !n);
   }
 
-  let isDarkMode = false; // You might want to use a store for this
+  let isDarkMode = false;
 
   function handleToggleMode() {
     isDarkMode = !isDarkMode;
@@ -22,16 +21,15 @@
   }
 </script>
 
-<div class="flex items-center">
+<div class="flex items-center justify-between px-1">
+  <IconButton
+    icon={Minimize2}
+    selected={$zenMode}
+    tooltip={$zenMode ? 'Exit Zen Mode' : 'Enter Zen Mode'}
+    onClick={toggleZenMode}
+  />
   
-  <!-- Buttons right -->
-  <div class="flex-1 flex items-center justify-end gap-1">
-    <IconButton
-      icon={Link}
-      selected={$chainMode}
-      tooltip="Chain Mode"
-      onClick={toggleChainMode}
-    />
+  <div class="flex items-center gap-1">
     <IconButton
       icon={Info}
       selected={$showInfo}
