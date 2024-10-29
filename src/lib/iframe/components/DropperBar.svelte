@@ -25,7 +25,7 @@
 
 <div class="relative dropper-container">
   <!-- Bottom Gradient -->
-  <div class="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-background from-40% via-background/80 via-70% to-transparent to-100% pointer-events-none" />
+  <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background from-40% via-background/80 via-70% to-transparent to-100% pointer-events-none" />
 
   <!-- Centered Tab with Buttons -->
   <div class="absolute bottom-0 left-1/2 -translate-x-1/2 z-10">

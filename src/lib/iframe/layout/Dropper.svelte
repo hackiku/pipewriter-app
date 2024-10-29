@@ -1,6 +1,6 @@
 <!-- $lib/iframe/layout/Dropper.svelte -->
 <script lang="ts">
-	import { fade, slide } from "svelte/transition";
+	import { fade, slide, fly } from "svelte/transition";
   import { getElement } from '../elements';
   import type { ElementObject } from '../elements';
   import { createEventDispatcher } from 'svelte';
@@ -68,8 +68,8 @@
 
 	{#if !$zenMode}
 		<div 
-			in:fade={{ duration: 200 }}
-			out:slide={{ duration: 200, axis: "y" }}
+			in:slide={{ duration: 100, axis: "y" }}
+			out:fly={{ duration: 200 }}
 		>
 			<DropperBar />
 		</div>
