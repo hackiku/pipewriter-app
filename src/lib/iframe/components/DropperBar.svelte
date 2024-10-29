@@ -30,7 +30,7 @@
   <!-- Centered Tab with Buttons -->
   <div class="absolute bottom-0 left-1/2 -translate-x-1/2 z-10">
     <!-- Tab Shape -->
-    <div class="w-26 h-10 bg-white dark:bg-gray-800 rounded-t-2xl border-t border-x border-gray-200 dark:border-gray-700 shadow-lg">
+    <div class="w-26 h-11 bg-white dark:bg-gray-800 rounded-t-2xl border-t border-x border-gray-200 dark:border-gray-700 shadow-lg">
       <!-- Button Container -->
       <div class="h-full flex items-center justify-between px-2 gap-2">
         <button

@@ -3,9 +3,9 @@
 <script lang="ts">
   import { Avatar, AvatarImage, AvatarFallback } from "$lib/components/ui/avatar";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
-  import { FolderGit2 } from 'lucide-svelte';
+  import { ExternalLink } from 'lucide-svelte';
 
-  const DRIVE_FOLDER_URL = "https://drive.google.com/drive/u/2/folders/1k4BXnwflCpPewcPirj4csGKZxR7PX6iqR";
+  const DRIVE_FOLDER_URL = "https://docs.google.com/document/d/1eCoBa9Kvak8DIdjT-ycJoifrvBujhmhrw_NTE8mADrs/edit";
   
   const user = {
     name: 'User',
@@ -18,14 +18,17 @@
   }
 </script>
 
-<div class="w-full px-3 h-12  flex items-center justify-between">
+<div class="w-full px-3 h-12 flex items-center justify-between">
   <!-- Drive Folder Link -->
   <button
     on:click={openDriveFolder}
-    class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
+    class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors group"
   >
-    <FolderGit2 size={18} />
     <span>Docs</span>
+    <ExternalLink 
+      size={14} 
+      class="opacity-50 group-hover:opacity-100 transition-opacity" 
+    />
   </button>
 
   <!-- User Avatar with Dropdown -->
