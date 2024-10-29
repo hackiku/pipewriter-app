@@ -50,7 +50,7 @@
   {#if $activeTab}
     <div
       class={cn(
-        `absolute bottom-full w-full py-2 px-4 
+        `absolute bottom-full w-full py-2 px-4
          rounded-t-lg border border-gray-300 dark:border-gray-600
          flex items-center justify-center ${BG_STYLE}`,
         isFirstTabActive ? "rounded-br-none" : "rounded-br-lg"
