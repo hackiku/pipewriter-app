@@ -43,13 +43,13 @@
 	<!-- Middle Section with Resizable -->
 	<div class="flex-1 overflow-hidden">
 		<Resizable.PaneGroup direction="vertical" class="h-full">
-			<Resizable.Pane defaultSize={60} minSize={30} maxSize={88}>
+			<Resizable.Pane defaultSize={65} minSize={30} maxSize={88}>
 				<Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
 			</Resizable.Pane>
 
 			<Resizable.Handle withHandle />
 
-			<Resizable.Pane defaultSize={40}></Resizable.Pane>
+			<Resizable.Pane defaultSize={35}></Resizable.Pane>
 		</Resizable.PaneGroup>
 	</div>
 

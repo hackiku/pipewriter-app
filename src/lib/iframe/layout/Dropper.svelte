@@ -1,11 +1,12 @@
 <!-- $lib/iframe/layout/Dropper.svelte -->
 <script lang="ts">
+	import { fade, slide } from "svelte/transition";
   import { getElement } from '../elements';
   import type { ElementObject } from '../elements';
   import { createEventDispatcher } from 'svelte';
   import ElementCard from '../components/ElementCard.svelte';
   import DropperBar from '../components/DropperBar.svelte';
-  import { showInfo, elementsTheme } from '../stores';
+  import { showInfo, elementsTheme, zenMode } from '../stores';
 
   export let elements: Record<string, ElementObject>;
   export let callGAS: (action: string, params: Record<string, any>) => void;
@@ -65,6 +66,12 @@
     {/if}
   </div>
 
-  <DropperBar />
-
+	{#if !$zenMode}
+		<div 
+			in:fade={{ duration: 200 }}
+			out:slide={{ duration: 200, axis: "y" }}
+		>
+			<DropperBar />
+		</div>
+	{/if}
 </div>
