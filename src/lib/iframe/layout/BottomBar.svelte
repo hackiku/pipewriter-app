@@ -7,11 +7,10 @@
 
   const DRIVE_FOLDER_URL = "https://drive.google.com/drive/u/2/folders/1k4BXnwflCpPewcPirj4csGKZxR7PX6iqR";
   
-  // Example user data - replace with actual user data store if available
   const user = {
     name: 'User',
     email: 'user@example.com',
-    image: '' // Add user image URL if available
+    image: '' 
   };
 
   function openDriveFolder() {
@@ -26,7 +25,7 @@
     class="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors"
   >
     <FolderGit2 size={18} />
-    <span>Drive Folder</span>
+    <span>Docs</span>
   </button>
 
   <!-- User Avatar with Dropdown -->

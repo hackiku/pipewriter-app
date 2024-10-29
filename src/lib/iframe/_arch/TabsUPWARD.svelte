@@ -1,4 +1,4 @@
-<!-- $lib/iframe/Tabs.svelte -->
+<!-- $lib/iframe/layout/Tabs.svelte -->
 
 <script lang="ts">
   import { fade } from "svelte/transition";
@@ -6,11 +6,11 @@
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
   
-	import TextStyles from "./TextStyles.svelte";
-  import ColorPicker from "./ColorPicker.svelte";
-  import DropStyleguide from "./components/DropStyleguide.svelte";
+	import TextStyles from "../components/TextStyles.svelte";
+  import ColorPicker from "../components/ColorPicker.svelte";
+  import DropStyleguide from "../components/DropStyleguide.svelte";
   import { Type, Palette, Settings, Code, X } from "lucide-svelte";
-  import { activeTab, showInfo } from "./stores";
+  import { activeTab, showInfo } from "../stores";
 
 	const BG_STYLE = 'bg-white dark:bg-slate-900';
 

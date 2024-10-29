@@ -53,22 +53,27 @@
       <Resizable.Pane defaultSize={30}>
         <section class="h-full flex flex-col">
           <div class="flex-1 py-2">
-            <Tabs />
+            <!-- <Tabs /> -->
+						 
           </div>
         </section>
       </Resizable.Pane>
     </Resizable.PaneGroup>
   </div>
 
+
+  <section class="flex-none mt-auto py-3">
+		<Tabs />
+  </section>
   <!-- Bottom Section -->
-  <section class="flex-none border-t border-gray-200 dark:border-gray-700">
+  <section class="fixed bottom-0 flex-none border-t border-gray-200 dark:border-gray-700">
     <BottomBar />
   </section>
 </main>
 
 <style>
   .custom-scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: 18px;
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb {
