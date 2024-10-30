@@ -5,7 +5,7 @@
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { ExternalLink } from 'lucide-svelte';
 
-  const DRIVE_FOLDER_URL = "https://docs.google.com/document/d/1eCoBa9Kvak8DIdjT-ycJoifrvBujhmhrw_NTE8mADrs/edit";
+  const DRIVE_FOLDER_URL = "https://drive.google.com/drive/folders/1k3ZaPn-J_xHSUV0YrpyvAvNuD-uFsuu_";
   
   const user = {
     name: 'User',

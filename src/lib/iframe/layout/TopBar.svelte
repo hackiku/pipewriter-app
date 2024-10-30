@@ -21,7 +21,7 @@
   }
 </script>
 
-<div class="flex items-center justify-between px-1">
+<div class="flex items-center justify-between">
   <IconButton
     icon={Minimize2}
     selected={$zenMode}
