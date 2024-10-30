@@ -1,20 +1,39 @@
 <!-- lib/app/App.svelte -->
 
 <script lang="ts">
+  import { onMount } from 'svelte';
   import Header from "./layout/Header.svelte";
-  import Dropper from "./layout/Dropper.svelte";
-  import ModeSelector from "./layout/ModeSelector.svelte";
-  import Canvas from "./Canvas.svelte";
-  import { editorMode } from "./stores/editor";
+  import ElementsDropper from './layout/Dropper.svelte';
+  import Canvas from './Canvas.svelte';
+  import ModeSelector from './layout/ModeSelector.svelte';
+  import { editorMode } from './stores/editor';
 </script>
 
-<div class="min-h-screen bg-background text-foreground">
-  <Header />
+<Header />
+
+<main class="flex flex-col min-h-screen bg-background text-foreground pt-24">
+  {#if $editorMode !== 'story'}
+    <ElementsDropper />
+  {/if}
   
-  <main class="relative pt-24">
-    <Dropper />
+  <div class={$editorMode}>
     <Canvas />
-  </main>
+  </div>
 
   <ModeSelector />
-</div>
+</main>
+
+<style>
+  .edit {
+    /* Styles for edit mode */
+  }
+  .insert {
+    /* Styles for insert mode */
+  }
+  .story {
+    /* Styles for story mode */
+  }
+  .preview {
+    /* Styles for preview mode */
+  }
+</style>
