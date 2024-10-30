@@ -1,43 +1,44 @@
-<!-- lib/app/elements/sections/Hero.svelte -->
- 
 <script lang="ts">
-  import Element from '../base/Element.svelte';
-  import { Button } from '$lib/components/ui/button';
-  import { Pencil, Trash } from 'lucide-svelte';
-  
-  export let element: {
-    id: string;
-    type: string;
-    props: {
-      title: string;
-      subtitle: string;
-      alignment: 'left' | 'center' | 'right';
-    };
-  };
-  
-  function handleEdit() {
-    // TODO: Open properties panel
-  }
-  
-  function handleDelete() {
-    // TODO: Remove element
+  export let data: { title: string; subtitle: string };
+  import { createEventDispatcher } from 'svelte';
+
+  const dispatch = createEventDispatcher();
+
+  function autoGrow(event: Event) {
+    const textarea = event.target as HTMLTextAreaElement;
+    textarea.style.height = 'auto';
+    textarea.style.height = textarea.scrollHeight + 'px';
   }
 </script>
 
-<Element {element} let:isSelected>
-  <svelte:fragment slot="controls">
-    <Button variant="ghost" size="icon" on:click={handleEdit}>
-      <Pencil class="w-4 h-4" />
-    </Button>
-    <Button variant="ghost" size="icon" on:click={handleDelete}>
-      <Trash class="w-4 h-4" />
-    </Button>
-  </svelte:fragment>
-  
-  <div class="px-4 py-32 text-{element.props.alignment}">
-    <div class="container mx-auto">
-      <h1 class="text-4xl font-bold mb-4">{element.props.title}</h1>
-      <p class="text-xl text-muted-foreground">{element.props.subtitle}</p>
-    </div>
-  </div>
-</Element>
+<div class="mb-12 text-center">
+  <h1 class="text-4xl font-bold mb-2">
+    <textarea 
+      bind:value={data.title} 
+      on:input={autoGrow}
+      class="w-full bg-transparent text-center resize-none"
+    ></textarea>
+  </h1>
+  <p class="text-xl">
+    <textarea 
+      bind:value={data.subtitle} 
+      on:input={autoGrow}
+      class="w-full bg-transparent text-center resize-none"
+    ></textarea>
+  </p>
+  <button on:click={() => dispatch('remove')}>Remove</button>
+</div>
+
+<style>
+  textarea {
+    overflow: hidden;
+  }
+	[contenteditable] {
+    white-space: nowrap;
+    overflow: hidden;
+  }
+  [contenteditable] br {
+    display: none;
+  }
+
+</style>

@@ -1,35 +1,64 @@
-<!-- $lib/components/Canvas.svelte -->
-
+<!-- lib/app/Canvas.svelte -->
 <script lang="ts">
-import { fade } from 'svelte/transition';
-import { sections } from '$lib/stores/sections';
-import Hero from '$lib/sections/Hero.svelte';
-import Blurbs from '$lib/sections/Blurbs.svelte';
-import ZigZag from '$lib/sections/ZigZag.svelte';
-import Logos from '$lib/sections/Logos.svelte';
+  import { fade } from 'svelte/transition';
+  import { elements, canvasElements } from './stores/elements';
+  import { editorMode } from './stores/editor';
+  import Hero from './elements/sections/Hero.svelte';
+  import Blurbs from './elements/sections/Blurbs.svelte';
+  import ZigZag from './elements/sections/ZigZag.svelte';
+  import { cn } from '$lib/utils';
 
-function removeSection(index: number) {
-  sections.update(s => s.filter((_, i) => i !== index));
-}
+  // Element type to component mapping
+  const elementComponents = {
+    hero: Hero,
+    blurbs: Blurbs,
+    zigzag: ZigZag,
+  };
 
-function handleDragOver(event) {
-  event.preventDefault();
-}
+  function handleDragOver(event: DragEvent) {
+    if (!event.dataTransfer) return;
+    
+    // Only accept our custom type
+    if (Array.from(event.dataTransfer.types).includes('application/pipewriter')) {
+      event.preventDefault();
+      event.dataTransfer.dropEffect = 'copy';
+    }
+  }
+
+  function handleDrop(event: DragEvent) {
+    event.preventDefault();
+    if (!event.dataTransfer) return;
+
+    const elementId = event.dataTransfer.getData('application/pipewriter');
+    if (!elementId) return;
+
+    elements.addInstance(elementId);
+  }
 </script>
 
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div class="flex-1 p-4" on:dragover={handleDragOver}>
-  {#each $sections as section, index (index)}
-    <div transition:fade>
-      {#if section.type === 'hero'}
-        <Hero data={section.data} on:remove={() => removeSection(index)} />
-      {:else if section.type === 'blurbs'}
-        <Blurbs data={section.data} on:remove={() => removeSection(index)} />
-      {:else if section.type === 'zigzag'}
-        <ZigZag data={section.data} on:remove={() => removeSection(index)} />
-      {:else if section.type === 'logos'}
-        <Logos data={section.data} on:remove={() => removeSection(index)} />
-      {/if}
+<div 
+  class={cn(
+    "flex-1 min-h-screen p-4",
+    $editorMode === 'preview' && "bg-background"
+  )}
+  on:dragover={handleDragOver}
+  on:drop={handleDrop}
+>
+  {#if $canvasElements.length === 0}
+    <div 
+      class="h-32 border-2 border-dashed border-muted-foreground/20 rounded-lg
+             flex items-center justify-center text-muted-foreground"
+    >
+      Drag elements here
     </div>
-  {/each}
+  {:else}
+    {#each $canvasElements as element (element.id)}
+      <div class="my-8" transition:fade>
+        <svelte:component 
+          this={elementComponents[element.type]} 
+          {element}
+        />
+      </div>
+    {/each}
+  {/if}
 </div>
