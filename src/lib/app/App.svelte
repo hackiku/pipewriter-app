@@ -24,6 +24,9 @@
 </main>
 
 <style>
+	html {
+		overflow-y: hidden;
+	}
   .edit {
     /* Styles for edit mode */
   }
