@@ -8,7 +8,6 @@
 	import TopBar from "./layout/TopBar.svelte";
 	import BottomBar from "./layout/BottomBar.svelte";
 	import Tabs from "./layout/Tabs.svelte";
-
 	import { elements } from "./elements";
 	import { showInfo, zenMode } from "./stores";
 

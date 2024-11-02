@@ -5,9 +5,9 @@
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
   
-  import TextStyles from "../components/TextStyles.svelte";
-  import ColorPicker from "../components/ColorPicker.svelte";
-  import DropStyleguide from "../components/DropStyleguide.svelte";
+  import TextStyles from "../tabs/TextStyles.svelte";
+  import ColorPicker from "../tabs/ColorPicker.svelte";
+  import aiTab from "../tabs/aiTab.svelte";
   import { Type, Palette, Settings, Code, X } from "lucide-svelte";
   import { activeTab, showInfo } from "../stores";
 
@@ -16,7 +16,7 @@
   const tabs = {
     text: { icon: Type, tooltip: "Text Styles", component: TextStyles },
     color: { icon: Palette, tooltip: "Color Picker", component: ColorPicker },
-    ai: { icon: Code, tooltip: "Code", component: DropStyleguide },
+    ai: { icon: Code, tooltip: "Code", component: aiTab },
   };
 
   function toggleTab(tab: string) {
@@ -98,6 +98,7 @@
       {/if}
     </div>
 
+		<!-- label -->
     {#if $showInfo}
       <h2 class="text-xs opacity-40 mb-2 uppercase">
         Styles
