@@ -6,7 +6,7 @@
   import { cn } from "$lib/utils";
   
   import TextStyles from "../tabs/TextStyles.svelte";
-  import ColorPicker from "../tabs/ColorPicker.svelte";
+  import ColorTab from "../tabs/ColorTab.svelte";
   import aiTab from "../tabs/aiTab.svelte";
   import { Type, Palette, Settings, Code, X } from "lucide-svelte";
   import { activeTab, showInfo } from "../stores";
@@ -15,7 +15,7 @@
 
   const tabs = {
     text: { icon: Type, tooltip: "Text Styles", component: TextStyles },
-    color: { icon: Palette, tooltip: "Color Picker", component: ColorPicker },
+    color: { icon: Palette, tooltip: "Color Picker", component: ColorTab },
     ai: { icon: Code, tooltip: "Code", component: aiTab },
   };
 
