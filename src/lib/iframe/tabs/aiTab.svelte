@@ -1,13 +1,28 @@
 <!-- $lib/iframe/tabs/aiTab.svelte -->
- 
 <script lang="ts">
-  import { Code, FileCode, Trash2, ArrowDown, ArrowUp, Copy } from 'lucide-svelte';
+  import { Code, FileCode, Trash2, ArrowDown, ArrowUp, Copy, MousePointer } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   
+  // Modified callGAS to ensure proper message structure
   function callGAS(action: string, params: Record<string, any> = {}) {
-    const message = { action, params };
-    window.parent.postMessage(JSON.stringify(message), '*');
+    // Create the message with explicit position handling
+    const payload = {
+      ...params,
+      position: params.position || 'end'
+    };
+    
+    // Log the full message for debugging
+    console.log('Sending message:', { action, payload });
+    
+    // Send structured message to parent
+    window.parent.postMessage(
+      JSON.stringify({
+        action,
+        payload
+      }),
+      '*'
+    );
   }
   
   const complexActions = [
@@ -24,6 +39,12 @@
       tooltip: "Convert HTML tags to document headings"
     }
   ];
+
+  // Debug function to verify message structure
+  function handleAction(action: string, position: 'start' | 'cursor' | 'end' | undefined) {
+    console.log(`Handling action: ${action} with position: ${position}`);
+    callGAS(action, { position });
+  }
 </script>
 
 <div class="flex flex-col gap-4 w-full py-2">
@@ -36,14 +57,14 @@
           <div class="flex gap-1">
             <Tooltip.Root>
               <Tooltip.Trigger asChild>
-								<span class="text-sm text-muted-foreground ml-2">{label}</span>
                 <Button 
                   variant="ghost" 
                   size="sm"
                   class="h-8 px-2"
-                  on:click={() => callGAS(action, { position: 'start' })}
+                  on:click={() => handleAction(action, 'start')}
                 >
-									<ArrowUp class="h-4 w-4" />
+                  <ArrowUp class="h-4 w-4" />
+                  <span class="sr-only">Insert at start</span>
                 </Button>
               </Tooltip.Trigger>
               <Tooltip.Content>
@@ -57,9 +78,27 @@
                   variant="ghost" 
                   size="sm"
                   class="h-8 px-2"
-                  on:click={() => callGAS(action, { position: 'end' })}
+                  on:click={() => handleAction(action, 'cursor')}
+                >
+                  <MousePointer class="h-4 w-4" />
+                  <span class="sr-only">Insert at cursor</span>
+                </Button>
+              </Tooltip.Trigger>
+              <Tooltip.Content>
+                <p>Insert at cursor position</p>
+              </Tooltip.Content>
+            </Tooltip.Root>
+
+            <Tooltip.Root>
+              <Tooltip.Trigger asChild>
+                <Button 
+                  variant="ghost" 
+                  size="sm"
+                  class="h-8 px-2"
+                  on:click={() => handleAction(action, 'end')}
                 >
                   <ArrowDown class="h-4 w-4" />
+                  <span class="sr-only">Insert at end</span>
                 </Button>
               </Tooltip.Trigger>
               <Tooltip.Content>
@@ -73,9 +112,10 @@
                   variant="ghost" 
                   size="sm"
                   class="h-8 px-2"
-                  on:click={() => callGAS(action, { copy: true })}
+                  on:click={() => handleAction(action, undefined)}
                 >
                   <Copy class="h-4 w-4" />
+                  <span class="sr-only">Copy to clipboard</span>
                 </Button>
               </Tooltip.Trigger>
               <Tooltip.Content>
@@ -88,7 +128,6 @@
     </div>
   {/each}
 
-  <!-- Keep the delete tags button as is -->
   <Tooltip.Root>
     <Tooltip.Trigger asChild>
       <Button 

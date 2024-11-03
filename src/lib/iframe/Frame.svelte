@@ -11,13 +11,31 @@
 	import { elements } from "./elements";
 	import { showInfo, zenMode } from "./stores";
 
+	// Modified to preserve payload structure
 	function callGAS(action: string, payload: Record<string, any> = {}) {
-		const message = { action, payload };
+		const message = {
+			action,
+			payload: {
+				...payload,
+				position: payload.position || 'end'  // Ensure position is preserved
+			}
+		};
+		console.log('Frame forwarding message:', message);
 		window.parent.postMessage(JSON.stringify(message), "*");
 	}
 
 	function handleMessage(event: MessageEvent) {
-		console.log("Received message:", event.data);
+		try {
+			const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+			console.log("Frame received message:", data);
+			
+			// Forward the message to Apps Script maintaining structure
+			if (data.action && data.payload) {
+				callGAS(data.action, data.payload);
+			}
+		} catch (error) {
+			console.error("Error handling message:", error);
+		}
 	}
 
 	onMount(() => {
@@ -33,13 +51,12 @@
 </script>
 
 <main class="flex flex-col h-[95vh] overflow-hidden -my-3 -mr-2">
-	<!-- Top Section -->
+	<!-- Rest of the template remains the same -->
 	<section class="flex-none">
 		<TopBar />
 		<hr />
 	</section>
 
-	<!-- Middle Section with Resizable -->
 	<div class="flex-1 overflow-hidden">
 		<Resizable.PaneGroup direction="vertical" class="h-full">
 			<Resizable.Pane defaultSize={65} minSize={30} maxSize={88}>
@@ -53,7 +70,6 @@
 	</div>
 
 	{#if !$zenMode}
-		<!-- Bottom Section -->
 		<section
 			class="fixed bottom-0 w-[16.8rem] flex-none"
 			in:fade={{ duration: 200 }}
