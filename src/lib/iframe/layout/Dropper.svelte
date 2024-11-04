@@ -13,6 +13,7 @@
   export let callGAS: (action: string, params: Record<string, any>) => void;
 
   const dispatch = createEventDispatcher();
+  let isProcessing = false;
 
   $: filteredElements = Object.values(elements).filter((element) => {
     const isDarkVariant = element.id.includes('-dark');
@@ -38,9 +39,17 @@
       }
     }
   }
+
+  function handleProcessingStart() {
+    isProcessing = true;
+  }
+
+  function handleProcessingEnd() {
+    isProcessing = false;
+  }
 </script>
 
-<div class="relative h-full z-0">
+<div class="relative h-full z-0 pr-2">
   <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
     {#if Object.entries(groupedByCategory).length > 0}
       {#each Object.entries(groupedByCategory) as [category, categoryElements]}
@@ -56,6 +65,8 @@
                 {element}
                 onSelect={selectElement}
                 theme={$elementsTheme}
+                on:processingStart={handleProcessingStart}
+                on:processingEnd={handleProcessingEnd}
               />
             {/each}
           </div>
@@ -76,14 +87,13 @@
 <style>
   /* Custom scrollbar styling */
   .custom-scrollbar {
-    scrollbar-width: thin; /* Firefox */
-    scrollbar-color: rgba(155, 155, 155, 0.5) transparent; /* Firefox */
+    scrollbar-width: thin;
+    scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
     -webkit-overflow-scrolling: touch;
   }
 
-  /* Webkit browsers (Chrome, Safari, Edge) */
   .custom-scrollbar::-webkit-scrollbar {
-    width: 4px; /* Half the default width */
+    width: 4px;
     height: 4px;
   }
 
@@ -95,15 +105,13 @@
   .custom-scrollbar::-webkit-scrollbar-thumb {
     background-color: rgba(155, 155, 155, 0.5);
     border-radius: 4px;
-    min-height: 40px; /* Minimum thumb size */
+    min-height: 40px;
   }
 
-  /* scrollbar always visible */
   .custom-scrollbar::-webkit-scrollbar-track {
     -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,0.1);
   }
 
-  /* scrollbar hover */
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background-color: rgba(155, 155, 155, 0.7);
   }
