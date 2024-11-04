@@ -1,4 +1,5 @@
 <!-- $lib/iframe/components/DropperBar.svelte -->
+
 <script lang="ts">
   import { elementsTheme, chainMode } from '../stores';
   import { Sun, Moon, Palette, Link } from 'lucide-svelte';

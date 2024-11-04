@@ -11,28 +11,26 @@
 	import { elements } from "./elements";
 	import { showInfo, zenMode } from "./stores";
 
-	// Modified to preserve payload structure
 	function callGAS(action: string, payload: Record<string, any> = {}) {
-		const message = {
-			action,
-			payload: {
-				...payload,
-				position: payload.position || 'end'  // Ensure position is preserved
-			}
-		};
-		console.log('Frame forwarding message:', message);
-		window.parent.postMessage(JSON.stringify(message), "*");
-	}
+    const message = {
+      action,
+      payload: {
+        ...payload
+      }
+    };
+    console.log('Frame forwarding message:', message);
+    window.parent.postMessage(JSON.stringify(message), "*");
+  }
 
-	function handleMessage(event: MessageEvent) {
-		try {
-			const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-			console.log("Frame received message:", data);
+  function handleMessage(event: MessageEvent) {
+    try {
+      const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
+      console.log("Frame received message:", data);
 			
-			// Forward the message to Apps Script maintaining structure
-			if (data.action && data.payload) {
-				callGAS(data.action, data.payload);
-			}
+      // Forward the message to Apps Script preserving the entire payload
+      if (data.action) {
+        callGAS(data.action, data.payload || {});
+      }
 		} catch (error) {
 			console.error("Error handling message:", error);
 		}

@@ -5,18 +5,20 @@
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
   
-  import TextStyles from "../tabs/TextStyles.svelte";
+  import TableTab from "../tabs/TableTab.svelte";
+  import TextTab from "../tabs/TextTab.svelte";
   import ColorTab from "../tabs/ColorTab.svelte";
-  import aiTab from "../tabs/aiTab.svelte";
-  import { Type, Palette, Settings, Code, X } from "lucide-svelte";
+  import AiTab from "../tabs/AiTab.svelte";
+  import { Table, Type, Palette, Settings, Code, X } from "lucide-svelte";
   import { activeTab, showInfo } from "../stores";
 
   const BG_STYLE = 'bg-white dark:bg-slate-900';
 
   const tabs = {
-    text: { icon: Type, tooltip: "Text Styles", component: TextStyles },
+    table: { icon: Table, tooltip: "Table Styles", component: TableTab },
+    text: { icon: Type, tooltip: "Text Styles", component: TextTab },
     color: { icon: Palette, tooltip: "Color Picker", component: ColorTab },
-    ai: { icon: Code, tooltip: "Code", component: aiTab },
+    ai: { icon: Code, tooltip: "Code", component: AiTab },
   };
 
   function toggleTab(tab: string) {

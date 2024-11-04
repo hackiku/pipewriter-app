@@ -1,4 +1,4 @@
-<!-- $lib/iframe/tabs/aiTab.svelte -->
+<!-- $lib/iframe/tabs/AiTab.svelte -->
 <script lang="ts">
   import { Code, FileCode, Trash2, ArrowDown, ArrowUp, Copy, MousePointer } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
@@ -9,7 +9,6 @@
     // Create the message with explicit position handling
     const payload = {
       ...params,
-      position: params.position || 'end'
     };
     
     // Log the full message for debugging

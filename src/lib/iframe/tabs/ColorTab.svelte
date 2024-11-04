@@ -107,5 +107,5 @@
       <ColorPicker on:colorChange={handleColorPickerChange} />
     </div>
   {/if}
-	<!-- <ColorPicker /> -->
+	<ColorPicker />
 </section>
