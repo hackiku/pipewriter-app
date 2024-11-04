@@ -1,4 +1,5 @@
 <!-- $lib/iframe/layout/Tabs.svelte -->
+<!-- $lib/iframe/layout/Tabs.svelte -->
 <script lang="ts">
   import { fade } from "svelte/transition";
   import { Button } from "$lib/components/ui/button";
@@ -11,6 +12,7 @@
   import AiTab from "../tabs/AiTab.svelte";
   import { Table, Type, Palette, Settings, Code, X } from "lucide-svelte";
   import { activeTab, showInfo } from "../stores";
+  import { isProcessing } from "../utils";
 
   const BG_STYLE = 'bg-white dark:bg-slate-900';
 
@@ -23,11 +25,6 @@
 
   function toggleTab(tab: string) {
     activeTab.update((current) => (current === tab ? null : tab));
-  }
-
-  function callGAS(action: string, payload: Record<string, any> = {}) {
-    const message = { action, payload };
-    window.parent.postMessage(JSON.stringify(message), "*");
   }
 
   function handleColorChange(event: CustomEvent<{ color: string }>) {
@@ -62,6 +59,8 @@
       <svelte:component
         this={tabs[$activeTab].component}
         on:colorChange={handleColorChange}
+        on:processingStart={() => isProcessing.set(true)}
+        on:processingEnd={() => isProcessing.set(false)}
       />
     </div>
   {/if}
@@ -77,6 +76,7 @@
               size="icon"
               class={getButtonClass(tabKey)}
               on:click={() => toggleTab(tabKey)}
+              disabled={$isProcessing}
             >
               <svelte:component this={tabData.icon} class="h-4 w-4" />
             </Button>
@@ -93,14 +93,15 @@
           variant="ghost"
           size="icon"
           class="rounded-full opacity-40 hover:opacity-100 hover:bg-transparent"
-          on:click={() => $activeTab = false}
+          on:click={() => $activeTab = null}
+          disabled={$isProcessing}
         >
           <X class="w-4 h-4 mt-4" />
         </Button>
       {/if}
     </div>
 
-		<!-- label -->
+    <!-- label -->
     {#if $showInfo}
       <h2 class="text-xs opacity-40 mb-2 uppercase">
         Styles
@@ -108,3 +109,11 @@
     {/if}
   </div>
 </div>
+
+{#if $isProcessing}
+  <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div class="bg-white p-4 rounded-lg">
+      <p>Processing... Please wait.</p>
+    </div>
+  </div>
+{/if}

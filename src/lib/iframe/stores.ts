@@ -9,4 +9,5 @@ export const showLabels = writable(false);
 export const activeTab = writable(false);
 export const elementsTheme = writable<ThemeType>("light");
 export const zenMode = writable(false);
-export const currentColor = writable<string>('#000000');
+export const currentColor = writable<string>("#000000");
+export const isProcessing = writable(false);
