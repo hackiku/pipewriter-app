@@ -4,8 +4,9 @@
   import { Avatar, AvatarImage, AvatarFallback } from "$lib/components/ui/avatar";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { ExternalLink } from 'lucide-svelte';
-
-  const DRIVE_FOLDER_URL = "https://drive.google.com/drive/folders/1k3ZaPn-J_xHSUV0YrpyvAvNuD-uFsuu_";
+	import AppAbout from "./AppAbout.svelte"
+  
+	const DRIVE_FOLDER_URL = "https://drive.google.com/drive/folders/1k3ZaPn-J_xHSUV0YrpyvAvNuD-uFsuu_";
   
   const user = {
     name: 'User',
@@ -17,6 +18,8 @@
     window.open(DRIVE_FOLDER_URL, '_blank');
   }
 </script>
+
+<!-- <AppAbout /> -->
 
 <div class="w-full px-3 h-12 flex items-center justify-between">
   <!-- Drive Folder Link -->
