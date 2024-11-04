@@ -17,14 +17,24 @@
   
   let showColorPicker = false;
 
-  function selectColor(color: string) {
-    currentColor.set(color);
-    dispatch('colorChange', { color });
+  function callGAS(action: string, payload: Record<string, any> = {}) {
+    const message = {
+      action,
+      payload: {
+        ...payload
+      }
+    };
+    console.log('ColorTab sending message:', message);
+    window.parent.postMessage(JSON.stringify(message), "*");
   }
 
-  function handleColorPickerChange({ detail: { color } }) {
-    selectColor(color);
-    showColorPicker = false;
+  function selectColor(color: string) {
+    currentColor.set(color);
+    callGAS('changeBg', { color });
+  }
+
+  function handleColorPickerChange(event: CustomEvent<{ color: string }>) {
+    selectColor(event.detail.color);
   }
 </script>
 
