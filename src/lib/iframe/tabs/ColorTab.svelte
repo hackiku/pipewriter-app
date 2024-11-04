@@ -1,111 +1,61 @@
 <!-- $lib/iframe/tabs/ColorPicker.svelte -->
 
 <script lang="ts">
-  import { createEventDispatcher, onMount, onDestroy } from 'svelte';
-  import { Rotate3d } from 'lucide-svelte';
-  import { Button } from "$lib/components/ui/button";
-  import ColorPicker from "../components/ColorPicker.svelte";
+  import { createEventDispatcher } from 'svelte';
   import { fade } from 'svelte/transition';
+  import ColorPicker from "../components/ColorPicker.svelte";
   import { currentColor } from '../stores';
   
   const dispatch = createEventDispatcher();
+  
   const presetColors = [
-    { color: '#ffffff', title: 'White' },
-    { color: '#f3f3f3', title: 'Light Gray' },
-    { color: '#cccccc', title: 'Gray' },
-    { color: '#0a0a0a', title: 'Black' },
+    { color: '#FFFFFF', title: 'White' },
+    { color: '#E5E5E5', title: 'Light Gray' },
+    { color: '#A3A3A3', title: 'Gray' },
+    { color: '#171717', title: 'Black' },
   ];
   
   let showColorPicker = false;
-  let pickerContainer: HTMLDivElement;
 
-  // Handle click outside
-  function handleClickOutside(event: MouseEvent) {
-    if (pickerContainer && !pickerContainer.contains(event.target as Node)) {
-      showColorPicker = false;
-    }
-  }
-
-  // Handle escape key
-  function handleKeydown(event: KeyboardEvent) {
-    if (event.key === 'Escape') {
-      showColorPicker = false;
-    }
-  }
-
-  onMount(() => {
-    document.addEventListener('click', handleClickOutside);
-    document.addEventListener('keydown', handleKeydown);
-  });
-
-  onDestroy(() => {
-    document.removeEventListener('click', handleClickOutside);
-    document.removeEventListener('keydown', handleKeydown);
-  });
-  
   function selectColor(color: string) {
     currentColor.set(color);
     dispatch('colorChange', { color });
   }
 
-  function invertColors() {
-    const message = { action: 'invertColors', payload: {} };
-    window.parent.postMessage(JSON.stringify(message), "*");
-  }
-
   function handleColorPickerChange({ detail: { color } }) {
     selectColor(color);
-  }
-
-  function toggleColorPicker() {
-    showColorPicker = !showColorPicker;
+    showColorPicker = false;
   }
 </script>
 
-<section class="flex-shrink relative">
-  <!-- Preset colors row -->
-  <div class="flex justify-center items-center w-full gap-2 mb-2">
-    {#each presetColors as { color, title }}
-      <button
-        on:click={() => selectColor(color)}
-        class="w-6 h-6 rounded-full border-2 border-gray-300 hover:border-blue-500 transition-all"
-        title={title}
-        style="background-color: {color};"
-      ></button>
-    {/each}
-  </div>
-
-  <!-- Color picker and invert buttons row -->
-  <div class="flex justify-center items-center w-full gap-2">
-    <!-- Gradient preview button -->
-    <button
-      on:click={toggleColorPicker}
-      class="w-6 h-6 rounded-full border-2 border-gray-300 hover:border-blue-500 transition-all overflow-hidden"
-      style="background: linear-gradient(45deg, #ff0000, #00ff00, #0000ff);"
-      title="Open Color Picker"
-    ></button>
-
-    <!-- Invert colors button -->
-    <Button
-      variant="outline"
-      size="icon"
-      class="h-6 w-6"
-      on:click={invertColors}
-      title="Invert Colors"
-    >
-      <Rotate3d class="h-4 w-4" />
-    </Button>
-  </div>
-
+<section class="flex flex-col gap-2">
   <!-- Color picker dropdown -->
   {#if showColorPicker}
     <div
-      bind:this={pickerContainer}
-      class="absolute top-full left-0 mt-2 p-2 bg-white dark:bg-gray-800 rounded-lg shadow-lg border border-gray-200 dark:border-gray-600 z-50"
-      transition:fade={{ duration: 100 }}
+      class="w-full p-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600"
+      transition:fade={{ duration: 150 }}
     >
       <ColorPicker on:colorChange={handleColorPickerChange} />
     </div>
   {/if}
-	<ColorPicker />
+
+  <!-- Preset colors row -->
+  <div class="flex items-center gap-2">
+    {#each presetColors as { color, title }}
+      <button
+        on:click={() => selectColor(color)}
+        class="w-8 h-8 rounded-md border border-gray-300 dark:border-gray-600 hover:border-primary transition-colors"
+        title={title}
+        style="background-color: {color};"
+      />
+    {/each}
+    
+    <!-- Gradient button -->
+    <button
+      on:click={() => showColorPicker = !showColorPicker}
+      class="w-8 h-8 rounded-md border border-gray-300 dark:border-gray-600 hover:border-primary transition-colors overflow-hidden"
+      style="background: linear-gradient(45deg, #FF0000, #00FF00, #0000FF);"
+      title="Custom Color"
+    />
+  </div>
 </section>
