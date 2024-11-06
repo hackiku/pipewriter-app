@@ -1,93 +1,50 @@
 <!-- $lib/iframe/components/ColorPicker.svelte -->
-
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from 'svelte';
   import { browser } from '$app/environment';
   import { Button } from "$lib/components/ui/button";
   import { currentColor } from '../stores';
+  import { GASCommunicator } from '../gasUtils';
   
   const dispatch = createEventDispatcher();
   let pickerElement: HTMLDivElement;
   let picker: any;
-  let colorInput: string;
+  let colorInput: string = '#E53E3E'; // Default to a nice red
   let isSubmitting = false;
-  let pickerMounted = false;
+  let gasCommunicator: GASCommunicator;
 
-  // Initialize with store value
-  $: colorInput = $currentColor;
-
-  function rgbToHex(r: number, g: number, b: number): string {
-    const toHex = (n: number) => {
-      const hex = Math.round(n).toString(16);
-      return hex.length === 1 ? '0' + hex : hex;
-    };
-    return '#' + toHex(r) + toHex(g) + toHex(b);
-  }
-
-  function normalizeHexColor(color: string): string {
-    try {
-      // Remove # if present
-      color = color.replace('#', '');
-      
-      // Expand 3-digit hex
-      if (color.length === 3) {
-        color = color.split('').map(c => c + c).join('');
-      }
-      
-      // Ensure 6 digits and valid hex
-      if (color.length !== 6 || !/^[0-9A-F]{6}$/i.test(color)) {
-        return $currentColor; // Return store value if invalid
-      }
-      
-      return '#' + color.toUpperCase();
-    } catch (error) {
-      console.error('Error normalizing color:', error);
-      return $currentColor; // Return store value on error
-    }
+  // Strip alpha channel from hex color
+  function stripAlpha(color: string): string {
+    // Remove any FF suffix if present
+    return color.replace(/FF$/, '').toUpperCase();
   }
 
   onMount(async () => {
     if (browser) {
       const { default: Picker } = await import('vanilla-picker');
       
-      // First set store to our default red if not already set
-      if ($currentColor === '#000000') {
-        currentColor.set('#E53E3E');
-      }
+      // Initialize GAS communicator
+      gasCommunicator = GASCommunicator.getInstance();
+      
+      // Initialize picker with either store value or default red
+      const initialColor = $currentColor !== '#000000' ? $currentColor : colorInput;
       
       picker = new Picker({
         parent: pickerElement,
         popup: false,
         alpha: false,
-        color: $currentColor,
-        onChange: (color: { hex: string; rgba: { r: number; g: number; b: number } }) => {
-          // Get direct RGB values
-          const { r, g, b } = color.rgba;
-          const solidColor = rgbToHex(r, g, b);
-          const normalized = normalizeHexColor(solidColor);
-          
-          // Update both local and store state
-          colorInput = normalized;
-          currentColor.set(normalized);
-          
-          console.log('Picker onChange:', { 
-            rgb: { r, g, b },
-            solidColor,
-            normalized,
-            storeValue: $currentColor
-          });
+        color: initialColor,
+        onChange: (color: { hex: string }) => {
+          // Strip alpha and update states
+          const cleanColor = stripAlpha(color.hex);
+          colorInput = cleanColor;
+          currentColor.set(cleanColor);
         }
       });
 
-      // Force initial sync with store value
-      if (picker.color?.rgba) {
-        const { r, g, b } = picker.color.rgba;
-        const normalized = normalizeHexColor(rgbToHex(r, g, b));
-        colorInput = normalized;
-        currentColor.set(normalized);
-      }
-      
-      pickerMounted = true;
+      // Sync initial state
+      colorInput = stripAlpha(initialColor);
+      currentColor.set(colorInput);
     }
   });
 
@@ -98,28 +55,34 @@
   });
 
   async function handleSubmit() {
-    if (isSubmitting || !pickerMounted) return;
+    if (isSubmitting) return;
     
     isSubmitting = true;
     try {
-      console.log('Submitting color:', colorInput, 'Store value:', $currentColor);
-      dispatch('colorChange', { color: colorInput });
+      // Ensure we're sending a clean hex color
+      const cleanColor = stripAlpha(colorInput);
+      console.log('Sending color to GAS:', cleanColor);
+
+      // Send to Google Apps Script using GASCommunicator
+      const response = await gasCommunicator.sendMessage('changeBg', { 
+        color: cleanColor 
+      }, (status) => {
+        console.log('Color change status:', status);
+      });
+
+      if (response.success) {
+        dispatch('colorChange', { color: cleanColor });
+      } else {
+        throw new Error(response.error || 'Failed to change background color');
+      }
     } catch (error) {
-      console.error('Error submitting color:', error);
+      console.error('Error changing background color:', error);
+      // Optionally reset color if change failed
+      currentColor.set($currentColor);
     } finally {
       setTimeout(() => {
         isSubmitting = false;
       }, 1000);
-    }
-  }
-
-  // Watch store changes and update picker
-  $: if (picker && $currentColor && !isSubmitting) {
-    const normalized = normalizeHexColor($currentColor);
-    if (normalized !== colorInput) {
-      colorInput = normalized;
-      console.log('Store update:', { normalized, current: colorInput });
-      picker.setColor(normalized, true); // Silent update
     }
   }
 </script>
@@ -135,12 +98,12 @@
   <div class="flex gap-2">
     <div 
       class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors"
-      style="background: linear-gradient(to right, {$currentColor} 2rem, white 2rem);"
+      style="background: linear-gradient(to right, {colorInput} 2rem, white 2rem);"
     >
       <span class="w-8"></span>
       <input
         type="text"
-        value={$currentColor}
+        value={colorInput}
         readonly
         class="bg-transparent border-none outline-none focus:outline-none w-full uppercase pl-2"
       />
@@ -148,7 +111,7 @@
     <Button 
       variant="default" 
       class="h-9"
-      disabled={isSubmitting || !pickerMounted}
+      disabled={isSubmitting}
       on:click={handleSubmit}
     >
       {isSubmitting ? '...' : 'Ok'}
@@ -176,17 +139,14 @@
     filter: brightness(0.8);
   }
 
-  /* Hide vanilla-picker's built-in input */
   :global(.picker_editor input) {
     display: none !important;
   }
 
-  /* Hide vanilla-picker's built-in button */
   :global(.picker_done button) {
     display: none !important;
   }
 
-  /* Hide alpha slider */
   :global(.picker_wrapper .picker_alpha) {
     display: none !important;
   }
