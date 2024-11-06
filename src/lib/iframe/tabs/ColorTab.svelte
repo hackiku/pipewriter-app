@@ -1,9 +1,10 @@
 <!-- $lib/iframe/tabs/ColorTab.svelte -->
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from 'svelte';
-  import { fade } from 'svelte/transition';
+  import { fade, slide } from 'svelte/transition';
   import ColorPicker from "../components/ColorPicker.svelte";
   import { currentColor } from '../stores';
+  import { GASCommunicator } from '../gasUtils';
   import { cn } from "$lib/utils";
   
   const dispatch = createEventDispatcher();
@@ -17,74 +18,20 @@
   
   let showColorPicker = false;
   let isProcessing = false;
-  let status: { type: 'success' | 'error' | 'processing'; message: string; executionTime?: number } | null = null;
+  let status: StatusUpdate | null = null;
+  let gasCommunicator: GASCommunicator;
 
-  // Track whether we're waiting for a response
-  let pendingResponse = false;
-  let responseTimeout: number;
-
-  function callGoogleScript(action: string, payload: Record<string, any> = {}) {
-    return new Promise((resolve, reject) => {
-      if (pendingResponse) {
-        clearTimeout(responseTimeout);
-      }
-
-      // Set up message handler
-      const messageHandler = (event: MessageEvent) => {
-        try {
-          // Handle direct success message
-          if (event.data === "Background changed") {
-            window.removeEventListener('message', messageHandler);
-            clearTimeout(responseTimeout);
-            pendingResponse = false;
-            resolve({ success: true });
-            return;
-          }
-
-          // Handle error message
-          if (event.data?.error) {
-            window.removeEventListener('message', messageHandler);
-            clearTimeout(responseTimeout);
-            pendingResponse = false;
-            reject(new Error(event.data.error));
-            return;
-          }
-
-          // Handle JSON response
-          const response = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
-          if (response.action === action) {
-            window.removeEventListener('message', messageHandler);
-            clearTimeout(responseTimeout);
-            pendingResponse = false;
-            resolve(response);
-          }
-        } catch (error) {
-          console.debug('Non-relevant message received:', event.data);
-        }
-      };
-
-      // Add message listener
-      window.addEventListener('message', messageHandler);
-
-      // Set timeout
-      responseTimeout = window.setTimeout(() => {
-        window.removeEventListener('message', messageHandler);
-        pendingResponse = false;
-        reject(new Error('Operation timed out'));
-      }, 3000);
-
-      // Send message
-      pendingResponse = true;
-      window.parent.postMessage(JSON.stringify({ 
-        action,
-        payload: {
-          color: payload.color
-        }
-      }), '*');
-    });
+  interface StatusUpdate {
+    type: 'success' | 'error' | 'processing';
+    message: string;
+    executionTime?: number;
   }
 
-  async function changeBackgroundColor(color: string) {
+  onMount(() => {
+    gasCommunicator = GASCommunicator.getInstance();
+  });
+
+  async function handleColorChange(color: string) {
     if (isProcessing) return;
     
     isProcessing = true;
@@ -94,14 +41,14 @@
     });
 
     try {
-      const result = await callGoogleScript('changeBg', { color });
+      const response = await gasCommunicator.sendMessage('changeBg', { color });
       
-      if (result.success) {
+      if (response.success) {
         currentColor.set(color);
         updateStatus({
           type: 'success',
           message: 'Color applied!',
-          executionTime: result.executionTime
+          executionTime: response.executionTime
         });
       }
     } catch (error) {
@@ -115,29 +62,16 @@
     }
   }
 
-  function updateStatus(newStatus: {
-    type: 'processing' | 'success' | 'error';
-    message: string;
-    executionTime?: number;
-  }) {
+  function updateStatus(newStatus: StatusUpdate) {
     status = newStatus;
-    
     if (newStatus.type !== 'processing') {
-      setTimeout(() => {
-        status = null;
-      }, 3000);
+      setTimeout(() => status = null, 3000);
     }
   }
 
   function handleColorPickerChange(event: CustomEvent<{ color: string }>) {
-    changeBackgroundColor(event.detail.color);
+    handleColorChange(event.detail.color);
   }
-
-  onDestroy(() => {
-    if (responseTimeout) {
-      clearTimeout(responseTimeout);
-    }
-  });
 
   $: statusClass = status && {
     success: "text-green-600 dark:text-green-400",
@@ -146,24 +80,42 @@
   }[status.type];
 </script>
 
-<section class="flex flex-col gap-2">
-  <!-- Color picker dropdown -->
+<div class="flex flex-col items-stretch w-full gap-2">
   {#if showColorPicker}
-    <div
-      class="w-full p-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600"
-      transition:fade={{ duration: 150 }}
+    <!-- Color picker bubble -->
+    <div 
+      class="relative z-10 w-full p-4 mb-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg"
+      transition:slide={{ duration: 150, axis: 'y' }}
     >
       <ColorPicker on:colorChange={handleColorPickerChange} />
     </div>
   {/if}
 
-  <!-- Preset colors row -->
-  <div class="flex items-center gap-2">
+  <!-- Status message -->
+  {#if status}
+    <div 
+      class="text-sm text-center {statusClass}"
+      transition:fade={{ duration: 200 }}
+    >
+      {status.message}
+      {#if status.executionTime}
+        <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">
+          ({status.executionTime}ms)
+        </span>
+      {/if}
+    </div>
+  {/if}
+
+  <!-- Color buttons -->
+  <div class="flex items-center justify-center gap-2">
     {#each presetColors as { color, title }}
       <button
-        on:click={() => changeBackgroundColor(color)}
+        on:click={() => handleColorChange(color)}
         class={cn(
-          "w-8 h-8 rounded-md border border-gray-300 dark:border-gray-600 hover:border-primary transition-colors",
+          "w-8 h-8 rounded-md border transition-all duration-200",
+          "border-gray-300 dark:border-gray-600",
+          "hover:border-primary hover:shadow-md",
+          "focus:ring-1 focus:ring-primary",
           isProcessing && "opacity-50 cursor-not-allowed"
         )}
         title={title}
@@ -176,30 +128,17 @@
     <button
       on:click={() => showColorPicker = !showColorPicker}
       class={cn(
-        "w-8 h-8 rounded-md border border-gray-300 dark:border-gray-600 hover:border-primary transition-colors overflow-hidden",
-        isProcessing && "opacity-50 cursor-not-allowed"
+        "w-8 h-8 rounded-md border transition-all duration-200",
+        "border-gray-300 dark:border-gray-600",
+        "hover:border-primary hover:shadow-md",
+        "focus:ring-1 focus:ring-primary",
+        isProcessing && "opacity-50 cursor-not-allowed",
+        showColorPicker && "border-primary shadow-md"
       )}
       style="background: linear-gradient(45deg, #FF0000, #00FF00, #0000FF);"
       title="Custom Color"
       disabled={isProcessing}
+      aria-expanded={showColorPicker}
     />
   </div>
-
-  <!-- Status message -->
-  {#if status}
-    <div 
-      class={cn(
-        "mt-2 text-sm text-center transition-opacity duration-200",
-        statusClass
-      )}
-      transition:fade
-    >
-      {status.message}
-      {#if status.executionTime}
-        <span class="text-xs text-gray-500 ml-2">
-          ({status.executionTime}ms)
-        </span>
-      {/if}
-    </div>
-  {/if}
-</section>
+</div>

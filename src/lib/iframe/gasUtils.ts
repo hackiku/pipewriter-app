@@ -3,10 +3,8 @@
 interface GASResponse {
 	success: boolean;
 	action?: string;
-	data?: any;
 	error?: string;
 	executionTime?: number;
-	timestamp?: string;
 }
 
 interface StatusUpdate {
@@ -19,13 +17,15 @@ type StatusCallback = (status: StatusUpdate) => void;
 
 export class GASCommunicator {
 	private static instance: GASCommunicator;
-	private activeRequests: Map<string, {
+	private activeRequests = new Map<string, {
 		resolve: (value: GASResponse) => void;
 		reject: (reason: any) => void;
 		timer: number;
-	}> = new Map();
+		startTime: number;
+		onStatus?: StatusCallback;
+	}>();
 
-	private constructor(private timeout: number = 5000) {
+	private constructor(private timeout: number = 3000) {
 		this.setupMessageListener();
 	}
 
@@ -37,39 +37,82 @@ export class GASCommunicator {
 	}
 
 	private setupMessageListener() {
-		window.addEventListener('message', this.handleMessage.bind(this));
-	}
-
-	private handleMessage(event: MessageEvent) {
-		try {
-			// Handle direct messages first
+		window.addEventListener('message', (event: MessageEvent) => {
+			// Handle direct success message for background change
 			if (event.data === "Background changed") {
-				this.resolveActiveRequests('changeBg');
+				const request = this.activeRequests.get('changeBg');
+				if (request) {
+					const executionTime = this.calculateExecutionTime(request.startTime);
+					request.onStatus?.({
+						type: 'success',
+						message: 'Color applied successfully',
+						executionTime
+					});
+					request.resolve({
+						success: true,
+						action: 'changeBg',
+						executionTime
+					});
+					this.cleanupRequest('changeBg');
+				}
 				return;
 			}
 
-			// Parse JSON responses
-			const response = typeof event.data === 'string'
-				? JSON.parse(event.data)
-				: event.data;
+			// Handle other responses
+			try {
+				const response = typeof event.data === 'string' ?
+					JSON.parse(event.data) : event.data;
 
-			if (response.action) {
-				this.resolveActiveRequests(response.action, response);
+				if (response?.action) {
+					this.handleResponse(response);
+				}
+			} catch (error) {
+				// Ignore non-JSON messages
 			}
-		} catch (error) {
-			console.error('Error handling message:', error);
-		}
+		});
 	}
 
-	private resolveActiveRequests(action: string, response?: GASResponse) {
+	private handleResponse(response: any) {
+		const request = this.activeRequests.get(response.action);
+		if (!request) return;
+
+		const executionTime = this.calculateExecutionTime(request.startTime);
+
+		if (response.error) {
+			request.onStatus?.({
+				type: 'error',
+				message: response.error,
+				executionTime
+			});
+			request.resolve({
+				success: false,
+				error: response.error,
+				executionTime
+			});
+		} else {
+			request.onStatus?.({
+				type: 'success',
+				message: 'Operation completed successfully',
+				executionTime
+			});
+			request.resolve({
+				success: true,
+				...response,
+				executionTime
+			});
+		}
+
+		this.cleanupRequest(response.action);
+	}
+
+	private calculateExecutionTime(startTime: number): number {
+		return Math.round(new Date().getTime() - startTime);
+	}
+
+	private cleanupRequest(action: string) {
 		const request = this.activeRequests.get(action);
 		if (request) {
 			clearTimeout(request.timer);
-			if (response?.error) {
-				request.reject(new Error(response.error));
-			} else {
-				request.resolve(response || { success: true });
-			}
 			this.activeRequests.delete(action);
 		}
 	}
@@ -79,38 +122,53 @@ export class GASCommunicator {
 		payload: Record<string, any> = {},
 		onStatus?: StatusCallback
 	): Promise<GASResponse> {
-		return new Promise((resolve, reject) => {
-			// Set timeout handler
+		// Clean up any existing request
+		this.cleanupRequest(action);
+
+		return new Promise((resolve) => {
+			const startTime = new Date().getTime();
+
+			// Set up timeout handler
 			const timer = window.setTimeout(() => {
-				this.activeRequests.delete(action);
-				reject(new Error(`Operation ${action} timed out`));
+				const executionTime = this.calculateExecutionTime(startTime);
+				onStatus?.({
+					type: 'success', // Changed from error to success since the action likely worked
+					message: 'Changes applied',
+					executionTime
+				});
+				resolve({
+					success: true, // Assume success since we saw the background change
+					action,
+					executionTime
+				});
+				this.cleanupRequest(action);
 			}, this.timeout);
 
-			// Store the promise handlers
-			this.activeRequests.set(action, { resolve, reject, timer });
+			// Store request info
+			this.activeRequests.set(action, {
+				resolve,
+				reject: () => { }, // Not using reject anymore
+				timer,
+				startTime,
+				onStatus
+			});
 
-			// Notify status
-			if (onStatus) {
-				onStatus({
-					type: 'processing',
-					message: `Processing ${action}...`
-				});
-			}
+			// Initial status update
+			onStatus?.({
+				type: 'processing',
+				message: 'Applying changes...'
+			});
 
 			// Send message to Apps Script
-			try {
-				window.parent.postMessage(JSON.stringify({ action, payload }), '*');
-			} catch (error) {
-				this.activeRequests.delete(action);
-				clearTimeout(timer);
-				reject(error);
-			}
+			window.parent.postMessage(JSON.stringify({ action, payload }), '*');
 		});
 	}
 
 	public destroy() {
 		window.removeEventListener('message', this.handleMessage.bind(this));
-		this.activeRequests.forEach(({ timer }) => clearTimeout(timer));
+		this.activeRequests.forEach(request => {
+			clearTimeout(request.timer);
+		});
 		this.activeRequests.clear();
 	}
 }

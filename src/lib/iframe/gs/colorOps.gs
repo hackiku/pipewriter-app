@@ -1,98 +1,84 @@
-// colorOps.gs - Color operations for Google Docs
+// colorOps.gs
 
 /**
- * Normalizes a color value to a format Google Docs accepts
+ * Handles all color-related operations for the document
+ */
+function processColorOperation(params) {
+	const startTime = new Date().getTime();
+	const response = {
+		success: false,
+		action: 'changeBg',
+		executionTime: 0
+	};
+
+	try {
+		// Extract and validate color
+		const color = params?.color || params?.payload?.color;
+		if (!color) {
+			throw new Error('No color specified');
+		}
+
+		// Get document and change background
+		const doc = DocumentApp.getActiveDocument();
+		const body = doc.getBody();
+
+		// Normalize and apply color
+		body.setBackgroundColor(normalizeColor(color));
+
+		// Set success response
+		response.success = true;
+
+	} catch (error) {
+		console.error('Error in processColorOperation:', error);
+		response.error = error.message;
+	} finally {
+		// Always include execution time
+		response.executionTime = new Date().getTime() - startTime;
+	}
+
+	return response;
+}
+
+/**
+ * Normalizes color values to RGB format
  * @param {string} color - Hex or RGB color string
- * @returns {string} Normalized color value
+ * @returns {string} RGB color string
  */
 function normalizeColor(color) {
-  // If already RGB format, return as is
-  if (color.startsWith('rgb')) {
-    return color;
-  }
+	if (!color) return null;
 
-  // Convert hex to RGB
-  let hex = color.replace('#', '');
-  
-  // Expand 3-digit hex
-  if (hex.length === 3) {
-    hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-  }
-  
-  // Parse hex to RGB
-  const r = parseInt(hex.substring(0, 2), 16);
-  const g = parseInt(hex.substring(2, 4), 16);
-  const b = parseInt(hex.substring(4, 6), 16);
-  
-  return `rgb(${r}, ${g}, ${b})`;
-}
+	// If already RGB format, return as is
+	if (color.toLowerCase().startsWith('rgb')) {
+		return color;
+	}
 
-/**
- * Changes the background color of the document
- * @param {Object} e - The event object from the frontend
- * @returns {Object} Response object
- */
-function changeBg(e) {
-  const startTime = new Date().getTime();
-  
-  try {
-    // Get parameters
-    const params = e.parameter || {};
-    if (!params.color) {
-      throw new Error('No color parameter provided');
-    }
+	// Handle hex colors
+	try {
+		let hex = color.replace('#', '').trim();
 
-    // Normalize the color value
-    const normalizedColor = normalizeColor(params.color);
-    
-    // Change background
-    const doc = DocumentApp.getActiveDocument();
-    const body = doc.getBody();
-    body.setBackgroundColor(normalizedColor);
+		// Expand shorthand hex
+		if (hex.length === 3) {
+			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
+		}
 
-    const executionTime = new Date().getTime() - startTime;
-    
-    return {
-      success: true,
-      action: 'changeBg',
-      color: normalizedColor,
-      executionTime: executionTime,
-      message: 'Background color updated successfully'
-    };
+		// Validate hex length
+		if (hex.length !== 6) {
+			throw new Error(`Invalid hex color: ${color}`);
+		}
 
-  } catch (error) {
-    console.error('Error in changeBg:', error);
-    
-    return {
-      success: false,
-      action: 'changeBg',
-      error: error.message,
-      executionTime: new Date().getTime() - startTime,
-      message: `Failed to update background color: ${error.message}`
-    };
-  }
-}
+		// Convert to RGB
+		const r = parseInt(hex.substring(0, 2), 16);
+		const g = parseInt(hex.substring(2, 4), 16);
+		const b = parseInt(hex.substring(4, 6), 16);
 
-/**
- * Gets the current background color
- * @returns {Object} Current background color info
- */
-function getCurrentBg() {
-  try {
-    const doc = DocumentApp.getActiveDocument();
-    const body = doc.getBody();
-    const color = body.getBackgroundColor();
-    
-    return {
-      success: true,
-      action: 'getCurrentBg',
-      color: color || '#FFFFFF'
-    };
-  } catch (error) {
-    return {
-      success: false,
-      action: 'getCurrentBg',
-      error: error.message
-    };
-  }
+		// Validate RGB values
+		if (isNaN(r) || isNaN(g) || isNaN(b)) {
+			throw new Error(`Invalid hex color values: ${color}`);
+		}
+
+		return `rgb(${r}, ${g}, ${b})`;
+	} catch (error) {
+		console.error('Error normalizing color:', error);
+		throw new Error(`Invalid color format: ${color}`);
+	}
 }
