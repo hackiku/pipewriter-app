@@ -48,7 +48,7 @@
 	}
 </script>
 
-<main class="flex flex-col h-[95vh] overflow-hidden -my-3 -mr-2">
+<main class="flex flex-col h-[95vh] overflow-hidden -my-3 -mx-2">
 	<!-- Rest of the template remains the same -->
 	<section class="flex-none">
 		<TopBar />
