@@ -1,15 +1,15 @@
 <!-- $lib/iframe/tabs/TextTab.svelte -->
-
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
-  import { Save, Loader2, ThumbsUp, AlertCircle, Heading } from "lucide-svelte";
+  import { Save, Loader2, ThumbsUp, AlertCircle, Heading, Trash2, Type } from "lucide-svelte";
+  import { Button } from "$lib/components/ui/button";
+  import { GASCommunicator } from "../gasUtils";
   import { getElement } from "../elements";
   import ElementCard from "../components/ElementCard.svelte";
   import TextStyleDropdown from "../components/TextStyleDropdown.svelte";
   import { elementsTheme } from "../stores";
   import OutlineButton from "../components/OutlineButton.svelte";
-  import { GASCommunicator } from "../gasUtils";
 
   const dispatch = createEventDispatcher();
   const elementId = "styleguide";
@@ -17,19 +17,11 @@
   const gas = GASCommunicator.getInstance(5000);
 
   let isProcessing = false;
+  let showDeleteConfirm = false;
   let status: StatusUpdate | null = null;
   let selectedStyle = null;
+  let savedStyles: any[] = [];
   
-  let headingStyles = [
-    { value: "NORMAL", tag: "p", label: "Normal text", fontSize: 11, saved: false },
-    { value: "HEADING1", tag: "h1", label: "Heading 1", fontSize: 32, saved: false },
-    { value: "HEADING2", tag: "h2", label: "Heading 2", fontSize: 24, saved: false },
-    { value: "HEADING3", tag: "h3", label: "Heading 3", fontSize: 20, saved: false },
-    { value: "HEADING4", tag: "h4", label: "Heading 4", fontSize: 16, saved: false },
-    { value: "HEADING5", tag: "h5", label: "Heading 5", fontSize: 14, saved: false },
-    { value: "HEADING6", tag: "h6", label: "Heading 6", fontSize: 12, saved: false },
-  ];
-
   interface StatusUpdate {
     type: "success" | "error" | "processing";
     message: string;
@@ -62,19 +54,20 @@
     }
   }
 
-  function handleStyleSelect(event: CustomEvent) {
+  async function handleStyleSelect(event: CustomEvent) {
     selectedStyle = event.detail;
+    showDeleteConfirm = false;
   }
 
   async function handleSaveStyle() {
-    if (isProcessing || !selectedStyle) return;
+    if (isProcessing) return;
     isProcessing = true;
     dispatch("processingStart");
 
     try {
       const response = await gas.sendMessage(
-        "detectHeadingStyle", 
-        { heading: selectedStyle.value },
+        "detectHeadingStyle",
+        {},
         updateStatus
       );
 
@@ -82,9 +75,12 @@
         throw new Error(response.error || "Failed to save style");
       }
 
-      headingStyles = headingStyles.map(s => 
-        s.value === selectedStyle.value ? { ...s, saved: true } : s
-      );
+      // Add new style to saved styles
+      if (response.styleInfo) {
+        savedStyles = [...savedStyles, response.styleInfo];
+        selectedStyle = response.styleInfo;
+      }
+
     } catch (error) {
       updateStatus({
         type: "error",
@@ -104,7 +100,7 @@
     try {
       const response = await gas.sendMessage(
         "updateMatchingStyles",
-        { heading: selectedStyle.value },
+        { style: selectedStyle },
         updateStatus
       );
 
@@ -122,19 +118,10 @@
     }
   }
 
-  function handleDeleteSaved(event: CustomEvent) {
-    const style = event.detail;
-    headingStyles = headingStyles.map(s => 
-      s.value === style.value ? { ...s, saved: false } : s
-    );
-    if (selectedStyle?.value === style.value) {
-      selectedStyle = null;
-    }
-  }
-
   function handleDeleteAll() {
-    headingStyles = headingStyles.map(s => ({ ...s, saved: false }));
+    savedStyles = [];
     selectedStyle = null;
+    showDeleteConfirm = false;
   }
 
   function updateStatus(newStatus: StatusUpdate) {
@@ -149,39 +136,42 @@
     error: "bg-red-500/5 border-red-500/10 text-red-700",
     processing: "bg-blue-500/5 border-blue-500/10 text-blue-700"
   }[status.type];
+
+  $: applyButtonDisabled = !selectedStyle || isProcessing;
 </script>
 
-{#if status}
-  <div
-    class="absolute bottom-0 left-0 right-0 h-8 flex items-center justify-center gap-2 border-t {statusClass}"
-    transition:fade={{ duration: 200 }}
-  >
-    <div class="flex items-center gap-2">
-      {#if status.type === "processing"}
-        <Loader2 class="h-3 w-3 animate-spin" />
-      {:else if status.type === "success"}
-        <ThumbsUp class="h-3 w-3" />
-      {:else if status.type === "error"}
-        <AlertCircle class="h-3 w-3" />
-      {/if}
-      <span class="text-xs font-medium">{status.message}</span>
-      {#if status.executionTime}
-        <span class="text-xs opacity-50">({status.executionTime}ms)</span>
-      {/if}
+<div class="relative flex flex-col items-stretch w-full gap-2">
+  <!-- Status Message -->
+  {#if status}
+    <div
+      class="absolute bottom-0 left-0 right-0 h-8 flex items-center justify-center gap-2 border-t {statusClass}"
+      transition:fade={{ duration: 200 }}
+    >
+      <div class="flex items-center gap-2">
+        {#if status.type === "processing"}
+          <Loader2 class="h-3 w-3 animate-spin" />
+        {:else if status.type === "success"}
+          <ThumbsUp class="h-3 w-3" />
+        {:else if status.type === "error"}
+          <AlertCircle class="h-3 w-3" />
+        {/if}
+        <span class="text-xs font-medium">{status.message}</span>
+        {#if status.executionTime}
+          <span class="text-xs opacity-50">({status.executionTime}ms)</span>
+        {/if}
+      </div>
     </div>
-  </div>
-{/if}
+  {/if}
 
-<div class="relative flex flex-col items-stretch w-full gap-2 pt-4">
+  <!-- Style Dropdown -->
   <TextStyleDropdown
-    {headingStyles}
     {selectedStyle}
+    {savedStyles}
     disabled={isProcessing}
     on:select={handleStyleSelect}
-    on:deleteSaved={handleDeleteSaved}
-    on:deleteAll={handleDeleteAll}
   />
 
+  <!-- Element Grid -->
   <div class="flex items-start gap-2 h-24">
     <div class="w-2/5 h-full">
       {#if element}
@@ -197,22 +187,43 @@
       {/if}
     </div>
 
-    <div class="flex w-3/5 gap-1">
-      <div class="flex flex-col w-4/5 gap-1">
-        <OutlineButton
-          icon={Save}
-          label="Save"
-          onClick={handleSaveStyle}
-          class="h-6"
-          disabled={isProcessing || !selectedStyle}
-        />
-        <OutlineButton
-          icon={Heading}
-          label="Apply"
-          onClick={handleApplyStyle}
-          class="h-6"
-          disabled={isProcessing || !selectedStyle}
-        />
+    <!-- Action Buttons -->
+    <div class="flex flex-col w-3/5 gap-1">
+      <!-- Save Button -->
+      <OutlineButton
+        icon={Type}
+        label="Save"
+        onClick={handleSaveStyle}
+        disabled={isProcessing}
+				class="h-6 w-full"
+      />
+
+      <!-- Apply Style Row -->
+      <div class="flex gap-1">
+        {#if savedStyles.length > 0 && !showDeleteConfirm}
+          <Button
+            variant="outline"
+            size="icon"
+            class="h-6 w-6"
+            on:click={() => showDeleteConfirm = true}
+          >
+            <Trash2 class="h-3 w-3" />
+          </Button>
+        {/if}
+
+        <Button
+          variant="outline"
+          class="h-6 text-xs flex-1 flex items-center gap-2"
+          disabled={applyButtonDisabled && !showDeleteConfirm}
+          on:click={showDeleteConfirm ? handleDeleteAll : handleApplyStyle}
+        >
+          {#if showDeleteConfirm}
+            Delete all styles?
+          {:else}
+            <Heading class="h-3 w-3" />
+            Apply
+          {/if}
+        </Button>
       </div>
     </div>
   </div>
