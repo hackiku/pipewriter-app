@@ -1,19 +1,15 @@
-<!-- $lib/iframe/tabs/TextTab.svelte -->
+<!-- src/lib/iframe/tabs/TextTab.svelte -->
+
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
-  import { Save, Loader2, ThumbsUp, AlertCircle, Heading, Trash2, Type } from "lucide-svelte";
-  import { Button } from "$lib/components/ui/button";
+  import { Loader2, ThumbsUp, AlertCircle } from "lucide-svelte";
   import { GASCommunicator } from "../gasUtils";
-  import { getElement } from "../elements";
-  import ElementCard from "../components/ElementCard.svelte";
   import TextStyleDropdown from "../components/TextStyleDropdown.svelte";
+  import TextButtons from "../components/TextButtons.svelte";
   import { elementsTheme } from "../stores";
-  import OutlineButton from "../components/OutlineButton.svelte";
 
   const dispatch = createEventDispatcher();
-  const elementId = "styleguide";
-  const element = getElement(elementId);
   const gas = GASCommunicator.getInstance(5000);
 
   let isProcessing = false;
@@ -26,6 +22,15 @@
     type: "success" | "error" | "processing";
     message: string;
     executionTime?: number;
+  }
+
+  interface StyleInfo {
+    type: string;
+    headingType: string;
+    text: string;
+    index: number;
+    textAttributes: Record<string, any>;
+    paragraphAttributes: Record<string, any>;
   }
 
   async function handleStyleGuideInsert() {
@@ -75,12 +80,33 @@
         throw new Error(response.error || "Failed to save style");
       }
 
-      // Add new style to saved styles
-      if (response.styleInfo) {
-        savedStyles = [...savedStyles, response.styleInfo];
-        selectedStyle = response.styleInfo;
-      }
+      // Add new style to saved styles if we got valid style info
+      if (response.data?.styleInfo) {
+        const styleInfo = response.data.styleInfo;
+        
+        // Create a simplified style object with needed properties
+        const newStyle = {
+          id: Date.now().toString(),
+          headingType: styleInfo.headingType,
+          tag: getTagFromHeadingType(styleInfo.headingType),
+          label: styleInfo.text || 'Unnamed style',
+          fontSize: styleInfo.textAttributes.fontSize,
+          fontFamily: styleInfo.textAttributes.fontFamily,
+          textAttributes: styleInfo.textAttributes,
+          paragraphAttributes: styleInfo.paragraphAttributes,
+          saved: true
+        };
 
+        // Add to saved styles and select it
+        savedStyles = [...savedStyles, newStyle];
+        selectedStyle = newStyle;
+        
+        updateStatus({
+          type: "success",
+          message: "Style saved successfully",
+          executionTime: response.executionTime
+        });
+      }
     } catch (error) {
       updateStatus({
         type: "error",
@@ -131,13 +157,25 @@
     }
   }
 
+  // Helper function to convert heading type to tag
+  function getTagFromHeadingType(headingType: string): string {
+    const map: Record<string, string> = {
+      'NORMAL': 'p',
+      'HEADING1': 'h1',
+      'HEADING2': 'h2',
+      'HEADING3': 'h3',
+      'HEADING4': 'h4',
+      'HEADING5': 'h5',
+      'HEADING6': 'h6'
+    };
+    return map[headingType] || 'p';
+  }
+
   $: statusClass = status && {
     success: "bg-green-500/5 border-green-500/10 text-green-700",
     error: "bg-red-500/5 border-red-500/10 text-red-700",
     processing: "bg-blue-500/5 border-blue-500/10 text-blue-700"
   }[status.type];
-
-  $: applyButtonDisabled = !selectedStyle || isProcessing;
 </script>
 
 <div class="relative flex flex-col items-stretch w-full gap-2">
@@ -171,60 +209,17 @@
     on:select={handleStyleSelect}
   />
 
-  <!-- Element Grid -->
-  <div class="flex items-start gap-2 h-24">
-    <div class="w-2/5 h-full">
-      {#if element}
-        <ElementCard
-          {element}
-          onSelect={handleStyleGuideInsert}
-          theme={$elementsTheme}
-        />
-      {:else}
-        <div class="w-full h-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
-          <span class="text-muted-foreground">Style guide not found</span>
-        </div>
-      {/if}
-    </div>
-
-    <!-- Action Buttons -->
-    <div class="flex flex-col w-3/5 gap-1">
-      <!-- Save Button -->
-      <OutlineButton
-        icon={Type}
-        label="Save"
-        onClick={handleSaveStyle}
-        disabled={isProcessing}
-				class="h-6 w-full"
-      />
-
-      <!-- Apply Style Row -->
-      <div class="flex gap-1">
-        {#if savedStyles.length > 0 && !showDeleteConfirm}
-          <Button
-            variant="outline"
-            size="icon"
-            class="h-6 w-6"
-            on:click={() => showDeleteConfirm = true}
-          >
-            <Trash2 class="h-3 w-3" />
-          </Button>
-        {/if}
-
-        <Button
-          variant="outline"
-          class="h-6 text-xs flex-1 flex items-center gap-2"
-          disabled={applyButtonDisabled && !showDeleteConfirm}
-          on:click={showDeleteConfirm ? handleDeleteAll : handleApplyStyle}
-        >
-          {#if showDeleteConfirm}
-            Delete all styles?
-          {:else}
-            <Heading class="h-3 w-3" />
-            Apply
-          {/if}
-        </Button>
-      </div>
-    </div>
-  </div>
+  <!-- Buttons Section -->
+	<TextButtons
+    {isProcessing}
+    {showDeleteConfirm}
+    {selectedStyle}
+    savedCount={savedStyles.length}
+    theme={$elementsTheme}
+    on:insertStyleGuide={handleStyleGuideInsert}
+    on:save={handleSaveStyle}
+    on:apply={handleApplyStyle}
+    on:deleteAll={handleDeleteAll}
+    on:toggleDeleteConfirm={() => showDeleteConfirm = !showDeleteConfirm}
+  />
 </div>
