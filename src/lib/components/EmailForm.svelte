@@ -1,3 +1,5 @@
+<!-- $lib/components/EmailForm.svelte -->
+
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { Check, X } from 'lucide-svelte';

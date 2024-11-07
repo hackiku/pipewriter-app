@@ -57,7 +57,9 @@
 
 
 <div class="relative h-full z-0">
+	
 	<ChainDropper />
+	
 	<div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
 		{#if Object.entries(groupedByCategory).length > 0}
 			{#each Object.entries(groupedByCategory) as [category, categoryElements]}

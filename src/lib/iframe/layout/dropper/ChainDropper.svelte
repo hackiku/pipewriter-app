@@ -6,7 +6,7 @@
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
   import { Link, ArrowRight } from "lucide-svelte";
-  import { showAboutModal } from "../../stores/modalStore";
+  import { showAboutModal } from "../../stores/aboutStore";
 
   let showTooltip = false;
 </script>

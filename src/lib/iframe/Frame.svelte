@@ -3,13 +3,16 @@
 	import { onMount } from "svelte";
 	import { fade, slide, fly } from "svelte/transition";
 	import * as Resizable from "$lib/components/ui/resizable";
-
+	
 	import Dropper from "./layout/Dropper.svelte";
 	import TopBar from "./layout/TopBar.svelte";
 	import BottomBar from "./layout/BottomBar.svelte";
 	import Tabs from "./layout/Tabs.svelte";
+	// import AppAbout from "./layout/AppAbout.svelte"
+	
 	import { elements } from "./elements";
 	import { showInfo, zenMode } from "./stores";
+  import { showAboutModal } from "./stores/aboutStore";
 
 	function callGAS(action: string, payload: Record<string, any> = {}) {
     const message = {
@@ -49,6 +52,11 @@
 </script>
 
 <main class="flex flex-col h-[95vh] overflow-hidden -my-3 -mx-2">
+	
+	<!-- {#if $showAboutModal}
+		<AppAbout />
+	{/if} -->
+
 	<!-- Rest of the template remains the same -->
 	<section class="flex-none">
 		<TopBar />
