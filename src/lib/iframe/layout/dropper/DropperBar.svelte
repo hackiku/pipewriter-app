@@ -1,12 +1,12 @@
 <!-- $lib/iframe/layout/dropper/DropperBar.svelte -->
+<!-- $lib/iframe/layout/dropper/DropperBar.svelte -->
 <script lang="ts">
   import { elementsTheme } from '../../stores';
   import { dropperStore, chainMode, dropperStatus } from '../../stores/dropperStore';
   import { Link } from 'lucide-svelte';
   import { slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
-  import { cn } from "$lib/utils";
-  import { Button } from "$lib/components/ui/button";
+  import IconButton from "../../components/IconButton.svelte";
   import ColorButton from "../../components/ColorButton.svelte";
   import * as Tooltip from "$lib/components/ui/tooltip";
 
@@ -25,6 +25,11 @@
 
   $: currentTheme = themes.find(t => t.id === $elementsTheme) || themes[1];
   $: otherThemes = themes.filter(t => t.id !== currentTheme.id);
+  $: chainModeTooltip = $chainMode 
+    ? "Exit chain mode" 
+    : "Enter chain mode" + ($dropperStatus.hasElements 
+        ? ` (${$dropperStatus.selectedElements?.length} selected)` 
+        : "");
 </script>
 
 <div class="relative dropper-container">
@@ -44,72 +49,36 @@
         {#if showThemes}
           {#each otherThemes as theme}
             <div in:slide={{ duration: 300, easing: quintOut, axis: 'y' }}>
-              <Tooltip.Root>
-                <Tooltip.Trigger asChild>
-                  <ColorButton
-                    color={theme.color}
-                    title={theme.label}
-                    isSelected={false}
-                    on:click={() => setTheme(theme.id)}
-                  />
-                </Tooltip.Trigger>
-                <Tooltip.Content>
-                  <p>Switch to {theme.label} theme</p>
-                </Tooltip.Content>
-              </Tooltip.Root>
+              <ColorButton
+                color={theme.color}
+                title={theme.label}
+                isSelected={false}
+                tooltipContent={`Switch to ${theme.label} theme`}
+                on:click={() => setTheme(theme.id)}
+              />
             </div>
           {/each}
         {/if}
 
         <!-- Chain Mode Button -->
-        <Tooltip.Root>
-          <Tooltip.Trigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              class={cn(
-                "h-7 w-7 p-2 rounded-full",
-                $chainMode && "bg-primary/10"
-              )}
-              on:click={() => dropperStore.toggleChainMode()}
-              disabled={$dropperStatus.isProcessing}
-            >
-              <Link 
-                size={16} 
-                class={cn(
-                  "transition-colors",
-                  $chainMode ? "text-primary" : "text-muted-foreground"
-                )} 
-              />
-            </Button>
-          </Tooltip.Trigger>
-          <Tooltip.Content>
-            <p>
-              {$chainMode ? "Exit chain mode" : "Enter chain mode"}
-              {#if $dropperStatus.hasElements}
-                <span class="text-xs opacity-75">
-                  ({$dropperStatus.selectedElements?.length} selected)
-                </span>
-              {/if}
-            </p>
-          </Tooltip.Content>
-        </Tooltip.Root>
+        <IconButton
+          icon={Link}
+          size="sm"
+          selected={$chainMode}
+          disabled={$dropperStatus.isProcessing}
+          tooltipContent={chainModeTooltip}
+          on:click={() => dropperStore.toggleChainMode()}
+        />
 
         <!-- Theme Toggle Button -->
-        <Tooltip.Root>
-          <Tooltip.Trigger asChild>
-            <ColorButton
-              color={currentTheme.color}
-              title={currentTheme.label}
-              isSelected={showThemes}
-							class="w-7 h-7"
-              on:click={() => showThemes = !showThemes}
-            />
-          </Tooltip.Trigger>
-          <Tooltip.Content>
-            <p>{showThemes ? "Hide themes" : "Show themes"}</p>
-          </Tooltip.Content>
-        </Tooltip.Root>
+        <ColorButton
+          color={currentTheme.color}
+          title={currentTheme.label}
+          isSelected={showThemes}
+          tooltipContent={showThemes ? "Hide themes" : "Show themes"}
+          class="w-7 h-7"
+          on:click={() => showThemes = !showThemes}
+        />
       </div>
     </div>
   </div>

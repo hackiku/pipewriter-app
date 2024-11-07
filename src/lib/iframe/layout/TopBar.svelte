@@ -2,8 +2,9 @@
 <script lang="ts">
   import { toggleMode } from "mode-watcher";
   import { showInfo, zenMode } from '$lib/iframe/stores';
-  import { Info, Sun, Moon, Minimize2 } from "lucide-svelte";
+  import { Info, Sun, Moon, Minimize2, MaximizeIcon } from "lucide-svelte";
   import IconButton from '../components/IconButton.svelte';
+  import { fade } from 'svelte/transition';
 
   function toggleShowInfo() {
     showInfo.update(n => !n);
@@ -19,27 +20,58 @@
     isDarkMode = !isDarkMode;
     toggleMode();
   }
+
+  // Tooltip contents
+  $: zenModeTooltip = $zenMode ? 'Exit Zen Mode' : 'Enter Zen Mode';
+  $: infoTooltip = $showInfo ? 'Hide Labels' : 'Show Labels';
 </script>
 
-<div class="flex items-center justify-between">
+<div class="flex items-center justify-between py-2">
   <IconButton
     icon={Minimize2}
     selected={$zenMode}
-    tooltip={$zenMode ? 'Exit Zen Mode' : 'Enter Zen Mode'}
-    onClick={toggleZenMode}
+    size="sm"
+    tooltipContent={zenModeTooltip}
+    className="hover:rotate-90 transition-transform duration-200"
+    on:click={toggleZenMode}
   />
   
-  <div class="flex items-center gap-1">
+  <div class="flex items-center justify-middle gap-2">
     <IconButton
       icon={Info}
       selected={$showInfo}
-      tooltip="Show Info"
-      onClick={toggleShowInfo}
+      size="sm"
+      tooltipContent={infoTooltip}
+      className="hover:rotate-12 transition-transform duration-200"
+      on:click={toggleShowInfo}
     />
-    <IconButton
-      icon={isDarkMode ? Moon : Sun}
-      tooltip="Toggle Theme"
-      onClick={handleToggleMode}
-    />
+    
+    <div class="relative w-8 h-8">
+      {#key isDarkMode}
+        <div
+          in:fade={{ duration: 200 }}
+          out:fade={{ duration: 200 }}
+          class="absolute inset-0"
+        >
+          <IconButton
+            icon={isDarkMode ? Moon : Sun}
+            size="sm"
+            tooltipContent="Toggle theme"
+            className={isDarkMode 
+              ? "hover:rotate-12 transition-transform duration-200" 
+              : "hover:rotate-90 transition-transform duration-200"
+            }
+            on:click={handleToggleMode}
+          />
+        </div>
+      {/key}
+    </div>
   </div>
 </div>
+
+<style>
+  /* Optional: Add a subtle transition for the container itself */
+  div {
+    transition: background-color 0.2s ease;
+  }
+</style>

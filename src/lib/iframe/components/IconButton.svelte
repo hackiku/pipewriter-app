@@ -7,40 +7,58 @@
   import type { LucideIcon } from 'lucide-svelte';
   import { Info } from 'lucide-svelte';
 
-  interface IconButtonProps {
-    icon?: typeof LucideIcon;
-    selected?: boolean;
-    tooltip?: string;
-    onClick?: () => void;
-  }
-
-  export let icon: IconButtonProps['icon'] = Info;
-  export let selected: IconButtonProps['selected'] = false;
-  export let tooltip: IconButtonProps['tooltip'] = undefined;
-  export let onClick: IconButtonProps['onClick'] = () => {};
+  export let icon: typeof LucideIcon = Info;
+  export let label: string | undefined = undefined;
+  export let selected = false;
+  export let disabled = false;
+  export let size: "sm" | "md" | "lg" = "md";
+  export let variant: "ghost" | "outline" | "secondary" = "ghost";
+  export let tooltipContent: string | undefined = undefined;
+  export let className: string | undefined = undefined;
+  
+  $: sizeClasses = {
+    sm: "h-7 w-7 p-1.5",
+    md: "h-8 w-8 p-2",
+    lg: "h-9 w-9 p-2"
+  };
 
   $: buttonClass = cn(
-    "p-2 rounded-full transition-colors duration-200",
-    "hover:bg-gray-200 dark:hover:bg-gray-700",
-    "border-none",
-    selected ? "bg-primary text-primary-foreground hover:bg-primary-dark hover:text-primary-foreground" : "text-foreground"
+    "rounded-full transition-all duration-200",
+    sizeClasses[size],
+    selected && "bg-primary/10 text-primary hover:bg-primary/20",
+    !selected && "text-muted-foreground hover:text-foreground",
+    disabled && "opacity-50 cursor-not-allowed",
+    className
   );
 </script>
 
-<Tooltip.Root>
-  <Tooltip.Trigger asChild>
-    <Button
-      variant="ghost"
-      size="icon"
-      class={buttonClass}
-      on:click={onClick}
-    >
-      <svelte:component this={icon} class="h-4 w-4" />
-    </Button>
-  </Tooltip.Trigger>
-  {#if tooltip}
+{#if tooltipContent}
+  <Tooltip.Root>
+    <Tooltip.Trigger asChild>
+      <Button
+        {variant}
+        size="icon"
+        class={buttonClass}
+        {disabled}
+        on:click
+      >
+        <svelte:component this={icon} class={cn("w-full h-full", label && "mr-2")} />
+        {#if label}<span class="sr-only">{label}</span>{/if}
+      </Button>
+    </Tooltip.Trigger>
     <Tooltip.Content>
-      <p>{tooltip}</p>
+      <p>{tooltipContent}</p>
     </Tooltip.Content>
-  {/if}
-</Tooltip.Root>
+  </Tooltip.Root>
+{:else}
+  <Button
+    {variant}
+    size="icon"
+    class={buttonClass}
+    {disabled}
+    on:click
+  >
+    <svelte:component this={icon} class={cn("w-full h-full", label && "mr-2")} />
+    {#if label}<span class="sr-only">{label}</span>{/if}
+  </Button>
+{/if}
