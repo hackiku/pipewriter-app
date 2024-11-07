@@ -1,5 +1,4 @@
 <!-- src/lib/iframe/tabs/TextTab.svelte -->
-
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
@@ -8,6 +7,7 @@
   import TextStyleDropdown from "../components/TextStyleDropdown.svelte";
   import TextButtons from "../components/TextButtons.svelte";
   import { elementsTheme } from "../stores";
+  import { textStyles, selectedStyle as selectedStyleStore, type TextStyle } from "../stores/textStyles";
 
   const dispatch = createEventDispatcher();
   const gas = GASCommunicator.getInstance(5000);
@@ -16,21 +16,11 @@
   let showDeleteConfirm = false;
   let status: StatusUpdate | null = null;
   let selectedStyle = null;
-  let savedStyles: any[] = [];
   
   interface StatusUpdate {
     type: "success" | "error" | "processing";
     message: string;
     executionTime?: number;
-  }
-
-  interface StyleInfo {
-    type: string;
-    headingType: string;
-    text: string;
-    index: number;
-    textAttributes: Record<string, any>;
-    paragraphAttributes: Record<string, any>;
   }
 
   async function handleStyleGuideInsert() {
@@ -59,79 +49,117 @@
     }
   }
 
-  async function handleStyleSelect(event: CustomEvent) {
-    selectedStyle = event.detail;
+  async function handleStyleSelect(event: CustomEvent<TextStyle>) {
+    selectedStyleStore.set(event.detail);
     showDeleteConfirm = false;
   }
 
-  async function handleSaveStyle() {
-    if (isProcessing) return;
-    isProcessing = true;
-    dispatch("processingStart");
+	async function handleSaveStyle() {
+  console.log('Starting style save...'); 
+  if (isProcessing) return;
+  
+  isProcessing = true;
+  dispatch("processingStart");
 
-    try {
-      const response = await gas.sendMessage(
-        "detectHeadingStyle",
-        {},
-        updateStatus
-      );
+  try {
+    const response = await gas.sendMessage(
+      "detectHeadingStyle",
+      {}, // empty payload
+      updateStatus
+    );
 
-      if (!response.success) {
-        throw new Error(response.error || "Failed to save style");
-      }
+    console.log('Raw GAS response:', response);
 
-      // Add new style to saved styles if we got valid style info
-      if (response.data?.styleInfo) {
-        const styleInfo = response.data.styleInfo;
-        
-        // Create a simplified style object with needed properties
-        const newStyle = {
-          id: Date.now().toString(),
-          headingType: styleInfo.headingType,
-          tag: getTagFromHeadingType(styleInfo.headingType),
-          label: styleInfo.text || 'Unnamed style',
-          fontSize: styleInfo.textAttributes.fontSize,
-          fontFamily: styleInfo.textAttributes.fontFamily,
-          textAttributes: styleInfo.textAttributes,
-          paragraphAttributes: styleInfo.paragraphAttributes,
-          saved: true
-        };
-
-        // Add to saved styles and select it
-        savedStyles = [...savedStyles, newStyle];
-        selectedStyle = newStyle;
-        
-        updateStatus({
-          type: "success",
-          message: "Style saved successfully",
-          executionTime: response.executionTime
-        });
-      }
-    } catch (error) {
-      updateStatus({
-        type: "error",
-        message: error instanceof Error ? error.message : "Failed to save style"
-      });
-    } finally {
-      isProcessing = false;
-      dispatch("processingEnd");
+    if (!response.success) {
+      throw new Error(response.error || "Failed to detect style");
     }
-  }
 
+    // The style info comes directly in response.data
+    const styleInfo = response.data;
+    console.log('Detected style info:', styleInfo);
+
+    if (!styleInfo) {
+      throw new Error("No style info in response");
+    }
+
+    // Create a new TextStyle object
+    const newStyle: TextStyle = {
+      id: Date.now().toString(),
+      headingType: styleInfo.headingType,
+      tag: getTagFromHeadingType(styleInfo.headingType),
+      label: styleInfo.text || 'Unnamed style',
+      fontSize: styleInfo.textAttributes?.fontSize,
+      fontFamily: styleInfo.textAttributes?.fontFamily,
+      textAttributes: {
+        bold: styleInfo.textAttributes?.bold || false,
+        italic: styleInfo.textAttributes?.italic || false,
+        underline: styleInfo.textAttributes?.underline || false,
+        strikethrough: styleInfo.textAttributes?.strikethrough || false,
+        foregroundColor: styleInfo.textAttributes?.foregroundColor,
+        backgroundColor: styleInfo.textAttributes?.backgroundColor
+      },
+      paragraphAttributes: {
+        lineSpacing: styleInfo.paragraphAttributes?.lineSpacing,
+        alignment: styleInfo.paragraphAttributes?.alignment,
+        marginLeft: styleInfo.paragraphAttributes?.marginLeft,
+        marginRight: styleInfo.paragraphAttributes?.marginRight,
+        firstLineIndent: styleInfo.paragraphAttributes?.firstLineIndent,
+        spacingBefore: styleInfo.paragraphAttributes?.spacingBefore,
+        spacingAfter: styleInfo.paragraphAttributes?.spacingAfter
+      },
+      saved: true
+    };
+
+    console.log('Created new style object:', newStyle);
+
+    // Save to store and select it
+    textStyles.saveStyle(newStyle);
+    selectedStyleStore.set(newStyle);
+
+    updateStatus({
+      type: "success",
+      message: `Saved style "${styleInfo.text}"`,
+      executionTime: response.executionTime
+    });
+
+  } catch (error) {
+    console.error('Save style error:', error);
+    updateStatus({
+      type: "error",
+      message: error instanceof Error ? error.message : "Failed to save style"
+    });
+  } finally {
+    isProcessing = false;
+    dispatch("processingEnd");
+  }
+}
+	
   async function handleApplyStyle() {
-    if (isProcessing || !selectedStyle) return;
+    if (isProcessing) return;
+    const currentStyle = $selectedStyleStore;
+    if (!currentStyle) return;
+    
     isProcessing = true;
     dispatch("processingStart");
 
     try {
       const response = await gas.sendMessage(
         "updateMatchingStyles",
-        { style: selectedStyle },
+        { style: currentStyle },
         updateStatus
       );
 
       if (!response.success) {
         throw new Error(response.error || "Failed to apply style");
+      }
+
+      // If successful, show how many paragraphs were updated
+      if (response.data?.updatedCount !== undefined) {
+        updateStatus({
+          type: "success",
+          message: `Updated ${response.data.updatedCount} paragraphs`,
+          executionTime: response.executionTime
+        });
       }
     } catch (error) {
       updateStatus({
@@ -145,8 +173,8 @@
   }
 
   function handleDeleteAll() {
-    savedStyles = [];
-    selectedStyle = null;
+    textStyles.deleteAll();
+    selectedStyleStore.set(null);
     showDeleteConfirm = false;
   }
 
@@ -157,19 +185,19 @@
     }
   }
 
-  // Helper function to convert heading type to tag
-  function getTagFromHeadingType(headingType: string): string {
-    const map: Record<string, string> = {
-      'NORMAL': 'p',
-      'HEADING1': 'h1',
-      'HEADING2': 'h2',
-      'HEADING3': 'h3',
-      'HEADING4': 'h4',
-      'HEADING5': 'h5',
-      'HEADING6': 'h6'
-    };
-    return map[headingType] || 'p';
-  }
+	// Helper function for tag names
+	function getTagFromHeadingType(headingType: string): string {
+		const map: Record<string, string> = {
+			'NORMAL': 'p',
+			'HEADING1': 'h1',
+			'HEADING2': 'h2',
+			'HEADING3': 'h3',
+			'HEADING4': 'h4',
+			'HEADING5': 'h5',
+			'HEADING6': 'h6'
+		};
+		return map[headingType] || 'p';
+	}
 
   $: statusClass = status && {
     success: "bg-green-500/5 border-green-500/10 text-green-700",
@@ -203,18 +231,17 @@
 
   <!-- Style Dropdown -->
   <TextStyleDropdown
-    {selectedStyle}
-    {savedStyles}
+    selectedStyle={$selectedStyleStore}
     disabled={isProcessing}
     on:select={handleStyleSelect}
   />
 
   <!-- Buttons Section -->
-	<TextButtons
+  <TextButtons
     {isProcessing}
     {showDeleteConfirm}
-    {selectedStyle}
-    savedCount={savedStyles.length}
+    selectedStyle={$selectedStyleStore}
+    savedCount={$textStyles.filter(s => s.saved).length}
     theme={$elementsTheme}
     on:insertStyleGuide={handleStyleGuideInsert}
     on:save={handleSaveStyle}
