@@ -1,4 +1,5 @@
 <!-- $lib/iframe/tabs/TextTab.svelte -->
+
 <script lang="ts">
   import { onMount, createEventDispatcher } from "svelte";
   import { fade } from "svelte/transition";
@@ -17,6 +18,8 @@
 
   let isProcessing = false;
   let status: StatusUpdate | null = null;
+  let selectedStyle = null;
+  
   let headingStyles = [
     { value: "NORMAL", tag: "p", label: "Normal text", fontSize: 11, saved: false },
     { value: "HEADING1", tag: "h1", label: "Heading 1", fontSize: 32, saved: false },
@@ -59,17 +62,19 @@
     }
   }
 
-  async function handleSaveStyle(event: CustomEvent) {
-    if (isProcessing) return;
+  function handleStyleSelect(event: CustomEvent) {
+    selectedStyle = event.detail;
+  }
+
+  async function handleSaveStyle() {
+    if (isProcessing || !selectedStyle) return;
     isProcessing = true;
     dispatch("processingStart");
 
-    const style = event.detail;
-
     try {
       const response = await gas.sendMessage(
-        "saveHeadingStyle", 
-        { heading: style.value },
+        "detectHeadingStyle", 
+        { heading: selectedStyle.value },
         updateStatus
       );
 
@@ -78,7 +83,7 @@
       }
 
       headingStyles = headingStyles.map(s => 
-        s.value === style.value ? { ...s, saved: true } : s
+        s.value === selectedStyle.value ? { ...s, saved: true } : s
       );
     } catch (error) {
       updateStatus({
@@ -92,17 +97,14 @@
   }
 
   async function handleApplyStyle() {
-    if (isProcessing) return;
-    const savedStyle = headingStyles.find(s => s.saved);
-    if (!savedStyle) return;
-
+    if (isProcessing || !selectedStyle) return;
     isProcessing = true;
     dispatch("processingStart");
 
     try {
       const response = await gas.sendMessage(
-        "applyHeadingStyle",
-        { heading: savedStyle.value },
+        "updateMatchingStyles",
+        { heading: selectedStyle.value },
         updateStatus
       );
 
@@ -125,10 +127,14 @@
     headingStyles = headingStyles.map(s => 
       s.value === style.value ? { ...s, saved: false } : s
     );
+    if (selectedStyle?.value === style.value) {
+      selectedStyle = null;
+    }
   }
 
   function handleDeleteAll() {
     headingStyles = headingStyles.map(s => ({ ...s, saved: false }));
+    selectedStyle = null;
   }
 
   function updateStatus(newStatus: StatusUpdate) {
@@ -169,15 +175,15 @@
 <div class="relative flex flex-col items-stretch w-full gap-2 pt-4">
   <TextStyleDropdown
     {headingStyles}
+    {selectedStyle}
     disabled={isProcessing}
-    on:select={handleSaveStyle}
+    on:select={handleStyleSelect}
     on:deleteSaved={handleDeleteSaved}
     on:deleteAll={handleDeleteAll}
   />
 
   <div class="flex items-start gap-2 h-24">
-    
-		<div class="w-2/5 h-full">
+    <div class="w-2/5 h-full">
       {#if element}
         <ElementCard
           {element}
@@ -192,26 +198,22 @@
     </div>
 
     <div class="flex w-3/5 gap-1">
-      
-			<div class="flex flex-col w-4/5 gap-1 items-center justify-middle">
+      <div class="flex flex-col w-4/5 gap-1">
         <OutlineButton
           icon={Save}
           label="Save"
           onClick={handleSaveStyle}
           class="h-6"
-          disabled={isProcessing}
+          disabled={isProcessing || !selectedStyle}
         />
         <OutlineButton
           icon={Heading}
           label="Apply"
           onClick={handleApplyStyle}
           class="h-6"
-          disabled={isProcessing}
+          disabled={isProcessing || !selectedStyle}
         />
       </div>
-			<div class="w-1/5 bg-gray-400 rounded-md">
-				xxx
-			</div>
     </div>
   </div>
 </div>
