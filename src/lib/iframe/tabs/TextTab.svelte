@@ -136,9 +136,6 @@
 
 
 
-  {#if $showInfo}
-    <h2 class="font-semibold text-xs opacity-20 uppercase mb-2 -mt-2">Text Styles</h2>
-  {/if}
 
   {#if showOptions}
     <div 
@@ -200,15 +197,14 @@
 
       <!-- Update Button - Using existing OutlineButton design -->
 
-			<div class="h-7">
-				<OutlineButton
-								icon={Heading}
-								label="Update current"
-								onClick={handleUpdateHeading}
-							/>
-			</div>
+			<OutlineButton
+        icon={Heading}
+        label="Update current"
+        onClick={handleUpdateHeading}
+				class="h-7"
+				disabled={isProcessing}
+      />
     </div>
   </div>
 
-  <!-- Status bar at bottom -->
 </div>

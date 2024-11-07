@@ -102,10 +102,11 @@
 
     <!-- label -->
     {#if $showInfo}
-      <h2 class="text-xs opacity-40 mb-2 uppercase">
-        Styles
+      <h2 class="text-xs font-semibold uppercsase tracking-wide text-muted-foreground/60 pr-2 mt-2">
+        {$activeTab === 'text' ? 'Text' : 
+         $activeTab === 'color' ? 'Background' : 
+         $activeTab === 'ai' ? 'AI / Code' : 'Styles'}
       </h2>
     {/if}
   </div>
 </div>
-

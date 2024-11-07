@@ -6,7 +6,7 @@
   import { Copy, Check, Loader2, ThumbsUp, AlertCircle } from 'lucide-svelte';
   import ColorPicker from "../components/ColorPicker.svelte";
   import ColorButton from "../components/ColorButton.svelte";
-  import { currentColor, showInfo } from '../stores';
+  import { currentColor } from '../stores';
   import { GASCommunicator } from '../gasUtils';
   import { cn } from "$lib/utils";
   
@@ -113,9 +113,7 @@
 </script>
 
 <div class="relative flex flex-col items-stretch w-full gap-2 pt-4">
-  {#if $showInfo}
-    <h2 class="font-semibold text-xs opacity-20 uppercase mb-2">Background Color</h2>
-  {/if}
+
 
   {#if showColorPicker}
     <div 
