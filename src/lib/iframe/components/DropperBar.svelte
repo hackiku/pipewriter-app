@@ -41,8 +41,8 @@
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-10">
     <div class={cn(
       "relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg",
-      showThemes ? "rounded-t-2xl" : "rounded-t-2xl",
-      "transition-all duration-800 ease-out"
+      showThemes ? "rounded-t-2xl -pt-2" : "rounded-t-2xl",
+      "transition-all duration-300 ease-out"
     )}>
       <!-- All Buttons Container -->
       <div class="grid grid-cols-2 gap-3 p-3">
