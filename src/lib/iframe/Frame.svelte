@@ -51,7 +51,7 @@
 	}
 </script>
 
-<main class="flex flex-col h-[95vh] overflow-hidden -my-3 -mx-1">
+<main class="flex flex-col h-[95vh] overflow-hidden -my-4 -mx-1">
 	<section class="flex-none">
 		<TopBar />
 		<hr />
