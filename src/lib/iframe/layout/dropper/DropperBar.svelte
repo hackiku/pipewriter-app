@@ -27,17 +27,19 @@
   $: otherThemes = themes.filter(t => t.id !== currentTheme.id);
 </script>
 
-<div class="relative">
+<div class="relative dropper-container">
   <!-- Background Gradient -->
   <div 
-    class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background from-40% via-background/80 via-70% to-transparent"
+    class="absolute bottom-0 left-0 right-0 h-20 
+           bg-gradient-to-t from-background from-40% via-background/80 via-70% to-transparent 
+           pointer-events-none"
     aria-hidden="true"
   />
 
   <!-- Control Bar -->
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-40">
-    <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg p-2">
-      <div class="grid grid-cols-2 gap-2 p-1 w-fit">
+    <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
+      <div class="grid grid-cols-2 gap-3 p-3 w-fit">
         <!-- Theme Selection Buttons -->
         {#if showThemes}
           {#each otherThemes as theme}
@@ -66,13 +68,19 @@
               variant="ghost"
               size="icon"
               class={cn(
-                "h-8 w-8 p-2 rounded-full",
+                "h-7 w-7 p-2 rounded-full",
                 $chainMode && "bg-primary/10"
               )}
               on:click={() => dropperStore.toggleChainMode()}
               disabled={$dropperStatus.isProcessing}
             >
-              <Link size={16} class={$chainMode ? "text-primary" : "text-muted-foreground"} />
+              <Link 
+                size={16} 
+                class={cn(
+                  "transition-colors",
+                  $chainMode ? "text-primary" : "text-muted-foreground"
+                )} 
+              />
             </Button>
           </Tooltip.Trigger>
           <Tooltip.Content>
@@ -94,6 +102,7 @@
               color={currentTheme.color}
               title={currentTheme.label}
               isSelected={showThemes}
+							class="w-7 h-7"
               on:click={() => showThemes = !showThemes}
             />
           </Tooltip.Trigger>
@@ -107,7 +116,12 @@
 </div>
 
 <style>
-  :global([data-radix-popper-content-wrapper]) {
+  .dropper-container {
+    position: relative;
+    z-index: 10;
+  }
+
+  :global(.dropper-container [data-radix-popper-content-wrapper]) {
     z-index: 50 !important;
   }
 </style>

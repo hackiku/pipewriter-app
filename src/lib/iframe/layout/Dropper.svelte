@@ -4,13 +4,11 @@
 	import { getElement } from "../elements";
 	import type { ElementObject } from "../elements";
 	import { createEventDispatcher } from "svelte";
-	
 
 	import ElementCard from "../components/ElementCard.svelte";
 	import DropperBar from "./dropper/DropperBar.svelte";
-  import ChainDropper from "./dropper/ChainDropper.svelte";
+	import ChainDropper from "./dropper/ChainDropper.svelte";
 
-	
 	import { showInfo, elementsTheme, zenMode } from "../stores";
 	import type { ThemeType } from "../stores";
 
@@ -84,11 +82,11 @@
 			<p>No elements available.</p>
 		{/if}
 	</div>
-
-	<!-- {#if !$zenMode} -->
 	<div
-		class={`w-full bottom-0 ${$zenMode ? "fixed" : ""}`}
-		in:slide={{ duration: 100, axis: "y" }}
+		class={`w-full transition-all duration-200 ${
+			$zenMode ? "fixed bottom-0 left-1/2 -translate-x-1/2" : ""
+		}`}
+		in:slide={{ duration: 200, axis: "y" }}
 		out:fly={{ duration: 200 }}
 	>
 		<DropperBar />
