@@ -34,6 +34,10 @@
     gasCommunicator = GASCommunicator.getInstance();
   });
 
+  function stripAlpha(color: string): string {
+    return color.replace(/FF$/, '').slice(0, 7).toUpperCase();
+  }
+
   async function handleColorChange(color: string) {
     if (isProcessing) return;
     
@@ -44,15 +48,18 @@
     });
 
     try {
-      const response = await gasCommunicator.sendMessage('changeBg', { color });
+      const cleanColor = stripAlpha(color);
+      const response = await gasCommunicator.sendMessage('changeBg', { color: cleanColor });
       
       if (response.success) {
-        currentColor.set(color);
+        currentColor.set(cleanColor);
         updateStatus({
           type: 'success',
           message: 'Color applied!',
           executionTime: response.executionTime
         });
+      } else {
+        throw new Error(response.error || 'Failed to change color');
       }
     } catch (error) {
       console.error('Failed to change background:', error);
@@ -73,7 +80,7 @@
   }
 
   function handleColorUpdate(event: CustomEvent<{ color: string }>) {
-    currentColor.set(event.detail.color);
+    currentColor.set(stripAlpha(event.detail.color));
   }
 
   async function copyColorToClipboard() {
