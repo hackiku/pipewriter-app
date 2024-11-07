@@ -85,7 +85,7 @@
           </button>
         </div>
 
-        <div class="w-6 -mt-2">
+        <div class="w-6">
           <ColorButton
             color={currentTheme.color}
             title={currentTheme.label}
