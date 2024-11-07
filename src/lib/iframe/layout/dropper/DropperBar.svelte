@@ -44,7 +44,7 @@
   <!-- Control Bar -->
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-40">
     <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
-      <div class="grid grid-cols-2 gap-3 p-3 w-fit">
+      <div class="grid grid-cols-2 gap-2 p-3 w-fit">
         <!-- Theme Selection Buttons -->
         {#if showThemes}
           {#each otherThemes as theme}
