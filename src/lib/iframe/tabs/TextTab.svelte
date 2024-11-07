@@ -9,6 +9,7 @@
   import { elementsTheme, showInfo } from '../stores';
   import { cn } from "$lib/utils";
   import OutlineButton from "../components/OutlineButton.svelte";
+  import { GASCommunicator } from '../gasUtils';
 
   const headingOptions = [
     { value: 'HEADING1', label: '<h1>Headline', description: 'Heading 1' },
@@ -23,6 +24,7 @@
   const dispatch = createEventDispatcher();
   const elementId = "styleguide";
   const element = getElement(elementId);
+  const gas = GASCommunicator.getInstance(5000);
   
   let isProcessing = false;
   let status: StatusUpdate | null = null;
@@ -35,39 +37,52 @@
     executionTime?: number;
   }
 
+  function getSelectedHeadingInfo() {
+    return headingOptions.find(h => h.value === selectedHeading);
+  }
+
+  async function handleStyleGuideInsert() {
+    if (isProcessing) return;
+    isProcessing = true;
+    dispatch('processingStart');
+    
+    try {
+      const response = await gas.sendMessage('getElement', { 
+        elementId: 'styleguide' 
+      }, updateStatus);
+      
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to insert style guide');
+      }
+    } catch (error) {
+      updateStatus({
+        type: 'error',
+        message: error instanceof Error ? error.message : 'Failed to insert style guide'
+      });
+    } finally {
+      isProcessing = false;
+      dispatch('processingEnd');
+    }
+  }
+
   function handleSetHeading(value: string) {
     if (isProcessing) return;
     selectedHeading = value;
     showOptions = false;
     
-    window.parent.postMessage(JSON.stringify({
-      action: 'setHeading',
-      payload: { heading: value }
-    }), '*');
+    gas.sendMessage('setHeading', { heading: value }, updateStatus);
   }
 
   async function handleUpdateHeading() {
     if (isProcessing) return;
-    
     isProcessing = true;
     dispatch('processingStart');
-    updateStatus({
-      type: 'processing',
-      message: 'Updating heading styles...'
-    });
-
+    
     try {
-      window.parent.postMessage(JSON.stringify({
-        action: 'updateHeading',
-        payload: {}
-      }), '*');
-      
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      updateStatus({
-        type: 'success',
-        message: 'Styles updated!',
-        executionTime: 1000
-      });
+      const response = await gas.sendMessage('updateHeading', {}, updateStatus);
+      if (!response.success) {
+        throw new Error(response.error || 'Failed to update styles');
+      }
     } catch (error) {
       updateStatus({
         type: 'error',
@@ -91,11 +106,38 @@
     error: "bg-red-500/5 border-red-500/10 text-red-700",
     processing: "bg-blue-500/5 border-blue-500/10 text-blue-700"
   }[status.type];
+
+  $: selectedInfo = getSelectedHeadingInfo();
 </script>
 
-<div class="relative flex flex-col items-stretch w-full gap-2 pt-4">
+	{#if status}
+    <div 
+      class="absolute bottom-0 left-0 right-0 h-8 flex items-center justify-center gap-2 border-t {statusClass}"
+      transition:fade={{ duration: 200 }}
+    >
+      <div class="flex items-center gap-2">
+        {#if status.type === 'processing'}
+          <Loader2 class="h-3 w-3 animate-spin" />
+        {:else if status.type === 'success'}
+          <ThumbsUp class="h-3 w-3" />
+        {:else if status.type === 'error'}
+          <AlertCircle class="h-3 w-3" />
+        {/if}
+        <span class="text-xs font-medium">{status.message}</span>
+        {#if status.executionTime}
+          <span class="text-xs opacity-50">({status.executionTime}ms)</span>
+        {/if}
+      </div>
+    </div>
+  {/if}
+
+
+	<div class="relative flex flex-col items-stretch w-full gap-2 pt-4">
+
+
+
   {#if $showInfo}
-    <h2 class="font-semibold text-xs opacity-20 uppercase mb-2">Text Styles</h2>
+    <h2 class="font-semibold text-xs opacity-20 uppercase mb-2 -mt-2">Text Styles</h2>
   {/if}
 
   {#if showOptions}
@@ -120,13 +162,15 @@
     </div>
   {/if}
 
-  <div class="flex items-start gap-4 h-32">
+
+
+  <div class="flex items-start gap-4 h-24">
     <!-- Left side: Element Card -->
     <div class="w-2/5 h-full">
       {#if element}
         <ElementCard 
           {element} 
-          onSelect={() => showOptions = !showOptions}
+          onSelect={handleStyleGuideInsert}
           theme={$elementsTheme}
         />
       {:else}
@@ -141,56 +185,30 @@
       <!-- Current Selection Button -->
       <Button
         variant="outline"
-        size="icon"
-        class="h-9 aspect-square"
+        class="h-7 w-full justify-between px-3 font-mono text-xs"
         disabled={isProcessing}
         on:click={() => showOptions = !showOptions}
       >
+        <span class="flex items-center gap-2">
+          {selectedInfo?.label || 'Select style'}
+        </span>
         <ChevronDown class={cn(
           "h-4 w-4 transition-transform duration-200",
           showOptions && "rotate-180"
         )} />
       </Button>
 
-      <!-- Update Button -->
-    <OutlineButton
-      icon={Heading}
-      label="Update current"
-      on:click={handleUpdateHeading}
-    />
+      <!-- Update Button - Using existing OutlineButton design -->
 
-			<Button 
-        variant="secondary"
-        size="icon"
-        class="h-9 flex-1"
-        disabled={isProcessing}
-        on:click={handleUpdateHeading}
-      >
-        <Heading class="h-4 w-4 mr-2" />
-        	<span class="text-xs font-mono">Update Similar</span>
-      </Button>
+			<div class="h-7">
+				<OutlineButton
+								icon={Heading}
+								label="Update current"
+								onClick={handleUpdateHeading}
+							/>
+			</div>
     </div>
   </div>
 
-  <!-- Status overlay -->
-  {#if status}
-    <div 
-      class="absolute inset-0 z-50 flex items-center justify-center gap-2 rounded-lg border backdrop-blur-[0.2em] {statusClass}"
-      transition:fade={{ duration: 200 }}
-    >
-      <div class="flex items-center gap-2 px-4 py-2">
-        {#if status.type === 'processing'}
-          <Loader2 class="h-4 w-4 animate-spin" />
-        {:else if status.type === 'success'}
-          <ThumbsUp class="h-4 w-4" />
-        {:else if status.type === 'error'}
-          <AlertCircle class="h-4 w-4" />
-        {/if}
-        <span class="text-sm font-medium">{status.message}</span>
-        {#if status.executionTime}
-          <span class="text-xs text-muted-foreground">({status.executionTime}ms)</span>
-        {/if}
-      </div>
-    </div>
-  {/if}
+  <!-- Status bar at bottom -->
 </div>
