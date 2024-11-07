@@ -21,7 +21,7 @@
   $: buttonClass = cn(
     "transition-all duration-200 relative z-10",
     $showAboutModal
-      ? `w-9 h-[calc(3rem+1px)] rounded-b-full ${BG_STYLE}
+      ? `w-9 h-12 rounded-b-full ${BG_STYLE}
          border-b border-l border-r border-gray-300 dark:border-gray-600
          after:content-[''] after:absolute after:top-[-1px] after:left-0 after:right-0 after:h-[1px] after:bg-inherit`
       : "w-9 h-9 rounded-full -mt-1 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"

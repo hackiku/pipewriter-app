@@ -51,12 +51,7 @@
 	}
 </script>
 
-<main class="flex flex-col h-[95vh] overflow-hidden -my-3 -mx-2">
-	
-	{#if $showAboutModal}
-		<AppAbout />
-	{/if}
-
+<main class="flex flex-col h-[95vh] overflow-hidden -my-3 -mx-1">
 	<section class="flex-none">
 		<TopBar />
 		<hr />
@@ -83,8 +78,7 @@
 			<div class="mb-2">
 				<Tabs />
 			</div>
-			
-			<div class="border-t border-gray-200 dark:border-gray-700 z-50"></div>
+			<AppAbout />
 			<BottomBar />
 		</section>
 	{/if}
