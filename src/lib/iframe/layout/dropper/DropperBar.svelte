@@ -1,5 +1,4 @@
 <!-- $lib/iframe/layout/dropper/DropperBar.svelte -->
-<!-- $lib/iframe/layout/dropper/DropperBar.svelte -->
 <script lang="ts">
   import { elementsTheme } from '../../stores';
   import { dropperStore, chainMode, dropperStatus } from '../../stores/dropperStore';
@@ -8,7 +7,7 @@
   import { quintOut } from 'svelte/easing';
   import IconButton from "../../components/IconButton.svelte";
   import ColorButton from "../../components/ColorButton.svelte";
-  import * as Tooltip from "$lib/components/ui/tooltip";
+  import GridSwitcher from "../../components/GridSwitcher.svelte";
 
   let showThemes = false;
 
@@ -44,22 +43,7 @@
   <!-- Control Bar -->
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-40">
     <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
-      <div class="grid grid-cols-2 gap-2 p-3 w-fit">
-        <!-- Theme Selection Buttons -->
-        {#if showThemes}
-          {#each otherThemes as theme}
-            <div in:slide={{ duration: 300, easing: quintOut, axis: 'y' }}>
-              <ColorButton
-                color={theme.color}
-                title={theme.label}
-                isSelected={false}
-                tooltipContent={`Switch to ${theme.label} theme`}
-                on:click={() => setTheme(theme.id)}
-              />
-            </div>
-          {/each}
-        {/if}
-
+      <div class="grid grid-cols-3 gap-2 p-3 w-fit items-center">
         <!-- Chain Mode Button -->
         <IconButton
           icon={Link}
@@ -76,10 +60,31 @@
           title={currentTheme.label}
           isSelected={showThemes}
           tooltipContent={showThemes ? "Hide themes" : "Show themes"}
-          class="w-7 h-7"
+          class="w-7 h-7 p-2"
           on:click={() => showThemes = !showThemes}
         />
+
+        <!-- Grid Switcher -->
+        <GridSwitcher disabled={$dropperStatus.isProcessing} />
       </div>
+
+      <!-- Theme Selection Panel -->
+      {#if showThemes}
+        <div 
+          class="grid grid-cols-2 gap-2 px-3 pb-3"
+          in:slide={{ duration: 300, easing: quintOut, axis: 'y' }}
+        >
+          {#each otherThemes as theme}
+            <ColorButton
+              color={theme.color}
+              title={theme.label}
+              isSelected={false}
+              tooltipContent={`Switch to ${theme.label} theme`}
+              on:click={() => setTheme(theme.id)}
+            />
+          {/each}
+        </div>
+      {/if}
     </div>
   </div>
 </div>

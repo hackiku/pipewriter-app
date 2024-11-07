@@ -1,131 +1,126 @@
 <!-- $lib/iframe/layout/Dropper.svelte -->
 <script lang="ts">
-	import { fade, slide, fly } from "svelte/transition";
-	import { getElement } from "../elements";
-	import type { ElementObject } from "../elements";
-	import { createEventDispatcher } from "svelte";
+  import { fade, slide, fly } from "svelte/transition";
+  import { getElement } from "../elements";
+  import type { ElementObject } from "../elements";
+  import { createEventDispatcher } from "svelte";
+  import ElementCard from "../components/ElementCard.svelte";
+  import DropperBar from "./dropper/DropperBar.svelte";
+  import ChainDropper from "./dropper/ChainDropper.svelte";
+  import { showInfo, elementsTheme, zenMode } from "../stores";
+  import { gridClass } from "../stores/gridStore";
+  import type { ThemeType } from "../stores";
 
-	import ElementCard from "../components/ElementCard.svelte";
-	import DropperBar from "./dropper/DropperBar.svelte";
-	import ChainDropper from "./dropper/ChainDropper.svelte";
+  export let elements: Record<string, ElementObject>;
+  export let callGAS: (action: string, params: Record<string, any>) => void;
 
-	import { showInfo, elementsTheme, zenMode } from "../stores";
-	import type { ThemeType } from "../stores";
+  const dispatch = createEventDispatcher();
+  let isProcessing = false;
 
-	export let elements: Record<string, ElementObject>;
-	export let callGAS: (action: string, params: Record<string, any>) => void;
+  $: filteredElements = Object.values(elements).filter((element) => {
+    const isDarkVariant = element.id.includes("-dark");
+    return $elementsTheme === "dark" ? isDarkVariant : !isDarkVariant;
+  });
 
-	const dispatch = createEventDispatcher();
-	let isProcessing = false;
+  $: groupedByCategory = filteredElements.reduce((acc, el) => {
+    const category = el.category;
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(el);
+    return acc;
+  }, {} as Record<string, ElementObject[]>);
 
-	$: filteredElements = Object.values(elements).filter((element) => {
-		const isDarkVariant = element.id.includes("-dark");
-		return $elementsTheme === "dark" ? isDarkVariant : !isDarkVariant;
-	});
+  async function selectElement(elementId: string) {
+    const element = getElement(elementId);
+    if (element) {
+      try {
+        const result = await callGAS("getElement", { elementId });
+        dispatch("elementSelected", { elementId, result });
+      } catch (error) {
+        console.error(`Failed to fetch element: ${elementId}`, error);
+        dispatch("elementError", { elementId, error: error.message });
+      }
+    }
+  }
 
-	$: groupedByCategory = filteredElements.reduce(
-		(acc, el) => {
-			const category = el.category;
-			if (!acc[category]) acc[category] = [];
-			acc[category].push(el);
-			return acc;
-		},
-		{} as Record<string, ElementObject[]>,
-	);
+  function handleProcessingStart() {
+    isProcessing = true;
+  }
 
-	async function selectElement(elementId: string) {
-		const element = getElement(elementId);
-		if (element) {
-			try {
-				const result = await callGAS("getElement", { elementId });
-				dispatch("elementSelected", { elementId, result });
-			} catch (error) {
-				console.error(`Failed to fetch element: ${elementId}`, error);
-				dispatch("elementError", { elementId, error: error.message });
-			}
-		}
-	}
-
-	function handleProcessingStart() {
-		isProcessing = true;
-	}
-
-	function handleProcessingEnd() {
-		isProcessing = false;
-	}
+  function handleProcessingEnd() {
+    isProcessing = false;
+  }
 </script>
 
-
 <div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
-	
-	<ChainDropper />
-	
-	<div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 pl-2">
-		{#if Object.entries(groupedByCategory).length > 0}
-			{#each Object.entries(groupedByCategory) as [category, categoryElements]}
-				<div class="category-section mb-2">
-					{#if $showInfo}
-						<h3 class="text-xs font-normal text-gray-400 mb-1">
-							{category.replace("-", " ")}
-						</h3>
-					{/if}
-					<div class="grid grid-cols-3 gap-2">
-						{#each categoryElements as element (element.id)}
-							<ElementCard
-								{element}
-								onSelect={selectElement}
-								theme={$elementsTheme}
-								on:processingStart={handleProcessingStart}
-								on:processingEnd={handleProcessingEnd}
-							/>
-						{/each}
-					</div>
-				</div>
-			{/each}
-		{:else}
-			<p>No elements available.</p>
-		{/if}
-	</div>
-	<div
-		class={`w-full transition-all duration-200 ${
-			$zenMode ? "fixed bottom-0 left-1/2 -translate-x-1/2" : ""
-		}`}
-		in:slide={{ duration: 200, axis: "y" }}
-		out:fly={{ duration: 200 }}
-	>
-		<DropperBar />
-	</div>
+  <ChainDropper />
+  
+  <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 {$gridClass.padding}">
+    {#if Object.entries(groupedByCategory).length > 0}
+      {#each Object.entries(groupedByCategory) as [category, categoryElements]}
+        <div class="category-section mb-2">
+          {#if $showInfo}
+            <h3 class="text-xs font-normal text-gray-400 mb-1">
+              {category.replace("-", " ")}
+            </h3>
+          {/if}
+          <div class="grid {$gridClass.grid} {$gridClass.gap}">
+            {#each categoryElements as element (element.id)}
+              <ElementCard
+                {element}
+                onSelect={selectElement}
+                theme={$elementsTheme}
+                on:processingStart={handleProcessingStart}
+                on:processingEnd={handleProcessingEnd}
+              />
+            {/each}
+          </div>
+        </div>
+      {/each}
+    {:else}
+      <p>No elements available.</p>
+    {/if}
+  </div>
+
+  <div
+    class={`w-full transition-all duration-200 ${
+      $zenMode ? "fixed bottom-0 left-1/2 -translate-x-1/2" : ""
+    }`}
+    in:slide={{ duration: 200, axis: "y" }}
+    out:fly={{ duration: 200 }}
+  >
+    <DropperBar />
+  </div>
 </div>
 
 <style>
-	/* Custom scrollbar styling */
-	.custom-scrollbar {
-		scrollbar-width: thin;
-		scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
-		-webkit-overflow-scrolling: touch;
-	}
+  /* Custom scrollbar styling */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
+    -webkit-overflow-scrolling: touch;
+  }
 
-	.custom-scrollbar::-webkit-scrollbar {
-		width: 4px;
-		height: 4px;
-	}
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
 
-	.custom-scrollbar::-webkit-scrollbar-track {
-		background: transparent;
-		margin: 4rem 0;
-	}
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 4rem 0;
+  }
 
-	.custom-scrollbar::-webkit-scrollbar-thumb {
-		background-color: rgba(155, 155, 155, 0.5);
-		border-radius: 4px;
-		min-height: 40px;
-	}
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background-color: rgba(155, 155, 155, 0.5);
+    border-radius: 4px;
+    min-height: 40px;
+  }
 
-	.custom-scrollbar::-webkit-scrollbar-track {
-		-webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1);
-	}
+  .custom-scrollbar::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1);
+  }
 
-	.custom-scrollbar::-webkit-scrollbar-thumb:hover {
-		background-color: rgba(155, 155, 155, 0.7);
-	}
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(155, 155, 155, 0.7);
+  }
 </style>
