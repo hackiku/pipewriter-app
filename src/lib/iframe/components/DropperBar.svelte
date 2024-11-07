@@ -1,18 +1,18 @@
 <!-- $lib/iframe/components/DropperBar.svelte -->
 
 <script lang="ts">
-  import { elementsTheme, chainMode } from '../stores';
-  import { Sun, Moon, Palette, Link } from 'lucide-svelte';
-  import { fade, slide } from 'svelte/transition';
-  import { cubicOut } from 'svelte/easing';
+  import { elementsTheme, chainMode, currentColor } from '../stores';
+  import { Link } from 'lucide-svelte';
+  import { slide } from 'svelte/transition';
   import { cn } from "$lib/utils";
+  import ColorButton from "./ColorButton.svelte";
 
   let showThemes = false;
 
   const themes = [
-    { id: 'dark', label: 'Dark', icon: Moon },
-    { id: 'white', label: 'White', icon: Sun },
-    { id: 'gray', label: 'Gray', icon: Palette }
+    { id: 'dark', color: '#171717', label: 'Dark' },
+    { id: 'white', color: '#FFFFFF', label: 'White' },
+    { id: 'gray', color: '#A3A3A3', label: 'Gray' }
   ] as const;
 
   function setTheme(themeId: string) {
@@ -45,17 +45,13 @@
         </button>
 
         <!-- Theme Button with Expansion -->
-        <div class="relative">
-          <button
-            class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+        <div class="relative w-6 h-6">
+          <ColorButton
+            color={currentTheme.color}
+            title={currentTheme.label}
+            isSelected={true}
             on:click={() => showThemes = !showThemes}
-          >
-            <svelte:component 
-              this={currentTheme.icon} 
-              size={18} 
-              class="text-foreground"
-            />
-          </button>
+          />
 
           {#if showThemes}
             <div 
@@ -63,17 +59,12 @@
               transition:slide={{duration: 150, axis: 'y'}}
             >
               {#each otherThemes as theme}
-                <button
-                  class="p-2 rounded-full bg-white dark:bg-gray-800 shadow-lg hover:bg-gray-100 
-                         dark:hover:bg-gray-700 transition-colors border border-gray-200 dark:border-gray-700"
+                <ColorButton
+                  color={theme.color}
+                  title={theme.label}
+                  isSelected={$currentColor === theme.color}
                   on:click={() => setTheme(theme.id)}
-                >
-                  <svelte:component 
-                    this={theme.icon} 
-                    size={18} 
-                    class="text-muted-foreground" 
-                  />
-                </button>
+                />
               {/each}
             </div>
           {/if}

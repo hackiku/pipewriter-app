@@ -19,7 +19,7 @@
   }
 
   $: buttonClass = cn(
-    "w-8 h-8 rounded-full transition-all duration-200",
+    "aspect-square w-full rounded-full transition-all duration-200",
     "border-2",
     isSelected ? "border-primary shadow-md" : "border-gray-300 dark:border-gray-600",
     "hover:border-primary hover:shadow-md",

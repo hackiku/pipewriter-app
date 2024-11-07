@@ -3,10 +3,10 @@
   import { onMount, createEventDispatcher } from 'svelte';
   import { fade, slide } from 'svelte/transition';
   import { Button } from "$lib/components/ui/button";
-  import { Copy, Check } from 'lucide-svelte';
+  import { Copy, Check, Loader2, ThumbsUp, AlertCircle } from 'lucide-svelte';
   import ColorPicker from "../components/ColorPicker.svelte";
   import ColorButton from "../components/ColorButton.svelte";
-  import { currentColor } from '../stores';
+  import { currentColor, showInfo } from '../stores';
   import { GASCommunicator } from '../gasUtils';
   import { cn } from "$lib/utils";
   
@@ -91,6 +91,12 @@
       setTimeout(() => isCopied = false, 2000);
     } catch (err) {
       console.error('Failed to copy:', err);
+      if (err instanceof DOMException && err.name === 'NotAllowedError') {
+        updateStatus({
+          type: 'error',
+          message: 'Copying is not allowed in this environment.'
+        });
+      }
     }
   }
 
@@ -99,13 +105,17 @@
   }
 
   $: statusClass = status && {
-    success: "text-green-600 dark:text-green-400",
-    error: "text-red-600 dark:text-red-400",
-    processing: "text-blue-600 dark:text-blue-400"
+    success: "bg-green-500/10 text-green-700 dark:text-green-300",
+    error: "bg-red-500/10 text-red-700 dark:text-red-300",
+    processing: "bg-blue-500/10 text-blue-700 dark:text-blue-300"
   }[status.type];
 </script>
 
-<div class="flex flex-col items-stretch w-full gap-2">
+<div class="flex flex-col items-stretch w-full gap-2 py-6">
+  {#if $showInfo}
+    <h2 class="font-semibold text-xs opacity-20 uppercase mb-2">Background Color</h2>
+  {/if}
+
   {#if showColorPicker}
     <div 
       class="relative z-10 w-full p-4 mb-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg"
@@ -151,19 +161,26 @@
 
   {#if status}
     <div 
-      class="text-sm text-center {statusClass}"
+      class="flex items-center justify-center gap-2 p-2 rounded-md backdrop-blur-sm {statusClass}"
       transition:fade={{ duration: 200 }}
     >
-      {status.message}
+      {#if status.type === 'processing'}
+        <Loader2 class="h-4 w-4 animate-spin" />
+      {:else if status.type === 'success'}
+        <ThumbsUp class="h-4 w-4" />
+      {:else if status.type === 'error'}
+        <AlertCircle class="h-4 w-4" />
+      {/if}
+      <span class="text-sm">{status.message}</span>
       {#if status.executionTime}
-        <span class="text-xs text-gray-500 dark:text-gray-400 ml-2">
+        <span class="text-xs text-gray-500 dark:text-gray-400">
           ({status.executionTime}ms)
         </span>
       {/if}
     </div>
   {/if}
 
-  <div class="flex items-center justify-center gap-2">
+  <div class="flex items-center justify-center gap-2 px-5 h-12">
     {#each presetColors as { color, title }}
       <ColorButton
         {color}
