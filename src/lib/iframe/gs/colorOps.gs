@@ -3,82 +3,109 @@
 /**
  * Handles all color-related operations for the document
  */
-function processColorOperation(params) {
-	const startTime = new Date().getTime();
-	const response = {
-		success: false,
-		action: 'changeBg',
-		executionTime: 0
-	};
 
-	try {
-		// Extract and validate color
-		const color = params?.color || params?.payload?.color;
-		if (!color) {
-			throw new Error('No color specified');
-		}
+function detectTextStyle() {
+  const doc = DocumentApp.getActiveDocument();
+  const selection = doc.getSelection();
+  const cursor = doc.getCursor();
 
-		// Get document and change background
-		const doc = DocumentApp.getActiveDocument();
-		const body = doc.getBody();
+  if (!selection && !cursor) {
+    Logger.log("No cursor or selection found.");
+    return;
+  }
 
-		// Normalize and apply color
-		body.setBackgroundColor(normalizeColor(color));
+  let styleInfo;
+  
+  if (selection) {
+    styleInfo = getSelectionStyle(selection);
+  } else {
+    styleInfo = getCursorStyle(cursor);
+  }
 
-		// Set success response
-		response.success = true;
-
-	} catch (error) {
-		console.error('Error in processColorOperation:', error);
-		response.error = error.message;
-	} finally {
-		// Always include execution time
-		response.executionTime = new Date().getTime() - startTime;
-	}
-
-	return response;
+  logStyleInfo(styleInfo);
+  return styleInfo;
 }
 
-/**
- * Normalizes color values to RGB format
- * @param {string} color - Hex or RGB color string
- * @returns {string} RGB color string
- */
-function normalizeColor(color) {
-	if (!color) return null;
 
-	// If already RGB format, return as is
-	if (color.toLowerCase().startsWith('rgb')) {
-		return color;
-	}
 
-	// Handle hex colors
-	try {
-		let hex = color.replace('#', '').trim();
+function getCursorStyle(cursor) {
+  const element = cursor.getElement();
+  const text = element.asText();
 
-		// Expand shorthand hex
-		if (hex.length === 3) {
-			hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
-		}
+  if (!text) {
+    Logger.log("Cursor not in a text element.");
+    return null;
+  }
 
-		// Validate hex length
-		if (hex.length !== 6) {
-			throw new Error(`Invalid hex color: ${color}`);
-		}
+  const attributes = text.getAttributes();
 
-		// Convert to RGB
-		const r = parseInt(hex.substring(0, 2), 16);
-		const g = parseInt(hex.substring(2, 4), 16);
-		const b = parseInt(hex.substring(4, 6), 16);
+  return {
+    text: text.getText(),
+    fontSize: attributes[DocumentApp.Attribute.FONT_SIZE],
+    fontFamily: attributes[DocumentApp.Attribute.FONT_FAMILY],
+    bold: attributes[DocumentApp.Attribute.BOLD],
+    italic: attributes[DocumentApp.Attribute.ITALIC],
+    underline: attributes[DocumentApp.Attribute.UNDERLINE],
+    foregroundColor: attributes[DocumentApp.Attribute.FOREGROUND_COLOR],
+    backgroundColor: attributes[DocumentApp.Attribute.BACKGROUND_COLOR],
+  };
+}
 
-		// Validate RGB values
-		if (isNaN(r) || isNaN(g) || isNaN(b)) {
-			throw new Error(`Invalid hex color values: ${color}`);
-		}
+function getSelectionStyle(selection) {
+  const rangeElements = selection.getRangeElements();
+  const element = rangeElements[0].getElement();
+  const text = element.asText();
 
-		return `rgb(${r}, ${g}, ${b})`;
-	} catch (error) {
-		console.error('Error normalizing color:', error);
-		throw new Error(`Invalid color format: ${color}`);
-	}
+  if (!text) {
+    Logger.log("Selection not in a text element.");
+    return null;
+  }
+
+  const attributes = rangeElements[0].isPartial()
+    ? text.getAttributes(rangeElements[0].getStartOffset())
+    : text.getAttributes();
+
+  return {
+    text: text.getText(),
+    fontSize: attributes[DocumentApp.Attribute.FONT_SIZE],
+    fontFamily: attributes[DocumentApp.Attribute.FONT_FAMILY],
+    bold: attributes[DocumentApp.Attribute.BOLD],
+    italic: attributes[DocumentApp.Attribute.ITALIC],
+    underline: attributes[DocumentApp.Attribute.UNDERLINE],
+    foregroundColor: attributes[DocumentApp.Attribute.FOREGROUND_COLOR],
+    backgroundColor: attributes[DocumentApp.Attribute.BACKGROUND_COLOR],
+  };
+}
+
+
+function applyTextStyle() {
+  if (Object.keys(savedStyle).length === 0) {
+    Logger.log("No saved style to apply.");
+    return;
+  }
+
+  const doc = DocumentApp.getActiveDocument();
+  const selection = doc.getSelection();
+
+  if (!selection) {
+    Logger.log("No text selected to apply the style.");
+    return;
+  }
+
+  const elements = selection.getRangeElements();
+  elements.forEach((element) => {
+    const text = element.getElement().editAsText();
+    const startOffset = element.getStartOffset();
+    const endOffset = element.getEndOffsetInclusive();
+
+    if (savedStyle.fontSize) text.setFontSize(startOffset, endOffset, savedStyle.fontSize);
+    if (savedStyle.fontFamily) text.setFontFamily(startOffset, endOffset, savedStyle.fontFamily);
+    if (savedStyle.foregroundColor) text.setForegroundColor(startOffset, endOffset, savedStyle.foregroundColor);
+    if (savedStyle.backgroundColor) text.setBackgroundColor(startOffset, endOffset, savedStyle.backgroundColor);
+    if (savedStyle.bold !== null) text.setBold(startOffset, endOffset, savedStyle.bold);
+    if (savedStyle.italic !== null) text.setItalic(startOffset, endOffset, savedStyle.italic);
+    if (savedStyle.underline !== null) text.setUnderline(startOffset, endOffset, savedStyle.underline);
+  });
+
+  Logger.log("Applied saved style to selected text.");
 }

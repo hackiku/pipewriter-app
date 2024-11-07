@@ -1,6 +1,6 @@
 // ========================= doc2html =======================================
 
-function doc2html(payload) {
+function XXXXdoc2html(payload) {
   const body = DocumentApp.getActiveDocument().getBody();
   const paras = body.getParagraphs();
 

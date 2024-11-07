@@ -1,10 +1,9 @@
 // ========================= html2doc =======================================
 
-function html2doc(params) {
+function XXXXhtml2doc(params) {
   var body = DocumentApp.getActiveDocument().getBody();
   var textAll = body.getText();
   var lines = textAll.split("\n");
-  var storedText = "";
   var newParagraphs = [];
 
   // Loop through each line in the text
@@ -56,30 +55,18 @@ function html2doc(params) {
       }
 
       if (paragraphInfo) {
-        if (paragraphInfo.addSpace && storedText) {
+        if (paragraphInfo.addSpace) {
           newParagraphs.push({
             text: "",
             heading: DocumentApp.ParagraphHeading.NORMAL
           });
         }
         newParagraphs.push(paragraphInfo);
-        storedText += line + "\n";
       }
     }
   }
 
-  // Handle different actions based on params
-  if (params && params.copy) {
-    var clipboardText = newParagraphs.map(function(p) {
-      return p.text;
-    }).join('\n');
-    
-    DocumentApp.getActiveDocument().getBody().appendParagraph(clipboardText);
-    DocumentApp.getActiveDocument().getSelection().setNextInsertionMode(false);
-    return;
-  }
-
-  // Determine insertion position
+  // Determine insertion position - default to end if not specified
   var insertPosition = params && params.position === 'start' ? 0 : body.getNumChildren();
 
   // Insert paragraphs
@@ -88,5 +75,6 @@ function html2doc(params) {
     body.insertParagraph(index, newParagraphs[j].text)
         .setHeading(newParagraphs[j].heading);
   }
-}
 
+  return { success: true };
+}
