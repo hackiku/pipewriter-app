@@ -1,46 +1,44 @@
 <!-- $lib/iframe/components/ColorButton.svelte -->
 
 <script lang="ts">
-  import { Button } from "$lib/components/ui/button";
-  import * as Tooltip from "$lib/components/ui/tooltip";
+  import { createEventDispatcher } from 'svelte';
   import { cn } from "$lib/utils";
-  import type { LucideIcon } from 'lucide-svelte';
-  import { Info } from 'lucide-svelte';
 
-  interface IconButtonProps {
-    icon?: typeof LucideIcon;
-    selected?: boolean;
-    tooltip?: string;
-    onClick?: () => void;
+  export let color: string;
+  export let title: string;
+  export let isGradient: boolean = false;
+  export let isSelected: boolean = false;
+  export let isProcessing: boolean = false;
+
+  const dispatch = createEventDispatcher();
+
+  function handleClick() {
+    if (!isProcessing) {
+      dispatch('click', { color });
+    }
   }
 
-  export let icon: IconButtonProps['icon'] = Info;
-  export let selected: IconButtonProps['selected'] = false;
-  export let tooltip: IconButtonProps['tooltip'] = undefined;
-  export let onClick: IconButtonProps['onClick'] = () => {};
-
   $: buttonClass = cn(
-    "p-2 rounded-full transition-colors duration-200",
-    "hover:bg-gray-200 dark:hover:bg-gray-700",
-    "border-none",
-    selected ? "bg-primary text-primary-foreground hover:bg-primary-dark hover:text-primary-foreground" : "text-foreground"
+    "w-8 h-8 rounded-full transition-all duration-200",
+    "border-2",
+    isSelected ? "border-primary shadow-md" : "border-gray-300 dark:border-gray-600",
+    "hover:border-primary hover:shadow-md",
+    "focus:ring-2 focus:ring-primary focus:ring-offset-2",
+    isProcessing && "opacity-50 cursor-not-allowed"
   );
+
+  $: buttonStyle = isGradient
+    ? "background: linear-gradient(45deg, #FF0000, #00FF00, #0000FF);"
+    : `background-color: ${color};`;
 </script>
 
-<Tooltip.Root>
-  <Tooltip.Trigger asChild>
-    <Button
-      variant="ghost"
-      size="icon"
-      class={buttonClass}
-      on:click={onClick}
-    >
-      <svelte:component this={icon} class="h-4 w-4" />
-    </Button>
-  </Tooltip.Trigger>
-  {#if tooltip}
-    <Tooltip.Content>
-      <p>{tooltip}</p>
-    </Tooltip.Content>
-  {/if}
-</Tooltip.Root>
+<button
+  on:click={handleClick}
+  class={buttonClass}
+  {title}
+  style={buttonStyle}
+  disabled={isProcessing}
+  aria-pressed={isSelected}
+>
+  <span class="sr-only">{title}</span>
+</button>

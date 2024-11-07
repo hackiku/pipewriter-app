@@ -5,6 +5,7 @@
   import { Button } from "$lib/components/ui/button";
   import { Copy, Check } from 'lucide-svelte';
   import ColorPicker from "../components/ColorPicker.svelte";
+  import ColorButton from "../components/ColorButton.svelte";
   import { currentColor } from '../stores';
   import { GASCommunicator } from '../gasUtils';
   import { cn } from "$lib/utils";
@@ -164,36 +165,22 @@
 
   <div class="flex items-center justify-center gap-2">
     {#each presetColors as { color, title }}
-      <button
+      <ColorButton
+        {color}
+        {title}
+        isSelected={$currentColor === color}
+        {isProcessing}
         on:click={() => handleColorChange(color)}
-        class={cn(
-          "w-8 h-8 rounded-md border transition-all duration-200",
-          "border-gray-300 dark:border-gray-600",
-          "hover:border-primary hover:shadow-md",
-          "focus:ring-1 focus:ring-primary",
-          isProcessing && "opacity-50 cursor-not-allowed",
-          $currentColor === color && "border-primary shadow-md"
-        )}
-        title={title}
-        style="background-color: {color};"
-        disabled={isProcessing}
       />
     {/each}
     
-    <button
-      on:click={() => showColorPicker = !showColorPicker}
-      class={cn(
-        "w-8 h-8 rounded-md border transition-all duration-200",
-        "border-gray-300 dark:border-gray-600",
-        "hover:border-primary hover:shadow-md",
-        "focus:ring-1 focus:ring-primary",
-        isProcessing && "opacity-50 cursor-not-allowed",
-        showColorPicker && "border-primary shadow-md"
-      )}
-      style="background: linear-gradient(45deg, #FF0000, #00FF00, #0000FF);"
+    <ColorButton
+      color=""
       title="Custom Color"
-      disabled={isProcessing}
-      aria-expanded={showColorPicker}
+      isGradient={true}
+      isSelected={showColorPicker}
+      {isProcessing}
+      on:click={() => showColorPicker = !showColorPicker}
     />
   </div>
 </div>
