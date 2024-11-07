@@ -1,18 +1,19 @@
 <!-- $lib/iframe/Frame.svelte -->
+
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { fade, slide, fly } from "svelte/transition";
+	import { fade, slide } from "svelte/transition";
 	import * as Resizable from "$lib/components/ui/resizable";
 	
 	import Dropper from "./layout/Dropper.svelte";
 	import TopBar from "./layout/TopBar.svelte";
 	import BottomBar from "./layout/BottomBar.svelte";
 	import Tabs from "./layout/Tabs.svelte";
-	// import AppAbout from "./layout/AppAbout.svelte"
+	import AppAbout from "./layout/AppAbout.svelte";
 	
 	import { elements } from "./elements";
 	import { showInfo, zenMode } from "./stores";
-  import { showAboutModal } from "./stores/aboutStore";
+	import { showAboutModal } from "./stores/aboutStore";
 
 	function callGAS(action: string, payload: Record<string, any> = {}) {
     const message = {
@@ -30,7 +31,6 @@
       const data = typeof event.data === 'string' ? JSON.parse(event.data) : event.data;
       console.log("Frame received message:", data);
 			
-      // Forward the message to Apps Script preserving the entire payload
       if (data.action) {
         callGAS(data.action, data.payload || {});
       }
@@ -53,11 +53,10 @@
 
 <main class="flex flex-col h-[95vh] overflow-hidden -my-3 -mx-2">
 	
-	<!-- {#if $showAboutModal}
+	{#if $showAboutModal}
 		<AppAbout />
-	{/if} -->
+	{/if}
 
-	<!-- Rest of the template remains the same -->
 	<section class="flex-none">
 		<TopBar />
 		<hr />
@@ -84,9 +83,9 @@
 			<div class="mb-2">
 				<Tabs />
 			</div>
-			<div class="border-t border-gray-200 dark:border-gray-700">
-				<BottomBar />
-			</div>
+			
+			<div class="border-t border-gray-200 dark:border-gray-700 z-50"></div>
+			<BottomBar />
 		</section>
 	{/if}
 </main>
