@@ -1,5 +1,4 @@
 <!-- $lib/iframe/components/ColorPicker.svelte -->
-
 <script lang="ts">
   import { onMount, onDestroy, createEventDispatcher } from 'svelte';
   import { browser } from '$app/environment';
@@ -11,6 +10,7 @@
   const dispatch = createEventDispatcher();
   let pickerElement: HTMLDivElement;
   let picker: any;
+  let colorInput: string = '#E53E3E';
   let isSubmitting = false;
   let gasCommunicator: GASCommunicator;
   let status: StatusUpdate | null = null;
@@ -21,41 +21,31 @@
     executionTime?: number;
   }
 
-  // Initial color setup
-  const defaultColor = '#E53E3E';
-  let colorInput = $currentColor !== '#000000' ? $currentColor : defaultColor;
-
   function stripAlpha(color: string): string {
     return color.replace(/FF$/, '').toUpperCase();
   }
 
   onMount(async () => {
     if (browser) {
-      try {
-        const { default: Picker } = await import('vanilla-picker');
-        gasCommunicator = GASCommunicator.getInstance();
-        
-        picker = new Picker({
-          parent: pickerElement,
-          popup: false,
-          alpha: false,
-          color: colorInput,
-          onChange: (color: { hex: string }) => {
-            const cleanColor = stripAlpha(color.hex);
-            colorInput = cleanColor;
-            currentColor.set(cleanColor);
-          }
-        });
+      const { default: Picker } = await import('vanilla-picker');
+      gasCommunicator = GASCommunicator.getInstance();
+      
+      const initialColor = $currentColor !== '#000000' ? $currentColor : colorInput;
+      
+      picker = new Picker({
+        parent: pickerElement,
+        popup: false,
+        alpha: false,
+        color: initialColor,
+        onChange: (color: { hex: string }) => {
+          const cleanColor = stripAlpha(color.hex);
+          colorInput = cleanColor;
+          currentColor.set(cleanColor);
+        }
+      });
 
-        colorInput = stripAlpha(colorInput);
-        currentColor.set(colorInput);
-      } catch (error) {
-        console.error('Error initializing color picker:', error);
-        updateStatus({
-          type: 'error',
-          message: 'Failed to initialize color picker'
-        });
-      }
+      colorInput = stripAlpha(initialColor);
+      currentColor.set(colorInput);
     }
   });
 
@@ -65,6 +55,7 @@
     }
   });
 
+  // Update status and auto-clear after delay
   function updateStatus(newStatus: StatusUpdate) {
     status = newStatus;
     
@@ -86,6 +77,7 @@
       const response = await gasCommunicator.sendMessage(
         'changeBg', 
         { color: cleanColor },
+        // Status callback
         (statusUpdate) => {
           console.log('Status update:', statusUpdate);
           updateStatus(statusUpdate);
@@ -124,20 +116,20 @@
   <div class="flex flex-col gap-2">
     <div class="flex gap-2">
       <div 
-        class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors dark:border-gray-700"
-        style="background: linear-gradient(to right, {colorInput} 2rem, {browser ? 'white' : '#1a1a1a'} 2rem);"
+        class="flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-colors"
+        style="background: linear-gradient(to right, {colorInput} 2rem, white 2rem);"
       >
         <span class="w-8"></span>
         <input
           type="text"
           value={colorInput}
           readonly
-          class="bg-transparent border-none outline-none focus:outline-none w-full uppercase pl-2 dark:text-gray-200"
+          class="bg-transparent border-none outline-none focus:outline-none w-full uppercase pl-2"
         />
       </div>
       <Button 
         variant="default" 
-        class="h-9 min-w-[3rem]"
+        class="h-9"
         disabled={isSubmitting}
         on:click={handleSubmit}
       >
@@ -152,7 +144,7 @@
       >
         {status.message}
         {#if status.executionTime}
-          <span class="text-xs text-gray-500 dark:text-gray-400 ml-1">
+          <span class="text-xs text-gray-500 ml-1">
             ({status.executionTime}ms)
           </span>
         {/if}
