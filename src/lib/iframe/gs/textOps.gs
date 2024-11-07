@@ -1,192 +1,274 @@
 // textOps.gs
 
-/**
- * Handles all text-related operations for the document
- */
-function processTextOperation(params) {
-  const startTime = new Date().getTime();
-  const response = {
-    success: false,
-    action: params.action,
-    executionTime: 0,
-  };
+// (headingDetector.gs)
 
-  try {
-    switch (params.action) {
-      case "getElement":
-        return insertStyleElement(params);
-      case "updateHeading":
-        return updateHeadingStyle(params);
-      default:
-        throw new Error(`Unknown text operation: ${params.action}`);
-    }
-  } catch (error) {
-    console.error("Error in processTextOperation:", error);
-    response.error = error.message;
-  } finally {
-    response.executionTime = new Date().getTime() - startTime;
+/**
+ * Get detailed style info from cursor or selection
+ */
+function detectHeadingStyle() {
+  const doc = DocumentApp.getActiveDocument();
+  const selection = doc.getSelection();
+  const cursor = doc.getCursor();
+
+  if (!selection && !cursor) {
+    Logger.log("No cursor or selection found");
+    return null;
   }
 
-  return response;
-}
-
-/**
- * Inserts a style element from the master document
- */
-function insertStyleElement(params) {
-  const startTime = new Date().getTime();
-  const response = {
-    success: false,
-    action: "getElement",
-    executionTime: 0,
-  };
-
-  try {
-    // Validate element ID
-    const elementId = params?.elementId || params?.payload?.elementId;
-    if (!elementId) {
-      throw new Error("No element ID specified");
-    }
-
-    // Open master document and get the style guide table
-    const masterDoc = DocumentApp.openById(
-      "1X-mEWo2wuRcVZdA8Y94cFMpUO6tKm8GLxY3ZA8lyulk",
-    );
-    const masterBody = masterDoc.getBody();
-
-    // Find the style guide table
-    let styleTable = null;
-    const numElements = masterBody.getNumChildren();
-
-    for (let i = 0; i < numElements; i++) {
-      const element = masterBody.getChild(i);
-      if (element.getType() === DocumentApp.ElementType.PARAGRAPH) {
-        const text = element.getText();
-        if (text === elementId) {
-          // Get the next element which should be our table
-          if (i + 1 < numElements) {
-            const nextElement = masterBody.getChild(i + 1);
-            if (nextElement.getType() === DocumentApp.ElementType.TABLE) {
-              styleTable = nextElement.copy();
-              break;
-            }
-          }
-        }
-      }
-    }
-
-    if (!styleTable) {
-      throw new Error(`Style guide table not found for element: ${elementId}`);
-    }
-
-    // Get active document and cursor
-    const doc = DocumentApp.getActiveDocument();
-    const cursor = doc.getCursor();
-    if (!cursor) {
-      throw new Error("No cursor position found");
-    }
-
-    // Insert the table at cursor
-    const element = cursor.getElement();
-    const parent = element.getParent();
-    const offset = parent.getChildIndex(element);
-
-    if (parent.getType() === DocumentApp.ElementType.TABLE_CELL) {
-      parent.insertTable(offset + 1, styleTable);
-    } else {
-      doc.getBody().insertTable(offset + 1, styleTable);
-    }
-
-    response.success = true;
-  } catch (error) {
-    console.error("Error inserting style element:", error);
-    response.error = error.message;
-  } finally {
-    response.executionTime = new Date().getTime() - startTime;
+  // Get style info for cursor or selection
+  let styleInfo;
+  if (selection) {
+    styleInfo = getSelectionStyle(selection);
+  } else {
+    styleInfo = getCursorStyle(cursor);
   }
 
-  return response;
-}
+  // Log what we found
+  logStyleInfo(styleInfo);
 
-/**
- * Updates heading styles to match the selected heading
- */
-function updateHeadingStyle(params) {
-  const startTime = new Date().getTime();
-  const response = {
-    success: false,
-    action: "updateHeading",
-    executionTime: 0,
-  };
+  // Find matching paragraphs
+  if (styleInfo) {
+    const matchingParas = findMatchingParagraphs(styleInfo.headingType);
+    Logger.log("\nFound " + matchingParas.length + " matching paragraphs");
+    logMatchingParagraphs(matchingParas);
 
-  try {
-    const doc = DocumentApp.getActiveDocument();
-    const cursor = doc.getCursor();
-
-    if (!cursor) {
-      throw new Error("No cursor position found");
-    }
-
-    const element = cursor.getElement();
-    const paragraph =
-      element.getType() === DocumentApp.ElementType.PARAGRAPH
-        ? element
-        : element.getParent();
-
-    if (paragraph.getType() !== DocumentApp.ElementType.PARAGRAPH) {
-      throw new Error("Cursor must be in a paragraph");
-    }
-
-    // Get the heading level of the current paragraph
-    const headingLevel = paragraph.getHeading();
-
-    // Find all paragraphs with the same heading level and update their attributes
-    const body = doc.getBody();
-    const paragraphs = body.getParagraphs();
-    let updatedCount = 0;
-
-    // Store the attributes of the selected paragraph
-    const attributes = {
-      fontSize: paragraph.getFontSize(),
-      fontFamily: paragraph.getFontFamily(),
-      foregroundColor: paragraph.getForegroundColor(),
-      backgroundColor: paragraph.getBackgroundColor(),
-      bold: paragraph.isBold(),
-      italic: paragraph.isItalic(),
-      underline: paragraph.isUnderline(),
-      lineSpacing: paragraph.getLineSpacing(),
+    return {
+      styleInfo: styleInfo,
+      matchingParagraphs: matchingParas,
     };
-
-    paragraphs.forEach((p) => {
-      if (p.getHeading() === headingLevel && p.getId() !== paragraph.getId()) {
-        try {
-          // Apply stored attributes
-          if (attributes.fontSize) p.setFontSize(attributes.fontSize);
-          if (attributes.fontFamily) p.setFontFamily(attributes.fontFamily);
-          if (attributes.foregroundColor)
-            p.setForegroundColor(attributes.foregroundColor);
-          if (attributes.backgroundColor)
-            p.setBackgroundColor(attributes.backgroundColor);
-          p.setBold(attributes.bold);
-          p.setItalic(attributes.italic);
-          p.setUnderline(attributes.underline);
-          if (attributes.lineSpacing) p.setLineSpacing(attributes.lineSpacing);
-
-          updatedCount++;
-        } catch (e) {
-          console.error("Error updating paragraph:", e);
-        }
-      }
-    });
-
-    response.success = true;
-    response.updatedCount = updatedCount;
-  } catch (error) {
-    console.error("Error updating heading style:", error);
-    response.error = error.message;
-  } finally {
-    response.executionTime = new Date().getTime() - startTime;
   }
 
-  return response;
+  return null;
+}
+
+function getCursorStyle(cursor) {
+  const element = cursor.getElement();
+  const paragraph =
+    element.getType() === DocumentApp.ElementType.PARAGRAPH
+      ? element
+      : element.getParent();
+
+  if (paragraph.getType() !== DocumentApp.ElementType.PARAGRAPH) {
+    Logger.log("Cursor not in a paragraph");
+    return null;
+  }
+
+  return {
+    headingType: paragraph.getHeading(),
+    text: paragraph.getText(),
+    fontSize: element.getFontSize(),
+    fontFamily: element.getFontFamily(),
+    bold: element.isBold(),
+    italic: element.isItalic(),
+    underline: element.isUnderline(),
+    foregroundColor: element.getForegroundColor(),
+    backgroundColor: element.getBackgroundColor(),
+    lineSpacing: paragraph.getLineSpacing(),
+    alignment: paragraph.getAlignment(),
+  };
+}
+
+function getSelectionStyle(selection) {
+  const elements = selection.getRangeElements();
+  if (elements.length === 0) return null;
+
+  // Get the first selected element
+  const rangeElement = elements[0];
+  const element = rangeElement.getElement();
+  const paragraph =
+    element.getType() === DocumentApp.ElementType.PARAGRAPH
+      ? element
+      : element.getParent();
+
+  if (paragraph.getType() !== DocumentApp.ElementType.PARAGRAPH) {
+    Logger.log("Selection not in a paragraph");
+    return null;
+  }
+
+  // If partial selection, get specific range attributes
+  let textStyle;
+  if (rangeElement.isPartial()) {
+    const start = rangeElement.getStartOffset();
+    const text = element.editAsText();
+    textStyle = {
+      fontSize: text.getFontSize(start),
+      fontFamily: text.getFontFamily(start),
+      bold: text.isBold(start),
+      italic: text.isItalic(start),
+      underline: text.isUnderline(start),
+      foregroundColor: text.getForegroundColor(start),
+      backgroundColor: text.getBackgroundColor(start),
+    };
+  } else {
+    textStyle = {
+      fontSize: element.getFontSize(),
+      fontFamily: element.getFontFamily(),
+      bold: element.isBold(),
+      italic: element.isItalic(),
+      underline: element.isUnderline(),
+      foregroundColor: element.getForegroundColor(),
+      backgroundColor: element.getBackgroundColor(),
+    };
+  }
+
+  return {
+    headingType: paragraph.getHeading(),
+    text: paragraph.getText(),
+    ...textStyle,
+    lineSpacing: paragraph.getLineSpacing(),
+    alignment: paragraph.getAlignment(),
+    isPartial: rangeElement.isPartial(),
+    selectionStart: rangeElement.isPartial()
+      ? rangeElement.getStartOffset()
+      : null,
+    selectionEnd: rangeElement.isPartial()
+      ? rangeElement.getEndOffsetInclusive()
+      : null,
+  };
+}
+
+function findMatchingParagraphs(headingType) {
+  const doc = DocumentApp.getActiveDocument();
+  return doc
+    .getBody()
+    .getParagraphs()
+    .filter((p) => p.getHeading() === headingType);
+}
+
+function logStyleInfo(styleInfo) {
+  if (!styleInfo) {
+    Logger.log("No style info found");
+    return;
+  }
+
+  const headingMap = {
+    [DocumentApp.ParagraphHeading.NORMAL]: "NORMAL",
+    [DocumentApp.ParagraphHeading.HEADING1]: "HEADING1",
+    [DocumentApp.ParagraphHeading.HEADING2]: "HEADING2",
+    [DocumentApp.ParagraphHeading.HEADING3]: "HEADING3",
+    [DocumentApp.ParagraphHeading.HEADING4]: "HEADING4",
+    [DocumentApp.ParagraphHeading.HEADING5]: "HEADING5",
+    [DocumentApp.ParagraphHeading.HEADING6]: "HEADING6",
+  };
+
+  Logger.log("\nDetected style:");
+  Logger.log(`Heading type: ${headingMap[styleInfo.headingType]}`);
+  Logger.log(`Text content: "${styleInfo.text}"`);
+
+  if (styleInfo.isPartial) {
+    Logger.log(
+      `Selected text: "${styleInfo.text.substring(
+        styleInfo.selectionStart,
+        styleInfo.selectionEnd + 1,
+      )}"`,
+    );
+  }
+
+  Logger.log("\nFormatting:");
+  Logger.log(
+    JSON.stringify(
+      {
+        fontSize: styleInfo.fontSize,
+        fontFamily: styleInfo.fontFamily,
+        bold: styleInfo.bold,
+        italic: styleInfo.italic,
+        underline: styleInfo.underline,
+        foregroundColor: styleInfo.foregroundColor,
+        backgroundColor: styleInfo.backgroundColor,
+        lineSpacing: styleInfo.lineSpacing,
+        alignment: styleInfo.alignment,
+      },
+      null,
+      2,
+    ),
+  );
+}
+
+function logMatchingParagraphs(paragraphs) {
+  paragraphs.forEach((p, i) => {
+    Logger.log(`\nMatching paragraph ${i + 1}:`);
+    Logger.log(`- Text: "${p.getText()}"`);
+  });
+}
+
+// Test Functions
+
+function testDetectStyle() {
+  return detectHeadingStyle();
+}
+
+function testUpdateStyle() {
+  const result = detectHeadingStyle();
+  if (!result || !result.styleInfo) return;
+
+  const { styleInfo, matchingParagraphs } = result;
+  Logger.log("\nUpdating style for matching paragraphs...");
+  Logger.log("Source style:", JSON.stringify(styleInfo, null, 2));
+
+  let updatedCount = 0;
+  matchingParagraphs.forEach((para, i) => {
+    // Skip the source paragraph
+    if (para.getText() === styleInfo.text) {
+      Logger.log(`Skipping source paragraph: "${para.getText()}"`);
+      return;
+    }
+
+    try {
+      // Always update the paragraph with ALL attributes
+      const text = para.editAsText();
+
+      // Log before state
+      Logger.log(`\nUpdating paragraph: "${para.getText()}"`);
+      Logger.log(
+        "Before:",
+        JSON.stringify(
+          {
+            fontSize: text.getFontSize(),
+            fontFamily: text.getFontFamily(),
+            bold: text.isBold(),
+            italic: text.isItalic(),
+            underline: text.isUnderline(),
+          },
+          null,
+          2,
+        ),
+      );
+
+      // Apply ALL text attributes
+      text.setFontSize(styleInfo.fontSize);
+      text.setFontFamily(styleInfo.fontFamily);
+      text.setForegroundColor(styleInfo.foregroundColor);
+      text.setBackgroundColor(styleInfo.backgroundColor);
+      text.setBold(styleInfo.bold);
+      text.setItalic(styleInfo.italic);
+      text.setUnderline(styleInfo.underline);
+
+      // Apply ALL paragraph attributes
+      para.setLineSpacing(styleInfo.lineSpacing);
+      para.setAlignment(styleInfo.alignment);
+
+      // Log after state
+      Logger.log(
+        "After:",
+        JSON.stringify(
+          {
+            fontSize: text.getFontSize(),
+            fontFamily: text.getFontFamily(),
+            bold: text.isBold(),
+            italic: text.isItalic(),
+            underline: text.isUnderline(),
+          },
+          null,
+          2,
+        ),
+      );
+
+      updatedCount++;
+    } catch (e) {
+      Logger.log(`Error updating paragraph ${i}: ${e.toString()}`);
+    }
+  });
+
+  Logger.log(`\nTotal paragraphs updated: ${updatedCount}`);
+  return updatedCount;
 }
