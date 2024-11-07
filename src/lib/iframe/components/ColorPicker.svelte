@@ -8,12 +8,11 @@
   const dispatch = createEventDispatcher();
   let pickerElement: HTMLDivElement;
   let picker: any;
-  let colorInput: string = '#E53E3E';
+  let colorInput: string;
 
-  function stripAlpha(color: string): string {
-    return color.replace(/FF$/, '').toUpperCase();
-  }
-
+	function stripAlpha(color: string): string {
+		return color.length === 9 ? color.slice(0, 7).toUpperCase() : color.toUpperCase();
+	}
   onMount(async () => {
     if (browser) {
       const { default: Picker } = await import('vanilla-picker');

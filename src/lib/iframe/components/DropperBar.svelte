@@ -1,18 +1,19 @@
 <!-- $lib/iframe/components/DropperBar.svelte -->
 
 <script lang="ts">
-  import { elementsTheme, chainMode, currentColor } from '../stores';
+  import { elementsTheme, chainMode } from '../stores';
   import { Link } from 'lucide-svelte';
   import { slide } from 'svelte/transition';
+  import { quintOut } from 'svelte/easing';
   import { cn } from "$lib/utils";
   import ColorButton from "./ColorButton.svelte";
 
   let showThemes = false;
 
   const themes = [
-    { id: 'dark', color: '#171717', label: 'Dark' },
+    { id: 'gray', color: '#A3A3A3', label: 'Gray' },
     { id: 'white', color: '#FFFFFF', label: 'White' },
-    { id: 'gray', color: '#A3A3A3', label: 'Gray' }
+    { id: 'dark', color: '#171717', label: 'Black' }
   ] as const;
 
   function setTheme(themeId: string) {
@@ -20,54 +21,77 @@
     showThemes = false;
   }
 
+  function toggleThemes() {
+    showThemes = !showThemes;
+  }
+
   $: currentTheme = themes.find(t => t.id === $elementsTheme) || themes[1];
-  $: otherThemes = themes.filter(t => t.id !== $elementsTheme);
+  $: otherThemes = themes.filter(t => t.id !== currentTheme.id);
 </script>
 
 <div class="relative dropper-container">
-  <!-- Bottom Gradient -->
-  <div class="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-background from-40% via-background/80 via-70% to-transparent to-100% pointer-events-none" />
+  <!-- Background Gradient -->
+  <div 
+    class="absolute bottom-0 left-0 right-0 h-20 
+           bg-gradient-to-t from-background from-40% via-background/80 via-70% to-transparent"
+    aria-hidden="true"
+  />
 
-  <!-- Centered Tab with Buttons -->
-  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 z-10">
-    <!-- Tab Shape -->
-    <div class="w-26 h-11 bg-white dark:bg-gray-800 rounded-t-2xl border-t border-x border-gray-200 dark:border-gray-700 shadow-lg">
-      <!-- Button Container -->
-      <div class="h-full flex items-center justify-between px-2 gap-2">
-        <button
-          class={cn(
-            "p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors",
-            $chainMode && "text-foreground"
-          )}
-          on:click={() => chainMode.update(n => !n)}
-        >
-          <Link size={18} class={$chainMode ? "text-foreground" : "text-muted-foreground"} />
-        </button>
+  <!-- Main Control Bar -->
+  <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-10">
+    <div class={cn(
+      "relative bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 shadow-lg",
+      showThemes ? "rounded-t-2xl" : "rounded-t-2xl",
+      "transition-all duration-800 ease-out"
+    )}>
+      <!-- All Buttons Container -->
+      <div class="grid grid-cols-2 gap-3 p-3">
+        <!-- Theme Selection Buttons (Top Row) -->
+        {#if showThemes}
+          {#each otherThemes as theme}
+            <div 
+              class="w-6"
+              in:slide={{
+                duration: 300,
+                easing: quintOut,
+                axis: 'y'
+              }}
+            >
+              <ColorButton
+                color={theme.color}
+                title={theme.label}
+                isSelected={false}
+                on:click={() => setTheme(theme.id)}
+              />
+            </div>
+          {/each}
+        {/if}
 
-        <!-- Theme Button with Expansion -->
-        <div class="relative w-6 h-6">
+        <!-- Chain and Current Color Buttons (Bottom Row) -->
+        <div class="w-6">
+          <button
+            class={cn(
+              "w-6 h-6 rounded-full transition-colors flex items-center justify-center",
+              "hover:bg-gray-100 dark:hover:bg-gray-700",
+              $chainMode && "text-foreground"
+            )}
+            on:click={() => chainMode.update(n => !n)}
+            aria-label="Toggle chain mode"
+          >
+            <Link 
+              size={18} 
+              class={$chainMode ? "text-foreground" : "text-muted-foreground"} 
+            />
+          </button>
+        </div>
+
+        <div class="w-6 -mt-2">
           <ColorButton
             color={currentTheme.color}
             title={currentTheme.label}
-            isSelected={true}
-            on:click={() => showThemes = !showThemes}
+            isSelected={showThemes}
+            on:click={toggleThemes}
           />
-
-          {#if showThemes}
-            <div 
-              class="absolute bottom-full right-0 mb-1 flex flex-col gap-1"
-              transition:slide={{duration: 150, axis: 'y'}}
-            >
-              {#each otherThemes as theme}
-                <ColorButton
-                  color={theme.color}
-                  title={theme.label}
-                  isSelected={$currentColor === theme.color}
-                  on:click={() => setTheme(theme.id)}
-                />
-              {/each}
-            </div>
-          {/if}
         </div>
       </div>
     </div>

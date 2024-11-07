@@ -1,5 +1,4 @@
 <!-- $lib/iframe/layout/Tabs.svelte -->
-<!-- $lib/iframe/layout/Tabs.svelte -->
 <script lang="ts">
   import { fade } from "svelte/transition";
   import { Button } from "$lib/components/ui/button";
@@ -17,7 +16,7 @@
   const BG_STYLE = 'bg-white dark:bg-slate-900';
 
   const tabs = {
-    table: { icon: Table, tooltip: "Table Styles", component: TableTab },
+    // table: { icon: Table, tooltip: "Table Styles", component: TableTab },
     text: { icon: Type, tooltip: "Text Styles", component: TextTab },
     color: { icon: Palette, tooltip: "Color Picker", component: ColorTab },
     ai: { icon: Code, tooltip: "Code", component: AiTab },
