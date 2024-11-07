@@ -56,11 +56,11 @@
 </script>
 
 
-<div class="relative h-full z-0">
+<div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
 	
 	<ChainDropper />
 	
-	<div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
+	<div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 pl-2">
 		{#if Object.entries(groupedByCategory).length > 0}
 			{#each Object.entries(groupedByCategory) as [category, categoryElements]}
 				<div class="category-section mb-2">

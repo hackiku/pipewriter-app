@@ -85,21 +85,6 @@
     currentColor.set(stripAlpha(event.detail.color));
   }
 
-  async function copyColorToClipboard() {
-    try {
-      await navigator.clipboard.writeText($currentColor);
-      isCopied = true;
-      setTimeout(() => isCopied = false, 2000);
-    } catch (err) {
-      console.error('Failed to copy:', err);
-      if (err instanceof DOMException && err.name === 'NotAllowedError') {
-        updateStatus({
-          type: 'error',
-          message: 'Copying not allowed in this environment'
-        });
-      }
-    }
-  }
 
   function handleSubmit() {
     handleColorChange($currentColor);
@@ -127,29 +112,17 @@
   <!-- Action rows container -->
   <div bind:this={actionRowsRef} class="relative">
     <!-- Color input and actions -->
-    <div class="flex gap-2 mb-2">
+    <div class="flex gap-2 mb-2 px-4">
       <button
-        class="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+        class="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800"
         on:click={() => showColorPicker = !showColorPicker}
         style="background: linear-gradient(to right, {$currentColor} 2rem, {showColorPicker ? '#f9fafb' : 'white'} 2rem);"
       >
-        <span class="w-8"></span>
+        <span class="w-6"></span>
         <span class="flex items-center uppercase pl-2">{$currentColor}</span>
       </button>
 
-      <Button
-        variant="outline"
-        size="icon"
-        class="h-9 w-9"
-        on:click={copyColorToClipboard}
-        disabled={isProcessing}
-      >
-        {#if isCopied}
-          <Check class="h-4 w-4 text-green-500" />
-        {:else}
-          <Copy class="h-4 w-4 opacity-30 hover:opacity-100 transition-opacity" />
-        {/if}
-      </Button>
+
 
       <Button 
         variant="default" 
