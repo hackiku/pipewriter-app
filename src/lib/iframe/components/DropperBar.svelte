@@ -2,12 +2,14 @@
 
 <script lang="ts">
   import { elementsTheme, chainMode } from '../stores';
-  import { Link } from 'lucide-svelte';
+  import { dropperStore } from '../stores/dropperStore';
+	import { Link } from 'lucide-svelte';
   import { slide } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import { cn } from "$lib/utils";
   import ColorButton from "./ColorButton.svelte";
 
+	
   let showThemes = false;
 
   const themes = [

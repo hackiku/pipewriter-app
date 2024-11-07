@@ -1,7 +1,7 @@
 <!-- $lib/iframe/Frame.svelte -->
 <script lang="ts">
 	import { onMount } from "svelte";
-	import { fade, slide } from "svelte/transition";
+	import { fade, slide, fly } from "svelte/transition";
 	import * as Resizable from "$lib/components/ui/resizable";
 
 	import Dropper from "./layout/Dropper.svelte";
