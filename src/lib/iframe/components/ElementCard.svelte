@@ -4,14 +4,14 @@
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
   import type { ElementObject } from "../elements";
-  import type { ThemeType } from "../stores";
+  import type { ElementsTheme } from "../stores/elementsThemeStore";
   import { onMount, createEventDispatcher } from 'svelte';
   import HoverCursor from './HoverCursor.svelte';
   import { X } from 'lucide-svelte';
 
   export let element: ElementObject;
   export let onSelect: (id: string) => void;
-  export let theme: ThemeType;
+  export let theme: ElementsTheme;  // Updated type
 
   const dispatch = createEventDispatcher();
   let mounted = false;
@@ -28,7 +28,6 @@
     dispatch('processingStart');
     
     try {
-      await new Promise(resolve => setTimeout(resolve, 1600));
       await onSelect(element.id);
     } finally {
       isProcessing = false;
@@ -37,7 +36,7 @@
   }
 
   const themeStyles = {
-    light: "bg-white border-solid border-gray-200",
+    white: "bg-white border-solid border-gray-200",
     gray: "bg-gray-100 border-gray-200",
     dark: "bg-gray-900 border-gray-700"
   };
@@ -52,7 +51,6 @@
 </script>
 
 <div class="relative">
-  <!-- Placeholder outline that stays in place -->
   <div 
     class="absolute inset-0 rounded-lg opacity-0 transition-opacity duration-200 pointer-events-none
            group-hover:opacity-100 border-2 border-dashed
@@ -66,7 +64,7 @@
         class={mounted ? cn(
           baseButtonClasses, 
           themeClass,
-          "dark:bg-white dark:hover:bg-white" // Force white background in dark mode
+          "dark:bg-white dark:hover:bg-white"
         ) : `${baseButtonClasses} ${themeClass}`}
         on:click={handleClick}
         on:mouseenter={() => showHoverCursor = true}
@@ -80,7 +78,7 @@
             ? cn(
                 "w-full h-full object-cover", 
                 shouldInvert && "opacity-50 invert",
-                "dark:bg-white" // Ensure white background for images in dark mode
+                "dark:bg-white"
               )
             : `w-full h-full object-cover ${shouldInvert ? 'opacity-50 invert' : ''}`}
         />
@@ -99,12 +97,10 @@
 </div>
 
 <style>
-  /* Remove default focus styles that might interfere with our custom styling */
   :global(button:focus) {
     outline: none;
   }
   
-  /* Ensure proper z-index stacking */
   :global(.group) {
     z-index: 1;
   }

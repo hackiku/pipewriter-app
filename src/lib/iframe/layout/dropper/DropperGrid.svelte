@@ -1,4 +1,4 @@
-<!-- $lib/iframe/layout/dropper/DropperBar.svelte -->
+<!-- $lib/iframe/layout/dropper/DropperGrid.svelte -->
 <script lang="ts">
   import { elementsThemeStore } from '../../stores/elementsThemeStore';
   import { zenMode } from '../../stores';
@@ -44,40 +44,44 @@
   <!-- Control Bar -->
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-40">
     <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
-      <div class="flex gap-2 p-2.5 items-center">
+      <div class="grid grid-cols-3 gap-2 p-3 w-fit items-center">
         <!-- Chain Mode Button -->
-        <IconButton
-          icon={Link}
-          size="sm"
-          selected={$chainMode}
-          disabled={$dropperStatus.isProcessing}
-          tooltipContent={chainModeTooltip}
-          on:click={() => dropperStore.toggleChainMode()}
-        />
+        <div class="w-7 h-7">
+          <IconButton
+            icon={Link}
+            selected={$chainMode}
+            disabled={$dropperStatus.isProcessing}
+            tooltipContent={chainModeTooltip}
+            on:click={() => dropperStore.toggleChainMode()}
+          />
+        </div>
 
         <!-- Theme Toggle -->
-        <ColorButton
-          color={currentTheme.color}
-          title={`Switch to ${themes[(themes.findIndex(t => t.id === currentTheme.id) + 1) % themes.length].label} theme`}
-          isProcessing={$dropperStatus.isProcessing}
-          tooltipContent={`Current: ${currentTheme.label}`}
-          class="h-7 w-7"
-          on:click={() => elementsThemeStore.cycle()}
-        />
+        <div class="w-7 h-7">
+          <ColorButton
+            color={currentTheme.color}
+            title={`Switch to ${themes[(themes.findIndex(t => t.id === currentTheme.id) + 1) % themes.length].label} theme`}
+            isProcessing={$dropperStatus.isProcessing}
+            tooltipContent={`Current: ${currentTheme.label}`}
+            on:click={() => elementsThemeStore.cycle()}
+          />
+        </div>
 
         <!-- Grid Size -->
-        <Button
-          variant="outline"
-          size="sm"
-          class="h-7 w-7 rounded-full text-xs font-medium border-gray-200 dark:border-gray-700
-                 hover:bg-gray-100 dark:hover:bg-gray-700
-                 text-muted-foreground hover:text-foreground"
-          disabled={$dropperStatus.isProcessing}
-          title={`Switch to ${nextGridSize.label} grid`}
-          on:click={() => gridStore.cycleColumns()}
-        >
-          {currentGridSize.label}
-        </Button>
+        <div class="w-7 h-7">
+          <Button
+            variant="outline"
+            size="sm"
+            class="w-full h-full rounded-full text-xs font-medium border-gray-200 dark:border-gray-700
+                   hover:bg-gray-100 dark:hover:bg-gray-700
+                   text-muted-foreground hover:text-foreground"
+            disabled={$dropperStatus.isProcessing}
+            title={`Switch to ${nextGridSize.label} grid`}
+            on:click={() => gridStore.cycleColumns()}
+          >
+            {currentGridSize.label}
+          </Button>
+        </div>
       </div>
     </div>
   </div>

@@ -7,9 +7,9 @@
   import ElementCard from "../components/ElementCard.svelte";
   import DropperBar from "./dropper/DropperBar.svelte";
   import ChainDropper from "./dropper/ChainDropper.svelte";
-  import { showInfo, elementsTheme, zenMode } from "../stores";
+  import { showInfo, zenMode } from "../stores";
+  import { elementsThemeStore } from "../stores/elementsThemeStore";
   import { gridClass } from "../stores/gridStore";
-  import type { ThemeType } from "../stores";
 
   export let elements: Record<string, ElementObject>;
   export let callGAS: (action: string, params: Record<string, any>) => void;
@@ -19,7 +19,7 @@
 
   $: filteredElements = Object.values(elements).filter((element) => {
     const isDarkVariant = element.id.includes("-dark");
-    return $elementsTheme === "dark" ? isDarkVariant : !isDarkVariant;
+    return $elementsThemeStore === "dark" ? isDarkVariant : !isDarkVariant;
   });
 
   $: groupedByCategory = filteredElements.reduce((acc, el) => {
@@ -68,7 +68,7 @@
               <ElementCard
                 {element}
                 onSelect={selectElement}
-                theme={$elementsTheme}
+                theme={$elementsThemeStore}
                 on:processingStart={handleProcessingStart}
                 on:processingEnd={handleProcessingEnd}
               />
@@ -93,7 +93,6 @@
 </div>
 
 <style>
-  /* Custom scrollbar styling */
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
