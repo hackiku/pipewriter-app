@@ -44,16 +44,28 @@
   <!-- Control Bar -->
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-40">
     <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
-      <div class="flex gap-2 p-2.5 items-center">
-        <!-- Chain Mode Button -->
-        <IconButton
-          icon={Link}
-          size="sm"
-          selected={$chainMode}
-          disabled={$dropperStatus.isProcessing}
-          tooltipContent={chainModeTooltip}
-          on:click={() => dropperStore.toggleChainMode()}
-        />
+      <div class="flex gap-3 p-2 items-center w-full">
+
+				<!-- Chain Mode Button -->
+				
+				<IconButton
+					icon={Link}
+					size="xl"
+					selected={$chainMode}
+					disabled={$dropperStatus.isProcessing}
+					tooltipContent={chainModeTooltip}
+					on:click={() => dropperStore.toggleChainMode()}
+				/>
+
+				<!-- <IconButton
+					icon={Link}
+					size="sm"
+					selected={$chainMode}
+					disabled={$dropperStatus.isProcessing}
+					tooltipContent={chainModeTooltip}
+					on:click={() => dropperStore.toggleChainMode()}
+				/> -->
+				<!-- </div> -->
 
         <!-- Theme Toggle -->
         <ColorButton
@@ -61,7 +73,7 @@
           title={`Switch to ${themes[(themes.findIndex(t => t.id === currentTheme.id) + 1) % themes.length].label} theme`}
           isProcessing={$dropperStatus.isProcessing}
           tooltipContent={`Current: ${currentTheme.label}`}
-          class="h-7 w-7"
+          class="h-7 w-8"
           on:click={() => elementsThemeStore.cycle()}
         />
 
