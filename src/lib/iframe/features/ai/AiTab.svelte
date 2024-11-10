@@ -3,8 +3,9 @@
   import { createEventDispatcher } from 'svelte';
   import { ArrowDown, ArrowUp, Trash2 } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
-  import PromptSelect from './PromptSelect.svelte';
   import { promptStore, activePrompt } from '../../stores/promptStore';
+	import PromptSelect from './PromptSelect.svelte';
+	import PromptDropdown from './PromptDropdown.svelte';
   import { AppsScriptClient } from '../../utils/appsScript';
   import { cn } from "$lib/utils";
 
@@ -13,6 +14,7 @@
   
   let isProcessing = false;
   let showPromptSelect = false;
+  let showPromptDropdown = false;
 
   async function handleAction(position: 'start' | 'end') {
     if (isProcessing) return;
@@ -97,9 +99,13 @@
 
 <div class="flex flex-col items-stretch w-full gap-2">
   <div class="relative">
-    <PromptSelect
+    <!-- <PromptSelect
       {isProcessing}
       bind:isOpen={showPromptSelect}
+    /> -->
+    <PromptDropdown
+      {isProcessing}
+      bind:isOpen={showPromptDropdown}
     />
   </div>
 
