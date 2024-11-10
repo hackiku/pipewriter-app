@@ -88,17 +88,17 @@
       <!-- Tab Header -->
       {#if $showInfo}
         <div class="px-4 pt-3">
-          <h3 class="text-sm font-medium text-muted-foreground/60">
+          <h3 class="text-xs font-medium text-muted-foreground/60">
             {activeTabData.title}
           </h3>
-          <p class="text-xs text-muted-foreground/40 mt-0.5 mb-3">
+          <p class="text-[0.65em] text-muted-foreground/40 mt-0.5 mb-3">
             {activeTabData.description}
           </p>
         </div>
       {/if}
 
       <!-- Fixed Height Content Container -->
-      <div class="relative px-4 pb-4" style="min-height:180px">
+      <div class="relative px-4 pb-4">
         <svelte:component
           this={activeTabData.component}
           on:colorChange={handleColorChange}
@@ -108,7 +108,7 @@
       </div>
 
       <!-- Status Bar -->
-      <div class="h-12 px-4 flex items-center border-t border-gray-200 dark:border-gray-700">
+      <div class="h-8 px-4 flex items-center border-t border-gray-200 dark:border-gray-700">
         {#if status}
           <div class="flex items-center gap-2" 
                class:text-green-600={status.type === 'success'}

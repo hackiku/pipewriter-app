@@ -1,4 +1,4 @@
-<!-- $lib/iframe/tabs/ColorTab.svelte -->
+<!-- $lib/iframe/features/colors/ColorTab.svelte -->
 <script lang="ts">
   import { onMount, createEventDispatcher } from 'svelte';
   import { fade, slide } from 'svelte/transition';
@@ -8,7 +8,9 @@
   import ColorButton from "./ColorButton.svelte";
   import { currentColor } from '../../stores';
   import { GASCommunicator } from '../../gasUtils';
-  // import { GASCommunicator } from '../../utils/callGAS';
+	// TODO change utils structure:
+	// import { GASCommunicator } from '../../utils/callGAS';
+
   import { cn } from "$lib/utils";
   
   const dispatch = createEventDispatcher();
@@ -24,8 +26,6 @@
   let isProcessing = false;
   let status: StatusUpdate | null = null;
   let gasCommunicator: GASCommunicator;
-  let isCopied = false;
-  let actionRowsRef: HTMLDivElement;
 
   interface StatusUpdate {
     type: 'success' | 'error' | 'processing';
@@ -37,10 +37,6 @@
     gasCommunicator = GASCommunicator.getInstance();
   });
 
-  function stripAlpha(color: string): string {
-    return color.replace(/FF$/, '').slice(0, 7).toUpperCase();
-  }
-
   async function handleColorChange(color: string) {
     if (isProcessing) return;
     
@@ -51,11 +47,10 @@
     });
 
     try {
-      const cleanColor = color;
-      const response = await gasCommunicator.sendMessage('changeBg', { color: cleanColor });
+      const response = await gasCommunicator.sendMessage('changeBg', { color });
       
       if (response.success) {
-        currentColor.set(cleanColor);
+        currentColor.set(color);
         updateStatus({
           type: 'success',
           message: 'Color applied!',
@@ -83,9 +78,8 @@
   }
 
   function handleColorUpdate(event: CustomEvent<{ color: string }>) {
-    currentColor.set(stripAlpha(event.detail.color));
+    currentColor.set(event.detail.color.toUpperCase());
   }
-
 
   function handleSubmit() {
     handleColorChange($currentColor);
@@ -98,22 +92,19 @@
   }[status.type];
 </script>
 
-<div class="relative flex flex-col items-stretch w-full gap-2 pt-4">
-
-
+<div class="relative flex flex-col h-full">
   {#if showColorPicker}
     <div 
-      class="relative z-10 w-full p-4 mb-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg"
+      class="w-full bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg"
       transition:slide={{ duration: 150, axis: 'y' }}
     >
       <ColorPicker on:colorUpdate={handleColorUpdate} />
     </div>
   {/if}
 
-  <!-- Action rows container -->
-  <div bind:this={actionRowsRef} class="relative">
-    <!-- Color input and actions -->
-    <div class="flex gap-2 mb-2 px-4">
+  <div class="relative flex-1">
+    <!-- Color input row -->
+    <div class="flex gap-2">
       <button
         class="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800"
         on:click={() => showColorPicker = !showColorPicker}
@@ -122,8 +113,6 @@
         <span class="w-6"></span>
         <span class="flex items-center uppercase pl-2">{$currentColor}</span>
       </button>
-
-
 
       <Button 
         variant="default" 
@@ -136,7 +125,7 @@
     </div>
 
     <!-- Preset colors -->
-    <div class="flex items-center justify-center gap-2 px-5 h-12">
+    <div class="flex items-center gap-2 mt-2">
       {#each presetColors as { color, title }}
         <ColorButton
           {color}
@@ -160,10 +149,10 @@
     <!-- Status overlay -->
     {#if status}
       <div 
-        class="absolute inset-0 z-50 flex items-center justify-center gap-2 rounded-lg border backdrop-blur-[0.2em] transition-all duration-200 {statusClass}"
+        class="absolute inset-0 flex items-center justify-center gap-2 rounded-lg border backdrop-blur-[0.2em] transition-all duration-200 {statusClass}"
         transition:fade={{ duration: 200 }}
       >
-        <div class="flex items-center gap-2 px-4 py-2">
+        <div class="flex items-center gap-2">
           {#if status.type === 'processing'}
             <Loader2 class="h-4 w-4 animate-spin" />
           {:else if status.type === 'success'}
