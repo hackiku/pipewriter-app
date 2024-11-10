@@ -1,25 +1,27 @@
-<!-- $lib/iframe/layout/Tabs.svelte -->
+<!-- src/lib/iframe/layout/Tabs.svelte -->
 <script lang="ts">
-  import { fade } from "svelte/transition";
+  import { fade, slide } from "svelte/transition";
+  import { cubicOut } from "svelte/easing";
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
   
-  import TableTab from "../tabs/TableTab.svelte";
-  import TextTab from "../tabs/TextTab.svelte";
-  import ColorTab from "../tabs/ColorTab.svelte";
-  import AiTab from "../tabs/AiTab.svelte";
-  import { Table, Type, Palette, Settings, Code, X } from "lucide-svelte";
+  import ColorTab from "../features/colors/ColorTab.svelte";
+  import { Palette, X } from "lucide-svelte";
   import { activeTab, showInfo } from "../stores";
   import { isProcessing } from "../utils";
 
+  const ANIMATION_DURATION = 150;
   const BG_STYLE = 'bg-white dark:bg-slate-900';
 
   const tabs = {
-    // table: { icon: Table, tooltip: "Table Styles", component: TableTab },
-    text: { icon: Type, tooltip: "Text Styles", component: TextTab },
-    color: { icon: Palette, tooltip: "Color Picker", component: ColorTab },
-    ai: { icon: Code, tooltip: "Code", component: AiTab },
+    color: { 
+      icon: Palette, 
+      tooltip: "Color Picker",
+      title: "Background Color",
+      description: "Change document background color",
+      component: ColorTab
+    }
   };
 
   function toggleTab(tab: string) {
@@ -27,40 +29,55 @@
   }
 
   function handleColorChange(event: CustomEvent<{ color: string }>) {
-    callGAS("changeBg", { color: event.detail.color });
+    // Color change event handler - pass through to parent
+    console.log('Color change:', event.detail);
   }
 
-  $: getButtonClass = (tab: string) =>
-    cn(
-      "transition-all duration-200 relative z-10",
-      $activeTab === tab
-        ? `w-10 h-[calc(3rem+1px)] rounded-b-full ${BG_STYLE}
-           border-b border-l border-r border-gray-300 dark:border-gray-600
-           after:content-[''] after:absolute after:top-[-1px] after:left-0 after:right-0 after:h-[1px] after:bg-inherit`
-        : "w-10 h-10 rounded-full mt-2 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
-    );
+  $: getButtonClass = (tab: string) => cn(
+    "transition-all duration-200 relative z-10",
+    $activeTab === tab
+      ? `w-10 h-[calc(3rem+1px)] rounded-b-full ${BG_STYLE}
+         border-b border-l border-r border-gray-300 dark:border-gray-600
+         after:content-[''] after:absolute after:top-[-1px] 
+         after:left-0 after:right-0 after:h-[1px] after:bg-inherit`
+      : "w-10 h-10 rounded-full mt-2 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
+  );
   
-  $: isFirstTabActive = $activeTab === Object.keys(tabs)[0];
+  $: activeTabData = $activeTab ? tabs[$activeTab] : null;
 </script>
 
 <div class="flex flex-col w-full relative">
-  <!-- Tab Content - Positioned above the buttons -->
   {#if $activeTab}
     <div
-      class={cn(
-        `absolute bottom-full w-full py-2 px-4
-         rounded-t-lg border border-gray-300 dark:border-gray-600
-         flex items-center justify-center ${BG_STYLE}`,
-        isFirstTabActive ? "rounded-br-none" : "rounded-br-lg"
-      )}
-      transition:fade={{ duration: 200 }}
+      class="absolute bottom-full w-full rounded-t-lg border border-gray-300 
+             dark:border-gray-600 {BG_STYLE} overflow-hidden"
+      transition:slide={{ 
+        duration: ANIMATION_DURATION,
+        easing: cubicOut,
+        axis: 'y' 
+      }}
     >
-      <svelte:component
-        this={tabs[$activeTab].component}
-        on:colorChange={handleColorChange}
-        on:processingStart={() => isProcessing.set(true)}
-        on:processingEnd={() => isProcessing.set(false)}
-      />
+      <!-- Tab Header -->
+      {#if $showInfo && activeTabData}
+        <div class="px-4 pt-3">
+          <h3 class="text-sm font-medium text-muted-foreground/60">
+            {activeTabData.title}
+          </h3>
+          <p class="text-xs text-muted-foreground/40 mt-0.5 mb-3">
+            {activeTabData.description}
+          </p>
+        </div>
+      {/if}
+
+      <!-- Fixed Height Content Container -->
+      <div class="relative px-4 pb-4" style:min-height="180px">
+        <svelte:component
+          this={activeTabData.component}
+          on:colorChange={handleColorChange}
+          on:processingStart={() => isProcessing.set(true)}
+          on:processingEnd={() => isProcessing.set(false)}
+        />
+      </div>
     </div>
   {/if}
 
@@ -86,27 +103,21 @@
         </Tooltip.Root>
       {/each}
 
-      <!-- Close button -->
       {#if $activeTab}
         <Button
           variant="ghost"
           size="icon"
           class="rounded-full opacity-40 hover:opacity-100 hover:bg-transparent"
-          on:click={() => $activeTab = null}
+          on:click={() => activeTab.set(null)}
           disabled={$isProcessing}
         >
           <X class="w-4 h-4 mt-4" />
         </Button>
       {/if}
     </div>
-
-    <!-- label -->
-    {#if $showInfo}
-      <h2 class="text-xs font-semibold uppercsase tracking-wide text-muted-foreground/60 pr-2 mt-2">
-        {$activeTab === 'text' ? 'Text' : 
-         $activeTab === 'color' ? 'Background' : 
-         $activeTab === 'ai' ? 'AI / Code' : 'Styles'}
-      </h2>
-    {/if}
   </div>
 </div>
+
+<style>
+  /* Any additional styles */
+</style>

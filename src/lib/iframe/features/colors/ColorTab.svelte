@@ -4,10 +4,11 @@
   import { fade, slide } from 'svelte/transition';
   import { Button } from "$lib/components/ui/button";
   import { Copy, Check, Loader2, ThumbsUp, AlertCircle } from 'lucide-svelte';
-  import ColorPicker from "../components/ColorPicker.svelte";
-  import ColorButton from "../components/ColorButton.svelte";
-  import { currentColor } from '../stores';
-  import { GASCommunicator } from '../gasUtils';
+  import ColorPicker from "./ColorPicker.svelte";
+  import ColorButton from "./ColorButton.svelte";
+  import { currentColor } from '../../stores';
+  import { GASCommunicator } from '../../gasUtils';
+  // import { GASCommunicator } from '../../utils/callGAS';
   import { cn } from "$lib/utils";
   
   const dispatch = createEventDispatcher();

@@ -5,7 +5,7 @@
   import { Button } from "$lib/components/ui/button";
   import * as Checkbox from "$lib/components/ui/checkbox";
   import { cn } from "$lib/utils";
-  import { promptStore, activePrompt, type Prompt } from '../stores/promptStore';
+  import { promptStore, activePrompt, type Prompt } from '../../stores/promptStore';
 
   export let disabled = false;
 
