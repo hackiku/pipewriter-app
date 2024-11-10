@@ -6,13 +6,12 @@
   import { Button } from "$lib/components/ui/button";
   import ElementCard from "../../components/ElementCard.svelte";
   import { getElement } from "../../elements";
-  import type { ThemeType } from "../../stores";
+  import { themeStore, type ThemeType } from "../../stores/themeStore";
 
   export let isProcessing = false;
   export let showDeleteConfirm = false;
   export let selectedStyle: any = null;
   export let savedCount = 0;
-  export let theme: ThemeType;
 
   const dispatch = createEventDispatcher();
   const elementId = "styleguide";
@@ -25,14 +24,14 @@
   $: applyButtonDisabled = !selectedStyle || isProcessing;
 </script>
 
-<div class="flex items-start gap-2 h-24">
+<div class="flex items-start gap-2">
   <!-- Style Guide Card -->
   <div class="w-2/5 h-full">
     {#if element}
       <ElementCard
         {element}
         onSelect={() => dispatchEvent('insertStyleGuide')}
-        {theme}
+        theme={$themeStore}
       />
     {:else}
       <div class="w-full h-full bg-gray-100 dark:bg-gray-800 rounded-lg flex items-center justify-center">
