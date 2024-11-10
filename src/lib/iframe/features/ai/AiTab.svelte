@@ -1,10 +1,9 @@
 <!-- $lib/iframe/features/ai/AiTab.svelte -->
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
-  import { FileCode, ArrowDown, ArrowUp, Trash2 } from 'lucide-svelte';
+  import { ArrowDown, ArrowUp, Trash2 } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
-  import { slide } from "svelte/transition";
-  import AiPromptDropdown from "./AiPromptDropdown.svelte";
+  import PromptSelect from './PromptSelect.svelte';
   import { promptStore, activePrompt } from '../../stores/promptStore';
   import { AppsScriptClient } from '../../utils/appsScript';
   import { cn } from "$lib/utils";
@@ -13,7 +12,7 @@
   const client = AppsScriptClient.getInstance();
   
   let isProcessing = false;
-  let showPromptDropdown = false;
+  let showPromptSelect = false;
 
   async function handleAction(position: 'start' | 'end') {
     if (isProcessing) return;
@@ -26,8 +25,7 @@
     });
 
     try {
-      // Include prompt if usePrompt is true in store
-      const promptPayload = $promptStore.usePrompt && $activePrompt 
+      const promptPayload = $activePrompt 
         ? { prompt: $activePrompt.content }
         : {};
 
@@ -91,54 +89,51 @@
     }
   }
 
-  $: conversionButtonClass = cn(
+  $: actionButtonClass = cn(
     "h-9",
-    $activePrompt && $promptStore.usePrompt && "border-primary"
+    $activePrompt && "border-primary bg-primary/5"
   );
 </script>
 
-<div class="flex flex-col gap-4 w-full py-2">
-  <!-- AI Prompt Dropdown -->
+<div class="flex flex-col items-stretch w-full gap-2 pt-4">
   <div class="px-4">
-    <AiPromptDropdown 
+    <PromptSelect
       {isProcessing}
-      bind:showDropdown={showPromptDropdown} 
+      bind:isOpen={showPromptSelect}
     />
-  </div>
 
-  <!-- Convert Buttons -->
-  <div class="px-4 grid grid-cols-2 gap-2">
-    <Button 
-      variant="outline"
-      class={conversionButtonClass}
-      on:click={() => handleAction('start')}
-      disabled={isProcessing}
-    >
-      <ArrowUp class="h-4 w-4 mr-2" />
-      To Start
-    </Button>
+    <div class="grid grid-cols-2 gap-2 mt-4">
+      <Button 
+        variant="outline"
+        class={actionButtonClass}
+        on:click={() => handleAction('start')}
+        disabled={isProcessing}
+      >
+        <ArrowUp class="h-4 w-4 mr-2" />
+        Start
+      </Button>
 
-    <Button 
-      variant="outline"
-      class={conversionButtonClass}
-      on:click={() => handleAction('end')}
-      disabled={isProcessing}
-    >
-      <ArrowDown class="h-4 w-4 mr-2" />
-      To End
-    </Button>
-  </div>
+      <Button 
+        variant="outline"
+        class={actionButtonClass}
+        on:click={() => handleAction('end')}
+        disabled={isProcessing}
+      >
+        <ArrowDown class="h-4 w-4 mr-2" />
+        End
+      </Button>
+    </div>
 
-  <!-- Delete Tags Button -->
-  <div class="px-4">
-    <Button 
-      variant="outline" 
-      class="w-full justify-start gap-2 h-9"
-      on:click={handleDeleteTags}
-      disabled={isProcessing}
-    >
-      <Trash2 class="h-4 w-4" />
-      Delete HTML Tags
-    </Button>
+    <div class="mt-2">
+      <Button 
+        variant="outline"
+        class="w-full justify-start gap-2 h-9"
+        on:click={handleDeleteTags}
+        disabled={isProcessing}
+      >
+        <Trash2 class="h-4 w-4" />
+        Delete HTML Tags
+      </Button>
+    </div>
   </div>
 </div>
