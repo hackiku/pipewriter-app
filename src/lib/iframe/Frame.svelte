@@ -4,11 +4,12 @@
 	import { onMount } from "svelte";
 	import { fade, slide } from "svelte/transition";
 	import * as Resizable from "$lib/components/ui/resizable";
-	
-	import Dropper from "./layout/Dropper.svelte";
+
 	import TopBar from "./layout/TopBar.svelte";
-	import BottomBar from "./layout/BottomBar.svelte";
+	import Dropper from "./layout/Dropper.svelte";
+	import Tester from './layout/Tester.svelte';
 	import Tabs from "./layout/Tabs.svelte";
+	import BottomBar from "./layout/BottomBar.svelte";
 	import AppAbout from "./layout/AppAbout.svelte";
 	
 	import { elements } from "./elements";
@@ -65,7 +66,9 @@
 
 			<Resizable.Handle withHandle />
 
-			<Resizable.Pane defaultSize={35}></Resizable.Pane>
+			<Resizable.Pane defaultSize={35}>
+				<Tester />
+			</Resizable.Pane>
 		</Resizable.PaneGroup>
 	</div>
 
