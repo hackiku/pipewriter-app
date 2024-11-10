@@ -7,9 +7,8 @@
   import { cn } from "$lib/utils";
   import { promptStore, activePrompt, type Prompt } from '../../stores/promptStore';
 
-  export let disabled = false;
-
-  let showOptions = false;
+  export let isProcessing = false;
+  export let showDropdown = false;
 
   function truncateText(text: string, length = 60) {
     return text.length > length ? text.slice(0, length) + "..." : text;
@@ -22,12 +21,14 @@
     });
   }
 
-  function handleDeletePrompt(promptId: string) {
-    promptStore.deletePrompt(promptId);
+  function handleDeletePrompt(prompt: Prompt, event: MouseEvent) {
+    event.stopPropagation();
+    promptStore.deletePrompt(prompt.id);
   }
 
   function handlePromptSelect(promptId: string) {
     promptStore.setActivePrompt(promptId);
+    showDropdown = false;
   }
 
   function handleUsePromptChange(checked: boolean) {
@@ -38,10 +39,9 @@
 </script>
 
 <div class="relative">
-  <!-- Prompt Dropdown -->
-  {#if showOptions}
+  {#if showDropdown}
     <div
-      class="absolute bottom-full mb-1 w-full p-2 bg-white dark:bg-gray-800 
+      class="absolute bottom-full mb-2 w-full p-4 bg-white dark:bg-gray-800 
              rounded-lg border border-gray-200 dark:border-gray-600 shadow-lg"
       transition:slide={{ duration: 150, axis: "y" }}
     >
@@ -49,11 +49,10 @@
         {#each store.prompts as prompt (prompt.id)}
           <div
             class={cn(
-              "relative rounded-lg border p-3 transition-all duration-200",
+              "group relative rounded-lg border p-3 transition-colors duration-200",
               store.activePromptId === prompt.id
                 ? "border-primary bg-primary/5"
-                : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600",
-              "cursor-pointer"
+                : "border-gray-200 dark:border-gray-700 hover:border-gray-300 dark:hover:border-gray-600"
             )}
             on:click={() => handlePromptSelect(prompt.id)}
           >
@@ -77,18 +76,17 @@
                   />
                 {:else}
                   <h3 class="text-sm font-medium mb-1">{prompt.title}</h3>
-                  <p class="text-xs text-muted-foreground leading-relaxed">
-                    {truncateText(prompt.content, 100)}
+                  <p class="text-xs text-muted-foreground">
+                    {truncateText(prompt.content)}
                   </p>
                 {/if}
               </div>
               
               {#if store.activePromptId === prompt.id}
-                <!-- Delete/Check Button -->
                 <button
                   class="mt-1 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700
                          group transition-colors"
-                  on:click|stopPropagation={() => handleDeletePrompt(prompt.id)}
+                  on:click={(e) => handleDeletePrompt(prompt, e)}
                 >
                   <Check class="h-4 w-4 text-primary group-hover:hidden" />
                   <X class="h-4 w-4 text-red-500 hidden group-hover:block" />
@@ -106,11 +104,11 @@
     <Button
       variant="outline"
       class={cn(
-        "flex-1 justify-between px-3 h-8",
+        "flex-1 justify-between h-8 px-3",
         store.usePrompt && "border-primary bg-primary/5"
       )}
-      on:click={() => showOptions = !showOptions}
-      {disabled}
+      on:click={() => showDropdown = !showDropdown}
+      disabled={isProcessing}
     >
       <span class="text-sm truncate">
         {$activePrompt ? $activePrompt.title : "Select prompt..."}
@@ -118,7 +116,7 @@
       <ChevronUp
         class={cn(
           "h-4 w-4 transition-transform duration-200",
-          showOptions && "rotate-180"
+          showDropdown && "rotate-180"
         )}
       />
     </Button>
@@ -127,7 +125,7 @@
       checked={store.usePrompt}
       onCheckedChange={handleUsePromptChange}
       class="h-8 w-8 border rounded-md data-[state=checked]:border-primary"
-      disabled={!$activePrompt || disabled}
+      disabled={!$activePrompt || isProcessing}
     >
       <Checkbox.Indicator>
         <Plus class="h-4 w-4" />
