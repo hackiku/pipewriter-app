@@ -1,13 +1,13 @@
-<!-- $lib/iframe/tabs/AiTab.svelte -->
+<!-- $lib/iframe/features/ai/AiTab.svelte -->
 <script lang="ts">
   import { FileCode, Loader2, ThumbsUp, AlertCircle, ArrowDown, ArrowUp, Trash2 } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { onMount } from 'svelte';
   import { fade, slide } from "svelte/transition";
-  import AiPromptDropdown from "../components/AiPromptDropdown.svelte";
-  import AiCodeBlock from "../components/AiCodeBlock.svelte";
-  import { promptStore, activePrompt } from '../stores/promptStore';
+  import AiPromptDropdown from "../../components/AiPromptDropdown.svelte";
+  import AiCodeBlock from "../../components/AiCodeBlock.svelte";
+  import { promptStore, activePrompt } from '../../stores/promptStore';
   import { cn } from "$lib/utils";
 
   let isProcessing = false;

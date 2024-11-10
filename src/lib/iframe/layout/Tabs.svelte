@@ -1,4 +1,4 @@
-<!-- src/lib/iframe/layout/Tabs.svelte -->
+<!-- $lib/iframe/layout/Tabs.svelte -->
 <script lang="ts">
   import { fade, slide } from "svelte/transition";
   import { cubicOut } from "svelte/easing";
@@ -6,21 +6,47 @@
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
   
+  // Import all tab components from features directory
+  import TableTab from "../features/table/TableTab.svelte";
+  import TextTab from "../features/text/TextTab.svelte";
   import ColorTab from "../features/colors/ColorTab.svelte";
-  import { Palette, X } from "lucide-svelte";
+  import AiTab from "../features/ai/AiTab.svelte";
+  import { Table, Type, Palette, Code, Settings, Loader2, ThumbsUp, AlertCircle, X } from "lucide-svelte";
   import { activeTab, showInfo } from "../stores";
   import { isProcessing } from "../utils";
 
   const ANIMATION_DURATION = 150;
   const BG_STYLE = 'bg-white dark:bg-slate-900';
 
+  // Combined tabs dictionary with enhanced metadata
   const tabs = {
+    table: { 
+      icon: Table, 
+      tooltip: "Table Layout",
+      title: "Table Formatting",
+      description: "Adjust table alignments and styles",
+      component: TableTab
+    },
+    text: { 
+      icon: Type, 
+      tooltip: "Text Styles",
+      title: "Text Formatting",
+      description: "Format text and update styles",
+      component: TextTab
+    },
     color: { 
       icon: Palette, 
       tooltip: "Color Picker",
       title: "Background Color",
       description: "Change document background color",
       component: ColorTab
+    },
+    ai: { 
+      icon: Code, 
+      tooltip: "AI & Code",
+      title: "AI Assistant",
+      description: "Convert formats and generate content",
+      component: AiTab
     }
   };
 
@@ -29,7 +55,7 @@
   }
 
   function handleColorChange(event: CustomEvent<{ color: string }>) {
-    // Color change event handler - pass through to parent
+    // Pass through to parent
     console.log('Color change:', event.detail);
   }
 
@@ -44,10 +70,12 @@
   );
   
   $: activeTabData = $activeTab ? tabs[$activeTab] : null;
+
+  let status = null; // For status updates
 </script>
 
 <div class="flex flex-col w-full relative">
-  {#if $activeTab}
+  {#if $activeTab && activeTabData}
     <div
       class="absolute bottom-full w-full rounded-t-lg border border-gray-300 
              dark:border-gray-600 {BG_STYLE} overflow-hidden"
@@ -58,7 +86,7 @@
       }}
     >
       <!-- Tab Header -->
-      {#if $showInfo && activeTabData}
+      {#if $showInfo}
         <div class="px-4 pt-3">
           <h3 class="text-sm font-medium text-muted-foreground/60">
             {activeTabData.title}
@@ -70,13 +98,40 @@
       {/if}
 
       <!-- Fixed Height Content Container -->
-      <div class="relative px-4 pb-4" style:min-height="180px">
+      <div class="relative px-4 pb-4" style="min-height:180px">
         <svelte:component
           this={activeTabData.component}
           on:colorChange={handleColorChange}
           on:processingStart={() => isProcessing.set(true)}
           on:processingEnd={() => isProcessing.set(false)}
         />
+      </div>
+
+      <!-- Status Bar -->
+      <div class="h-12 px-4 flex items-center border-t border-gray-200 dark:border-gray-700">
+        {#if status}
+          <div class="flex items-center gap-2" 
+               class:text-green-600={status.type === 'success'}
+               class:text-red-600={status.type === 'error'}
+               class:text-blue-600={status.type === 'processing'}>
+            {#if status.type === 'processing'}
+              <Loader2 class="h-4 w-4 animate-spin" />
+            {:else if status.type === 'success'}
+              <ThumbsUp class="h-4 w-4" />
+            {:else if status.type === 'error'}
+              <AlertCircle class="h-4 w-4" />
+            {/if}
+            <span class="text-sm font-medium">{status.message}</span>
+            {#if status.executionTime}
+              <span class="text-xs opacity-60">({status.executionTime}ms)</span>
+            {/if}
+          </div>
+        {:else}
+          <div class="flex items-center gap-2 text-muted-foreground/40 text-sm">
+            <Settings class="h-4 w-4" />
+            <span>Ready for changes</span>
+          </div>
+        {/if}
       </div>
     </div>
   {/if}
@@ -115,9 +170,15 @@
         </Button>
       {/if}
     </div>
+
+    {#if $showInfo}
+      <h2 class="text-xs font-semibold uppercase tracking-wide text-muted-foreground/60 pr-2">
+        {#if $activeTab}
+          {activeTabData.title}
+        {:else}
+          Styles
+        {/if}
+      </h2>
+    {/if}
   </div>
 </div>
-
-<style>
-  /* Any additional styles */
-</style>

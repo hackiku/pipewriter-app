@@ -7,8 +7,8 @@
   import { GASCommunicator } from "../../gasUtils";
   import TextStyleDropdown from "./TextStyleDropdown.svelte";
   import TextButtons from "./TextButtons.svelte";
-  import { elementsTheme } from "../stores";
-  import { textStyles, selectedStyle as selectedStyleStore, type TextStyle } from "../stores/textStyles";
+  import { elementsTheme } from "../../stores";
+  import { textStyles, selectedStyle as selectedStyleStore, type TextStyle } from "../../stores/textStyles";
 
   const dispatch = createEventDispatcher();
   const gas = GASCommunicator.getInstance(5000);
