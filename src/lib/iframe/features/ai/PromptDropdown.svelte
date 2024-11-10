@@ -9,19 +9,18 @@
   import { promptStore, activePrompt } from '../../stores/promptStore';
 
   export let isProcessing = false;
-
-  let showDropdown = false;
+  export let isOpen = false;
 
   function toggleDropdown() {
-    showDropdown = !showDropdown;
-    if (!showDropdown && $promptStore.prompts[$promptStore.currentIndex].isDefault) {
-      $promptStore.setActivePrompt($promptStore.prompts[$promptStore.currentIndex].id);
+    isOpen = !isOpen;
+    if (isOpen && !$activePrompt) {
+      $promptStore.setActivePrompt("1");
     }
   }
 
   function clearPrompt() {
     $promptStore.removeActivePrompt();
-    showDropdown = false;
+    isOpen = false;
   }
 
   $: buttonClass = cn(
@@ -37,9 +36,9 @@
 </script>
 
 <div class="space-y-2">
-  {#if showDropdown}
+  {#if isOpen}
     <div
-      class="p-3 bg-white dark:bg-gray-800 rounded-lg border"
+      class="p-3 bg-gray-100 dark:bg-gray-800 rounded-lg border"
       transition:slide={{ duration: 150 }}
     >
       <PromptEditor
@@ -76,7 +75,7 @@
       <X class="h-4 w-4" />
     </Button>
   {/if}
-	  <Button
+  <Button
     variant="outline"
     class={buttonClass}
     on:click={toggleDropdown}
@@ -90,9 +89,8 @@
     <ChevronDown
       class={cn(
         "h-4 w-4 transition-transform duration-200",
-        showDropdown && "rotate-180"
+        isOpen && "rotate-180"
       )}
     />
   </Button>
-
 </div>

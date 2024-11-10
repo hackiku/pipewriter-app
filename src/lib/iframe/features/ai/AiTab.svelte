@@ -4,8 +4,7 @@
   import { ArrowDown, ArrowUp, Trash2 } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
   import { promptStore, activePrompt } from '../../stores/promptStore';
-	import PromptSelect from './PromptSelect.svelte';
-	import PromptDropdown from './PromptDropdown.svelte';
+  import PromptDropdown from './PromptDropdown.svelte';
   import { AppsScriptClient } from '../../utils/appsScript';
   import { cn } from "$lib/utils";
 
@@ -13,7 +12,6 @@
   const client = AppsScriptClient.getInstance();
   
   let isProcessing = false;
-  let showPromptSelect = false;
   let showPromptDropdown = false;
 
   async function handleAction(position: 'start' | 'end') {
@@ -30,6 +28,10 @@
       const promptPayload = $activePrompt 
         ? { prompt: $activePrompt.content }
         : {};
+
+      if ($promptStore.useMasterPrompt) {
+        promptPayload.prompt = `${promptPayload.prompt}\n\n––––––––––\n\n${$promptStore.prompts[0].content}`;
+      }
 
       const response = await client.sendMessage('doc2html', {
         position,
@@ -97,19 +99,15 @@
   );
 </script>
 
-<div class="flex flex-col items-stretch w-full gap-2">
+<div class="flex flex-col items-stretch w-full gap-3">
   <div class="relative">
-    <!-- <PromptSelect
-      {isProcessing}
-      bind:isOpen={showPromptSelect}
-    /> -->
     <PromptDropdown
       {isProcessing}
       bind:isOpen={showPromptDropdown}
     />
   </div>
 
-  <div class="grid grid-cols-2 gap-2 mt-2">
+  <div class="grid grid-cols-2 gap-2">
     <Button 
       variant="outline"
       class={actionButtonClass}
@@ -133,7 +131,7 @@
 
   <Button 
     variant="outline"
-    class="w-full justify-start gap-2 h-9 mt-1"
+    class="w-full justify-start gap-2 h-8"
     on:click={handleDeleteTags}
     disabled={isProcessing}
   >

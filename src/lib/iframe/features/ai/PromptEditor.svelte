@@ -4,41 +4,54 @@
   import { Button } from "$lib/components/ui/button";
   import { RotateCw } from 'lucide-svelte';
   import { cn } from "$lib/utils";
-  import { promptStore, type Prompt } from '../../stores/promptStore';
+  import { promptStore, activePrompt, type Prompt } from '../../stores/promptStore';
 
   export let disabled: boolean = false;
 
   let currentPrompt: Prompt;
   let isEdited = false;
 
-  $: currentPrompt = $promptStore.prompts[$promptStore.currentIndex];
-  $: isEdited = !currentPrompt.isDefault;
+  $: {
+    if ($activePrompt) {
+      currentPrompt = { ...$activePrompt };
+    } else {
+      currentPrompt = { id: "", title: "", content: "" };
+    }
+  }
+
+  $: isEdited = $activePrompt && (currentPrompt.title !== $activePrompt.title || currentPrompt.content !== $activePrompt.content);
 
   function handleReset() {
-    $promptStore.resetPrompt($promptStore.currentIndex);
-    isEdited = false;
+    if ($activePrompt) {
+      $promptStore.resetPrompt($activePrompt.id);
+      isEdited = false;
+    }
   }
 
   function handleSave() {
-    $promptStore.updatePrompt(currentPrompt);
-    $promptStore.setActivePrompt(currentPrompt.id);
-    isEdited = false;
+    if ($activePrompt) {
+      $promptStore.updatePrompt(currentPrompt);
+      isEdited = false;
+    }
   }
 
-  function selectIndex(index: number) {
-    $promptStore.setIndex(index);
+  function selectPrompt(id: string) {
+    $promptStore.setActivePrompt(id);
     isEdited = false;
   }
 
   function handleInput() {
     isEdited = true;
-    currentPrompt.isDefault = false;
   }
 
-  $: numberButtonClass = (idx: number) => cn(
+  $: numberButtonClass = (id: string) => cn(
     "h-6 w-6 rounded-full p-0 text-xs",
-    $promptStore.currentIndex === idx && "bg-primary text-primary-foreground"
+    $activePrompt?.id === id && "bg-primary text-primary-foreground"
   );
+
+  $: combinedPromptContent = $promptStore.useMasterPrompt && $activePrompt
+    ? `${currentPrompt.content}\n\n–––––––––\n\n${$promptStore.masterPrompt}`
+    : currentPrompt.content;
 </script>
 
 <div class="space-y-1.5">
@@ -53,7 +66,7 @@
   
   <ScrollArea class="w-full rounded-md border">
     <textarea
-      bind:value={currentPrompt.content}
+      bind:value={combinedPromptContent}
       class="w-full h-[100px] p-2 text-sm bg-transparent resize-none focus:outline-none"
       placeholder="Enter your prompt..."
       {disabled}
@@ -63,15 +76,15 @@
 
   <div class="flex items-center justify-between pt-1">
     <div class="flex gap-1">
-      {#each $promptStore.prompts.slice(0, 3) as _, i}
+      {#each $promptStore.prompts as prompt}
         <Button
           variant="ghost"
           size="sm"
-          class={numberButtonClass(i)}
-          on:click={() => selectIndex(i)}
+          class={numberButtonClass(prompt.id)}
+          on:click={() => selectPrompt(prompt.id)}
           {disabled}
         >
-          {i + 1}
+          {prompt.id}
         </Button>
       {/each}
     </div>
@@ -92,7 +105,7 @@
         size="icon"
         class="h-6 w-6"
         on:click={handleReset}
-        disabled={disabled || currentPrompt.isDefault}
+        disabled={disabled || !isEdited}
       >
         <RotateCw class="h-3.5 w-3.5" />
       </Button>
