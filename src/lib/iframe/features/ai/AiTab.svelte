@@ -95,45 +95,43 @@
   );
 </script>
 
-<div class="flex flex-col items-stretch w-full gap-2 pt-4">
-  <div class="px-4">
+<div class="flex flex-col items-stretch w-full gap-2">
+  <div class="relative">
     <PromptSelect
       {isProcessing}
       bind:isOpen={showPromptSelect}
     />
-
-    <div class="grid grid-cols-2 gap-2 mt-4">
-      <Button 
-        variant="outline"
-        class={actionButtonClass}
-        on:click={() => handleAction('start')}
-        disabled={isProcessing}
-      >
-        <ArrowUp class="h-4 w-4 mr-2" />
-        Start
-      </Button>
-
-      <Button 
-        variant="outline"
-        class={actionButtonClass}
-        on:click={() => handleAction('end')}
-        disabled={isProcessing}
-      >
-        <ArrowDown class="h-4 w-4 mr-2" />
-        End
-      </Button>
-    </div>
-
-    <div class="mt-2">
-      <Button 
-        variant="outline"
-        class="w-full justify-start gap-2 h-9"
-        on:click={handleDeleteTags}
-        disabled={isProcessing}
-      >
-        <Trash2 class="h-4 w-4" />
-        Delete HTML Tags
-      </Button>
-    </div>
   </div>
+
+  <div class="grid grid-cols-2 gap-2 mt-2">
+    <Button 
+      variant="outline"
+      class={actionButtonClass}
+      on:click={() => handleAction('start')}
+      disabled={isProcessing}
+    >
+      <ArrowUp class="h-4 w-4 mr-2" />
+      Start
+    </Button>
+
+    <Button 
+      variant="outline"
+      class={actionButtonClass}
+      on:click={() => handleAction('end')}
+      disabled={isProcessing}
+    >
+      <ArrowDown class="h-4 w-4 mr-2" />
+      End
+    </Button>
+  </div>
+
+  <Button 
+    variant="outline"
+    class="w-full justify-start gap-2 h-9 mt-1"
+    on:click={handleDeleteTags}
+    disabled={isProcessing}
+  >
+    <Trash2 class="h-4 w-4" />
+    Delete HTML Tags
+  </Button>
 </div>
