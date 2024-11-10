@@ -1,85 +1,62 @@
 <!-- $lib/iframe/layout/Tester.svelte -->
 <script lang="ts">
   import RoundButton from '../components/RoundButton.svelte';
-  import { Sun, Moon, Heart, Star } from 'lucide-svelte';
+  import { Text, Palette, Code } from 'lucide-svelte';
   import { writable } from 'svelte/store';
 
   const isSelected = writable(false);
   function toggleSelected() {
     isSelected.update(v => !v);
   }
-
-  const colors = [
-    { hex: '#4F46E5', name: 'Indigo' },
-    { hex: '#EC4899', name: 'Pink' },
-  ];
 </script>
 
-<div class="space-y-8 p-4">
-  <!-- Row 1: Auto-sized grid -->
-  <div class="grid grid-cols-4 gap-4">
-    <div class="flex items-center justify-center">
+<div class="flex flex-col gap-6">
+  <!-- Row 1: Icons in fixed containers -->
+  <div class="flex items-center gap-4 border-b pb-4 border-gray-200 dark:border-gray-700">
+    <div class="h-7 w-7">
       <RoundButton
-        icon={Sun}
+        icon={Text}
         selected={$isSelected}
-        tooltipContent="Sun icon"
+        tooltipContent="Text styles"
         on:click={toggleSelected}
       />
     </div>
     
-    <div class="flex items-center justify-center">
+    <div class="h-7 w-7">
       <RoundButton
-        icon={Heart}
+        icon={Palette}
         selected={$isSelected}
-        tooltipContent="Heart icon"
+        tooltipContent="Color picker"
         on:click={toggleSelected}
       />
     </div>
     
-    <div class="flex items-center justify-center">
+    <div class="h-7 w-7">
       <RoundButton
-        color={colors[0].hex}
+        icon={Code}
         selected={$isSelected}
-        tooltipContent="Indigo button"
-        on:click={toggleSelected}
-      />
-    </div>
-    
-    <div class="flex items-center justify-center">
-      <RoundButton
-        gradient
-        selected={$isSelected}
-        tooltipContent="Gradient"
+        tooltipContent="Code tools"
         on:click={toggleSelected}
       />
     </div>
   </div>
 
-  <!-- Row 2: Fixed sizes flex -->
-  <div class="flex items-center gap-4">
+  <!-- Row 2: Color buttons -->
+  <div class="flex items-center gap-2">
     <div class="h-7 w-7">
       <RoundButton
-        icon={Moon}
+        color="#4F46E5"
         selected={$isSelected}
-        tooltipContent="Moon in h-7"
+        tooltipContent="Indigo"
         on:click={toggleSelected}
       />
     </div>
     
     <div class="h-7 w-7">
       <RoundButton
-        icon={Star}
+        color="#EC4899"
         selected={$isSelected}
-        tooltipContent="Star in h-7"
-        on:click={toggleSelected}
-      />
-    </div>
-    
-    <div class="h-7 w-7">
-      <RoundButton
-        color={colors[1].hex}
-        selected={$isSelected}
-        tooltipContent="Pink in h-7"
+        tooltipContent="Pink"
         on:click={toggleSelected}
       />
     </div>
@@ -88,7 +65,7 @@
       <RoundButton
         gradient
         selected={$isSelected}
-        tooltipContent="Gradient in h-7"
+        tooltipContent="Custom color"
         on:click={toggleSelected}
       />
     </div>

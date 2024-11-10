@@ -1,4 +1,4 @@
-<!-- $lib/iframe/components/RoundButton.svelte -->
+<!-- $lib/components/RoundButton.svelte -->
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
@@ -7,7 +7,7 @@
   import type { LucideIcon } from 'lucide-svelte';
 
   export let variant: 'default' | 'ghost' | 'outline' = 'ghost';
-  export let size: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | undefined = undefined;
+  export let size: 'xs' | 'sm' | 'md' | undefined = undefined;
   export let disabled = false;
   export let className = '';
   export let icon: typeof LucideIcon | undefined = undefined;
@@ -17,21 +17,19 @@
   export let loading = false;
   export let tooltipContent: string | undefined = undefined;
 
+  // Simplified sizes matching IconButton's proven ratios
   const sizeClasses = {
-    xs: 'min-h-6 min-w-6 h-6 w-6',
-    sm: 'min-h-7 min-w-7 h-7 w-7',
-    md: 'min-h-8 min-w-8 h-8 w-8',
-    lg: 'min-h-10 min-w-10 h-10 w-10',
-    xl: 'min-h-12 min-w-12 h-12 w-12'
+    xs: 'h-6 w-6',
+    sm: 'h-7 w-7',
+    md: 'h-8 w-8'
   };
 
-  const iconSizes = {
-    xs: 'h-3 w-3',
-    sm: 'h-4 w-4',
-    md: 'h-4 w-4',
-    lg: 'h-5 w-5',
-    xl: 'h-6 w-6',
-    default: 'h-full w-full p-1.5'
+  // Icon padding taken from IconButton
+  const iconPadding = {
+    xs: 'p-1',
+    sm: 'p-1.5',
+    md: 'p-2',
+    default: 'p-1.5' // For container-filling mode
   };
 
   $: buttonStyle = gradient 
@@ -39,27 +37,36 @@
     : color ? `background-color: ${color};` : undefined;
 
   $: buttonClass = cn(
-    // Base classes - always perfectly round
-    'relative flex items-center justify-center rounded-full',
+    // Core classes
+    'rounded-full aspect-square',
     'transition-all duration-200',
     
-    // Size control
-    size ? sizeClasses[size] : 'w-full h-full min-w-full min-h-full',
+    // Size handling
+    size ? sizeClasses[size] : 'h-full w-full',
     
-    // States
-    'hover:scale-105 active:scale-95',
-    'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-1',
-    selected && 'ring-2 ring-primary ring-offset-1',
-    disabled && 'opacity-50 cursor-not-allowed',
-    loading && 'animate-pulse',
+    // Border & shadow from ColorButton
+    color || gradient ? [
+      "border-2",
+      selected ? "border-primary shadow-md" : "border-gray-300 dark:border-gray-600",
+      "hover:border-primary hover:shadow-md"
+    ] : [
+      // Icon styling from IconButton
+      selected && "bg-primary/10 text-primary hover:bg-primary/20",
+      !selected && "text-muted-foreground hover:text-foreground"
+    ],
+    
+    // Shared states
+    'focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2',
+    disabled && "opacity-50 cursor-not-allowed",
+    loading && "animate-pulse",
     
     className
   );
 
-  // Ensure icon fits within button while maintaining aspect ratio
+  // Icon classes with proper padding
   $: iconClass = cn(
-    'shrink-0',
-    size ? iconSizes[size] : iconSizes.default,
+    "w-full h-full",
+    size ? iconPadding[size] : iconPadding.default,
     color && "text-white"
   );
 </script>
@@ -75,7 +82,7 @@
         on:click
       >
         {#if loading}
-          <Loader2 class={cn("animate-spin", iconSizes[size || 'default'])} />
+          <Loader2 class="h-4 w-4 animate-spin" />
         {:else if icon}
           <svelte:component this={icon} class={iconClass} />
         {:else}
@@ -96,7 +103,7 @@
     on:click
   >
     {#if loading}
-      <Loader2 class={cn("animate-spin", iconSizes[size || 'default'])} />
+      <Loader2 class="h-4 w-4 animate-spin" />
     {:else if icon}
       <svelte:component this={icon} class={iconClass} />
     {:else}

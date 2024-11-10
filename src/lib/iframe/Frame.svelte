@@ -67,7 +67,7 @@
 			<Resizable.Handle withHandle />
 
 			<Resizable.Pane defaultSize={35}>
-				<Tester />
+				<!-- <Tester /> -->
 			</Resizable.Pane>
 		</Resizable.PaneGroup>
 	</div>
