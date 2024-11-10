@@ -4,71 +4,66 @@
   import { Button } from "$lib/components/ui/button";
   import { RotateCw } from 'lucide-svelte';
   import { cn } from "$lib/utils";
-  import { createEventDispatcher } from 'svelte';
+  import { promptStore, type Prompt } from '../../stores/promptStore';
 
-  export let title: string;
-  export let content: string;
-  export let currentIndex: number = 0;
   export let disabled: boolean = false;
 
-  const dispatch = createEventDispatcher();
+  let currentPrompt: Prompt;
+  let isEdited = false;
 
-  // Hardcoded default prompts
-  const defaultPrompts = [
-    {
-      title: "Landing Page",
-      content: "Transform this content into a landing page layout with a hero section, feature cards, and clear call-to-action."
-    },
-    {
-      title: "Feature Grid",
-      content: "Create a feature comparison grid with clear headings, consistent formatting, and highlighted key points."
-    },
-    {
-      title: "Blog Post",
-      content: "Format this as a blog post with clear article structure, section breaks, and proper heading hierarchy."
-    }
-  ];
+  $: currentPrompt = $promptStore.prompts[$promptStore.currentIndex];
+  $: isEdited = !currentPrompt.isDefault;
 
   function handleReset() {
-    const defaultPrompt = defaultPrompts[currentIndex];
-    dispatch('update', { title: defaultPrompt.title, content: defaultPrompt.content });
+    $promptStore.resetPrompt($promptStore.currentIndex);
+    isEdited = false;
   }
 
   function handleSave() {
-    dispatch('save');
+    $promptStore.updatePrompt(currentPrompt);
+    $promptStore.setActivePrompt(currentPrompt.id);
+    isEdited = false;
   }
 
   function selectIndex(index: number) {
-    dispatch('select', index);
+    $promptStore.setIndex(index);
+    isEdited = false;
+  }
+
+  function handleInput() {
+    isEdited = true;
+    currentPrompt.isDefault = false;
   }
 
   $: numberButtonClass = (idx: number) => cn(
     "h-6 w-6 rounded-full p-0 text-xs",
-    currentIndex === idx && "bg-primary text-primary-foreground"
+    $promptStore.currentIndex === idx && "bg-primary text-primary-foreground"
   );
 </script>
 
 <div class="space-y-1.5">
   <input
     type="text"
-    bind:value={title}
+    bind:value={currentPrompt.title}
     class="w-full px-2 py-1 text-sm font-medium bg-transparent focus:outline-none"
     placeholder="Prompt title..."
     {disabled}
+    on:input={handleInput}
   />
   
   <ScrollArea class="w-full rounded-md border">
     <textarea
-      bind:value={content}
+      bind:value={currentPrompt.content}
       class="w-full h-[100px] p-2 text-sm bg-transparent resize-none focus:outline-none"
       placeholder="Enter your prompt..."
       {disabled}
+      on:input={handleInput}
     />
   </ScrollArea>
 
   <div class="flex items-center justify-between pt-1">
     <div class="flex gap-1">
-      {#each Array(3) as _, i}
+      {#each $promptStore.prompts.slice(0, 3) as _, i}
         <Button
           variant="ghost"
           size="sm"
@@ -87,7 +82,7 @@
         size="sm"
         class="h-6"
         on:click={handleSave}
-        {disabled}
+        disabled={disabled || !isEdited}
       >
         Save
       </Button>
@@ -97,7 +92,7 @@
         size="icon"
         class="h-6 w-6"
         on:click={handleReset}
-        {disabled}
+        disabled={disabled || currentPrompt.isDefault}
       >
         <RotateCw class="h-3.5 w-3.5" />
       </Button>

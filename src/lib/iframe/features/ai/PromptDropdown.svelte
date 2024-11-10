@@ -4,80 +4,52 @@
   import { Button } from "$lib/components/ui/button";
   import * as Checkbox from "$lib/components/ui/checkbox";
   import { cn } from "$lib/utils";
-  import { ChevronDown, X, Trash2 } from 'lucide-svelte';
-  import PromptEditor from './PromptEditor.svelte';
+  import { ChevronDown, X, Trash2 } from "lucide-svelte";
+  import PromptEditor from "./PromptEditor.svelte";
+  import { promptStore, activePrompt } from '../../stores/promptStore';
+
+  export let isProcessing = false;
 
   let showDropdown = false;
-  let currentIndex = 0;
-  let isProcessing = false;
-  let useMasterPrompt = true;
-  
-  // Active prompt state
-  let activePrompt: { title: string; content: string } | null = null;
 
-  function handlePromptUpdate({ detail }: CustomEvent<{ title: string; content: string }>) {
-    if (activePrompt) {
-      activePrompt.title = detail.title;
-      activePrompt.content = detail.content;
+  function toggleDropdown() {
+    showDropdown = !showDropdown;
+    if (!showDropdown && $promptStore.prompts[$promptStore.currentIndex].isDefault) {
+      $promptStore.setActivePrompt($promptStore.prompts[$promptStore.currentIndex].id);
     }
   }
 
-  function handlePromptSelect({ detail: index }: CustomEvent<number>) {
-    currentIndex = index;
-    // Could initialize activePrompt here if none selected
-  }
-
   function clearPrompt() {
-    activePrompt = null;
+    $promptStore.removeActivePrompt();
     showDropdown = false;
   }
 
   $: buttonClass = cn(
     "w-full justify-between px-3 h-9 font-normal",
-    activePrompt && "border-2 border-primary bg-primary/5 hover:bg-primary/10"
+    $activePrompt && "border-2 border-black bg-primary/5 hover:bg-primary/10"
+  );
+
+  $: clearButtonClass = cn(
+    "w-full justify-between px-3 h-9 font-normal",
+    "bg-red-100 hover:bg-red-200 text-red-700 border-red-300",
+    "dark:bg-red-900/30 dark:hover:bg-red-900/50 dark:text-red-400 dark:border-red-800"
   );
 </script>
 
 <div class="space-y-2">
-  <Button
-    variant="outline"
-    class={buttonClass}
-    on:click={() => showDropdown = !showDropdown}
-    disabled={isProcessing}
-  >
-    {#if activePrompt}
-      <div class="flex items-center gap-2 opacity-50">
-        <Trash2 class="h-4 w-4" />
-        <span>Clear prompt</span>
-      </div>
-      <X class="h-4 w-4" />
-    {:else}
-      <span class="text-muted-foreground">Select prompt...</span>
-      <ChevronDown class={cn(
-        "h-4 w-4 transition-transform duration-200",
-        showDropdown && "rotate-180"
-      )} />
-    {/if}
-  </Button>
-
   {#if showDropdown}
     <div
       class="p-3 bg-white dark:bg-gray-800 rounded-lg border"
       transition:slide={{ duration: 150 }}
     >
       <PromptEditor
-        title={activePrompt?.title ?? ''}
-        content={activePrompt?.content ?? ''}
-        {currentIndex}
         disabled={isProcessing}
-        on:update={handlePromptUpdate}
-        on:select={handlePromptSelect}
       />
 
       <div class="flex items-center space-x-2 border-t mt-3 pt-2">
         <Checkbox.Root
-          checked={useMasterPrompt}
-          onCheckedChange={(checked) => useMasterPrompt = checked}
+          checked={$promptStore.useMasterPrompt}
+          onCheckedChange={() => $promptStore.toggleMasterPrompt()}
           disabled={isProcessing}
           class="h-4 w-4"
         >
@@ -90,5 +62,37 @@
         </label>
       </div>
     </div>
+
+    <Button
+      variant="outline"
+      class={clearButtonClass}
+      on:click={clearPrompt}
+      disabled={isProcessing || !$activePrompt}
+    >
+      <div class="flex items-center gap-2">
+        <Trash2 class="h-4 w-4" />
+        <span>Clear prompt</span>
+      </div>
+      <X class="h-4 w-4" />
+    </Button>
   {/if}
+	  <Button
+    variant="outline"
+    class={buttonClass}
+    on:click={toggleDropdown}
+    disabled={isProcessing}
+  >
+    {#if $activePrompt}
+      <span class="font-medium text-black dark:text-white">{$activePrompt.title}</span>
+    {:else}
+      <span class="text-muted-foreground">Select prompt...</span>
+    {/if}
+    <ChevronDown
+      class={cn(
+        "h-4 w-4 transition-transform duration-200",
+        showDropdown && "rotate-180"
+      )}
+    />
+  </Button>
+
 </div>

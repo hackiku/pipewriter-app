@@ -73,7 +73,7 @@
       if (response.success) {
         dispatch('status', {
           type: 'success',
-          message: 'Tags removed successfully',
+          message: 'Tags removed',
           executionTime: response.executionTime
         });
       } else {
