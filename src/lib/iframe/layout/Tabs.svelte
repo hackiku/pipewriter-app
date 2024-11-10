@@ -75,7 +75,12 @@
 </script>
 
 <div class="flex flex-col w-full relative">
-  {#if $activeTab && activeTabData}
+    {#if $showInfo && !$activeTab}
+      <h2 class="text-xs font-regular uppercase tracking-wide text-muted-foreground/60 ml-1 my-2">
+        Styles
+      </h2>
+    {/if}
+	{#if $activeTab && activeTabData}
     <div
       class="absolute bottom-full w-full rounded-t-lg border border-gray-300 
              dark:border-gray-600 {BG_STYLE} overflow-hidden"
@@ -91,14 +96,14 @@
           <h3 class="text-xs font-medium text-muted-foreground/60">
             {activeTabData.title}
           </h3>
-          <p class="text-[0.65em] text-muted-foreground/40 mt-0.5 mb-3">
+          <!-- <p class="text-[0.65em] text-muted-foreground/40 mt-0.5 mb-3">
             {activeTabData.description}
-          </p>
+          </p> -->
         </div>
       {/if}
 
       <!-- Fixed Height Content Container -->
-      <div class="relative px-4 pb-4">
+      <div class="relative px-4 py-4">
         <svelte:component
           this={activeTabData.component}
           on:colorChange={handleColorChange}
@@ -171,14 +176,6 @@
       {/if}
     </div>
 
-    {#if $showInfo}
-      <h2 class="text-xs font-semibold uppercase tracking-wide text-muted-foreground/60 pr-2">
-        {#if $activeTab}
-          {activeTabData.title}
-        {:else}
-          Styles
-        {/if}
-      </h2>
-    {/if}
+
   </div>
 </div>
