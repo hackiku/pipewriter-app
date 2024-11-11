@@ -1,48 +1,44 @@
-<!-- $lib/iframe/layout/dropper/DropperGrid.svelte -->
+<!-- features/dropper/DropperGrid.svelte -->
 <script lang="ts">
-  import { showInfo } from "../../stores";
-  import type { ElementObject } from "../../elements";
-  import { gridClass } from "../../stores/gridStore";
+  import { createEventDispatcher } from "svelte";
   import ElementCard from "../../components/ElementCard.svelte";
-	import { groupByCategory, type ThemeType } from './elements/elements';
+  import { showInfo } from "../../stores";
+  import { gridStore } from "../../stores/gridStore";
+  import { groupByCategory, type ThemeType } from "./elements/elements";
 
-  // export let elements: ElementObject[] = [];
-  // export let category: string = "";
-  // export let onElementSelect: (elementId: string) => Promise<void>;
+  export let theme: ThemeType;
+  export let isProcessing = false;
 
-	// NEW ELEMENTS
-	export let theme: ThemeType;
-	$: categories = groupByCategory(theme);
+  const dispatch = createEventDispatcher();
 
+  $: categories = groupByCategory(theme);
 
-  let isProcessing = false;
-
-  function handleProcessingStart() {
-    isProcessing = true;
-  }
-
-  function handleProcessingEnd() {
-    isProcessing = false;
+  function handleElementClick(elementId: string) {
+    if (!isProcessing) {
+      dispatch("elementSelect", { elementId });
+    }
   }
 </script>
 
-<div class="category-section mb-2">
-  <!-- {#if $showInfo}
-    <h3 class="text-xs font-normal text-gray-400 mb-1">
-      {category.replace("-", " ")}
-    </h3>
-  {/if} -->
-  
-  <div class="grid {$gridClass.grid} {$gridClass.gap} {$gridClass.padding}">
-		{#each Object.entries(categories) as [category, elements]}
-			<section>
-				<h3>{category}</h3>
-				<div class="grid">
-					{#each elements as element}
-						<ElementCard {element} />
-					{/each}
-				</div>
-			</section>
-		{/each}
-  </div>
+<div class="space-y-4">
+  {#each Object.entries(categories) as [category, elements]}
+    <section>
+      {#if $showInfo}
+        <h3 class="text-xs font-normal text-gray-400 mb-2">
+          {category.replace("-", " ")}
+        </h3>
+      {/if}
+      
+      <div class="grid {$gridStore.grid} {$gridStore.gap}">
+        {#each elements as element}
+          <ElementCard
+            {element}
+            onSelect={handleElementClick}
+            theme={theme}
+            disabled={isProcessing}
+          />
+        {/each}
+      </div>
+    </section>
+  {/each}
 </div>

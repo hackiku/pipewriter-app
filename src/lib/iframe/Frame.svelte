@@ -6,7 +6,7 @@
 	import * as Resizable from "$lib/components/ui/resizable";
 
 	import TopBar from "./layout/TopBar.svelte";
-	import Dropper from "./layout/Dropper.svelte";
+	import Dropper from "./features/Dropper.svelte";
 	import Tester from './layout/Tester.svelte';
 	import Tabs from "./layout/Tabs.svelte";
 	import BottomBar from "./layout/BottomBar.svelte";
@@ -62,6 +62,7 @@
 		<Resizable.PaneGroup direction="vertical" class="h-full">
 			<Resizable.Pane defaultSize={65} minSize={30} maxSize={88}>
 				<Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
+				<!-- <Dropper  /> -->
 			</Resizable.Pane>
 
 			<Resizable.Handle withHandle />
