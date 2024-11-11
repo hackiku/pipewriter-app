@@ -1,4 +1,4 @@
-// $lib/iframe/utils/appsScript.ts
+// $lib/utils/appsScript.ts
 
 interface AppsScriptResponse {
   success: boolean;
@@ -18,6 +18,7 @@ type StatusCallback = (status: StatusUpdate) => void;
 
 export class AppsScriptClient {
   private static instance: AppsScriptClient;
+  private initialized = false;
   private activeRequests = new Map<
     string,
     {
@@ -30,7 +31,7 @@ export class AppsScriptClient {
   >();
 
   private constructor(private timeout: number = 3000) {
-    this.setupMessageListener();
+    this.initialize();
   }
 
   static getInstance(timeout?: number): AppsScriptClient {
@@ -40,41 +41,47 @@ export class AppsScriptClient {
     return AppsScriptClient.instance;
   }
 
-  private setupMessageListener() {
-    window.addEventListener("message", (event: MessageEvent) => {
-      // Handle direct success message for background change
-      if (event.data === "Background changed") {
-        const request = this.activeRequests.get("changeBg");
-        if (request) {
-          const executionTime = this.calculateExecutionTime(request.startTime);
-          request.onStatus?.({
-            type: "success",
-            message: "Color applied successfully",
-            executionTime,
-          });
-          request.resolve({
-            success: true,
-            action: "changeBg",
-            executionTime,
-          });
-          this.cleanupRequest("changeBg");
-        }
-        return;
-      }
-
-      // Handle other responses
-      try {
-        const response =
-          typeof event.data === "string" ? JSON.parse(event.data) : event.data;
-
-        if (response?.action) {
-          this.handleResponse(response);
-        }
-      } catch (error) {
-        // Ignore non-JSON messages
-      }
-    });
+  private initialize() {
+    if (this.initialized) return;
+    try {
+      window.addEventListener('message', this.handleMessage.bind(this));
+      this.initialized = true;
+    } catch (error) {
+      console.error('Failed to initialize AppsScriptClient:', error);
+    }
   }
+
+  private handleMessage = (event: MessageEvent) => {
+    // Handle direct success messages (e.g., background change)
+    if (event.data === "Background changed") {
+      const request = this.activeRequests.get("changeBg");
+      if (request) {
+        const executionTime = this.calculateExecutionTime(request.startTime);
+        request.onStatus?.({
+          type: "success",
+          message: "Color applied successfully",
+          executionTime,
+        });
+        request.resolve({
+          success: true,
+          action: "changeBg",
+          executionTime,
+        });
+        this.cleanupRequest("changeBg");
+      }
+      return;
+    }
+
+    // Handle other responses
+    try {
+      const response = typeof event.data === "string" ? JSON.parse(event.data) : event.data;
+      if (response?.action) {
+        this.handleResponse(response);
+      }
+    } catch (error) {
+      // Ignore non-JSON messages
+    }
+  };
 
   private handleResponse(response: any) {
     const request = this.activeRequests.get(response.action);
@@ -121,70 +128,68 @@ export class AppsScriptClient {
     }
   }
 
+  // Element-specific convenience methods
+  async insertElement(elementId: string, theme?: string): Promise<AppsScriptResponse> {
+    return this.sendMessage('getElement', {
+      elementId,
+      theme: theme || 'light'
+    });
+  }
+
+  // Generic message sender
   public async sendMessage(
     action: string,
     payload: Record<string, any> = {},
     onStatus?: StatusCallback,
   ): Promise<AppsScriptResponse> {
-    // Clean up any existing request
     this.cleanupRequest(action);
 
     return new Promise((resolve) => {
       const startTime = new Date().getTime();
 
-      // Set up timeout handler
       const timer = window.setTimeout(() => {
         const executionTime = this.calculateExecutionTime(startTime);
         onStatus?.({
-          type: "success", // Changed from error to success since the action likely worked
+          type: "success",
           message: "Changes applied",
           executionTime,
         });
         resolve({
-          success: true, // Assume success since we saw the background change
+          success: true,
           action,
           executionTime,
         });
         this.cleanupRequest(action);
       }, this.timeout);
 
-      // Store request info
       this.activeRequests.set(action, {
         resolve,
-        reject: () => {}, // Not using reject anymore
+        reject: () => {},
         timer,
         startTime,
         onStatus,
       });
 
-      // Initial status update
       onStatus?.({
         type: "processing",
         message: "Applying changes...",
       });
 
-      // Send message to Apps Script
       window.parent.postMessage(JSON.stringify({ action, payload }), "*");
     });
   }
 
-  private handleMessage(event: MessageEvent) {
-    try {
-      const response =
-        typeof event.data === "string" ? JSON.parse(event.data) : event.data;
-      if (response?.action) {
-        this.handleResponse(response);
-      }
-    } catch (error) {
-      // Ignore non-JSON messages
+  destroy() {
+    if (this.initialized) {
+      window.removeEventListener('message', this.handleMessage);
+      this.initialized = false;
+      this.activeRequests.forEach((request) => {
+        clearTimeout(request.timer);
+      });
+      this.activeRequests.clear();
     }
   }
-
-  public destroy() {
-    window.removeEventListener("message", this.handleMessage.bind(this));
-    this.activeRequests.forEach((request) => {
-      clearTimeout(request.timer);
-    });
-    this.activeRequests.clear();
-  }
 }
+
+// Export a default instance for backwards compatibility
+export const appsScript = AppsScriptClient.getInstance();

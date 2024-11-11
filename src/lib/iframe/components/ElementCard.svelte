@@ -3,8 +3,10 @@
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
-  import type { ElementObject } from "../features/dropper/elements/types";
-  import type { ElementsTheme } from "../features/dropper/elements/types";
+  // import type { ElementObject } from "../features/dropper/elements/types";
+  // import type { ElementsTheme } from "../features/dropper/elements/types";
+  import type { ElementObject } from "../features/dropper/elements/elements";
+  import type { ElementsTheme } from "../features/dropper/elements/elements";
   import { onMount, createEventDispatcher } from 'svelte';
   import HoverCursor from './HoverCursor.svelte';
   import { X } from 'lucide-svelte';
