@@ -1,4 +1,4 @@
-// utils/appsScript.ts
+// $lib/iframe/utils/appsScript.ts
 
 interface AppsScriptResponse {
   success: boolean;

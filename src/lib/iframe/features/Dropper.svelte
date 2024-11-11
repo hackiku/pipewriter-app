@@ -1,20 +1,18 @@
-<!--  $lib/iframe/features/Dropper.svelte -->
+<!-- $lib/iframe/features/Dropper.svelte -->
 <script lang="ts">
   import { fade, slide, fly } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
   import { AppsScriptClient } from "../utils/appsScript";
   
   // Components
-  import ElementCard from "../components/ElementCard.svelte";
+  import DropperGrid from "./dropper/DropperGrid.svelte";
   import DropperBar from "./dropper/DropperBar.svelte";
   import ChainDropper from "./dropper/ChainDropper.svelte";
-  import DropperGrid from "./dropper/DropperGrid.svelte";
  
   // Stores
   import { zenMode } from "../stores";
-  import { gridStore } from "../stores/gridStore";
+  import { dropperStore, dropperStatus, chainMode } from "../stores/dropperStore";
   import { elementsThemeStore } from "../stores/elementsThemeStore";
-  import { dropperStore } from "../stores/dropperStore"; 
 
   const client = AppsScriptClient.getInstance();
   const dispatch = createEventDispatcher();
@@ -23,7 +21,14 @@
 
   async function handleElementSelect(event: CustomEvent<{elementId: string}>) {
     const { elementId } = event.detail;
+
+    if ($chainMode) {
+      dropperStore.addElement(elementId);
+      return;
+    }
+
     isProcessing = true;
+    dropperStore.setProcessing(true);
     dispatch("processingStart");
 
     try {
@@ -49,6 +54,7 @@
       });
     } finally {
       isProcessing = false;
+      dropperStore.setProcessing(false);
       dispatch("processingEnd");
     }
   }
@@ -57,15 +63,9 @@
 <div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
   <ChainDropper />
   
-  <!-- <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 {$gridStore.padding}"> -->
   <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
-    <DropperGrid 
-      theme={$elementsThemeStore}
-      on:elementSelect={handleElementSelect}
-      {isProcessing}
-    />
-    <DropperGrid 
-
+    <DropperGrid
+      isProcessing={isProcessing}
       on:elementSelect={handleElementSelect}
     />
   </div>

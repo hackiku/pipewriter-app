@@ -1,20 +1,21 @@
-<!-- features/dropper/DropperGrid.svelte -->
+<!-- $lib/iframe/features/dropper/DropperGrid.svelte -->
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
   import ElementCard from "../../components/ElementCard.svelte";
   import { showInfo } from "../../stores";
-  import { gridStore } from "../../stores/gridStore";
-  import { groupByCategory, type ThemeType } from "./elements/elements";
+  import { dropperStore, dropperStatus } from "../../stores/dropperStore";
+  import { gridStore, gridClass } from "../../stores/gridStore";
+  import { elementsThemeStore } from "../../stores/elementsThemeStore";
+  import { groupByCategory } from "./elements/elements";
 
-  export let theme: ThemeType;
   export let isProcessing = false;
-
+  
   const dispatch = createEventDispatcher();
 
-  $: categories = groupByCategory(theme);
+  $: categories = groupByCategory($elementsThemeStore);
 
-  function handleElementClick(elementId: string) {
-    if (!isProcessing) {
+  async function handleElementSelect(elementId: string) {
+    if (!isProcessing && !$dropperStatus.isProcessing) {
       dispatch("elementSelect", { elementId });
     }
   }
@@ -29,13 +30,13 @@
         </h3>
       {/if}
       
-      <div class="grid {$gridStore.grid} {$gridStore.gap}">
+      <div class="grid {$gridClass.grid} {$gridClass.gap} {$gridClass.padding}">
         {#each elements as element}
           <ElementCard
             {element}
-            onSelect={handleElementClick}
-            theme={theme}
-            disabled={isProcessing}
+            onSelect={handleElementSelect}
+            theme={$elementsThemeStore}
+            disabled={isProcessing || $dropperStatus.isProcessing}
           />
         {/each}
       </div>

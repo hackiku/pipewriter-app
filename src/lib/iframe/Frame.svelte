@@ -7,6 +7,7 @@
 
 	import TopBar from "./layout/TopBar.svelte";
 	import Dropper from "./features/Dropper.svelte";
+	// import Dropper from "./layout/Dropper.svelte";
 	import Tester from './layout/Tester.svelte';
 	import Tabs from "./layout/Tabs.svelte";
 	import BottomBar from "./layout/BottomBar.svelte";
@@ -61,8 +62,10 @@
 	<div class="flex-1 overflow-hidden">
 		<Resizable.PaneGroup direction="vertical" class="h-full">
 			<Resizable.Pane defaultSize={65} minSize={30} maxSize={88}>
-				<Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} />
+				<!-- <Dropper {elements} {callGAS} on:elementDropped={handleElementDrop} /> -->
 				<!-- <Dropper  /> -->
+				<Dropper on:status={(e) => console.log('Status:', e.detail)} />
+
 			</Resizable.Pane>
 
 			<Resizable.Handle withHandle />
