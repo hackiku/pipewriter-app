@@ -4,6 +4,7 @@ interface ElementResponse {
 	success: boolean;
 	error?: string;
 	executionTime?: number;
+	message?: string;
 }
 
 export class ElementClient {

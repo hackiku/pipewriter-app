@@ -11,8 +11,8 @@
   import type { GridColumns } from '../../stores/gridStore';
 
   const themes = [
-    { id: 'white', color: '#FFFFFF', label: 'Light' },
-    { id: 'gray', color: '#A3A3A3', label: 'Gray' },
+    { id: 'light', color: '#FFFFFF', label: 'Light' },
+    // { id: 'gray', color: '#A3A3A3', label: 'Gray' },
     { id: 'dark', color: '#171717', label: 'Dark' }
   ] as const;
 

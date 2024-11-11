@@ -35,6 +35,23 @@ export const elements = {
 	},
 
 
+	// blurbs
+	'blurbs-3': {
+		category: 'blurbs',
+		description: '3 horizontal blurbs',
+		hasDarkVariant: true
+	},
+	'blurbs-4': {
+		category: 'blurbs',
+		description: '4 horizontal blurbs',
+		hasDarkVariant: true
+	},
+	'blurbs-vert-3': {
+		category: 'blurbs',
+		description: '4 vertical blurbs',
+		hasDarkVariant: true
+	},
+
 	// Lists
 	'list-1': {
 		category: 'lists',

@@ -40,15 +40,15 @@
   }
 
   const themeStyles = {
-    white: "bg-white border-solid border-gray-200",
-    gray: "bg-gray-100 border-gray-200",
+    light: "bg-white border-solid border-gray-200",
+    // gray: "bg-gray-100 border-gray-200",
     dark: "bg-gray-900 border-gray-700"
   };
 
   $: buttonClass = cn(
     baseButtonClasses,
     themeClass,
-    "dark:bg-white dark:hover:bg-white",
+    "dark:bg-white dark:hover:bg-gray-900",
     isSelected && "ring-2 ring-primary ring-offset-2",
     (disabled || isProcessing) && "opacity-50 cursor-not-allowed"
   );

@@ -2,21 +2,21 @@
 
 import { writable } from "svelte/store";
 
-export type ElementsTheme = "white" | "gray" | "dark";
+export type ElementsTheme = "light" | "dark";
 
 const createElementsThemeStore = () => {
-	const { subscribe, set, update } = writable<ElementsTheme>("white");
+  const { subscribe, set, update } = writable<ElementsTheme>("light");
 
-	return {
-		subscribe,
-		set,
-		cycle: () =>
-			update((current) => {
-				const themes: ElementsTheme[] = ["white", "gray", "dark"];
-				const currentIndex = themes.indexOf(current);
-				return themes[(currentIndex + 1) % themes.length];
-			}),
-	};
+  return {
+    subscribe,
+    set,
+    cycle: () =>
+      update((current) => {
+        const themes: ElementsTheme[] = ["light", "dark"];
+        const currentIndex = themes.indexOf(current);
+        return themes[(currentIndex + 1) % themes.length];
+      }),
+  };
 };
 
 export const elementsThemeStore = createElementsThemeStore();

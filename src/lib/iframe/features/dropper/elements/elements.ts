@@ -1,10 +1,11 @@
 // $lib/iframe/features/dropper/elements/elements.ts
 import { elements } from './data';
+// import { elementsThemeStore } from '../../../stores/elementsThemeStore';
 // import type { ElementsTheme, ElementObject } from './types';
 
 const BASE_URL = 'elements'; // Path to your SVG assets
 
-export type ElementsTheme = 'white' | 'gray' | 'dark';
+export type ElementsTheme = 'light' | 'dark';
 
 export interface ElementProps {
 	id: string;
@@ -52,7 +53,7 @@ export class ElementsManager {
 		});
 	}
 
-	private createElementObject(id: string, config: any, theme: ElementsTheme = 'white'): ElementObject {
+	private createElementObject(id: string, config: any, theme: ElementsTheme = 'light'): ElementObject {
 		return {
 			id,
 			category: config.category,
