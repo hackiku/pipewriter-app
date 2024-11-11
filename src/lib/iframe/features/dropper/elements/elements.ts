@@ -1,95 +1,78 @@
-// features/dropper/elements/elements.ts
-
+// $lib/iframe/features/dropper/elements/elements.ts
 import { elements } from './data';
+import type { ElementsTheme, ElementObject } from './types';
 
-export type ThemeType = 'light' | 'dark';
+const BASE_URL = 'elements'; // Path to your SVG assets
 
-export interface Element {
-	id: string;
-	category: string;
-	description: string;
-	theme: ThemeType;
-	src?: string;
-	alt?: string;
-}
+export class ElementsManager {
+	private static instance: ElementsManager;
+	private elementsCache: Map<string, ElementObject> = new Map();
 
-export interface ElementsGroup {
-	[category: string]: Element[];
-}
+	private constructor() {
+		this.initializeCache();
+	}
 
-// Core functions for element management
-export class ElementManager {
-	private static baseUrl = 'elements'; // SVG assets base URL
+	static getInstance(): ElementsManager {
+		if (!ElementsManager.instance) {
+			ElementsManager.instance = new ElementsManager();
+		}
+		return ElementsManager.instance;
+	}
 
-	static getAllElements(theme: ThemeType): Element[] {
-		return Object.entries(elements).flatMap(([id, config]) => {
-			// For light theme, only return base elements
-			if (theme === 'light') {
-				return [{
-					id,
-					...config,
-					theme,
-					src: `${this.baseUrl}/${id}.svg`,
-					alt: id.replace(/-/g, ' ')
-				}];
-			}
+	private initializeCache() {
+		Object.entries(elements).forEach(([id, config]) => {
+			// Base element
+			this.elementsCache.set(id, this.createElementObject(id, config));
 
-			// For dark theme, only return dark variants if available
+			// Dark variant if available
 			if (config.hasDarkVariant) {
-				return [{
-					id: `${id}-dark`,
-					...config,
-					theme,
-					src: `${this.baseUrl}/${id}-dark.svg`,
-					alt: id.replace(/-/g, ' ')
-				}];
+				const darkId = `${id}-dark`;
+				this.elementsCache.set(darkId, this.createElementObject(darkId, config, 'dark'));
 			}
-
-			return [];
 		});
 	}
 
-	static groupByCategory(theme: ThemeType): ElementsGroup {
-		const allElements = this.getAllElements(theme);
-
-		return allElements.reduce((groups, element) => {
-			const category = element.category;
-			if (!groups[category]) {
-				groups[category] = [];
-			}
-			groups[category].push(element);
-			return groups;
-		}, {} as ElementsGroup);
-	}
-
-	static getElement(elementId: string): Element | null {
-		// Handle dark variants
-		const baseId = elementId.replace(/-dark$/, '');
-		const isDark = elementId.endsWith('-dark');
-
-		const config = elements[baseId];
-		if (!config) return null;
-
-		// Don't return dark variant if element doesn't support it
-		if (isDark && !config.hasDarkVariant) return null;
-
+	private createElementObject(id: string, config: any, theme: ElementsTheme = 'white'): ElementObject {
 		return {
-			id: elementId,
-			...config,
-			theme: isDark ? 'dark' : 'light',
-			src: `${this.baseUrl}/${elementId}.svg`,
-			alt: baseId.replace(/-/g, ' ')
+			id,
+			category: config.category,
+			theme,
+			src: `${BASE_URL}/${id}.svg`,
+			alt: id.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase()),
+			description: config.description
 		};
 	}
 
-	static isValidElement(elementId: string): boolean {
-		const baseId = elementId.replace(/-dark$/, '');
-		return baseId in elements;
+	getElement(elementId: string): ElementObject | null {
+		return this.elementsCache.get(elementId) || null;
+	}
+
+	getAllElements(theme: ElementsTheme): ElementObject[] {
+		return Array.from(this.elementsCache.values())
+			.filter(element => element.theme === theme);
+	}
+
+	getElementsByCategory(theme: ElementsTheme): Record<string, ElementObject[]> {
+		return this.getAllElements(theme).reduce((acc, element) => {
+			if (!acc[element.category]) {
+				acc[element.category] = [];
+			}
+			acc[element.category].push(element);
+			return acc;
+		}, {} as Record<string, ElementObject[]>);
+	}
+
+	isValidElement(elementId: string): boolean {
+		return this.elementsCache.has(elementId);
 	}
 }
 
-// Convenience exports for common operations
-export const getAllElements = ElementManager.getAllElements.bind(ElementManager);
-export const groupByCategory = ElementManager.groupByCategory.bind(ElementManager);
-export const getElement = ElementManager.getElement.bind(ElementManager);
-export const isValidElement = ElementManager.isValidElement.bind(ElementManager);
+// Convenience exports
+export const elementsManager = ElementsManager.getInstance();
+export const getElement = elementsManager.getElement.bind(elementsManager);
+export const getAllElements = elementsManager.getAllElements.bind(elementsManager);
+export const getElementsByCategory = elementsManager.getElementsByCategory.bind(elementsManager);
+export const isValidElement = elementsManager.isValidElement.bind(elementsManager);
+
+// Export types
+export type { ElementsTheme, ElementObject } from './types';

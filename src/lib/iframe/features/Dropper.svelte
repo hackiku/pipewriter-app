@@ -2,19 +2,17 @@
 <script lang="ts">
   import { fade, slide, fly } from "svelte/transition";
   import { createEventDispatcher } from "svelte";
-  import { AppsScriptClient } from "../utils/appsScript";
+  import { ElementClient } from "../utils/elementClient";
   
-  // Components
   import DropperGrid from "./dropper/DropperGrid.svelte";
   import DropperBar from "./dropper/DropperBar.svelte";
   import ChainDropper from "./dropper/ChainDropper.svelte";
  
-  // Stores
   import { zenMode } from "../stores";
   import { dropperStore, dropperStatus, chainMode } from "../stores/dropperStore";
   import { elementsThemeStore } from "../stores/elementsThemeStore";
 
-  const client = AppsScriptClient.getInstance();
+  const client = ElementClient.getInstance();
   const dispatch = createEventDispatcher();
 
   let isProcessing = false;
@@ -32,24 +30,21 @@
     dispatch("processingStart");
 
     try {
-      const response = await client.sendMessage("getElement", { 
-        elementId,
-        theme: $elementsThemeStore
-      });
+      const response = await client.insertElement(elementId, $elementsThemeStore);
 
       if (response.success) {
         dispatch("status", {
           type: "success",
-          message: "Element inserted successfully",
+          message: "Element inserted",
           executionTime: response.executionTime
         });
       } else {
         throw new Error(response.error || "Failed to insert element");
       }
     } catch (error) {
-      console.error(`Failed to insert element: ${elementId}`, error);
+      console.error("Failed to insert element:", error);
       dispatch("status", {
-        type: "error", 
+        type: "error",
         message: error instanceof Error ? error.message : "Failed to insert element"
       });
     } finally {
@@ -85,7 +80,6 @@
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
-    -webkit-overflow-scrolling: touch;
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -102,10 +96,6 @@
     background-color: rgba(155, 155, 155, 0.5);
     border-radius: 4px;
     min-height: 40px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1);
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {

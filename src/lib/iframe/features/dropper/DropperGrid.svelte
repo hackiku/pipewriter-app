@@ -4,17 +4,17 @@
   import ElementCard from "../../components/ElementCard.svelte";
   import { showInfo } from "../../stores";
   import { dropperStore, dropperStatus } from "../../stores/dropperStore";
-  import { gridStore, gridClass } from "../../stores/gridStore";
+  import { gridClass } from "../../stores/gridStore";
   import { elementsThemeStore } from "../../stores/elementsThemeStore";
-  import { groupByCategory } from "./elements/elements";
+  import { elementsManager } from "./elements/elements";
 
   export let isProcessing = false;
   
   const dispatch = createEventDispatcher();
 
-  $: categories = groupByCategory($elementsThemeStore);
+  $: categories = elementsManager.getElementsByCategory($elementsThemeStore);
 
-  async function handleElementSelect(elementId: string) {
+  function handleElementSelect(elementId: string) {
     if (!isProcessing && !$dropperStatus.isProcessing) {
       dispatch("elementSelect", { elementId });
     }
@@ -31,12 +31,13 @@
       {/if}
       
       <div class="grid {$gridClass.grid} {$gridClass.gap} {$gridClass.padding}">
-        {#each elements as element}
+        {#each elements as element (element.id)}
           <ElementCard
             {element}
-            onSelect={handleElementSelect}
+            onSelect={() => handleElementSelect(element.id)}
             theme={$elementsThemeStore}
             disabled={isProcessing || $dropperStatus.isProcessing}
+            isSelected={$dropperStore.selectedElements.includes(element.id)}
           />
         {/each}
       </div>
