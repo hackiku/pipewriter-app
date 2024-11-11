@@ -1,8 +1,9 @@
-<!-- $lib/iframe/layout/Dropper.svelte -->
+<!-- $lib/iframe/features/Dropper.svelte -->
+
 <script lang="ts">
   import { fade, slide, fly } from "svelte/transition";
-  import { getElement } from "../elements";
-  import type { ElementObject } from "../elements";
+  import { getElement } from "../elements"; // improve imports
+  import type { ElementObject } from "./elements/elements";
   import { createEventDispatcher } from "svelte";
   
 	import ElementCard from "../components/ElementCard.svelte";
