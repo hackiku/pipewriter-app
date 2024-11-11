@@ -25,7 +25,7 @@
   {#each Object.entries(categories) as [category, elements]}
     <section>
       {#if $showInfo}
-        <h3 class="text-xs font-normal text-gray-400 mb-2">
+        <h3 class="text-xs font-normal text-gray-400 mb-2 ml-2 capitalize">
           {category.replace("-", " ")}
         </h3>
       {/if}

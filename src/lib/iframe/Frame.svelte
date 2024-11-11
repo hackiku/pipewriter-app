@@ -15,10 +15,10 @@
 
 <main class="flex flex-col h-[95vh] overflow-hidden">
   
-	<section class="flex-none">
+	<section class="flex-none px-2">
     <TopBar />
-    <hr />
   </section>
+	<hr />
 
   <div class="flex-1 overflow-hidden">
     <Resizable.PaneGroup direction="vertical" class="h-full">
@@ -33,8 +33,9 @@
   </div>
 
   {#if !$zenMode}
+	<!-- class="fixed bottom-0 w-[16.8rem] flex-none px-2" -->
     <section
-      class="fixed bottom-0 w-[16.8rem] flex-none"
+      class="fixed bottom-0 w-full XXw-[16.8rem] flex-none px-2"
       in:fade={{ duration: 200 }}
       out:slide={{ duration: 200, axis: "y" }}
     >

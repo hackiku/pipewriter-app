@@ -39,14 +39,18 @@ export class ElementClient {
 
 	async insertElement(elementId: string, theme?: string): Promise<ElementResponse> {
 		try {
+			const payload = {
+				elementId,
+				theme: theme || 'light' // Ensure theme is always passed
+			};
+
 			window.parent.postMessage(
 				JSON.stringify({
 					action: 'getElement',
-					payload: { elementId, theme }
+					payload
 				}),
 				'*'
 			);
-
 			return {
 				success: true,
 				executionTime: 0 // Actual timing could be implemented if needed

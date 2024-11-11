@@ -1,6 +1,22 @@
 // features/dropper/elements/data.ts
 
 export const elements = {
+	// Containers
+	'container-center': {
+		category: 'containers',
+		description: 'Centered container for content',
+		hasDarkVariant: true
+	},
+	'background-empty': {
+		category: 'containers',
+		description: 'Full width empty container',
+		hasDarkVariant: true
+	},
+	'background-gray': {
+		category: 'containers',
+		description: 'Full width empty container',
+		hasDarkVariant: true
+	},
 	// Content
 	'hero': {
 		category: 'content',
@@ -18,17 +34,6 @@ export const elements = {
 		hasDarkVariant: true
 	},
 
-	// Containers
-	'container-center': {
-		category: 'containers',
-		description: 'Centered container for content',
-		hasDarkVariant: true
-	},
-	'background-empty': {
-		category: 'containers',
-		description: 'Full width empty container',
-		hasDarkVariant: true
-	},
 
 	// Lists
 	'list-1': {
