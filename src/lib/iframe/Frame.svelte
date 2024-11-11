@@ -13,8 +13,9 @@
   import { showAboutModal } from "./stores/aboutStore";
 </script>
 
-<main class="flex flex-col h-[95vh] overflow-hidden -my-4 -mx-1">
-  <section class="flex-none">
+<main class="flex flex-col h-[95vh] overflow-hidden">
+  
+	<section class="flex-none">
     <TopBar />
     <hr />
   </section>

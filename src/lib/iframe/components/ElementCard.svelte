@@ -3,15 +3,17 @@
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
-  import type { ElementObject } from "../elements";
-  import type { ElementsTheme } from "../stores/elementsThemeStore";
+  import type { ElementObject } from "../features/dropper/elements/types";
+  import type { ElementsTheme } from "../features/dropper/elements/types";
   import { onMount, createEventDispatcher } from 'svelte';
   import HoverCursor from './HoverCursor.svelte';
   import { X } from 'lucide-svelte';
 
   export let element: ElementObject;
   export let onSelect: (id: string) => void;
-  export let theme: ElementsTheme;  // Updated type
+  export let theme: ElementsTheme;
+  export let disabled = false;
+  export let isSelected = false;
 
   const dispatch = createEventDispatcher();
   let mounted = false;
@@ -23,6 +25,8 @@
   });
 
   async function handleClick() {
+    if (disabled || isProcessing) return;
+    
     showHoverCursor = false;
     isProcessing = true;
     dispatch('processingStart');
@@ -41,6 +45,14 @@
     dark: "bg-gray-900 border-gray-700"
   };
 
+  $: buttonClass = cn(
+    baseButtonClasses,
+    themeClass,
+    "dark:bg-white dark:hover:bg-white",
+    isSelected && "ring-2 ring-primary ring-offset-2",
+    (disabled || isProcessing) && "opacity-50 cursor-not-allowed"
+  );
+
   $: themeClass = mounted ? cn(themeStyles[theme]) : themeStyles[theme];
   $: imgSrc = theme === 'dark' && element.id.includes('-dark')
     ? `elements/${element.id}.svg`
@@ -51,38 +63,36 @@
 </script>
 
 <div class="relative">
+  <!-- Placeholder outline -->
   <div 
-    class="absolute inset-0 rounded-lg opacity-0 transition-opacity duration-200 pointer-events-none
-           group-hover:opacity-100 border-2 border-dashed
-           dark:border-gray-700 border-gray-300"
+    class={cn(
+      "absolute inset-0 rounded-lg opacity-0 transition-opacity duration-200 pointer-events-none",
+      "group-hover:opacity-100 border-2 border-dashed",
+      "dark:border-gray-700 border-gray-300",
+      isSelected && "opacity-100 border-primary"
+    )}
   />
   
   <Tooltip.Root>
     <Tooltip.Trigger asChild>
       <Button
         variant="ghost"
-        class={mounted ? cn(
-          baseButtonClasses, 
-          themeClass,
-          "dark:bg-white dark:hover:bg-white"
-        ) : `${baseButtonClasses} ${themeClass}`}
+        class={buttonClass}
         on:click={handleClick}
         on:mouseenter={() => showHoverCursor = true}
         on:mouseleave={() => showHoverCursor = false}
-        disabled={isProcessing}
+        {disabled}
       >
         <img
           src={imgSrc}
           alt={element.alt}
-          class={mounted 
-            ? cn(
-                "w-full h-full object-cover", 
-                shouldInvert && "opacity-50 invert",
-                "dark:bg-white"
-              )
-            : `w-full h-full object-cover ${shouldInvert ? 'opacity-50 invert' : ''}`}
+          class={cn(
+            "w-full h-full object-cover", 
+            shouldInvert && "opacity-50 invert",
+            "dark:bg-white"
+          )}
         />
-        <HoverCursor visible={showHoverCursor && !isProcessing} />
+        <HoverCursor visible={showHoverCursor && !isProcessing && !disabled} />
         {#if isProcessing}
           <div class="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <X class="text-white animate-spin" size={24} />
@@ -95,17 +105,3 @@
     </Tooltip.Content>
   </Tooltip.Root>
 </div>
-
-<style>
-  :global(button:focus) {
-    outline: none;
-  }
-  
-  :global(.group) {
-    z-index: 1;
-  }
-  
-  :global(.group:hover) {
-    z-index: 2;
-  }
-</style>

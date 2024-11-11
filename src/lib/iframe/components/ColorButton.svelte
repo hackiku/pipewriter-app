@@ -9,6 +9,8 @@
   export let isGradient: boolean = false;
   export let isSelected: boolean = false;
   export let isProcessing: boolean = false;
+	export let tooltipContent: string;  
+	export let buttonClass: string;
 
   const dispatch = createEventDispatcher();
 
