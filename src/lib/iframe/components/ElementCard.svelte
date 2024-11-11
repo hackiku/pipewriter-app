@@ -48,7 +48,7 @@
   $: buttonClass = cn(
     baseButtonClasses,
     themeClass,
-    "dark:bg-white dark:hover:bg-gray-900",
+    "",
     isSelected && "ring-2 ring-primary ring-offset-2",
     (disabled || isProcessing) && "opacity-50 cursor-not-allowed"
   );
@@ -89,7 +89,7 @@
           class={cn(
             "w-full h-full object-cover", 
             shouldInvert && "opacity-50 invert",
-            "dark:bg-white"
+            "dark:bg-whites"
           )}
         />
         <HoverCursor visible={showHoverCursor && !isProcessing && !disabled} />

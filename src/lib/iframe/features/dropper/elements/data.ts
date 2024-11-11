@@ -12,7 +12,7 @@ export const elements = {
 		description: 'Full width empty container',
 		hasDarkVariant: true
 	},
-	'background-gray': {
+	'background-color': {
 		category: 'containers',
 		description: 'Full width empty container',
 		hasDarkVariant: true

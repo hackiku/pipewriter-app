@@ -47,16 +47,17 @@
       <div class="flex gap-3 p-2 items-center w-full">
 
 				<!-- Chain Mode Button -->
-				
+        <!-- <div class="w-2"> -->
+
 				<IconButton
 					icon={Link}
-					size="xl"
+					size="md"
 					selected={$chainMode}
 					disabled={$dropperStatus.isProcessing}
 					tooltipContent={chainModeTooltip}
 					on:click={() => dropperStore.toggleChainMode()}
 				/>
-
+				<!-- </div> -->
 				<!-- <IconButton
 					icon={Link}
 					size="sm"
@@ -68,20 +69,22 @@
 				<!-- </div> -->
 
         <!-- Theme Toggle -->
-        <ColorButton
+        <div class="w-5">
+
+				<ColorButton
           color={currentTheme.color}
           title={`Switch to ${themes[(themes.findIndex(t => t.id === currentTheme.id) + 1) % themes.length].label} theme`}
           isProcessing={$dropperStatus.isProcessing}
           tooltipContent={`Current: ${currentTheme.label}`}
-          class="h-7 w-8"
           on:click={() => elementsThemeStore.cycle()}
         />
+				</div>
 
         <!-- Grid Size -->
         <Button
           variant="outline"
-          size="sm"
-          class="h-7 w-7 rounded-full text-xs font-medium border-gray-200 dark:border-gray-700
+          size="xs"
+          class="h-6 w-6 aspect-square rounded-full text-xs font-medium border-gray-200 dark:border-gray-700 mb-1
                  hover:bg-gray-100 dark:hover:bg-gray-700
                  text-muted-foreground hover:text-foreground"
           disabled={$dropperStatus.isProcessing}
