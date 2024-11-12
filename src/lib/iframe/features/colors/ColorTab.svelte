@@ -16,15 +16,19 @@
     { color: '#FFFFFF', title: 'White' },
     { color: '#E5E5E5', title: 'Light Gray' },
     { color: '#A3A3A3', title: 'Gray' },
+    { color: '#282828', title: 'Dark' },
     { color: '#171717', title: 'Black' },
   ];
   
   let showColorPicker = false;
   let isProcessing = false;
 
-  function stripAlpha(color: string): string {
-    return color.replace(/FF$/, '').slice(0, 7).toUpperCase();
-  }
+	function stripAlpha(color: string): string {
+		if (color.toUpperCase() === '#FFFFFF' || color.toUpperCase() === 'FFFFFF') {
+			return '#FFFFFF';
+		}
+		return color.replace(/FF$/, '').slice(0, 7).toUpperCase();
+	}
 
   async function handleColorChange(color: string) {
     if (isProcessing) return;
