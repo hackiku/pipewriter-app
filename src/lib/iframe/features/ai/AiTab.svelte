@@ -1,56 +1,88 @@
 <!-- $lib/iframe/features/ai/AiTab.svelte -->
-
 <script lang="ts">
-  import { createEventDispatcher } from 'svelte';
-  import { ArrowDown, ArrowUp, Trash2 } from 'lucide-svelte';
-  import { Button } from "$lib/components/ui/button";
+  import { createEventDispatcher, getContext } from 'svelte';
+  import { ArrowDown, ArrowUp, Trash2, Code, Clipboard, Tags } from 'lucide-svelte';
+  import type { AppsScriptClient } from '../../utils/appsScript';
   import { promptStore, activePrompt } from '../../stores/promptStore';
   import PromptDropdown from './PromptDropdown.svelte';
-  import { appsScript } from '../../utils/appsScript';
-  import { cn } from "$lib/utils";
+  import HtmlButton from './HtmlButton.svelte';
 
   const dispatch = createEventDispatcher();
+  const appsScript = getContext<AppsScriptClient>('appsScript');
+  
   let isProcessing = false;
   let showPromptDropdown = false;
 
-  async function handleAction(position: 'start' | 'end') {
+  // Common action configuration
+  const ACTIONS = {
+    DROP_HTML: {
+      command: 'dropHtml',
+      processingMessage: 'Converting document...',
+      successMessage: (params: any) => 
+        params.copyToClipboard 
+          ? 'HTML copied to clipboard!' 
+          : `HTML inserted at ${params.position || 'end'}!`,
+      errorMessage: 'Failed to convert to HTML'
+    },
+    STRIP_HTML: {
+      command: 'stripHtml',
+      processingMessage: 'Stripping HTML...',
+      successMessage: (params: any) => 
+        params.all ? 'HTML content removed!' : 'HTML tags stripped!',
+      errorMessage: 'Failed to strip HTML'
+    }
+  } as const;
+
+  // Generic handler for all HTML operations
+  async function handleHtmlAction(
+    actionType: keyof typeof ACTIONS,
+    params: Record<string, any> = {}
+  ) {
     if (isProcessing) return;
     
+    const action = ACTIONS[actionType];
     isProcessing = true;
     dispatch('processingStart');
+    
     dispatch('status', {
       type: 'processing',
-      message: 'Converting document...'
+      message: action.processingMessage
     });
 
     try {
-      const promptPayload = $activePrompt 
-        ? { prompt: $activePrompt.content }
-        : {};
+      // Add prompt if it exists
+      const payload = {
+        ...params,
+        ...(actionType === 'DROP_HTML' && $activePrompt ? {
+          prompt: $promptStore.useMasterPrompt 
+            ? `${$activePrompt.content}\n\n––––––––––\n\n${$promptStore.prompts[0].content}`
+            : $activePrompt.content
+        } : {})
+      };
 
-      if ($promptStore.useMasterPrompt) {
-        promptPayload.prompt = `${promptPayload.prompt}\n\n––––––––––\n\n${$promptStore.prompts[0].content}`;
-      }
-
-      const response = await appsScript.sendMessage('doc2html', {
-        position,
-        ...promptPayload
-      }, (status) => dispatch('status', status)); // Using the onStatus callback
+      const response = await appsScript.sendMessage(
+        action.command, 
+        payload,
+        status => dispatch('status', status)
+      );
       
       if (response.success) {
+        if (response.clipboardContent) {
+          await navigator.clipboard.writeText(response.clipboardContent);
+        }
         dispatch('status', {
           type: 'success',
-          message: 'Conversion complete!',
+          message: action.successMessage(params),
           executionTime: response.executionTime
         });
       } else {
-        throw new Error(response.error || 'Conversion failed');
+        throw new Error(response.error || action.errorMessage);
       }
     } catch (error) {
-      console.error('Failed to convert:', error);
+      console.error(`${action.errorMessage}:`, error);
       dispatch('status', {
         type: 'error',
-        message: error instanceof Error ? error.message : 'Conversion failed'
+        message: error instanceof Error ? error.message : action.errorMessage
       });
     } finally {
       isProcessing = false;
@@ -58,36 +90,35 @@
     }
   }
 
-  async function handleDeleteTags() {
-    if (isProcessing) return;
-    
-    isProcessing = true;
-    dispatch('processingStart');
-
-    try {
-      const response = await appsScript.sendMessage('deleteHTMLtags', {}, 
-        (status) => dispatch('status', status)
-      );
-      
-      if (!response.success) {
-        throw new Error(response.error || 'Failed to remove tags');
-      }
-    } catch (error) {
-      console.error('Failed to remove tags:', error);
-      dispatch('status', {
-        type: 'error',
-        message: error instanceof Error ? error.message : 'Failed to remove tags'
-      });
-    } finally {
-      isProcessing = false;
-      dispatch('processingEnd');
+  // Action configurations
+  const dropHtmlActions = [
+    { 
+      label: 'Start',
+      icon: ArrowUp,
+      onClick: () => handleHtmlAction('DROP_HTML', { position: 'start' })
+    },
+    {
+      label: 'End',
+      icon: ArrowDown,
+      onClick: () => handleHtmlAction('DROP_HTML', { position: 'end' })
+    },
+    {
+      label: 'Copy',
+      icon: Clipboard,
+      onClick: () => handleHtmlAction('DROP_HTML', { copyToClipboard: true })
     }
-  }
+  ];
 
-  $: actionButtonClass = cn(
-    "h-9",
-    $activePrompt && "border-primary bg-primary/5"
-  );
+  const stripHtmlActions = [
+    { 
+      label: 'Tags',
+      onClick: () => handleHtmlAction('STRIP_HTML', { tags: true })
+    },
+    { 
+      label: 'All',
+      onClick: () => handleHtmlAction('STRIP_HTML', { all: true })
+    }
+  ];
 </script>
 
 <div class="flex flex-col items-stretch w-full gap-3">
@@ -98,35 +129,19 @@
     />
   </div>
 
-  <div class="grid grid-cols-2 gap-2">
-    <Button 
-      variant="outline"
-      class={actionButtonClass}
-      on:click={() => handleAction('start')}
-      disabled={isProcessing}
-    >
-      <ArrowUp class="h-4 w-4 mr-2" />
-      Start
-    </Button>
+  <HtmlButton
+    icon={Code}
+    label="Drop HTML"
+    variant="icon-only"
+    actions={dropHtmlActions}
+    {isProcessing}
+  />
 
-    <Button 
-      variant="outline"
-      class={actionButtonClass}
-      on:click={() => handleAction('end')}
-      disabled={isProcessing}
-    >
-      <ArrowDown class="h-4 w-4 mr-2" />
-      End
-    </Button>
-  </div>
-
-  <Button 
-    variant="outline"
-    class="w-full justify-start gap-2 h-8"
-    on:click={handleDeleteTags}
-    disabled={isProcessing}
-  >
-    <Trash2 class="h-4 w-4" />
-    Delete HTML Tags
-  </Button>
+  <HtmlButton
+    icon={Trash2}
+    label="Strip HTML"
+    variant="text"
+    actions={stripHtmlActions}
+    {isProcessing}
+  />
 </div>

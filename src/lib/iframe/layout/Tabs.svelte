@@ -17,6 +17,13 @@
   const BG_STYLE = 'bg-white dark:bg-slate-900';
 
   const tabs = {
+		ai: { 
+			icon: Code, 
+			tooltip: "AI Assistant",
+			title: "AI Assistant",
+			description: "Convert formats and generate content",
+			component: AiTab
+		},
     text: { 
       icon: Type, 
       tooltip: "Text Styles",
@@ -30,13 +37,6 @@
       title: "Background Color",
       description: "Change document background color",
       component: ColorTab
-    },
-    ai: { 
-      icon: Code, 
-      tooltip: "AI Assistant",
-      title: "AI Assistant",
-      description: "Convert formats and generate content",
-      component: AiTab
     }
   };
 
