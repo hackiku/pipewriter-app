@@ -9,16 +9,17 @@
   import { elementsManager } from "./elements/elements";
 
   export let isProcessing = false;
-  
+  // export let appsScript: any;
+
   const dispatch = createEventDispatcher();
 
   $: categories = elementsManager.getElementsByCategory($elementsThemeStore);
 
-  function handleElementSelect(elementId: string) {
-    if (!isProcessing && !$dropperStatus.isProcessing) {
-      dispatch("elementSelect", { elementId });
-    }
-  }
+	function handleElementSelect(elementId: string) {
+		if (!isProcessing && !$dropperStatus.isProcessing) {
+			dispatch("elementSelect", { elementId });
+		}
+	}
 </script>
 
 <div class="space-y-2 pb-10">

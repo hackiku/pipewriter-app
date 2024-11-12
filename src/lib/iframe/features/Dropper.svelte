@@ -22,24 +22,24 @@
   let status: StatusUpdate | null = null;
   let statusTimeout: number;
 
-  // // Watch status changes
-  // $: if (status && status.type !== "processing") {
-  //   if (statusTimeout) clearTimeout(statusTimeout);
-  //   statusTimeout = setTimeout(() => {
-  //     status = null;
-  //   }, 1000);
-  // }
+  // Watch status changes
+  $: if (status && status.type !== "processing") {
+    if (statusTimeout) clearTimeout(statusTimeout);
+    statusTimeout = setTimeout(() => {
+      status = null;
+    }, 2000);
+  }
 
-	if (status && status.type !== "processing") {
-		if (statusTimeout) clearTimeout(statusTimeout);
-		// Use execution time + small buffer, or default client timeout
-		const duration = status.executionTime 
-			? status.executionTime + 500 
-			: appsScript.getTimeout();
-		statusTimeout = setTimeout(() => {
-			status = null;
-		}, duration);
-	}
+	// if (status && status.type !== "processing") {
+	// 	if (statusTimeout) clearTimeout(statusTimeout);
+	// 	// Use execution time + small buffer, or default client timeout
+	// 	const duration = status.executionTime 
+	// 		? status.executionTime + 500 
+	// 		: appsScript.getTimeout();
+	// 	statusTimeout = setTimeout(() => {
+	// 		status = null;
+	// 	}, duration);
+	// }
 
   onDestroy(() => {
     if (statusTimeout) clearTimeout(statusTimeout);
@@ -110,9 +110,12 @@
   
   <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
     <DropperGrid
-      {isProcessing}
-      on:elementSelect={handleElementSelect}
-    />
+  		{isProcessing}
+  		{appsScript} 
+  		on:elementSelect={handleElementSelect}
+/>
+
+
   </div>
 
   <div
