@@ -1,8 +1,9 @@
 <!-- $lib/iframe/features/Dropper.svelte -->
 <script lang="ts">
   import { fade, slide, fly } from "svelte/transition";
-  import { createEventDispatcher, onDestroy } from "svelte";
-  import { appsScript } from '../utils/appsScript';
+  import { createEventDispatcher, onDestroy, getContext } from "svelte";
+  import type { AppsScriptClient } from "../utils/appsScript";
+  import type { StatusUpdate } from "../types/status";
   
   import DropperGrid from "./dropper/DropperGrid.svelte";
   import DropperBar from "./dropper/DropperBar.svelte";
@@ -13,28 +14,35 @@
   import { dropperStore, dropperStatus, chainMode } from "../stores/dropperStore";
   import { elementsThemeStore } from "../stores/elementsThemeStore";
 
+  // Get AppsScript client from context
+  const appsScript = getContext<AppsScriptClient>('appsScript');
+  
   const dispatch = createEventDispatcher();
   let isProcessing = false;
-  let status: {
-    type: "processing" | "success" | "error";
-    message: string;
-    details?: string;
-    error?: any;
-    executionTime?: number;
-  } | null = null;
+  let status: StatusUpdate | null = null;
+  let statusTimeout: number;
 
-  let statusTimer: number;
+  // // Watch status changes
+  // $: if (status && status.type !== "processing") {
+  //   if (statusTimeout) clearTimeout(statusTimeout);
+  //   statusTimeout = setTimeout(() => {
+  //     status = null;
+  //   }, 1000);
+  // }
 
-  // Watch status changes
-  $: if (status && status.type !== 'processing') {
-    if (statusTimer) clearTimeout(statusTimer);
-    statusTimer = setTimeout(() => {
-      status = null;
-    }, 3000);
-  }
+	if (status && status.type !== "processing") {
+		if (statusTimeout) clearTimeout(statusTimeout);
+		// Use execution time + small buffer, or default client timeout
+		const duration = status.executionTime 
+			? status.executionTime + 500 
+			: appsScript.getTimeout();
+		statusTimeout = setTimeout(() => {
+			status = null;
+		}, duration);
+	}
 
   onDestroy(() => {
-    if (statusTimer) clearTimeout(statusTimer);
+    if (statusTimeout) clearTimeout(statusTimeout);
   });
 
   async function handleElementSelect(event: CustomEvent<{elementId: string}>) {
@@ -93,13 +101,16 @@
 </script>
 
 <div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
-  <StatusBar {status} />
+  <!-- Status Bar -->
+  {#if status}
+    <StatusBar {status} />
+  {/if}
   
   <ChainDropper />
   
   <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
     <DropperGrid
-      isProcessing={isProcessing}
+      {isProcessing}
       on:elementSelect={handleElementSelect}
     />
   </div>

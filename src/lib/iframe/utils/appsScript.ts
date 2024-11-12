@@ -30,8 +30,12 @@ export class AppsScriptClient {
     }
   >();
 
-  private constructor(private timeout: number = 3000) {
+  private constructor(private timeout: number = 2000) {
     this.initialize();
+  }
+
+  getTimeout(): number {
+    return this.timeout;
   }
 
   static getInstance(timeout?: number): AppsScriptClient {
@@ -40,6 +44,8 @@ export class AppsScriptClient {
     }
     return AppsScriptClient.instance;
   }
+
+
 
   private initialize() {
     if (this.initialized) return;
