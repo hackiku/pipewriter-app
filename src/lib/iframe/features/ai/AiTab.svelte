@@ -1,16 +1,15 @@
 <!-- $lib/iframe/features/ai/AiTab.svelte -->
+
 <script lang="ts">
   import { createEventDispatcher } from 'svelte';
   import { ArrowDown, ArrowUp, Trash2 } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
   import { promptStore, activePrompt } from '../../stores/promptStore';
   import PromptDropdown from './PromptDropdown.svelte';
-  import { AppsScriptClient } from '../../utils/appsScript';
+  import { appsScript } from '../../utils/appsScript';
   import { cn } from "$lib/utils";
 
   const dispatch = createEventDispatcher();
-  const client = AppsScriptClient.getInstance();
-  
   let isProcessing = false;
   let showPromptDropdown = false;
 
@@ -33,10 +32,10 @@
         promptPayload.prompt = `${promptPayload.prompt}\n\n––––––––––\n\n${$promptStore.prompts[0].content}`;
       }
 
-      const response = await client.sendMessage('doc2html', {
+      const response = await appsScript.sendMessage('doc2html', {
         position,
         ...promptPayload
-      });
+      }, (status) => dispatch('status', status)); // Using the onStatus callback
       
       if (response.success) {
         dispatch('status', {
@@ -64,21 +63,13 @@
     
     isProcessing = true;
     dispatch('processingStart');
-    dispatch('status', {
-      type: 'processing',
-      message: 'Removing HTML tags...'
-    });
 
     try {
-      const response = await client.sendMessage('deleteHTMLtags', {});
+      const response = await appsScript.sendMessage('deleteHTMLtags', {}, 
+        (status) => dispatch('status', status)
+      );
       
-      if (response.success) {
-        dispatch('status', {
-          type: 'success',
-          message: 'Tags removed',
-          executionTime: response.executionTime
-        });
-      } else {
+      if (!response.success) {
         throw new Error(response.error || 'Failed to remove tags');
       }
     } catch (error) {

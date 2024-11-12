@@ -3,7 +3,7 @@ import { elements } from './data';
 // import { elementsThemeStore } from '../../../stores/elementsThemeStore';
 // import type { ElementsTheme, ElementObject } from './types';
 
-const BASE_URL = 'elements'; // Path to your SVG assets
+const BASE_URL = 'elements'; // Path to SVG assets
 
 export type ElementsTheme = 'light' | 'dark';
 
@@ -22,8 +22,6 @@ export interface ElementObject {
 	alt: string;
 	description: string;
 }
-
-
 
 export class ElementsManager {
 	private static instance: ElementsManager;

@@ -1,21 +1,41 @@
 <!-- $lib/iframe/features/Dropper.svelte -->
 <script lang="ts">
   import { fade, slide, fly } from "svelte/transition";
-  import { createEventDispatcher } from "svelte";
-  import { ElementClient } from "../utils/elementClient";
+  import { createEventDispatcher, onDestroy } from "svelte";
+  import { appsScript } from '../utils/appsScript';
   
   import DropperGrid from "./dropper/DropperGrid.svelte";
   import DropperBar from "./dropper/DropperBar.svelte";
   import ChainDropper from "./dropper/ChainDropper.svelte";
+  import StatusBar from "../components/StatusBar.svelte";
  
   import { zenMode } from "../stores";
   import { dropperStore, dropperStatus, chainMode } from "../stores/dropperStore";
   import { elementsThemeStore } from "../stores/elementsThemeStore";
 
-  const client = ElementClient.getInstance();
   const dispatch = createEventDispatcher();
-
   let isProcessing = false;
+  let status: {
+    type: "processing" | "success" | "error";
+    message: string;
+    details?: string;
+    error?: any;
+    executionTime?: number;
+  } | null = null;
+
+  let statusTimer: number;
+
+  // Watch status changes
+  $: if (status && status.type !== 'processing') {
+    if (statusTimer) clearTimeout(statusTimer);
+    statusTimer = setTimeout(() => {
+      status = null;
+    }, 3000);
+  }
+
+  onDestroy(() => {
+    if (statusTimer) clearTimeout(statusTimer);
+  });
 
   async function handleElementSelect(event: CustomEvent<{elementId: string}>) {
     const { elementId } = event.detail;
@@ -27,35 +47,54 @@
 
     isProcessing = true;
     dropperStore.setProcessing(true);
-    dispatch("processingStart");
+    status = {
+      type: 'processing',
+      message: `Inserting ${elementId}...`,
+      details: `Theme: ${$elementsThemeStore}\nAttempting to fetch and insert element...`
+    };
 
     try {
-      const response = await client.insertElement(elementId, $elementsThemeStore);
+      console.log(`Attempting to insert element: ${elementId} (${$elementsThemeStore})`);
+      const response = await appsScript.sendMessage('getElement', {
+        elementId, 
+        theme: $elementsThemeStore
+      });
 
       if (response.success) {
-        dispatch("status", {
+        status = {
           type: "success",
           message: "Element inserted",
+          details: `Successfully inserted ${elementId} (${$elementsThemeStore})`,
           executionTime: response.executionTime
-        });
+        };
       } else {
-        throw new Error(response.error || "Failed to insert element");
+        const errorMsg = response.error || "Failed to insert element";
+        console.error(errorMsg, response);
+        throw new Error(errorMsg);
       }
     } catch (error) {
       console.error("Failed to insert element:", error);
-      dispatch("status", {
+      status = {
         type: "error",
-        message: error instanceof Error ? error.message : "Failed to insert element"
-      });
+        message: "Failed to insert element",
+        details: `Failed to insert ${elementId} (${$elementsThemeStore})`,
+        error: {
+          message: error instanceof Error ? error.message : "Unknown error",
+          elementId,
+          theme: $elementsThemeStore,
+          timestamp: new Date().toISOString()
+        }
+      };
     } finally {
       isProcessing = false;
       dropperStore.setProcessing(false);
-      dispatch("processingEnd");
     }
   }
 </script>
 
 <div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
+  <StatusBar {status} />
+  
   <ChainDropper />
   
   <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
