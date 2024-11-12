@@ -6,6 +6,9 @@
   import PromptDropdown from './PromptDropdown.svelte';
   import HtmlButton from './HtmlButton.svelte';
 
+	import ComingSoon from "../../components/ComingSoon.svelte";
+
+
   export let appsScript: any;
   const dispatch = createEventDispatcher();
   let isProcessing = false;
@@ -93,6 +96,12 @@
 <div class="flex flex-col items-stretch w-full gap-3">
   <div class="relative">
     <PromptDropdown disabled={isProcessing} />
+			
+		<ComingSoon 
+			title="Coming Soon"
+			description=""
+			position="full"
+		/>
   </div>
 
   <HtmlButton

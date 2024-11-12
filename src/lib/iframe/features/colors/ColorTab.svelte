@@ -6,10 +6,12 @@
 	import { Check, Loader2 } from "lucide-svelte";
 	import ColorPicker from "./ColorPicker.svelte";
 	import ColorButton from "./ColorButton.svelte";
-	// import ColorButton from "../../components/ColorButton.svelte";
 	import { currentColor } from "../../stores";
 	import { AppsScriptClient } from "../../utils/appsScript";
 	import { cn } from "$lib/utils";
+	
+	// import ComingSoon from "../../components/ComingSoon.svelte";
+
 
 	const dispatch = createEventDispatcher();
 	const client = AppsScriptClient.getInstance();
@@ -86,6 +88,7 @@
 		handleColorChange($currentColor);
 	}
 </script>
+
 
 <div class="flex flex-col items-stretch w-full gap-4">
 	{#if showColorPicker}
