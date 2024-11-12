@@ -2,17 +2,31 @@
 <script lang="ts">
   import { fade, slide } from "svelte/transition";
   import * as Resizable from "$lib/components/ui/resizable";
+  import { onMount, onDestroy, setContext } from "svelte"; 
+  import { AppsScriptClient } from "./utils/appsScript";
 
   import TopBar from "./layout/TopBar.svelte";
   import Dropper from "./features/Dropper.svelte";
-  // import Tabs from "./layout/Tabs.svelte";
   import Tabs from "./features/Tabs.svelte";
   import BottomBar from "./layout/BottomBar.svelte";
   import AppAbout from "./layout/AppAbout.svelte";
   
   import { zenMode } from "./stores";
   import { showAboutModal } from "./stores/aboutStore";
+
+	const appsScript = AppsScriptClient.getInstance(5000);
+
+	// Make appsScript client available to child components
+  setContext('appsScript', appsScript);
+
+  onDestroy(() => {
+    appsScript.destroy();
+  });
+
+
 </script>
+
+
 
 <main class="flex flex-col h-[95vh] overflow-hidden">
   

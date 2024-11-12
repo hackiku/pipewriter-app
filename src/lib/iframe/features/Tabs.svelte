@@ -14,7 +14,7 @@
   
   // Import tab components
   import TableTab from "./table/TableTab.svelte";
-  import TextTab from "./text/TextTab.svelte";
+  // import TextTab from "./text/TextTab.svelte";
   import ColorTab from "./colors/ColorTab.svelte";
   import AiTab from "./ai/AiTab.svelte";
   
@@ -40,13 +40,13 @@
       description: "Convert formats and generate content",
       component: AiTab
     },
-		text: { 
-      icon: Type, 
-      tooltip: "Text Styles",
-      title: "Text Formatting",
-      description: "Format text and update styles",
-      component: TextTab
-    },
+		// text: { 
+    //   icon: Type, 
+    //   tooltip: "Text Styles",
+    //   title: "Text Formatting",
+    //   description: "Format text and update styles",
+    //   component: TextTab
+    // },
   };
 
   function handleStatus(event: CustomEvent<TabStatus>) {
