@@ -3,7 +3,7 @@
 	import { onMount, createEventDispatcher } from "svelte";
 	import { slide } from "svelte/transition";
 	import { Button } from "$lib/components/ui/button";
-	import { Loader2 } from "lucide-svelte";
+	import { Check, Loader2 } from "lucide-svelte";
 	import ColorPicker from "./ColorPicker.svelte";
 	import ColorButton from "./ColorButton.svelte";
 	// import ColorButton from "../../components/ColorButton.svelte";
@@ -113,19 +113,19 @@
 
   <Button 
     variant="default" 
-    class="px-4 h-full min-w-1/4"
+    class="px-3 h-full w-1/4"
     disabled={isProcessing}
     on:click={handleSubmit}
   >
     {#if isProcessing}
       <Loader2 class="h-4 w-4 animate-spin" />
     {:else}
-      Ok
+      <Check class="h-4 mr-1"/> Ok 
     {/if}
   </Button>
 </div>
 	<!-- Preset colors grid -->
-	<div class="px-8">
+	<div class="px-9">
 		<!-- Row 1 -->
 		<div class="grid grid-cols-5 gap-2 mb-2">
 			{#each presetColors.slice(0, 5) as { color, title, isGradient }}
