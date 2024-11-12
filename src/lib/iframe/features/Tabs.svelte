@@ -26,12 +26,12 @@
   let statusTimeout: number;
 
   const tabs = {
-    text: { 
-      icon: Type, 
-      tooltip: "Text Styles",
-      title: "Text Formatting",
-      description: "Format text and update styles",
-      component: TextTab
+    ai: { 
+      icon: Code, 
+      tooltip: "AI Assistant",
+      title: "AI Assistant",
+      description: "Convert formats and generate content",
+      component: AiTab
     },
     color: { 
       icon: Palette, 
@@ -40,13 +40,13 @@
       description: "Change document background color",
       component: ColorTab
     },
-    ai: { 
-      icon: Code, 
-      tooltip: "AI Assistant",
-      title: "AI Assistant",
-      description: "Convert formats and generate content",
-      component: AiTab
-    }
+		text: { 
+      icon: Type, 
+      tooltip: "Text Styles",
+      title: "Text Formatting",
+      description: "Format text and update styles",
+      component: TextTab
+    },
   };
 
   function handleStatus(event: CustomEvent<TabStatus>) {
