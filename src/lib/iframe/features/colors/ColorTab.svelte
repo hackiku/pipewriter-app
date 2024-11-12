@@ -86,19 +86,22 @@
   {/if}
 
   <!-- Color input and actions -->
-  <div class="flex gap-2 mb-2 px-4">
+  <div class="flex gap-2 h-9">
     <button
-      class="flex h-9 flex-1 rounded-md border border-input bg-background px-3 py-2 text-sm shadow-sm transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800"
+      class="flex flex-1 rounded-md border border-input bg-background px-3 pt-2 text-sm shadow-sm transition-all duration-200 hover:bg-gray-50 dark:hover:bg-gray-800"
       on:click={() => showColorPicker = !showColorPicker}
-      style="background: linear-gradient(to right, {$currentColor} 2rem, {showColorPicker ? '#f9fafb' : 'white'} 2rem);"
-    >
+			style="
+				background: linear-gradient(to right, {$currentColor} 2rem, {showColorPicker ? '' : ''} 2rem);
+				border: {showColorPicker ? '1px solid' : ''};
+			"
+		>
       <span class="w-6"></span>
       <span class="flex items-center uppercase pl-2">{$currentColor}</span>
     </button>
 
     <Button 
       variant="default" 
-      class="h-9 px-4 min-w-[60px]"
+      class="px-4 h-full min-w-1/4"
       disabled={isProcessing}
       on:click={handleSubmit}
     >
