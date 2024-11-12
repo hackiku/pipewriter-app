@@ -4,7 +4,8 @@
   import type { LucideIcon } from 'lucide-svelte';
 
   export let icon: LucideIcon;
-  export let label: string;
+  export let label: string;;
+  // export let disabled = false;
   export let disabled = false;
   export let variant: 'icon-only' | 'text' = 'icon-only';
   export let actions: Array<{ label: string; onClick: () => void }> = [];

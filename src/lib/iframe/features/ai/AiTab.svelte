@@ -1,26 +1,26 @@
 <!-- $lib/iframe/features/ai/AiTab.svelte -->
 <script lang="ts">
-  import { createEventDispatcher, getContext } from 'svelte';
+  import { createEventDispatcher } from 'svelte';
   import { ArrowDown, ArrowUp, Trash2, Code, Clipboard } from 'lucide-svelte';
-  import type { AppsScriptClient } from '../../utils/appsScript';
   import { promptStore, activePrompt } from '../../stores/promptStore';
   import PromptDropdown from './PromptDropdown.svelte';
   import HtmlButton from './HtmlButton.svelte';
 
+  export let appsScript: any;
   const dispatch = createEventDispatcher();
-  const appsScript = getContext<AppsScriptClient>('appsScript');
-  
   let isProcessing = false;
-  let showPromptDropdown = false;
 
   async function handleHtmlAction(action: string, params = {}) {
     if (isProcessing) return;
-    
+
     isProcessing = true;
     dispatch('processingStart');
+    dispatch('status', {
+      type: 'processing',
+      message: 'Processing...'
+    });
 
     try {
-      // Add prompt for HTML conversion only
       const payload = {
         ...params,
         ...(action === 'dropHtml' && $activePrompt ? {
@@ -36,9 +36,24 @@
 
       if (response.clipboardContent) {
         await navigator.clipboard.writeText(response.clipboardContent);
+        dispatch('status', {
+          type: 'success',
+          message: 'Copied to clipboard',
+          executionTime: response.executionTime
+        });
+      } else {
+        dispatch('status', {
+          type: 'success',
+          message: 'Operation completed',
+          executionTime: response.executionTime
+        });
       }
     } catch (error) {
       console.error(`Failed to ${action}:`, error);
+      dispatch('status', {
+        type: 'error',
+        message: error instanceof Error ? error.message : `Failed to ${action}`
+      });
     } finally {
       isProcessing = false;
       dispatch('processingEnd');
@@ -77,18 +92,15 @@
 
 <div class="flex flex-col items-stretch w-full gap-3">
   <div class="relative">
-    <PromptDropdown
-      {isProcessing}
-      bind:isOpen={showPromptDropdown}
-    />
+    <PromptDropdown disabled={isProcessing} />
   </div>
 
   <HtmlButton
     icon={Code}
     label="Drop HTML"
-    variant="icon-only" 
+    variant="icon-only"
     actions={dropHtmlActions}
-    {isProcessing}
+    disabled={isProcessing}
   />
 
   <HtmlButton
@@ -96,6 +108,6 @@
     label="Strip HTML"
     variant="text"
     actions={stripHtmlActions}
-    {isProcessing}
+    disabled={isProcessing}
   />
 </div>

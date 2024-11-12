@@ -26,19 +26,19 @@
   let statusTimeout: number;
 
   const tabs = {
+		color: { 
+			icon: Palette, 
+			tooltip: "Color Picker",
+			title: "Background Color",
+			description: "Change document background color",
+			component: ColorTab
+		},
     ai: { 
       icon: Code, 
       tooltip: "AI Assistant",
       title: "AI Assistant",
       description: "Convert formats and generate content",
       component: AiTab
-    },
-    color: { 
-      icon: Palette, 
-      tooltip: "Color Picker",
-      title: "Background Color",
-      description: "Change document background color",
-      component: ColorTab
     },
 		text: { 
       icon: Type, 
