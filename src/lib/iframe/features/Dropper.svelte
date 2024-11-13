@@ -111,7 +111,6 @@
   <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
     <DropperGrid
   		{isProcessing}
-  		{appsScript} 
   		on:elementSelect={handleElementSelect}
 />
 

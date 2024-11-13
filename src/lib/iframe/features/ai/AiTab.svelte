@@ -97,11 +97,7 @@
   <div class="relative">
     <PromptDropdown disabled={isProcessing} />
 			
-		<ComingSoon 
-			title="Coming Soon"
-			description=""
-			position="full"
-		/>
+		<!-- <ComingSoon /> -->
   </div>
 
   <HtmlButton

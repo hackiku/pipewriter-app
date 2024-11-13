@@ -1,0 +1,289 @@
+src/lib/.
+├── AppNav.svelte
+├── actions
+│   └── clickOutside.ts
+├── app
+│   ├── App.svelte
+│   ├── Canvas.svelte
+│   ├── elements
+│   │   ├── Blurbs.svelte
+│   │   ├── Faq.svelte
+│   │   ├── Hero.svelte
+│   │   ├── HeroFlowbite.svelte
+│   │   ├── Logos.svelte
+│   │   ├── ZigZag.svelte
+│   │   ├── base
+│   │   │   └── Element.svelte
+│   │   └── sections
+│   │       ├── Blurbs.svelte
+│   │       ├── Hero.svelte
+│   │       └── ZigZag.svelte
+│   ├── layout
+│   │   ├── Dropper.svelte
+│   │   ├── Header.svelte
+│   │   └── ModeSelector.svelte
+│   ├── stores
+│   │   ├── editor.ts
+│   │   ├── elements.ts
+│   │   └── themes.ts
+│   └── types
+├── components
+│   ├── AppHeader.svelte
+│   ├── BackgroundPattern.svelte
+│   ├── Canvas.svelte
+│   ├── ContactModal.svelte
+│   ├── ElementsDropper.svelte
+│   ├── EmailForm.svelte
+│   ├── Logos.svelte
+│   ├── LogosMarquee.svelte
+│   ├── LoomVideo.svelte
+│   ├── Nav.svelte
+│   └── ui
+│       ├── accordion
+│       │   ├── accordion-content.svelte
+│       │   ├── accordion-item.svelte
+│       │   ├── accordion-trigger.svelte
+│       │   └── index.ts
+│       ├── alert
+│       │   ├── alert-description.svelte
+│       │   ├── alert-title.svelte
+│       │   ├── alert.svelte
+│       │   └── index.ts
+│       ├── aspect-ratio
+│       │   ├── aspect-ratio.svelte
+│       │   └── index.ts
+│       ├── avatar
+│       │   ├── avatar-fallback.svelte
+│       │   ├── avatar-image.svelte
+│       │   ├── avatar.svelte
+│       │   └── index.ts
+│       ├── badge
+│       │   ├── badge.svelte
+│       │   └── index.ts
+│       ├── button
+│       │   ├── button.svelte
+│       │   └── index.ts
+│       ├── card
+│       │   ├── card-content.svelte
+│       │   ├── card-description.svelte
+│       │   ├── card-footer.svelte
+│       │   ├── card-header.svelte
+│       │   ├── card-title.svelte
+│       │   ├── card.svelte
+│       │   └── index.ts
+│       ├── checkbox
+│       │   ├── checkbox.svelte
+│       │   └── index.ts
+│       ├── drawer
+│       │   ├── drawer-content.svelte
+│       │   ├── drawer-description.svelte
+│       │   ├── drawer-footer.svelte
+│       │   ├── drawer-header.svelte
+│       │   ├── drawer-nested.svelte
+│       │   ├── drawer-overlay.svelte
+│       │   ├── drawer-title.svelte
+│       │   ├── drawer.svelte
+│       │   └── index.ts
+│       ├── dropdown-menu
+│       │   ├── dropdown-menu-checkbox-item.svelte
+│       │   ├── dropdown-menu-content.svelte
+│       │   ├── dropdown-menu-item.svelte
+│       │   ├── dropdown-menu-label.svelte
+│       │   ├── dropdown-menu-radio-group.svelte
+│       │   ├── dropdown-menu-radio-item.svelte
+│       │   ├── dropdown-menu-separator.svelte
+│       │   ├── dropdown-menu-shortcut.svelte
+│       │   ├── dropdown-menu-sub-content.svelte
+│       │   ├── dropdown-menu-sub-trigger.svelte
+│       │   └── index.ts
+│       ├── form
+│       │   ├── form-button.svelte
+│       │   ├── form-description.svelte
+│       │   ├── form-element-field.svelte
+│       │   ├── form-field-errors.svelte
+│       │   ├── form-field.svelte
+│       │   ├── form-fieldset.svelte
+│       │   ├── form-label.svelte
+│       │   ├── form-legend.svelte
+│       │   └── index.ts
+│       ├── input
+│       │   ├── index.ts
+│       │   └── input.svelte
+│       ├── label
+│       │   ├── index.ts
+│       │   └── label.svelte
+│       ├── menubar
+│       │   ├── index.ts
+│       │   ├── menubar-checkbox-item.svelte
+│       │   ├── menubar-content.svelte
+│       │   ├── menubar-item.svelte
+│       │   ├── menubar-label.svelte
+│       │   ├── menubar-radio-item.svelte
+│       │   ├── menubar-separator.svelte
+│       │   ├── menubar-shortcut.svelte
+│       │   ├── menubar-sub-content.svelte
+│       │   ├── menubar-sub-trigger.svelte
+│       │   ├── menubar-trigger.svelte
+│       │   └── menubar.svelte
+│       ├── resizable
+│       │   ├── index.ts
+│       │   ├── resizable-handle.svelte
+│       │   └── resizable-pane-group.svelte
+│       ├── scroll-area
+│       │   ├── index.ts
+│       │   ├── scroll-area-scrollbar.svelte
+│       │   └── scroll-area.svelte
+│       ├── select
+│       │   ├── index.ts
+│       │   ├── select-content.svelte
+│       │   ├── select-item.svelte
+│       │   ├── select-label.svelte
+│       │   ├── select-separator.svelte
+│       │   └── select-trigger.svelte
+│       ├── sheet
+│       │   ├── index.ts
+│       │   ├── sheet-content.svelte
+│       │   ├── sheet-description.svelte
+│       │   ├── sheet-footer.svelte
+│       │   ├── sheet-header.svelte
+│       │   ├── sheet-overlay.svelte
+│       │   ├── sheet-portal.svelte
+│       │   └── sheet-title.svelte
+│       ├── tabs
+│       │   ├── index.ts
+│       │   ├── tabs-content.svelte
+│       │   ├── tabs-list.svelte
+│       │   └── tabs-trigger.svelte
+│       └── tooltip
+│           ├── index.ts
+│           └── tooltip-content.svelte
+├── controls
+│   └── ElementsDropper.svelte
+├── data
+│   ├── constants.ts
+│   ├── primitives
+│   └── sections
+│       ├── Blurbs.svelte
+│       ├── Hero.svelte
+│       ├── HeroFlowbite.svelte
+│       ├── Logos.svelte
+│       └── ZigZag.svelte
+├── iframe
+│   ├── Frame.svelte
+│   ├── _arch
+│   │   ├── App.svelte
+│   │   ├── ColorPicker.svelte
+│   │   ├── TabsUPWARD.svelte
+│   │   └── google-docs
+│   │       ├── App.svelte
+│   │       ├── BottomBar.svelte
+│   │       ├── ButtonRound.svelte
+│   │       ├── ElementsDropper.svelte
+│   │       ├── PromptLoader.svelte
+│   │       ├── TopBar.svelte
+│   │       ├── UserImageMenu.svelte
+│   │       ├── draggableDividerSidebar.js
+│   │       ├── elements.js
+│   │       └── googleScripts.js
+│   ├── components
+│   │   ├── ColorButton.svelte
+│   │   ├── ColorPicker.svelte
+│   │   ├── ComingSoon.svelte
+│   │   ├── ElementCard.svelte
+│   │   ├── EmailCapture.svelte
+│   │   ├── GridSwitcher.svelte
+│   │   ├── HoverCursor.svelte
+│   │   ├── IconButton.svelte
+│   │   ├── OutlineButton.svelte
+│   │   ├── RoundButton.svelte
+│   │   ├── StatusBar.svelte
+│   │   ├── TextButtons.svelte
+│   │   └── TextStyleDropdown.svelte
+│   ├── elements.ts
+│   ├── elementsOLD.ts
+│   ├── features
+│   │   ├── Dropper.svelte
+│   │   ├── Tabs.svelte
+│   │   ├── ai
+│   │   │   ├── AiTab.svelte
+│   │   │   ├── HtmlButton.svelte
+│   │   │   ├── PromptDropdown.svelte
+│   │   │   ├── PromptEditor.svelte
+│   │   │   └── PromptSelect.svelte
+│   │   ├── colors
+│   │   │   ├── ColorButton.svelte
+│   │   │   ├── ColorPicker.svelte
+│   │   │   └── ColorTab.svelte
+│   │   ├── dropper
+│   │   │   ├── ChainDropper.svelte
+│   │   │   ├── DropperBar.svelte
+│   │   │   ├── DropperGrid.svelte
+│   │   │   └── elements
+│   │   │       ├── data.ts
+│   │   │       ├── elements.ts
+│   │   │       └── types.ts
+│   │   ├── table
+│   │   │   └── TableTab.svelte
+│   │   └── text
+│   │       ├── TextButtons.svelte
+│   │       ├── TextStyleDropdown.svelte
+│   │       ├── TextTab.svelte
+│   │       └── UpdateHeading.svelte
+│   ├── gasUtils.ts
+│   ├── googleScripts.js
+│   ├── layout
+│   │   ├── AppAbout.svelte
+│   │   ├── BottomBar.svelte
+│   │   ├── Dropper.svelte
+│   │   ├── Tabs.svelte
+│   │   ├── Tester.svelte
+│   │   ├── TopBar.svelte
+│   │   └── dropper
+│   │       ├── ChainDropper.svelte
+│   │       ├── DropperBar.svelte
+│   │       └── DropperGrid.svelte
+│   ├── stores
+│   │   ├── aboutStore.ts
+│   │   ├── aiPrompt.ts
+│   │   ├── dropperStore.ts
+│   │   ├── elementsThemeStore.ts
+│   │   ├── gridStore.ts
+│   │   ├── modalStore.ts
+│   │   ├── promptStatus.ts
+│   │   ├── promptStore.ts
+│   │   ├── textStyles.ts
+│   │   └── themeStore.ts
+│   ├── stores.ts
+│   ├── tabs
+│   │   ├── AiTab.svelte
+│   │   ├── ColorTab.svelte
+│   │   ├── TableTab.svelte
+│   │   ├── TextTab.svelte
+│   │   └── UpdateHeading.svelte
+│   ├── types
+│   │   └── status.ts
+│   ├── utils
+│   │   ├── appsScript.ts
+│   │   ├── elementClient.ts
+│   │   ├── gs
+│   │   │   ├── html2doc.gs
+│   │   │   ├── pipe_OLD.gs
+│   │   │   ├── rich-table.json
+│   │   │   └── table-parser.gs
+│   │   └── promptProcessor.ts
+│   └── utils.ts
+├── index.ts
+├── sections
+│   ├── Blurbs.svelte
+│   ├── Faq.svelte
+│   ├── Hero.svelte
+│   ├── HeroFlowbite.svelte
+│   ├── Logos.svelte
+│   └── ZigZag.svelte
+├── stores
+│   └── sections.ts
+├── utils
+│   └── sectionUtils.ts
+└── utils.ts
+
+56 directories, 231 files
