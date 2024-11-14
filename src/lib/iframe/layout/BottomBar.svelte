@@ -29,7 +29,7 @@
   );
 </script>
 
-<div class="w-full pr-3 h-12 flex items-center justify-between">
+<div class="w-full pr-5 h-12 flex items-center justify-between">
   <DropdownMenu.Root>
     <DropdownMenu.Trigger asChild let:builder>
       <Button 

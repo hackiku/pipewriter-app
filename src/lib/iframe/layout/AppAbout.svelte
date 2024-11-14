@@ -1,159 +1,165 @@
 <!-- $lib/iframe/layout/AppAbout.svelte -->
 <script lang="ts">
-  import { fade } from 'svelte/transition';
-  import { Copy, Check, X, Mail } from 'lucide-svelte';
-  import { showAboutModal } from '../stores/aboutStore';
-  import { Button } from "$lib/components/ui/button";
-  import { Input } from "$lib/components/ui/input";
+	import { fade } from "svelte/transition";
+	import { Copy, Check, X, Mail } from "lucide-svelte";
+	import { showAboutModal } from "../stores/aboutStore";
+	import { Button } from "$lib/components/ui/button";
+	import { Input } from "$lib/components/ui/input";
 
-  const writerEmails = [
-    'mark@twain.me',
-    'ernest@hemingway.gg',
-    'virginia@woolf.app',
-    'jane@austen.io',
-    'charles@dickens.dev',
-    'oscar@wilde.me',
-    'emily@bronte.co',
-    'edgar@poe.xyz'
-  ];
+	const writerEmails = [
+		"ernie@hemingway.gg",
+		"franz@kafka.dev",
+		"fyodor@dostoevsky.ru",
+		"margaret@atwood.ca",
+		"jane@austen.io",
+		"james@joyce.ie",
+		"italo@calvino.it",
+		"albert@camus.dz",
+		"hank@moody.ny",
+		"isabel@allende.cl",
+		"edgar@poe.xyz",
+	];
 
-  let email = '';
-  let isSubmitting = false;
-  let copied = false;
-  let placeholder = writerEmails[Math.floor(Math.random() * writerEmails.length)];
+	let email = "";
+	let isSubmitting = false;
+	let copied = false;
+	let placeholder =
+		writerEmails[Math.floor(Math.random() * writerEmails.length)];
 
-  function closeModal() {
-    showAboutModal.set(false);
-  }
+	function closeModal() {
+		showAboutModal.set(false);
+	}
 
-  async function handleSubmit(e: SubmitEvent) {
-    e.preventDefault();
-    if (!email || isSubmitting) return;
-    
-    isSubmitting = true;
-    
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
+	async function handleSubmit(e: SubmitEvent) {
+		e.preventDefault();
+		if (!email || isSubmitting) return;
 
-      if (!response.ok) throw new Error('Subscription failed');
-      
-    } catch (error) {
-      console.error('Subscription error:', error);
-    } finally {
-      isSubmitting = false;
-    }
-  }
+		isSubmitting = true;
 
-  async function copyEmail() {
-    await navigator.clipboard.writeText('ivan@pipewriter.io');
-    copied = true;
-    setTimeout(() => copied = false, 2000);
-  }
+		try {
+			const response = await fetch("/api/subscribe", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ email }),
+			});
+
+			if (!response.ok) throw new Error("Subscription failed");
+		} catch (error) {
+			console.error("Subscription error:", error);
+		} finally {
+			isSubmitting = false;
+		}
+	}
+
+	async function copyEmail() {
+		await navigator.clipboard.writeText("ivan@pipewriter.io");
+		copied = true;
+		setTimeout(() => (copied = false), 2000);
+	}
 </script>
 
 <!-- Container -->
 {#if $showAboutModal}
-<!-- svelte-ignore a11y-no-static-element-interactions -->
-<div
-  class="relative z-50 bg-gray-900/80 dark:bg-gray-950/80 h-screen -mx-2" 
-	on:click={closeModal}
-	on:keydown={e => e.key === 'Escape' && closeModal()}
->
-  <!-- Top border line -->
-  <div class="border-t border-gray-200 dark:border-gray-700" />
+	<!-- svelte-ignore a11y-no-static-element-interactions -->
+	<div
+		class="relative z-50 bg-gray-900/80 dark:bg-gray-950/80 h-screen -mx-2"
+		on:click={closeModal}
+		on:keydown={(e) => e.key === "Escape" && closeModal()}
+	>
+		<!-- Top border line -->
+		<div class="border-t border-gray-200 dark:border-gray-700" />
 
-  <!-- Modal content -->
-  <!-- {#if $showAboutModal} -->
-    <div
-      class="fixed bottom-12 left-2 right-2"
-      in:fade={{ duration: 200 }}
-      out:fade={{ duration: 200 }}
-    >
-      <!-- svelte-ignore a11y-click-events-have-key-events -->
-      <div 
+		<!-- Modal content -->
+		<!-- {#if $showAboutModal} -->
+		<div
+			class="fixed bottom-12 left-2 right-2"
+			in:fade={{ duration: 200 }}
+			out:fade={{ duration: 200 }}
+		>
+			<!-- svelte-ignore a11y-click-events-have-key-events -->
+			<div
 				class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
 				on:click|stopPropagation
-				>
+			>
 				<div class="flex justify-between items-start mb-6">
-          <div>
-            <h2 class="text-xl font-semibold">Start with words, end with wireframes</h2>
-            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-              Convert Google Docs into professional copy decks and wireframes. Perfect for copywriters, content strategists, and UX professionals.
-            </p>
-          </div>
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            class="h-8 w-8 p-0" 
-            on:click={closeModal}
-          >
-            <X class="h-4 w-4" />
-          </Button>
-        </div>
+					<div>
+						<h2 class="text-xl font-semibold">
+							Great products start with words
+						</h2>
+						<p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+							Google Docs is where writers write.
+								<a href="https://pipewriter.io" class="text-primary font-semibold hover:underline hover:text-primary/90 transition-colors">Pipewriter</a>
+								makes it a bit more product designey so you can 10x your website copy decks and wireframes.
+						</p>
+						<p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+							Obsessively designed for fellow copywriters, content strategists, and UX
+							pros.
+						</p>
+					</div>
+					<Button
+						variant="ghost"
+						size="sm"
+						class="h-8 w-8 p-0"
+						on:click={closeModal}
+					>
+						<X class="h-4 w-4" />
+					</Button>
+				</div>
 
-        <form on:submit={handleSubmit} class="space-y-2 mb-6">
-          <Input
-            type="email"
-            {placeholder}
-            bind:value={email}
-            class="w-full"
-          />
-          <Button 
-            type="submit" 
-            disabled={!email || isSubmitting}
-            class="w-full"
-          >
-            {#if isSubmitting}
-              <span class="flex items-center">
-                <span class="animate-spin mr-2">⟳</span>
-                Subscribing...
-              </span>
-            {:else}
-              <span class="flex items-center">
-                <Mail class="w-4 h-4 mr-2" />
-                Get Updates
-              </span>
-            {/if}
-          </Button>
-        </form>
+				<form on:submit={handleSubmit} class="space-y-2 mb-6">
+					<Input type="email" {placeholder} bind:value={email} class="w-full" />
+					<Button
+						type="submit"
+						disabled={!email || isSubmitting}
+						class="w-full"
+					>
+						{#if isSubmitting}
+							<span class="flex items-center">
+								<span class="animate-spin mr-2">⟳</span>
+								Subscribing...
+							</span>
+						{:else}
+							<span class="flex items-center">
+								<Mail class="w-4 h-4 mr-2" />
+								Get Updates
+							</span>
+						{/if}
+					</Button>
+				</form>
 
-        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
-            Support & life talk:
-          </p>
-          <div class="flex items-center justify-between">
-            <a 
-              href="mailto:ivan@pipewriter.io" 
-              class="text-xl text-primary hover:text-primary/90 transition-colors"
-            >
-              ivan@pipewriter.io
-            </a>
-            <Button
-              variant="ghost"
-              size="sm"
-              class="h-8 w-8 p-0"
-              on:click={copyEmail}
-            >
-              {#if copied}
-                <Check class="h-4 w-4 text-green-500" />
-              {:else}
-                <Copy class="h-4 w-4" />
-              {/if}
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
+				<div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+					<p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+						Support & talk life:
+					</p>
+					<div class="flex items-center justify-between">
+						<a
+							href="mailto:ivan@pipewriter.io"
+							class="text-xl text-primary hover:text-primary/90 transition-colors"
+						>
+							ivan@pipewriter.io
+						</a>
+						<Button
+							variant="ghost"
+							size="sm"
+							class="h-8 w-8 p-0"
+							on:click={copyEmail}
+						>
+							{#if copied}
+								<Check class="h-4 w-4 text-green-500" />
+							{:else}
+								<Copy class="h-4 w-4" />
+							{/if}
+						</Button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-  {/if}
+{/if}
 
 <style>
-  /* Ensure proper positioning */
-  /* :global(.fixed) {
+	/* Ensure proper positioning */
+	/* :global(.fixed) {
     position: fixed !important;
   } */
 </style>
