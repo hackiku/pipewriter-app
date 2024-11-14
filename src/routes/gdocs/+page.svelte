@@ -6,7 +6,7 @@
 		
 </script>
 
-<div class="right-0 absolute w-[300px] borders">
+<div class="right-0 absoluste w-[300px] borders">
 	
 	<Frame />
 

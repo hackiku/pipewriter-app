@@ -56,19 +56,20 @@
 </script>
 
 <!-- Container -->
-<div class="relative z-50">
+ {#if $showAboutModal}
+<div class="relative z-50 bg-slate-800 bg-h-screen">
   <!-- Top border line -->
   <div class="border-t border-gray-200 dark:border-gray-700" />
 
   <!-- Modal content -->
-  {#if $showAboutModal}
+  <!-- {#if $showAboutModal} -->
     <div
-      class="fixed bottom-12 left-right-2"
+      class="fixed bottom-12 left-0 right-0 max-w-[300px]"
       in:fade={{ duration: 200 }}
       out:fade={{ duration: 200 }}
     >
-      <div class="w-96 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-        <div class="flex justify-between items-start mb-6">
+      <div class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+				<div class="flex justify-between items-start mb-6">
           <div>
             <h2 class="text-xl font-semibold">Start with words, end with wireframes</h2>
             <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
@@ -138,12 +139,12 @@
         </div>
       </div>
     </div>
+	</div>
   {/if}
-</div>
 
 <style>
   /* Ensure proper positioning */
-  /* :global(.fixed) {
+  :global(.fixed) {
     position: fixed !important;
-  } */
+  }
 </style>
