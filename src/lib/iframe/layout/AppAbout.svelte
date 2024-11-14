@@ -144,7 +144,7 @@
 
 <style>
   /* Ensure proper positioning */
-  :global(.fixed) {
+  /* :global(.fixed) {
     position: fixed !important;
-  }
+  } */
 </style>

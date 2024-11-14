@@ -1,10 +1,7 @@
-<script>
-	import "../../app.css";
+<script lang='ts'>
+
 	import Frame from '$lib/iframe/Frame.svelte';
 
 </script>
 
-<slot />
 <Frame />
-
-

@@ -2,4 +2,4 @@
 
 import { writable } from "svelte/store";
 
-export const showAboutModal = writable(true);
+export const showAboutModal = writable(false);

@@ -1,4 +1,3 @@
-<!-- src/lib/iframe/layout/Tabs.svelte -->
 <script lang="ts">
   import { fade } from "svelte/transition";
   import { Button } from "$lib/components/ui/button";
@@ -14,16 +13,16 @@
   import ColorTab from "../features/colors/ColorTab.svelte";
   import AiTab from "../features/ai/AiTab.svelte";
   
-  const BG_STYLE = 'bg-white dark:bg-slate-900';
+  const BG_STYLE = 'bg-gray-100 dark:bg-slate-900';
 
   const tabs = {
-		ai: { 
-			icon: Code, 
-			tooltip: "AI Assistant",
-			title: "AI Assistant",
-			description: "Convert formats and generate content",
-			component: AiTab
-		},
+    ai: { 
+      icon: Code, 
+      tooltip: "AI Assistant",
+      title: "AI Assistant",
+      description: "Convert formats and generate content",
+      component: AiTab
+    },
     text: { 
       icon: Type, 
       tooltip: "Text Styles",
@@ -62,11 +61,12 @@
   $: getButtonClass = (tab: string) => `
     transition-all duration-200 relative z-10
     ${$activeTab === tab 
-      ? `w-10 h-[calc(3rem+1px)] rounded-b-full ${BG_STYLE}
+      ? `w-10 h-[calc(3rem+1px)] ${BG_STYLE}
          border-b border-l border-r border-gray-300 dark:border-gray-600
+         ${tab === 'ai' ? 'rounded-bl-none' : 'rounded-bl-lg'} rounded-br-lg rounded-t-lg
          after:content-[''] after:absolute after:top-[-1px] 
          after:left-0 after:right-0 after:h-[1px] after:bg-inherit`
-      : "w-10 h-10 rounded-full mt-2 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
+      : "w-10 h-10 rounded-full mt-2 hover:bg-gray-200 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
     }
   `;
   
