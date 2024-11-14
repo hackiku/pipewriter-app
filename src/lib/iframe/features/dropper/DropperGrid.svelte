@@ -1,7 +1,7 @@
 <!-- $lib/iframe/features/dropper/DropperGrid.svelte -->
 <script lang="ts">
   import { createEventDispatcher } from "svelte";
-  import ElementCard from "../../components/ElementCard.svelte";
+  import ElementCard from "./ElementCard.svelte";
   import { showInfo } from "../../stores";
   import { dropperStore, dropperStatus } from "../../stores/dropperStore";
   import { gridClass } from "../../stores/gridStore";

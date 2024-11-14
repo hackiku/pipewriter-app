@@ -1,7 +1,7 @@
 // features/dropper/elements/data.ts
 
 export const elements = {
-	// Containers
+	// Containers ------------------------------------
 	'container-center': {
 		category: 'containers',
 		description: 'Centered container for content',
@@ -17,7 +17,7 @@ export const elements = {
 		description: 'Full width empty container',
 		hasDarkVariant: true
 	},
-	// Content
+	// Content ------------------------------------
 	'hero': {
 		category: 'content',
 		description: 'Hero layout with heading and subtext',
@@ -33,8 +33,6 @@ export const elements = {
 		description: 'Text layout with right zigzag pattern',
 		hasDarkVariant: true
 	},
-
-
 	// blurbs
 	'blurbs-3': {
 		category: 'blurbs',
@@ -46,13 +44,13 @@ export const elements = {
 		description: '4 horizontal blurbs',
 		hasDarkVariant: true
 	},
-	'blurbs-vert-3': {
+	'blurbs-vertical-3': {
 		category: 'blurbs',
 		description: '4 vertical blurbs',
 		hasDarkVariant: true
 	},
 
-	// Lists
+	// Lists ------------------------------------
 	'list-1': {
 		category: 'lists',
 		description: 'Single column list',
@@ -69,52 +67,51 @@ export const elements = {
 		hasDarkVariant: true
 	},
 
-	// Buttons 
-	'button-left': {
+	// Buttons ------------------------------------
+	'button-primary-left': {
 		category: 'buttons',
-		description: 'Left-aligned button',
+		description: 'Left-aligned full color button',
 		hasDarkVariant: true
 	},
-	'button-center': {
+	'button-secondary-left': {
 		category: 'buttons',
-		description: 'Center-aligned button',
+		description: 'Left-aligned outline button',
 		hasDarkVariant: true
 	},
-	'button-right': {
-		category: 'buttons',
-		description: 'Right-aligned button',
-		hasDarkVariant: true
-	},
-	'button-2-left': {
+	'buttons-2-left': {
 		category: 'buttons',
 		description: 'Two buttons, left-aligned',
 		hasDarkVariant: true
 	},
-	'button-2-center': {
+	'button-primary-center': {
+		category: 'buttons',
+		description: 'Center-aligned full color button',
+		hasDarkVariant: true
+	},
+	'button-secondary-center': {
+		category: 'buttons',
+		description: 'Center-aligned outline button',
+		hasDarkVariant: true
+	},
+	'buttons-2-center': {
 		category: 'buttons',
 		description: 'Two buttons, center-aligned',
 		hasDarkVariant: true
 	},
-	'button-2-right': {
-		category: 'buttons',
-		description: 'Two buttons, right-aligned',
-		hasDarkVariant: true
-	},
-
-	// Cards
-	'cards-2-left': {
+	// Cards ------------------------------------
+	'cards-2': {
 		category: 'cards',
-		description: 'Two cards, left-aligned',
-		hasDarkVariant: true
-	},
-	'cards-2-center': {
-		category: 'cards',
-		description: 'Two cards, center-aligned',
+		description: 'Two hgorizontal cards',
 		hasDarkVariant: true
 	},
 	'cards-3': {
 		category: 'cards',
-		description: 'Three cards layout',
+		description: 'Three horizontal cards',
+		hasDarkVariant: true
+	},
+	'cards-4': {
+		category: 'cards',
+		description: 'Four horizontal cards',
 		hasDarkVariant: true
 	},
 	'cards-2x2': {
@@ -122,18 +119,18 @@ export const elements = {
 		description: '2x2 grid of cards',
 		hasDarkVariant: true
 	},
-	'pricing-cards': {
-		category: 'cards',
-		description: 'Pricing comparison cards',
-		hasDarkVariant: true
-	},
 	'cards-6': {
 		category: 'cards',
 		description: 'Six cards grid layout',
 		hasDarkVariant: true
 	},
+	'pricing-2': {
+		category: 'cards',
+		description: 'Two pricing comparison cards',
+		hasDarkVariant: true
+	},
 
-	// Special elements
+	// Special elements ------------------------------------
 	'styleguide': {
 		category: 'special',
 		description: 'Text style guidelines',

@@ -1,4 +1,4 @@
-<!-- $lib/iframe/features/dropper/HoverCursor.svelte -->
+<!-- $lib/iframe/components/HoverCursor.svelte -->
 <script lang="ts">
   import { Plus } from 'lucide-svelte';
   import * as Tooltip from "$lib/components/ui/tooltip";
