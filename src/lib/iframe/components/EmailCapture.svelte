@@ -49,12 +49,16 @@
 </script>
 
 {#if !isSubmitted}
-  <Card class="w-full">
+  <!--
+	<Card class="w-full">
     <CardHeader>
       <CardTitle class="text-center">Stay in the Loop</CardTitle>
-      <!-- <CardDescription>New features, updates, tips, tricks.</CardDescription> -->
+      <CardDescription>New features, updates, tips, tricks.</CardDescription>
     </CardHeader>
-    <CardContent>
+	  <CardContent>
+		</CardContent>
+  </Card>
+	-->
       <form on:submit={handleSubmit} class="flex flex-col">
         <div class="flex flex-col gap-2">
           <Input
@@ -81,8 +85,7 @@
           </Alert>
         {/if}
       </form>
-    </CardContent>
-  </Card>
+
 {:else}
   <!-- <Card class="w-full" transition:fly={{ duration: 200 }}> -->
   <Card class="w-full">

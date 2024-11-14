@@ -44,7 +44,7 @@
       {#if !$zenMode}
         <Resizable.Handle 
           withHandle 
-          class="{$activeTab ? 'opacity-0' : 'opacity-100'} pointer-events-{$activeTab ? 'none' : 'auto'}"
+          class="{$activeTab || $showAboutModal ? 'opacity-0' : 'opacity-100'} pointer-events-{$activeTab ? 'none' : 'auto'}"
         />
         <Resizable.Pane defaultSize={30} minSize={0} />
       {/if}

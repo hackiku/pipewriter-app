@@ -1,16 +1,61 @@
 <!-- $lib/iframe/layout/AppAbout.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import { X } from 'lucide-svelte';
+  import { Copy, Check, X, Mail } from 'lucide-svelte';
   import { showAboutModal } from '../stores/aboutStore';
-  import EmailCapture from '../components/EmailCapture.svelte';
+  import { Button } from "$lib/components/ui/button";
+  import { Input } from "$lib/components/ui/input";
+
+  const writerEmails = [
+    'mark@twain.me',
+    'ernest@hemingway.gg',
+    'virginia@woolf.app',
+    'jane@austen.io',
+    'charles@dickens.dev',
+    'oscar@wilde.me',
+    'emily@bronte.co',
+    'edgar@poe.xyz'
+  ];
+
+  let email = '';
+  let isSubmitting = false;
+  let copied = false;
+  let placeholder = writerEmails[Math.floor(Math.random() * writerEmails.length)];
 
   function closeModal() {
     showAboutModal.set(false);
   }
+
+  async function handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    if (!email || isSubmitting) return;
+    
+    isSubmitting = true;
+    
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+
+      if (!response.ok) throw new Error('Subscription failed');
+      
+    } catch (error) {
+      console.error('Subscription error:', error);
+    } finally {
+      isSubmitting = false;
+    }
+  }
+
+  async function copyEmail() {
+    await navigator.clipboard.writeText('ivan@pipewriter.io');
+    copied = true;
+    setTimeout(() => copied = false, 2000);
+  }
 </script>
 
-<!-- Container for border line -->
+<!-- Container -->
 <div class="relative z-50">
   <!-- Top border line -->
   <div class="border-t border-gray-200 dark:border-gray-700" />
@@ -18,43 +63,87 @@
   <!-- Modal content -->
   {#if $showAboutModal}
     <div
-      class="absolute bottom-0 -right-2 bg-white dark:bg-slate-900
-             border border-gray-200 dark:border-gray-700 rounded-xl"
+      class="fixed bottom-12 left-right-2"
       in:fade={{ duration: 200 }}
       out:fade={{ duration: 200 }}
     >
-      <button 
-        on:click={closeModal}
-        class="absolute top-3 right-3 p-1 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700"
-      >
-        <X class="h-4 w-4 text-gray-500" />
-      </button>
-
-      <div class="p-6">
-        <h2 class="text-xl font-semibold mb-4">About Pipewriter</h2>
-        <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">
-          This app is designed to enhance your workflow. Explore, learn, and make the most of your experience with us.
-        </p>
-
-        <div class="mb-4">
-          <EmailCapture />
+      <div class="w-96 p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+        <div class="flex justify-between items-start mb-6">
+          <div>
+            <h2 class="text-xl font-semibold">Start with words, end with wireframes</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
+              Convert Google Docs into professional copy decks and wireframes. Perfect for copywriters, content strategists, and UX professionals.
+            </p>
+          </div>
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            class="h-8 w-8 p-0" 
+            on:click={closeModal}
+          >
+            <X class="h-4 w-4" />
+          </Button>
         </div>
 
-        <div class="w-full aspect-video mb-4">
-          <iframe
-            class="w-full h-full rounded-md"
-            src="https://www.youtube.com/embed/gNY2bkmYpXY"
-            title="YouTube video player"
-            frameborder="0"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowfullscreen
-          ></iframe>
-        </div>
+        <form on:submit={handleSubmit} class="space-y-2 mb-6">
+          <Input
+            type="email"
+            {placeholder}
+            bind:value={email}
+            class="w-full"
+          />
+          <Button 
+            type="submit" 
+            disabled={!email || isSubmitting}
+            class="w-full"
+          >
+            {#if isSubmitting}
+              <span class="flex items-center">
+                <span class="animate-spin mr-2">⟳</span>
+                Subscribing...
+              </span>
+            {:else}
+              <span class="flex items-center">
+                <Mail class="w-4 h-4 mr-2" />
+                Get Updates
+              </span>
+            {/if}
+          </Button>
+        </form>
 
-        <a href="https://example.com/tutorials" class="text-primary hover:underline text-sm">
-          More tutorials
-        </a>
+        <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
+            Support & life talk:
+          </p>
+          <div class="flex items-center justify-between">
+            <a 
+              href="mailto:ivan@pipewriter.io" 
+              class="text-xl text-primary hover:text-primary/90 transition-colors"
+            >
+              ivan@pipewriter.io
+            </a>
+            <Button
+              variant="ghost"
+              size="sm"
+              class="h-8 w-8 p-0"
+              on:click={copyEmail}
+            >
+              {#if copied}
+                <Check class="h-4 w-4 text-green-500" />
+              {:else}
+                <Copy class="h-4 w-4" />
+              {/if}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   {/if}
 </div>
+
+<style>
+  /* Ensure proper positioning */
+  /* :global(.fixed) {
+    position: fixed !important;
+  } */
+</style>

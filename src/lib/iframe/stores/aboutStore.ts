@@ -1,5 +1,5 @@
 // $lib/iframe/stores/aboutStore.ts
 
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 
-export const showAboutModal = writable(false);
+export const showAboutModal = writable(true);
