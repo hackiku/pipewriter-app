@@ -7,6 +7,7 @@
 
   import TopBar from "./layout/TopBar.svelte";
   import Dropper from "./features/Dropper.svelte";
+  // import Tabs from "./layout/Tabs.svelte";
   import Tabs from "./features/Tabs.svelte";
   import BottomBar from "./layout/BottomBar.svelte";
   import AppAbout from "./layout/AppAbout.svelte";

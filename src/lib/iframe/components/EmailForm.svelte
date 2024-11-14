@@ -7,9 +7,8 @@
   const writerEmails = [
     'mark@twain.me',
     'ernest@hemingway.gg',
-    'virginia@woolf.app',
     'jane@austen.io',
-    'charles@dickens.dev',
+    'dante@alighieri.dev',
     'oscar@wilde.me',
     'emily@bronte.co',
     'edgar@poe.xyz'

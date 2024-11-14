@@ -12,7 +12,6 @@
 	
 	// import ComingSoon from "../../components/ComingSoon.svelte";
 
-
 	const dispatch = createEventDispatcher();
 	const client = AppsScriptClient.getInstance();
 
@@ -90,10 +89,10 @@
 </script>
 
 
-<div class="flex flex-col items-stretch w-full gap-4">
+<div class="flex flex-col items-stretch w-full gap-2">
 	{#if showColorPicker}
 		<div
-			class="relative z-10 w-full p-4 mb-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-lg"
+			class="relative rounded-xl z-10 w-full p-2 mb-2 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-600 shadow-sm"
 			transition:slide={{ duration: 150, axis: "y" }}
 		>
 			<ColorPicker on:colorUpdate={handleColorUpdate} />

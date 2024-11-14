@@ -46,7 +46,7 @@
   });
 </script>
 
-<div class="w-full flex flex-col gap-4">
+<div class="w-full h-full flex flex-col">
   <div bind:this={pickerElement} class="w-full flex justify-center" />
 </div>
 

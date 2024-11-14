@@ -18,7 +18,8 @@
   import ColorTab from "./colors/ColorTab.svelte";
   import AiTab from "./ai/AiTab.svelte";
   
-  const BG_STYLE = 'bg-white dark:bg-slate-900';
+  // const BG_STYLE = 'bg-gray-100 dark:bg-slate-900';
+  const BG_STYLE = 'bg-gray-50 dark:bg-slate-950';
 
   // Get AppsScript client from context
   const appsScript = getContext<AppsScriptClient>('appsScript');
@@ -71,7 +72,7 @@
          border-b border-l border-r border-gray-300 dark:border-gray-600
          after:content-[''] after:absolute after:top-[-1px] 
          after:left-0 after:right-0 after:h-[1px] after:bg-inherit`
-      : "w-10 h-10 rounded-full mt-2 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
+      : "w-10 h-10 rounded-full mt-1 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
     }
   `;
   

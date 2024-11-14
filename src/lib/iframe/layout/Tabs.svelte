@@ -107,7 +107,8 @@
       </div>
 
       <!-- Status Bar -->
-      {#if status}
+      
+			{#if status}
         <div
           class="h-8 px-4 flex items-center border-t border-gray-200 dark:border-gray-700"
           transition:fade={{ duration: 150 }}
