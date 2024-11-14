@@ -9,7 +9,7 @@
   import DropperBar from "../features/dropper/DropperBar.svelte";
   import ChainDropper from "./dropper/ChainDropper.svelte";
 
-	// import DropperGrid from "./dropper/DropperGrid.svelte"
+	import DropperGrid from "./dropper/DropperGrid.svelte"
  
 	import { showInfo, zenMode } from "../stores";
   import { elementsThemeStore } from "../stores/elementsThemeStore";
@@ -57,6 +57,7 @@
 
 <div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
   
+	<!-- <DropperGrid /> -->
   <!-- <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 {$gridClass.padding}">
 		<DropperGrid />
 		<p class="text-xs opacity-40">
@@ -67,7 +68,7 @@
 
 	<ChainDropper />
   
-	
+<!-- 	
   <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 {$gridClass.padding}">
     {#if Object.entries(groupedByCategory).length > 0}
       {#each Object.entries(groupedByCategory) as [category, categoryElements]}
@@ -93,7 +94,7 @@
     {:else}
       <p>No elements available.</p>
     {/if}
-  </div>
+  </div> -->
  	
   <div
     class={`w-full transition-all duration-200 ${

@@ -34,7 +34,7 @@
       class="h-full {$activeTab ? 'z-0' : 'z-10'}"
     >
       <Resizable.Pane 
-        defaultSize={100}
+        defaultSize={55}
         minSize={30} 
         maxSize={80}
       >
@@ -46,7 +46,7 @@
           withHandle 
           class="{$activeTab ? 'opacity-0' : 'opacity-100'} pointer-events-{$activeTab ? 'none' : 'auto'}"
         />
-        <Resizable.Pane defaultSize={0} minSize={20} />
+        <Resizable.Pane defaultSize={30} minSize={0} />
       {/if}
     </Resizable.PaneGroup>
   </div>
