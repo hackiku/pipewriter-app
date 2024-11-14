@@ -100,7 +100,7 @@
   }
 </script>
 
-<div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
+<div class="relative h-full z-0 bg-gray-100 dark:bg-gray-800">
   <!-- Status Bar -->
   {#if status}
     <StatusBar {status} />

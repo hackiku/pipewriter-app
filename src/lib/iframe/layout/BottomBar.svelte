@@ -1,38 +1,16 @@
 <!-- $lib/iframe/layout/BottomBar.svelte -->
 <script lang="ts">
-  import { ExternalLink, HelpCircle, FileText } from 'lucide-svelte';
+  import { ExternalLink, HelpCircle, FileText, ChevronDown } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
   import { showAboutModal } from '../stores/aboutStore';
+  import { showInfo } from '../stores';
+  import { docLinks, DRIVE_FOLDER_URL } from '$data/templateDocs';
 
-  const DRIVE_FOLDER_URL = "https://drive.google.com/drive/folders/1k3ZaPn-J_xHSUV0YrpyvAvNuD-uFsuu_";
   const BG_STYLE = 'bg-white dark:bg-slate-900';
   
-  const docLinks = [
-    {
-      title: "Empty Doc",
-      desc: "Start with a blank document",
-      url: "https://docs.google.com/document/d/1YuT5oGw27bMY4myZsBAbzBYelhy_CSSBUihjWipypYw/edit"
-    },
-    {
-      title: "Normal Template",
-      desc: "Light mode with basic elements",
-      url: "https://docs.google.com/document/d/1X-mEWo2wuRcVZdA8Y94cFMpUO6tKm8GLxY3ZA8lyulk/edit"
-    },
-    {
-      title: "Full Template",
-      desc: "Complete template with examples",
-      url: "https://docs.google.com/document/d/1uMdieQCJeBQCvkHs7w9ZiVeEB2_cglkF7ZLgeqvxL0U/edit"
-    },
-    {
-      title: "Dark Mode",
-      desc: "Dark theme template",
-      url: "https://docs.google.com/document/d/1FU1sZ4KdeAv_VcvDexzq6D4F0tffXnuVYAVVeVxz-ik/edit"
-    }
-  ];
-
   function openUrl(url: string) {
     window.open(url, '_blank');
   }
@@ -55,12 +33,12 @@
   <DropdownMenu.Root>
     <DropdownMenu.Trigger asChild let:builder>
       <Button 
-        variant="ghost" 
+        variant="outline" 
         builders={[builder]}
-        class="flex items-center gap-1 text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors group px-0"
+        class="h-8"
       >
         <span>Docs</span>
-        <ExternalLink size={14} class="opacity-50 group-hover:opacity-100 transition-opacity" />
+        <ChevronDown class="ml-2 h-4 w-4" />
       </Button>
     </DropdownMenu.Trigger>
 
@@ -75,7 +53,9 @@
               <FileText class="h-4 w-4 mt-0.5" />
               <div class="flex flex-col">
                 <span>{link.title}</span>
-                <span class="text-xs text-muted-foreground">{link.desc}</span>
+                {#if $showInfo}
+                  <span class="text-xs text-muted-foreground">{link.desc}</span>
+                {/if}
               </div>
             </div>
           </DropdownMenu.Item>
@@ -93,13 +73,6 @@
     </DropdownMenu.Content>
   </DropdownMenu.Root>
 
-  <a 
-    href="https://drive.google.com/drive/folders/11-7g4bqX7uj_BKNlllo425kg1pAALSoL"
-    target="_blank"
-    class="text-xs"
-  >
-    Master
-  </a>
 
   <!-- Help Button -->
   <div class="-mt-[1px] flex items-center z-50">
