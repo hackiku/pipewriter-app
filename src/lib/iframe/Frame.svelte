@@ -11,46 +11,49 @@
   import BottomBar from "./layout/BottomBar.svelte";
   import AppAbout from "./layout/AppAbout.svelte";
   
-  import { zenMode } from "./stores";
+  import { zenMode, activeTab } from "./stores";
   import { showAboutModal } from "./stores/aboutStore";
 
-	const appsScript = AppsScriptClient.getInstance(5000);
-
-	// Make appsScript client available to child components
+  const appsScript = AppsScriptClient.getInstance(5000);
   setContext('appsScript', appsScript);
 
   onDestroy(() => {
     appsScript.destroy();
   });
-
-
 </script>
 
-
-
-<main class="flex flex-col h-[95vh] overflow-hidden">
-  
-	<section class="flex-none px-2">
+<main class="flex flex-col h-[100vh] overflow-hidden">
+  <section class="flex-none px-2">
     <TopBar />
   </section>
-	<hr />
+  <hr />
 
   <div class="flex-1 overflow-hidden">
-    <Resizable.PaneGroup direction="vertical" class="h-full">
-      <Resizable.Pane defaultSize={65} minSize={30} maxSize={88}>
+    <Resizable.PaneGroup 
+      direction="vertical" 
+      class="h-full {$activeTab ? 'z-0' : 'z-10'}"
+    >
+      <Resizable.Pane 
+        defaultSize={100}
+        minSize={30} 
+        maxSize={80}
+      >
         <Dropper />
       </Resizable.Pane>
 
-      <Resizable.Handle withHandle />
-
-      <Resizable.Pane defaultSize={35} />
+      {#if !$zenMode}
+        <Resizable.Handle 
+          withHandle 
+          class="{$activeTab ? 'opacity-0' : 'opacity-100'} pointer-events-{$activeTab ? 'none' : 'auto'}"
+        />
+        <Resizable.Pane defaultSize={0} minSize={20} />
+      {/if}
     </Resizable.PaneGroup>
   </div>
 
   {#if !$zenMode}
-	<!-- class="fixed bottom-0 w-[16.8rem] flex-none px-2" -->
     <section
-      class="fixed bottom-0 w-full XXw-[16.8rem] flex-none px-2"
+      class="fixed bottom-0 w-full flex-none px-2"
       in:fade={{ duration: 200 }}
       out:slide={{ duration: 200, axis: "y" }}
     >
@@ -66,3 +69,9 @@
     </section>
   {/if}
 </main>
+
+<style>
+  :global(.resizable-handle) {
+    margin-bottom: 4rem;
+  }
+</style>

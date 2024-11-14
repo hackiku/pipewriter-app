@@ -57,12 +57,12 @@
 
 <div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
   
-  <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 {$gridClass.padding}">
-		<!-- <DropperGrid /> -->
+  <!-- <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 {$gridClass.padding}">
+		<DropperGrid />
 		<p class="text-xs opacity-40">
 			OLD DROPPER
 		</p>
-	</div>
+	</div> -->
 
 
 	<ChainDropper />
