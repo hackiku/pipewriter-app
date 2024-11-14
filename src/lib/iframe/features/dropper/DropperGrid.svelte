@@ -22,7 +22,7 @@
 	}
 </script>
 
-<div class="space-y-2 pb-10 -mr-2">
+<div class="space-y-2 pb-10 -pr-2">
   {#each Object.entries(categories) as [category, elements]}
     <section>
       {#if $showInfo}
