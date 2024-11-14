@@ -56,19 +56,28 @@
 </script>
 
 <!-- Container -->
- {#if $showAboutModal}
-<div class="relative z-50 bg-slate-800 bg-h-screen">
+{#if $showAboutModal}
+<!-- svelte-ignore a11y-no-static-element-interactions -->
+<div
+  class="relative z-50 bg-gray-900/80 dark:bg-gray-950/80 h-screen -mx-2" 
+	on:click={closeModal}
+	on:keydown={e => e.key === 'Escape' && closeModal()}
+>
   <!-- Top border line -->
   <div class="border-t border-gray-200 dark:border-gray-700" />
 
   <!-- Modal content -->
   <!-- {#if $showAboutModal} -->
     <div
-      class="fixed bottom-12 left-0 right-0 max-w-[300px]"
+      class="fixed bottom-12 left-2 right-2"
       in:fade={{ duration: 200 }}
       out:fade={{ duration: 200 }}
     >
-      <div class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+      <!-- svelte-ignore a11y-click-events-have-key-events -->
+      <div 
+				class="p-6 bg-white dark:bg-gray-900 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700"
+				on:click|stopPropagation
+				>
 				<div class="flex justify-between items-start mb-6">
           <div>
             <h2 class="text-xl font-semibold">Start with words, end with wireframes</h2>

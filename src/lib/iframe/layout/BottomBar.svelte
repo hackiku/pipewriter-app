@@ -1,6 +1,6 @@
 <!-- $lib/iframe/layout/BottomBar.svelte -->
 <script lang="ts">
-  import { ExternalLink, HelpCircle, FileText, ChevronDown } from 'lucide-svelte';
+  import { ExternalLink, HelpCircle, FileText, ChevronUp } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import * as Tooltip from "$lib/components/ui/tooltip";
@@ -22,23 +22,23 @@
   $: buttonClass = cn(
     "transition-all duration-200 relative z-10",
     $showAboutModal
-      ? `w-9 h-11 mb-1 rounded-b-full ${BG_STYLE}
+      ? `w-9 h-11 mb-1 rounded-b-full ${BG_STYLE} 
          border-b border-l border-r border-gray-300 dark:border-gray-600
          after:content-[''] after:absolute after:top-[-1px] after:left-0 after:right-0 after:h-[1px] after:bg-inherit`
       : "w-9 h-9 rounded-full -mt-1 hover:bg-gray-100 dark:hover:bg-gray-700 border border-gray-300 dark:border-gray-600"
   );
 </script>
 
-<div class="w-full px-3 h-12 flex items-center justify-between">
+<div class="w-full pr-3 h-12 flex items-center justify-between">
   <DropdownMenu.Root>
     <DropdownMenu.Trigger asChild let:builder>
       <Button 
         variant="outline" 
         builders={[builder]}
-        class="h-8"
+        class="h-8 px-3"
       >
         <span>Docs</span>
-        <ChevronDown class="ml-2 h-4 w-4" />
+        <ChevronUp class="ml-2 h-4 w-4" />
       </Button>
     </DropdownMenu.Trigger>
 

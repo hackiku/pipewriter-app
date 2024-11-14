@@ -28,5 +28,10 @@ export const docLinks: DocLink[] = [
 		title: "Dark Mode",
 		desc: "Dark theme template",
 		url: "https://docs.google.com/document/d/1FU1sZ4KdeAv_VcvDexzq6D4F0tffXnuVYAVVeVxz-ik/edit"
+	},
+	{
+		title: "Master docs drive",
+		desc: "Dark theme template",
+		url: "https://drive.google.com/drive/folders/11-7g4bqX7uj_BKNlllo425kg1pAALSoL"
 	}
 ];
