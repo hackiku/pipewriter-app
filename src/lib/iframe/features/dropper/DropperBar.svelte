@@ -61,9 +61,9 @@
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
             <button
-              class="mr-2.5 ml-2 h-6 w-6 rounded-full border-[0.15em] border-gray-200 dark:border-gray-500
+              class="mr-2.5 ml-2 h-6 w-6 rounded-full border-[0.15em] border-gray-300 dark:border-gray-500
                      transition-all duration-150
-                     hover:border-primary/60 hover:shadow-sm active:scale-95
+                     hover:border-primary/60 dark:hover:border-primary/80 hover:shadow-sm active:scale-95
                      disabled:opacity-50 disabled:cursor-not-allowed"
               style="background-color: {currentTheme.color}"
               disabled={$dropperStatus.isProcessing}
@@ -82,7 +82,8 @@
           variant="outline"
           size="sm"
           class="h-6.5 w-6 aspect-square rounded-full text-xs font-medium border-[0.15em] border-gray-200 dark:border-gray-500
-                 hover:bg-gray-100 dark:hover:bg-gray-700
+                 hover:bg-gray-100 dark:hover:bg-gray-100 dark:hover:bg-gray-700
+								 hover:border-primary/60 dark:hover:border-primary/80 hover:shadow-sm active:scale-95
                  text-muted-foreground hover:text-foreground
                  transition-all duration-150"
           disabled={$dropperStatus.isProcessing}

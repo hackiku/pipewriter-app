@@ -122,9 +122,10 @@
 		<StatusBar {status} />
 	{/if}
 
-	<ChainDropper />
+	<!-- <ChainDropper /> -->
 
 	<div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
+		<ChainDropper />
 		<DropperGrid {isProcessing} on:elementSelect={handleElementSelect} />
 	</div>
 
