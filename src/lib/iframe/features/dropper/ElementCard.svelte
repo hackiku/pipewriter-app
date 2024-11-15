@@ -61,10 +61,12 @@
 
   $: themeClass = mounted ? cn(themeStyles[theme]) : themeStyles[theme];
   
-  $: imgSrc = theme === 'dark' && element.id.includes('-dark')
+  // $: imgSrc = theme === 'dark' && element.id.includes('-dark')
+  // $: imgSrc = element.id.includes('-dark')
+  $: imgSrc = theme === 'dark'
     ? `elements/${element.id}.svg`
-    : `elements/${element.id.replace('-dark', '')}.svg`;
-  $: shouldInvert = theme === 'dark' && !element.id.includes('-dark');
+    : `elements/${element.id}.svg`;
+  // $: shouldInvert = theme === 'dark' && !element.id.includes('-dark');
 
 	// $: imgSrc = theme === 'dark' && element.id.includes('-dark')
   //   ? `elements/${element.id}.svg`
@@ -81,16 +83,21 @@
         on:click={handleClick}
         {disabled}
       >
+            <!-- class={cn(
+              "w-full h-full object-cover transition-opacity duration-200", 
+              shouldInvert && "opacity-40",
+              "group-hover:opacity-80"
+            )} -->
         <!-- Image container -->
         <div class="relative w-full h-full">
           <img
             src={imgSrc}
             alt={element.alt}
-            class={cn(
-              "w-full h-full object-cover transition-opacity duration-200", 
-              shouldInvert && "opacity-80 invert",
-              "group-hover:opacity-80" // Slightly dim on hover
-            )}
+						class="
+              w-full h-full object-cover transition-opacity duration-200, 
+              dark:opacity-80 group-hover:opacity-40
+            "
+
           />
           
           <!-- blinking cursor -->
