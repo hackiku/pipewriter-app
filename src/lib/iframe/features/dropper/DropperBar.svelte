@@ -6,13 +6,12 @@
   import { gridStore } from '../../stores/gridStore';
   import { Link } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
+  import * as Tooltip from "$lib/components/ui/tooltip";
   import IconButton from "../../components/IconButton.svelte";
-  import ColorButton from "../../components/ColorButton.svelte";
   import type { GridColumns } from '../../stores/gridStore';
 
   const themes = [
     { id: 'light', color: '#FFFFFF', label: 'Light' },
-    // { id: 'gray', color: '#A3A3A3', label: 'Gray' },
     { id: 'dark', color: '#171717', label: 'Dark' }
   ] as const;
 
@@ -30,70 +29,62 @@
     : "Enter chain mode" + ($dropperStatus.hasElements 
         ? ` (${$dropperStatus.selectedElements?.length} selected)` 
         : "");
+
+  $: nextTheme = themes[(themes.findIndex(t => t.id === currentTheme.id) + 1) % themes.length];
 </script>
 
 <div class="relative dropper-container" class:fixed={$zenMode} class:w-full={$zenMode}>
   <!-- Background Gradient -->
-  <!-- <div 
-    class="absolute bottom-0 left-0 right-0 h-16 
-           bg-gradient-to-t from-background from-40% via-background/80 via-70% to-transparent 
+  <div 
+    class="absolute bottom-0 left-0 right-0 h-20
+           bg-gradient-to-t from-gray-100 from-20% 
+           via-gray-100/20 via-85% to-transparent 
+           dark:from-slate-950 dark:via-slate-900/60
            pointer-events-none"
     aria-hidden="true"
-  /> -->
-<div 
-  class="absolute bottom-0 left-0 right-0 h-16
-         bg-gradient-to-t from-gray-100 from-20% 
-         via-gray-100/20 via-80% to-transparent 
-        dark:from-slate-950 dark:via-slate-900/40
-         pointer-events-none"
-  aria-hidden="true"
-/>
+  />
+  
   <!-- Control Bar -->
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-40">
     <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
-      <div class="flex gap-3 p-2 items-center w-full">
-
-				<!-- Chain Mode Button -->
-        <!-- <div class="w-2"> -->
-
-				<IconButton
-					icon={Link}
-					size="md"
-					selected={$chainMode}
-					disabled={$dropperStatus.isProcessing}
-					tooltipContent={chainModeTooltip}
-					on:click={() => dropperStore.toggleChainMode()}
-				/>
-				<!-- </div> -->
-				<!-- <IconButton
-					icon={Link}
-					size="sm"
-					selected={$chainMode}
-					disabled={$dropperStatus.isProcessing}
-					tooltipContent={chainModeTooltip}
-					on:click={() => dropperStore.toggleChainMode()}
-				/> -->
-				<!-- </div> -->
-
-        <!-- Theme Toggle -->
-        <div class="w-5">
-
-				<ColorButton
-          color={currentTheme.color}
-          title={`Switch to ${themes[(themes.findIndex(t => t.id === currentTheme.id) + 1) % themes.length].label} theme`}
-          isProcessing={$dropperStatus.isProcessing}
-          tooltipContent={`Current: ${currentTheme.label}`}
-          on:click={() => elementsThemeStore.cycle()}
+      <div class="flex p-3 pt-2 items-center">
+        <IconButton
+          icon={Link}
+          size="sm"
+          selected={$chainMode}
+          disabled={$dropperStatus.isProcessing}
+          tooltipContent={chainModeTooltip}
+          on:click={() => dropperStore.toggleChainMode()}
         />
-				</div>
+
+        <!-- Simple Color Button -->
+        <Tooltip.Root>
+          <Tooltip.Trigger asChild>
+            <button
+              class="mr-2.5 ml-2 h-6 w-6 rounded-full border border-gray-200 dark:border-gray-700
+                     transition-all duration-150
+                     hover:border-primary/60 hover:shadow-sm active:scale-95
+                     disabled:opacity-50 disabled:cursor-not-allowed"
+              style="background-color: {currentTheme.color}"
+              disabled={$dropperStatus.isProcessing}
+              on:click={() => elementsThemeStore.cycle()}
+            >
+              <span class="sr-only">Switch to {nextTheme.label} theme</span>
+            </button>
+          </Tooltip.Trigger>
+          <Tooltip.Content>
+            <p>Switch to {nextTheme.label} theme</p>
+          </Tooltip.Content>
+        </Tooltip.Root>
 
         <!-- Grid Size -->
         <Button
           variant="outline"
-          size="xs"
-          class="h-6 w-6 aspect-square rounded-full text-xs font-medium border-gray-200 dark:border-gray-700 mb-1
+          size="sm"
+          class="h-6 w-6 rounded-full text-xs font-medium border-gray-200 dark:border-gray-700
                  hover:bg-gray-100 dark:hover:bg-gray-700
-                 text-muted-foreground hover:text-foreground"
+                 text-muted-foreground hover:text-foreground
+                 transition-all duration-150"
           disabled={$dropperStatus.isProcessing}
           title={`Switch to ${nextGridSize.label} grid`}
           on:click={() => gridStore.cycleColumns()}
@@ -118,7 +109,7 @@
     transform: translateX(-50%);
   }
 
-  :global(.dropper-container [data-radix-popper-content-wrapper]) {
+  /* :global(.dropper-container [data-radix-popper-content-wrapper]) {
     z-index: 50 !important;
-  }
+  } */
 </style>
