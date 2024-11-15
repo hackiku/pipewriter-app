@@ -37,7 +37,9 @@
   />
   
   <div class="flex items-center justify-middle gap-2">
-    <IconButton
+    
+		<!-- show info -->
+		<IconButton
       icon={Info}
       selected={$showInfo}
       size="sm"
@@ -46,7 +48,7 @@
       on:click={toggleShowInfo}
     />
     
-    <div class="relative w-8 h-8">
+    <div class="relative w-7 h-7 mr-1">
       {#key isDarkMode}
         <div
           in:fade={{ duration: 200 }}

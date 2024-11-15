@@ -38,8 +38,8 @@
   <div 
     class="absolute bottom-0 left-0 right-0 h-20
            bg-gradient-to-t from-gray-100 from-20% 
-           via-gray-100/20 via-85% to-transparent 
-           dark:from-slate-950 dark:via-slate-900/60
+           via-gray-100/40 via-75% to-transparent 
+           dark:from-gray-950 dark:via-gray-950/45
            pointer-events-none"
     aria-hidden="true"
   />
