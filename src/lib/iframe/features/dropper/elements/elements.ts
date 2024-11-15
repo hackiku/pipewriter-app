@@ -1,9 +1,7 @@
 // $lib/iframe/features/dropper/elements/elements.ts
 import { elements } from './data';
-// import { elementsThemeStore } from '../../../stores/elementsThemeStore';
-// import type { ElementsTheme, ElementObject } from './types';
 
-const BASE_URL = 'elements'; // Path to SVG assets
+const BASE_URL = 'elements';
 
 export type ElementsTheme = 'light' | 'dark';
 
@@ -18,6 +16,7 @@ export interface ElementObject {
 	id: string;
 	category: string;
 	theme: ElementsTheme;
+	baseId: string; // Added to help with frontend SVG selection
 	src: string;
 	alt: string;
 	description: string;
@@ -52,12 +51,15 @@ export class ElementsManager {
 	}
 
 	private createElementObject(id: string, config: any, theme: ElementsTheme = 'light'): ElementObject {
+		const baseId = id.replace(/-dark$/, '');
+
 		return {
 			id,
 			category: config.category,
 			theme,
+			baseId,
 			src: `${BASE_URL}/${id}.svg`,
-			alt: id.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase()),
+			alt: baseId.replace(/-/g, ' ').replace(/^\w/, c => c.toUpperCase()),
 			description: config.description
 		};
 	}
@@ -93,7 +95,4 @@ export const getAllElements = elementsManager.getAllElements.bind(elementsManage
 export const getElementsByCategory = elementsManager.getElementsByCategory.bind(elementsManager);
 export const isValidElement = elementsManager.isValidElement.bind(elementsManager);
 
-// Export types
-// export type { ElementsTheme, ElementObject } from './types';
 export type { ElementsTheme, ElementObject }
-

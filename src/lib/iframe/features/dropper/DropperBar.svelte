@@ -41,10 +41,10 @@
     aria-hidden="true"
   /> -->
 <div 
-  class="absolute bottom-0 left-0 right-0 h-20
-         bg-gradient-to-t from-gray-100 from-10% 
-         via-gray-100/40 via-45% to-transparent 
-        dark:from-slate-950 dark:via-slate-900/60
+  class="absolute bottom-0 left-0 right-0 h-16
+         bg-gradient-to-t from-gray-100 from-20% 
+         via-gray-100/20 via-80% to-transparent 
+        dark:from-slate-950 dark:via-slate-900/40
          pointer-events-none"
   aria-hidden="true"
 />

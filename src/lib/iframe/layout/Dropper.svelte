@@ -108,7 +108,7 @@
 	}
 </script>
 
-<div class="relative h-full z-0 bg-gray-100 dark:bg-slate-900/40">
+<div class="relative h-full z-0 bg-gray-100 dark:bg-slate-900/50">
 <!-- <div
 	class={`relative h-full z-0 
 	${

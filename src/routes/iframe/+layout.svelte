@@ -1,4 +1,4 @@
-<!-- $lib/routes/gdoc/+layout.svelte -->
+<!-- $lib/routes/iframe/+layout.svelte -->
 
 <script>
 	import "../../app.css";
