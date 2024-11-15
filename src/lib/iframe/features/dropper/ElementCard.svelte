@@ -38,7 +38,7 @@
   // Theme-specific styles including container (commented for later)
   const themeStyles = {
     light: "bg-white dark:bg-black border border-gray-300 dark:border-gray-700/80",
-    dark: "bg-green-500 border-gray-700",
+    dark: "bg-slate-950 dark:bg-white border border-gray-300",
     // container: "bg-white border-[0.16em] border-dashed border-gray-500",
   };
 
@@ -60,10 +60,16 @@
   );
 
   $: themeClass = mounted ? cn(themeStyles[theme]) : themeStyles[theme];
+  
   $: imgSrc = theme === 'dark' && element.id.includes('-dark')
     ? `elements/${element.id}.svg`
-    : `elements/${element.id.replace('-dark', '')}.svg`;
+    : `elements/${element.id}.svg`;
   $: shouldInvert = theme === 'dark' && !element.id.includes('-dark');
+
+	// $: imgSrc = theme === 'dark' && element.id.includes('-dark')
+  //   ? `elements/${element.id}.svg`
+  //   : `elements/${element.id.replace('-dark', '')}.svg`;
+  // $: shouldInvert = theme === 'dark' && !element.id.includes('-dark');
 </script>
 
 <div class="relative">
