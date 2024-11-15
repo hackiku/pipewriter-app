@@ -12,7 +12,7 @@ export const docLinks: DocLink[] = [
 	{
 		title: "Empty Doc",
 		desc: "Start with a blank document",
-		url: "https://docs.google.com/document/d/1YuT5oGw27bMY4myZsBAbzBYelhy_CSSBUihjWipypYw/edit"
+		url: "https://docs.google.com/document/d/12dHe768LCwop_nclgiyfRJ2bMq8YrbVGTnT1jWNUisc/"
 	},
 	{
 		title: "Normal Template",

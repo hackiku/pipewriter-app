@@ -1,101 +1,123 @@
 <!-- $lib/iframe/layout/Dropper.svelte -->
 <script lang="ts">
   import { fade, slide, fly } from "svelte/transition";
-  import { getElement } from "../elements";
-  import type { ElementObject } from "../elements";
-  import { createEventDispatcher } from "svelte";
+  import { createEventDispatcher, onDestroy, getContext } from "svelte";
+  import type { AppsScriptClient } from "../utils/appsScript";
+  import type { StatusUpdate } from "../types/status";
   
-	import ElementCard from "../components/ElementCard.svelte";
+  import DropperGrid from "../features/dropper/DropperGrid.svelte";
   import DropperBar from "../features/dropper/DropperBar.svelte";
-  import ChainDropper from "./dropper/ChainDropper.svelte";
-
-	import DropperGrid from "./dropper/DropperGrid.svelte"
+  import ChainDropper from "../features/dropper/ChainDropper.svelte";
+  import StatusBar from "../components/StatusBar.svelte";
  
-	import { showInfo, zenMode } from "../stores";
+  import { zenMode } from "../stores";
+  import { dropperStore, dropperStatus, chainMode } from "../stores/dropperStore";
   import { elementsThemeStore } from "../stores/elementsThemeStore";
-  import { gridClass } from "../stores/gridStore";
 
-  export let elements: Record<string, ElementObject>;
-  export let callGAS: (action: string, params: Record<string, any>) => void;
-
+  // Get AppsScript client from context
+  const appsScript = getContext<AppsScriptClient>('appsScript');
+  
   const dispatch = createEventDispatcher();
   let isProcessing = false;
+  let status: StatusUpdate | null = null;
+  let statusTimeout: number;
 
-  $: filteredElements = Object.values(elements).filter((element) => {
-    const isDarkVariant = element.id.includes("-dark");
-    return $elementsThemeStore === "dark" ? isDarkVariant : !isDarkVariant;
+  // Watch status changes
+  $: if (status && status.type !== "processing") {
+    if (statusTimeout) clearTimeout(statusTimeout);
+    statusTimeout = setTimeout(() => {
+      status = null;
+    }, 2000);
+  }
+
+	// if (status && status.type !== "processing") {
+	// 	if (statusTimeout) clearTimeout(statusTimeout);
+	// 	// Use execution time + small buffer, or default client timeout
+	// 	const duration = status.executionTime 
+	// 		? status.executionTime + 500 
+	// 		: appsScript.getTimeout();
+	// 	statusTimeout = setTimeout(() => {
+	// 		status = null;
+	// 	}, duration);
+	// }
+
+  onDestroy(() => {
+    if (statusTimeout) clearTimeout(statusTimeout);
   });
 
-  $: groupedByCategory = filteredElements.reduce((acc, el) => {
-    const category = el.category;
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(el);
-    return acc;
-  }, {} as Record<string, ElementObject[]>);
+  async function handleElementSelect(event: CustomEvent<{elementId: string}>) {
+    const { elementId } = event.detail;
 
-  async function selectElement(elementId: string) {
-    const element = getElement(elementId);
-    if (element) {
-      try {
-        const result = await callGAS("getElement", { elementId });
-        dispatch("elementSelected", { elementId, result });
-      } catch (error) {
-        console.error(`Failed to fetch element: ${elementId}`, error);
-        dispatch("elementError", { elementId, error: error.message });
-      }
+    if ($chainMode) {
+      dropperStore.addElement(elementId);
+      return;
     }
-  }
 
-  function handleProcessingStart() {
     isProcessing = true;
-  }
+    dropperStore.setProcessing(true);
+    status = {
+      type: 'processing',
+      message: `Inserting ${elementId}...`,
+      details: `Theme: ${$elementsThemeStore}\nAttempting to fetch and insert element...`
+    };
 
-  function handleProcessingEnd() {
-    isProcessing = false;
+    try {
+      console.log(`Attempting to insert element: ${elementId} (${$elementsThemeStore})`);
+      const response = await appsScript.sendMessage('getElement', {
+        elementId, 
+        theme: $elementsThemeStore
+      });
+
+      if (response.success) {
+        status = {
+          type: "success",
+          message: "Element inserted",
+          details: `Successfully inserted ${elementId} (${$elementsThemeStore})`,
+          executionTime: response.executionTime
+        };
+      } else {
+        const errorMsg = response.error || "Failed to insert element";
+        console.error(errorMsg, response);
+        throw new Error(errorMsg);
+      }
+    } catch (error) {
+      console.error("Failed to insert element:", error);
+      status = {
+        type: "error",
+        message: "Failed to insert element",
+        details: `Failed to insert ${elementId} (${$elementsThemeStore})`,
+        error: {
+          message: error instanceof Error ? error.message : "Unknown error",
+          elementId,
+          theme: $elementsThemeStore,
+          timestamp: new Date().toISOString()
+        }
+      };
+    } finally {
+      isProcessing = false;
+      dropperStore.setProcessing(false);
+    }
   }
 </script>
 
-<div class="relative h-full z-0 bg-gray-100 dark:bg-gray-900">
+
+<div class="relative h-full z-0 bg-gray-100 dark:bg-gray-800">
+	<!-- Status Bar -->
+  {#if status}
+    <StatusBar {status} />
+  {/if}
   
-	<!-- <DropperGrid /> -->
-  <!-- <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 {$gridClass.padding}">
-		<DropperGrid />
-		<p class="text-xs opacity-40">
-			OLD DROPPER
-		</p>
-	</div> -->
+  <ChainDropper />
+  
+  <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2">
+    <DropperGrid
+  		{isProcessing}
+  		on:elementSelect={handleElementSelect}
+/>
 
 
-	<ChainDropper />
-  
-<!-- 	
-  <div class="custom-scrollbar overflow-y-scroll h-full pb-8 pt-2 {$gridClass.padding}">
-    {#if Object.entries(groupedByCategory).length > 0}
-      {#each Object.entries(groupedByCategory) as [category, categoryElements]}
-        <div class="category-section mb-2">
-          {#if $showInfo}
-            <h3 class="text-xs font-normal text-gray-400 mb-1">
-              {category.replace("-", " ")}
-            </h3>
-          {/if}
-          <div class="grid {$gridClass.grid} {$gridClass.gap}">
-            {#each categoryElements as element (element.id)}
-              <ElementCard
-                {element}
-                onSelect={selectElement}
-                theme={$elementsThemeStore}
-                on:processingStart={handleProcessingStart}
-                on:processingEnd={handleProcessingEnd}
-              />
-            {/each}
-          </div>
-        </div>
-      {/each}
-    {:else}
-      <p>No elements available.</p>
-    {/if}
-  </div> -->
- 	
+  </div>
+
   <div
     class={`w-full transition-all duration-200 ${
       $zenMode ? "fixed bottom-0 left-1/2 -translate-x-1/2" : ""
@@ -111,7 +133,6 @@
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: rgba(155, 155, 155, 0.5) transparent;
-    -webkit-overflow-scrolling: touch;
   }
 
   .custom-scrollbar::-webkit-scrollbar {
@@ -128,10 +149,6 @@
     background-color: rgba(155, 155, 155, 0.5);
     border-radius: 4px;
     min-height: 40px;
-  }
-
-  .custom-scrollbar::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 0 rgba(0, 0, 0, 0.1);
   }
 
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
