@@ -63,7 +63,7 @@
   
   $: imgSrc = theme === 'dark' && element.id.includes('-dark')
     ? `elements/${element.id}.svg`
-    : `elements/${element.id}.svg`;
+    : `elements/${element.id.replace('-dark', '')}.svg`;
   $: shouldInvert = theme === 'dark' && !element.id.includes('-dark');
 
 	// $: imgSrc = theme === 'dark' && element.id.includes('-dark')
@@ -88,15 +88,14 @@
             alt={element.alt}
             class={cn(
               "w-full h-full object-cover transition-opacity duration-200", 
-              shouldInvert && "opacity-50 invert",
-              "XXXdark:bg-white",
+              shouldInvert && "opacity-80 invert",
               "group-hover:opacity-80" // Slightly dim on hover
             )}
           />
           
-          <!-- Hover overlay with blinking cursor -->
-          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <div class="w-6 h-12 bg-black/20 dark:bg-white/20 animate-cursor" />
+          <!-- blinking cursor -->
+          <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-80 transition-opacity">
+            <div class="w-2 h-8 bg-black/80 dark:bg-white/80 animate-cursor" />
           </div>
 
           <!-- Processing overlay -->

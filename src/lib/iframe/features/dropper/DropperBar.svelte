@@ -34,13 +34,20 @@
 
 <div class="relative dropper-container" class:fixed={$zenMode} class:w-full={$zenMode}>
   <!-- Background Gradient -->
-  <div 
-    class="absolute bottom-0 left-0 right-0 h-20 
+  <!-- <div 
+    class="absolute bottom-0 left-0 right-0 h-16 
            bg-gradient-to-t from-background from-40% via-background/80 via-70% to-transparent 
            pointer-events-none"
     aria-hidden="true"
-  />
-
+  /> -->
+<div 
+  class="absolute bottom-0 left-0 right-0 h-20
+         bg-gradient-to-t from-gray-100 from-10% 
+         via-gray-100/40 via-45% to-transparent 
+        dark:from-slate-950/90 dark:via-slate-900/40
+         pointer-events-none"
+  aria-hidden="true"
+/>
   <!-- Control Bar -->
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-40">
     <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
