@@ -36,18 +36,18 @@
 <div class="relative dropper-container" class:fixed={$zenMode} class:w-full={$zenMode}>
   <!-- Background Gradient -->
   <div 
-    class="absolute bottom-0 left-0 right-0 h-20
+    class="absolute bottom-0 left-0 right-0 h-16
            bg-gradient-to-t from-gray-100 from-20% 
-           via-gray-100/40 via-75% to-transparent 
-           dark:from-gray-950 dark:via-gray-950/45
+           via-gray-100/80 via-70% to-transparent 
+           dark:from-gray-950 dark:via-gray-950/65
            pointer-events-none"
     aria-hidden="true"
   />
   
   <!-- Control Bar -->
   <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 z-40">
-    <div class="bg-white dark:bg-gray-800 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
-      <div class="flex p-3 pt-2.5 items-center">
+    <div class="bg-white dark:bg-gray-900 rounded-t-2xl border border-gray-200 dark:border-gray-700 shadow-lg">
+      <div class="flex px-2 py-1.5 pb-2.5 items-center">
         <IconButton
           icon={Link}
           size="sm"

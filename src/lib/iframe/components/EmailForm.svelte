@@ -21,27 +21,36 @@
   // Set random placeholder on mount
   placeholder = writerEmails[Math.floor(Math.random() * writerEmails.length)];
 
-  async function handleSubmit(e: SubmitEvent) {
+async function handleSubmit(e: SubmitEvent) {
     e.preventDefault();
     if (!email || isSubmitting) return;
     
     isSubmitting = true;
     
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
+        const response = await fetch('/api/subscribe', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                email,
+                source: 'Docs App'
+            })
+        });
 
-      if (!response.ok) throw new Error('Subscription failed');
-      
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Subscription failed');
+        }
+
+        email = ''; // Clear form
+
     } catch (error) {
-      console.error('Subscription error:', error);
+        console.error('Subscription error:', error);
     } finally {
-      isSubmitting = false;
+        isSubmitting = false;
     }
-  }
+	}
 </script>
 
 <form on:submit={handleSubmit} class="space-y-2">

@@ -30,26 +30,40 @@
 		showAboutModal.set(false);
 	}
 
-	async function handleSubmit(e: SubmitEvent) {
-		e.preventDefault();
-		if (!email || isSubmitting) return;
+async function handleSubmit(e: SubmitEvent) {
+    e.preventDefault();
+    if (!email || isSubmitting) return;
 
-		isSubmitting = true;
+    isSubmitting = true;
 
-		try {
-			const response = await fetch("/api/subscribe", {
-				method: "POST",
-				headers: { "Content-Type": "application/json" },
-				body: JSON.stringify({ email }),
-			});
+    try {
+        const response = await fetch("/api/subscribe", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                email,
+                source: 'App Modal' // Track source
+            })
+        });
 
-			if (!response.ok) throw new Error("Subscription failed");
-		} catch (error) {
-			console.error("Subscription error:", error);
-		} finally {
-			isSubmitting = false;
-		}
-	}
+        const data = await response.json();
+
+        if (!response.ok) {
+            throw new Error(data.error || 'Subscription failed');
+        }
+
+        // Show success message
+        email = ''; // Clear the form
+        // You might want to show a success message or close the modal
+        closeModal();
+
+    } catch (error) {
+        console.error("Subscription error:", error);
+        // Show error message to user
+    } finally {
+        isSubmitting = false;
+    }
+}
 
 	async function copyEmail() {
 		await navigator.clipboard.writeText("ivan@pipewriter.io");

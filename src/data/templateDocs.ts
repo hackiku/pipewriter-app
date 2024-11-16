@@ -1,23 +1,24 @@
-// src/data/docs.ts
+// src/data/templates.ts
 
 export interface DocLink {
 	title: string;
 	desc: string;
 	url: string;
+	// type: string = 'drive'; // 
 }
 
 export const DRIVE_FOLDER_URL = "https://drive.google.com/drive/folders/1k3ZaPn-J_xHSUV0YrpyvAvNuD-uFsuu_";
 
 export const docLinks: DocLink[] = [
 	{
-		title: "Empty Doc",
+		title: "Empty",
 		desc: "Start with a blank document",
 		url: "https://docs.google.com/document/d/12dHe768LCwop_nclgiyfRJ2bMq8YrbVGTnT1jWNUisc/"
 	},
 	{
-		title: "Normal Template",
-		desc: "Light mode with basic elements",
-		url: "https://docs.google.com/document/d/1X-mEWo2wuRcVZdA8Y94cFMpUO6tKm8GLxY3ZA8lyulk/edit"
+		title: "Elements",
+		desc: "All design elements",
+		url: "https://docs.google.com/document/d/1fBHbgvrCayfg6K20g0AU1bXzpSyzNzgJhlBEW1eoaQA/edit?tab=t.0"
 	},
 	{
 		title: "Full Template",

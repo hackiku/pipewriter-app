@@ -56,8 +56,8 @@
 
   // Card background styles based on current theme
   const cardStyles = {
-    light: "bg-white dark:bg-black border border-gray-300 dark:border-gray-700/80",
-    dark: "bg-slate-950 dark:bg-white border border-gray-300",
+    light: "bg-white dark:bg-black border border-gray-300 dark:border-gray-700/80 hover:bg-slate-400/30 dark:hover:bg-slate-900/80",
+    dark: "bg-slate-950 dark:bg-white hover:bg-slate-900/80 dark:hover:bg-slate-400/30 border border-gray-300",
   };
 
   const baseButtonClasses = cn(
@@ -102,7 +102,7 @@
           <img
             src={imgSrc}
             alt={element.alt}
-            class="w-full h-full object-cover"
+            class="w-full h-full object-cover group-hover:opacity-40"
           />
           
           <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
