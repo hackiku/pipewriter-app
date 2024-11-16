@@ -3,6 +3,7 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { Check, X } from 'lucide-svelte';
+  import type { SubscribeResponse } from '$lib/server/subscribe';
 
   let email = '';
   let isSubmitting = false;
@@ -11,6 +12,8 @@
 
   async function handleSubmit(event: Event) {
     event.preventDefault();
+    if (!email || isSubmitting) return;
+    
     isSubmitting = true;
     errorMessage = '';
 
@@ -20,14 +23,19 @@
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email }),
+        body: JSON.stringify({ 
+          email,
+          source: 'Website'  // Identify source as website
+        }),
       });
 
-      if (response.ok) {
+      const result: SubscribeResponse = await response.json();
+      
+      if (result.success) {
         isSubmitted = true;
+        email = '';
       } else {
-        const data = await response.json();
-        errorMessage = data.error || 'An error occurred. Please try again.';
+        errorMessage = result.message;
       }
     } catch (error) {
       console.error('Subscription error:', error);

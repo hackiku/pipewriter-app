@@ -5,6 +5,7 @@
 	import { showAboutModal } from "../stores/aboutStore";
 	import { Button } from "$lib/components/ui/button";
 	import { Input } from "$lib/components/ui/input";
+	import FeedbackForm from "../components/FeedbackForm.svelte";
 
 	const writerEmails = [
 		"ernie@hemingway.gg",
@@ -30,40 +31,12 @@
 		showAboutModal.set(false);
 	}
 
-async function handleSubmit(e: SubmitEvent) {
-    e.preventDefault();
-    if (!email || isSubmitting) return;
-
-    isSubmitting = true;
-
-    try {
-        const response = await fetch("/api/subscribe", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-                email,
-                source: 'App Modal' // Track source
-            })
-        });
-
-        const data = await response.json();
-
-        if (!response.ok) {
-            throw new Error(data.error || 'Subscription failed');
-        }
-
-        // Show success message
-        email = ''; // Clear the form
-        // You might want to show a success message or close the modal
-        closeModal();
-
-    } catch (error) {
-        console.error("Subscription error:", error);
-        // Show error message to user
-    } finally {
-        isSubmitting = false;
-    }
-}
+	function handleSubscriptionSuccess() {
+		// Maybe show a success message
+		setTimeout(() => {
+			showAboutModal.set(false);
+		}, 1500);
+	}
 
 	async function copyEmail() {
 		await navigator.clipboard.writeText("ivan@pipewriter.io");
@@ -102,12 +75,17 @@ async function handleSubmit(e: SubmitEvent) {
 						</h2>
 						<p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
 							Google Docs is where writers write.
-								<a href="https://pipewriter.io" class="text-primary font-semibold hover:underline hover:text-primary/90 transition-colors">Pipewriter</a>
-								makes it a bit more product designey so you can 10x your website copy decks and wireframes.
+							<a
+								href="https://pipewriter.io"
+								class="text-primary font-semibold hover:underline hover:text-primary/90 transition-colors"
+								>Pipewriter</a
+							>
+							makes it a bit more product designey so you can 10x your website copy
+							decks and wireframes.
 						</p>
 						<p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
-							Obsessively designed for fellow copywriters, content strategists, and UX
-							pros.
+							Obsessively designed for fellow copywriters, content strategists,
+							and UX pros.
 						</p>
 					</div>
 					<Button
@@ -120,27 +98,9 @@ async function handleSubmit(e: SubmitEvent) {
 					</Button>
 				</div>
 
-				<form on:submit={handleSubmit} class="space-y-2 mb-6">
-					<Input type="email" {placeholder} bind:value={email} class="w-full" />
-					<Button
-						type="submit"
-						disabled={!email || isSubmitting}
-						class="w-full"
-					>
-						{#if isSubmitting}
-							<span class="flex items-center">
-								<span class="animate-spin mr-2">⟳</span>
-								Subscribing...
-							</span>
-						{:else}
-							<span class="flex items-center">
-								<Mail class="w-4 h-4 mr-2" />
-								Get Updates
-							</span>
-						{/if}
-					</Button>
-				</form>
 
+				<FeedbackForm onSuccess={handleSubscriptionSuccess} />
+				
 				<div class="pt-4 border-t border-gray-200 dark:border-gray-700">
 					<p class="text-sm text-gray-600 dark:text-gray-400 mb-2">
 						Support & talk life:

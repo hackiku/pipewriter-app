@@ -6,7 +6,7 @@
   import type { ElementObject } from "./elements/elements";
   import type { ElementsTheme } from "./elements/elements";
   import { onMount, createEventDispatcher } from 'svelte';
-  import { X } from 'lucide-svelte';
+  import { X, Plus } from 'lucide-svelte';
 
   export let element: ElementObject;
   export let onSelect: (id: string) => void;
@@ -106,7 +106,8 @@
           />
           
           <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-            <div class="w-2 h-8 bg-black/80 dark:bg-white/80 animate-cursor" />
+            <!-- <div class="w-2 h-8 bg-black/80 dark:bg-white/80 animate-cursor" /> -->
+            <Plus class="text-gray-500 dark:text-sblack asnimate-spin" size={30} />
           </div>
 
           {#if isProcessing}
@@ -122,19 +123,3 @@
     </Tooltip.Content>
   </Tooltip.Root>
 </div>
-
-<style>
-  img {
-    -webkit-user-drag: none;
-    user-select: none;
-  }
-
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-
-  .animate-cursor {
-    animation: blink 1s step-end infinite;
-  }
-</style>
