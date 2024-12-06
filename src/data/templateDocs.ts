@@ -21,11 +21,6 @@ export const docLinks: DocLink[] = [
 		url: "https://docs.google.com/document/d/1fBHbgvrCayfg6K20g0AU1bXzpSyzNzgJhlBEW1eoaQA/edit?tab=t.0"
 	},
 	{
-		title: "Full Template",
-		desc: "Complete template with examples",
-		url: "https://docs.google.com/document/d/1uMdieQCJeBQCvkHs7w9ZiVeEB2_cglkF7ZLgeqvxL0U/edit"
-	},
-	{
 		title: "Dark Mode",
 		desc: "Dark theme template",
 		url: "https://docs.google.com/document/d/1FU1sZ4KdeAv_VcvDexzq6D4F0tffXnuVYAVVeVxz-ik/edit"
