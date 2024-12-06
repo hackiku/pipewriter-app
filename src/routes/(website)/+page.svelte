@@ -48,10 +48,3 @@
     </div>
   </main>
 </div>
-
-<style>
-  /* Ensure the page takes up full height but doesn't scroll unnecessarily */
-  /* :global(html, body) {
-    height: 100%;
-  } */
-</style>
