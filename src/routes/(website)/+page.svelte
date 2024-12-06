@@ -29,14 +29,4 @@
     </div>
   </main>
 
-  <footer class="w-full">
-    <LogosMarquee />
-    <div class="py-4 text-center text-sm text-muted-foreground border-t border-gray-100 dark:border-gray-800">
-      <div class="container mx-auto">
-        Copyalright © 2024 Ivan & Pipewriter | 
-        <a href="/terms" class="hover:underline hover:text-white transition-colors">Terms</a> | 
-        <a href="/privacy" class="hover:underline hover:text-white transition-colors">Privacy</a>
-      </div>
-    </div>
-  </footer>
 </div>

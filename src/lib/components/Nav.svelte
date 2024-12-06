@@ -4,6 +4,7 @@ import { toggleMode } from "mode-watcher";
 import { Button } from "$lib/components/ui/button";
 import { Badge } from "$lib/components/ui/badge";
 import { Sun, Moon } from "lucide-svelte";
+import EarlyButton from "./EarlyButton.svelte";
 import ContactModal from "./ContactModal.svelte";
 
 let showContactModal = false;
@@ -41,13 +42,7 @@ const toggleMenu = () => {
         <span class="sr-only">Toggle theme</span>
       </Button>
 
-      <Button 
-        href="/early"
-        variant="default" 
-        class="rounded-full bg-primary hover:bg-primary/90"
-      >
-        Early Access
-      </Button>
+			<EarlyButton variant="solid" />
     </div>
 
     <!-- Mobile Navigation -->

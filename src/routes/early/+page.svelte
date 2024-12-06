@@ -1,51 +1,39 @@
 <!-- src/routes/early/+page.svelte -->
-
 <script lang="ts">
   import { onMount } from 'svelte';
   import type { PageData } from './$types';
 
   export let data: PageData;
 
-  // Configurable delay duration
-  const REDIRECT_DELAY = 2000; // 2 seconds for testing
-  const MIN_LOADING_TIME = 2500; // Min time to show loading UI
+  const REDIRECT_DELAY = 1000;
 
   onMount(() => {
-    const startTime = Date.now();
-
-    // Backup redirect with configurable delay
     const timeout = setTimeout(() => {
-      const url = data.redirectUrl || 'https://pipewriter.gumroad.com/l/wires-for-writers';
-      
-      // Ensure minimum loading time
-      const elapsed = Date.now() - startTime;
-      const remainingDelay = Math.max(0, MIN_LOADING_TIME - elapsed);
-      
-      setTimeout(() => {
-        window.location.href = url;
-      }, remainingDelay);
-      
+      window.location.href = data.redirectUrl;
     }, REDIRECT_DELAY);
 
     return () => clearTimeout(timeout);
   });
 </script>
 
-<div class="fixed inset-0 flex items-center justify-center bg-slate-300 dark:bg-slate-950 bg-opacity-20">
-  <div class="text-center space-y-4">
+<div class="fixed inset-0 flex items-center justify-center bg-background/95 backdrop-blur-sm">
+  <div class="text-center space-y-6">
+    <div class="relative">
+      <div class="absolute inset-0 bg-gradient-to-r from-[#3644FE] to-[#B345ED] blur-xl opacity-20" />
+      <h1 class="relative text-3xl font-semibold text-foreground">
+        Taking you to Gumroad...
+      </h1>
+    </div>
+
     <!-- Loading dots -->
-    <div class="flex items-center gap-3">
+    <div class="flex items-center justify-center gap-3">
       {#each Array(3) as _, i}
         <div
-          class="w-2 h-2 rounded-full bg-foreground animate-bounce"
+          class="w-2 h-2 rounded-full bg-gradient-to-r from-[#3644FE] to-[#B345ED] animate-bounce"
           style="animation-delay: {i * 150}ms;"
         />
       {/each}
     </div>
-    
-    <p class="text-sm text-muted-foreground">
-      Taking you to Gumroad...
-    </p>
   </div>
 </div>
 
