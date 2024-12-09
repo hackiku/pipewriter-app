@@ -67,7 +67,7 @@
       <DropdownMenu.Item on:click={() => openUrl(DRIVE_FOLDER_URL)}>
         <div class="flex items-center gap-2">
           <ExternalLink class="h-4 w-4" />
-          <span>Open Drive Folder</span>
+          <span>Drive Folder</span>
         </div>
       </DropdownMenu.Item>
     </DropdownMenu.Content>

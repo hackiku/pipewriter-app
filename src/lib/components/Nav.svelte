@@ -1,18 +1,18 @@
 <!-- $lib/components/Nav.svelte -->
 <script lang="ts">
-import { toggleMode } from "mode-watcher";
-import { Button } from "$lib/components/ui/button";
-import { Badge } from "$lib/components/ui/badge";
-import { Sun, Moon } from "lucide-svelte";
-import EarlyButton from "./EarlyButton.svelte";
-import ContactModal from "./ContactModal.svelte";
+	import { toggleMode } from "mode-watcher";
+	import { Button } from "$lib/components/ui/button";
+	import { Badge } from "$lib/components/ui/badge";
+	import { Sun, Moon } from "lucide-svelte";
+	import EarlyButton from "./EarlyButton.svelte";
+	import ContactModal from "./ContactModal.svelte";
 
-let showContactModal = false;
-let isMenuOpen = false;
+	let showContactModal = false;
+	let isMenuOpen = false;
 
-const toggleMenu = () => {
-  isMenuOpen = !isMenuOpen;
-};
+	const toggleMenu = () => {
+		isMenuOpen = !isMenuOpen;
+	};
 </script>
 
 <nav class="fixed top-4 left-0 right-0 z-50 bg-background shadow-sm rounded-full 
