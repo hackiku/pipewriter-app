@@ -58,3 +58,9 @@
     </div>
   </div>
 </footer>
+
+
+
+<!-- curl https://api.gumroad.com/v2/products \
+  -d "access_token=ACCESS_TOKEN" \
+  -X GET -->
