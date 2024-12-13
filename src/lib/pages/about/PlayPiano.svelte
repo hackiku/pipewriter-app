@@ -22,7 +22,6 @@
   }
 </script>
 
-<section class="w-full py-24 border-t overflow-hidden">
   <div class="container">
     <!-- First Zigzag -->
     <div class="grid md:grid-cols-2 gap-16 items-center mb-24">
@@ -106,7 +105,6 @@
       </div>
     {/if}
   </div>
-</section>
 
 <style>
   .translate-x-full {

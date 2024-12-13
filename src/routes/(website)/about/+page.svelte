@@ -13,8 +13,8 @@
   <!-- Hero -->
   <section class="relative min-h-[50vh] flex items-center border-b">
     <div class="container relative z-10 pt-20">
-      <div class="max-w-2xl">
-        <h1 class="text-4xl sm:text-5xl font-bold mb-6">
+      <div class="max-w-2xl text-center">
+        <h1 class="text-4xl sm:text-5xl md:text-7xl font-semibold mb-6">
           We the Writers
         </h1>
         <p class="text-xl text-muted-foreground">
@@ -24,7 +24,9 @@
     </div>
   </section>
 
-  <PlayPiano />
+  <section class="w-full py-24 border-t overflow-hidden">
+		<PlayPiano />
+	</section>
   <TeamGrid />
   <Founder />
   
