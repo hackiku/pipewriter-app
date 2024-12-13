@@ -1,7 +1,6 @@
 <!-- routes/(website)/about/+page.svelte -->
 <script lang="ts">
   import Nav from "$lib/components/Nav.svelte";
-  import Footer from "$lib/components/Footer.svelte";
   import Founder from "$lib/pages/about/Founder.svelte";
   import PlayPiano from "$lib/pages/about/PlayPiano.svelte";
   import TeamGrid from "$lib/pages/about/TeamGrid.svelte";
@@ -37,5 +36,3 @@
 
   <AboutCTA />
 </main>
-
-<Footer />
