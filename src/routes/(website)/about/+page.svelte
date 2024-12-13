@@ -7,13 +7,13 @@
   import ToolsList from "$lib/pages/about/ToolsList.svelte";
   import AboutCTA from "$lib/pages/about/AboutCTA.svelte";
 </script>
+
 <Nav />
 
 <main class="bg-background text-foreground">
-  <!-- Hero -->
   <section class="relative min-h-[50vh] flex items-center border-b">
     <div class="container relative z-10 pt-20">
-      <div class="max-w-2xl text-center">
+      <div class="max-w-2xl mx-auto text-center">
         <h1 class="text-4xl sm:text-5xl md:text-7xl font-semibold mb-6">
           We the Writers
         </h1>
@@ -24,13 +24,18 @@
     </div>
   </section>
 
-  <section class="w-full py-24 border-t overflow-hidden">
-		<PlayPiano />
-	</section>
-  <TeamGrid />
+  <!-- Each component is now self-contained with its own section wrapper -->
+  <PlayPiano />
+  
+  <!-- Team section with title -->
+  <section class="container py-24 border-t">
+    <h2 class="text-3xl font-bold mb-12">Thanks for helping it happen 🫶</h2>
+    <TeamGrid />
+  </section>
+  
   <Founder />
   
-  <!-- Tools -->
+  <!-- Tools section -->
   <section class="container py-24 border-t">
     <h2 class="text-3xl font-bold mb-12">Tools We Use</h2>
     <ToolsList />
