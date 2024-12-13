@@ -25,7 +25,7 @@
     },
     {
       phase: "Implementation",
-      tool: tools.mdx,
+      tool: tools.react,
       description: "Collaborated with dev team on content architecture in MDX.",
       detail: "Maintained writer-friendly workflow while meeting technical requirements.",
       image: "/work/redocly/implementation.jpg"

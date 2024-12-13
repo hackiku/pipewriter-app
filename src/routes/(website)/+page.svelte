@@ -8,7 +8,7 @@
 
 <BackgroundPattern />
 
-<div class="flex flex-col min-h-screen bg-background">
+<div class="flex flex-col min-h-screen">
   <main class="container flex-grow px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
     <!-- Main Content -->
     <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 pt-20 lg:pt-40">
