@@ -7,6 +7,7 @@
   import { cn } from '$lib/utils';
 
   export let size: "sm" | "default" = "default";
+  export let wrap = false;
   export let className = "";
 
   const writerEmails = [
@@ -81,7 +82,9 @@
   }
 
   $: formClass = cn(
-    "w-full flex flex-col sm:flex-row gap-3",
+    "w-full flex",
+    wrap ? "flex-col" : "flex-col sm:flex-row",
+    "gap-3",
     size === "default" ? "max-w-2xl" : "max-w-xl",
     className
   );
@@ -117,7 +120,7 @@
         required
       />
     </div>
-    <div class="sm:w-auto">
+    <div class={wrap ? "w-full" : "w-full sm:w-auto"}>
       <button
         type="submit"
         class={buttonClass}

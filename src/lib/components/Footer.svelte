@@ -1,7 +1,36 @@
 <!-- $lib/components/Footer.svelte -->
 <script lang="ts">
   import EmailForm from '$lib/components/EmailForm.svelte';
+  import { GithubIcon, LinkedinIcon, Instagram, ShoppingBag } from 'lucide-svelte';
+  
   const year = new Date().getFullYear();
+
+  const socials = [
+    {
+      name: 'Gumroad',
+      url: 'https://pipewriter.gumroad.com',
+      icon: ShoppingBag,
+      ariaLabel: 'Get Pipewriter on Gumroad'
+    },
+    {
+      name: 'LinkedIn',
+      url: 'https://linkedin.com/in/jzro',
+      icon: LinkedinIcon,
+      ariaLabel: 'Connect on LinkedIn'
+    },
+    {
+      name: 'GitHub',
+      url: 'https://github.com/jzroo',
+      icon: GithubIcon,
+      ariaLabel: 'View projects on GitHub'
+    },
+    {
+      name: 'Instagram',
+      url: 'https://instagram.com/jzro_',
+      icon: Instagram,
+      ariaLabel: 'Follow on Instagram'
+    }
+  ];
 </script>
 
 <footer class="w-full bg-slate-100 dark:bg-slate-900/50 border-t border-gray-200 dark:border-gray-800">
@@ -16,6 +45,23 @@
         <p class="text-muted-foreground text-sm max-w-xs">
           Professional website copy decks in Google Docs. Design-ready templates + sidebar app.
         </p>
+        <div class="flex gap-6 mt-6">
+          {#each socials as social}
+            <a
+              href={social.url}
+              class="text-muted-foreground hover:text-foreground transition-colors"
+              aria-label={social.ariaLabel}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svelte:component 
+                this={social.icon} 
+                size={20} 
+                class="hover:scale-110 transition-transform duration-200"
+              />
+            </a>
+          {/each}
+        </div>
       </div>
 
       <!-- Links -->
@@ -46,7 +92,7 @@
         <div class="text-sm text-muted-foreground mb-4">
           Get notified about new features and updates.
         </div>
-        <EmailForm size="sm" />
+        <EmailForm size="sm" wrap={true} />
       </div>
     </div>
 
@@ -58,9 +104,3 @@
     </div>
   </div>
 </footer>
-
-
-
-<!-- curl https://api.gumroad.com/v2/products \
-  -d "access_token=ACCESS_TOKEN" \
-  -X GET -->
