@@ -14,13 +14,13 @@
     },
     {
       name: 'LinkedIn',
-      url: 'https://linkedin.com/in/jzro',
+      url: 'https://linkedin.com/in/ivankaraman',
       icon: LinkedinIcon,
       ariaLabel: 'Connect on LinkedIn'
     },
     {
       name: 'GitHub',
-      url: 'https://github.com/jzroo',
+      url: 'https://github.com/hackiku',
       icon: GithubIcon,
       ariaLabel: 'View projects on GitHub'
     },

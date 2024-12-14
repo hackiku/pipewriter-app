@@ -17,6 +17,15 @@ export const posts = [
 		readingTime: '4 min read',
 		category: 'Case Study',
 		heroImage: '/images/blog/google-docs.webp'
+	},
+	{
+		slug: "copy-to-code",
+		title: "From Copy to Code: The New Technical Writer",
+		date: "December 14, 2024",
+		category: "Product Strategy",
+		excerpt: "How AI is transforming writers into technical powerhouses, and why that's exactly what tech needs right now. A story of copy, code, and skipping the pretty pixels.",
+		readingTime: "6 min read",
+		heroImage: "/images/blog/wireframe-to-web.webp",
 	}
 ];
 

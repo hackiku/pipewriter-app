@@ -21,7 +21,7 @@
 
         <!-- Email Form -->
         <div class="pt-8">
-          <EmailForm size="sm" />
+          <EmailForm size="xl" />
         </div>
       </div>
     </div>
