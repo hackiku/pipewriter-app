@@ -3,6 +3,7 @@
   import Nav from "$lib/components/Nav.svelte";
   import Founder from "$lib/pages/about/Founder.svelte";
   import PlayPiano from "$lib/pages/about/PlayPiano.svelte";
+	import CaplesAbout from "$lib/pages/about/CaplesAbout.svelte";
   import TeamGrid from "$lib/pages/about/TeamGrid.svelte";
   import ToolsList from "$lib/pages/about/ToolsList.svelte";
   import AboutCTA from "$lib/pages/about/AboutCTA.svelte";
@@ -27,6 +28,8 @@
   <!-- Each component is now self-contained with its own section wrapper -->
   <PlayPiano />
   
+	<CaplesAbout />
+
   <!-- Team section with title -->
   <section class="container py-24 border-t">
     <h2 class="text-3xl font-bold mb-12">Thanks for helping it happen 🫶</h2>

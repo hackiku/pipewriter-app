@@ -2,11 +2,10 @@
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import { ExternalLink, Linkedin, Rocket, Pen } from "lucide-svelte";
-	import ContactButton from "$lib/components/ContactButton.svelte";
-	import ContactModal from "$lib/components/ContactModal.svelte";
+  import ContactButton from "$lib/components/ContactButton.svelte";
+  import ContactModal from "$lib/components/ContactModal.svelte";
 
-	let showContactModal = false;
-
+  let showContactModal = false;
 </script>
 
 <section class="container py-24 border-t overflow-visible">
@@ -21,18 +20,18 @@
         <div class="relative w-full h-full -rotate-3 shadow-xl">
           <img 
             src="/api/placeholder/400/400"
-            alt="Ivan Karaman"
+            alt="Profile photo"
             class="w-full h-full object-cover rounded-2xl bg-muted"
           />
         </div>
       </div>
       
-      <!-- Kermit image -->
+      <!-- Secondary image -->
       <div class="absolute bottom-4 -right-2 md:bottom-8 md:-right-4 w-3/5 aspect-square">
         <div class="relative w-full h-full rotate-3 shadow-xl">
           <img 
-            src="images/gifs/kermit-typewriter.webp"
-            alt="Kermit typing furiously"
+            src="/images/gifs/kermit-typewriter.webp"
+            alt="Kermit typing gif"
             class="w-full h-full object-cover rounded-2xl bg-muted"
           />
         </div>
@@ -43,19 +42,19 @@
     <div class="space-y-8">
       <div class="space-y-3">
         <h2 class="text-3xl font-bold">Ivan Karaman</h2>
-        <p class="text-lg text-primary font-medium">Copywriter turned Dev</p>
+        <p class="text-lg text-primary font-medium">Copywriter turned Product Developer</p>
       </div>
 
       <div class="space-y-4 text-muted-foreground">
         <p>
-          After 8 years crafting copy for top SaaS companies (including Global 500 and YC alumni), 
-          I found myself naturally evolving into product design. Words shape experiences, and great UX 
-          starts with clear writing.
+          After 8 years crafting copy for top SaaS companies (including Global 500 and YC startups), 
+          I found myself naturally evolving into product design. Because when writers thrive, 
+          products become more human.
         </p>
         <p>
-          Currently pushing the boundaries of UX in aerospace through jzro.co boutique agency, 
-          while building tools that help other writers work better. Because when writers thrive, 
-          products become more human.
+          This is my secret sauce from years of banging out website copy for startups and design agencies. 
+          It's my collection of Google Docs scripts and snippets, cleaned up and wrapped in a modern app 
+          that helps writers work better.
         </p>
       </div>
 
@@ -84,7 +83,7 @@
 
         <Button asChild variant="outline" class="gap-2">
           <a 
-            href="#" 
+            href="/portfolio" 
             target="_blank" 
             rel="noopener noreferrer"
           >
@@ -93,28 +92,32 @@
           </a>
         </Button>
       </div>
-		<ContactButton 
-			size="lg" 
-			on:openContact={() => showContactModal = true} 
-		/>
+
+      <ContactButton 
+        size="lg" 
+        on:openContact={() => showContactModal = true} 
+      />
     </div>
   </div>
+
+  {#if showContactModal}
+    <ContactModal 
+      on:close={() => showContactModal = false} 
+    />
+  {/if}
 </section>
 
 <style>
-  /* Optional: Add subtle parallax effect on image stack */
+  /* Optional: Smoother image hover effects */
+  .relative img {
+    transition: transform 0.3s ease-out;
+  }
   @media (min-width: 1024px) {
-    .relative {
-      perspective: 1000px;
-    }
-    img {
-      transition: transform 0.3s ease-out;
-    }
     .relative:hover img:first-child {
-      transform: translateZ(20px);
+      transform: scale(1.02) rotate(-1deg);
     }
     .relative:hover img:last-child {
-      transform: translateZ(40px);
+      transform: scale(1.02) rotate(5deg);
     }
   }
 </style>
