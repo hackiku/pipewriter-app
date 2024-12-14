@@ -1,104 +1,90 @@
 <!-- src/lib/pages/ai/Process.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import {
+    Dialog,
+    DialogContent,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "$lib/components/ui/dialog";
+  import { Maximize2 } from 'lucide-svelte';
 
   const steps = [
     {
       number: '1',
-      title: 'Write wireframes naturally in Google Docs with headings and lists',
+      title: 'Wireframe in Docs',
       image: 'demo/screenshots/pipewriter-wireframe.png'
     },
     {
       number: '2',
-      title: 'Export your document to clean, semantic HTML with one click',
+      title: 'Export to HTML',
       image: 'demo/screenshots/claude-prompt.png'
     },
     {
       number: '3',
-      title: 'Get production-ready code with Tailwind styling and components',
+      title: 'Prompt AI',
       image: 'demo/screenshots/live-html-page.png'
     }
   ];
-
-  let currentStep = 0;
-  let stepElements: HTMLElement[] = [];
-
-  onMount(() => {
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const index = stepElements.findIndex(el => el === entry.target);
-          if (index !== -1) currentStep = index;
-        }
-      });
-    }, {
-      threshold: 0.7,
-      rootMargin: '-20% 0px -20% 0px'
-    });
-
-    stepElements.forEach(el => observer.observe(el));
-
-    return () => observer.disconnect();
-  });
 </script>
 
-<section class="py-32">
+<section class="py-24">
   <div class="container">
     <div class="max-w-6xl mx-auto">
-      <div class="relative flex">
-        <!-- Left Column: Text -->
-        <div class="w-5/12 sticky top-32 h-fit">
-          {#each steps as step, i}
-            <div 
-              bind:this={stepElements[i]}
-              class="mb-48 last:mb-0 transition-opacity duration-500"
-              class:opacity-30={currentStep !== i}
-            >
-              <span class="text-8xl font-bold text-gray-200 dark:text-gray-800">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+        {#each steps as step}
+          <div class="relative">
+            <!-- Artistic Number -->
+            <div class="absolute -top-16 left-0 right-0 select-none pointer-events-none overflow-hidden">
+              <span class="text-[12rem] font-bold text-gray-100 dark:text-gray-800/50 leading-none">
                 {step.number}
               </span>
-              <h3 class="text-2xl font-semibold mt-4">
-                {step.title}
-              </h3>
             </div>
-          {/each}
-        </div>
+            
+            <!-- Image Card with Title -->
+            <div class="relative">
+              <!-- Title Overlay -->
+              <div class="absolute -top-4 left-0 right-0 z-10">
+                <h3 class="text-xl md:text-2xl font-semibold bg-background/95 backdrop-blur-sm w-fit px-4 py-2 rounded-lg shadow-sm mx-auto">
+                  {step.title}
+                </h3>
+              </div>
 
-        <!-- Right Column: Images -->
-        <div class="w-7/12 pl-16">
-          {#each steps as step, i}
-            <div 
-              class="mb-48 last:mb-0 transition-all duration-500"
-              class:opacity-30={currentStep !== i}
-              class:translate-y-4={currentStep !== i}
-            >
-              <img 
-                src={step.image} 
-                alt={step.title}
-                class="w-full rounded-lg shadow-sm"
-              />
+              <!-- Image with Dialog -->
+              <Dialog>
+                <DialogTrigger>
+                  <div class="relative group">
+                    <img 
+                      src={step.image} 
+                      alt={step.title}
+                      class="w-full rounded-lg shadow-sm transition-all duration-200 group-hover:shadow-md"
+                    />
+                    <div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors duration-200 rounded-lg flex items-center justify-center">
+                      <Maximize2 class="w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+                    </div>
+                  </div>
+                </DialogTrigger>
+                <DialogContent class="max-w-4xl">
+                  <DialogHeader>
+                    <DialogTitle>{step.title}</DialogTitle>
+                  </DialogHeader>
+                  <img 
+                    src={step.image} 
+                    alt={step.title}
+                    class="w-full rounded-lg"
+                  />
+                </DialogContent>
+              </Dialog>
             </div>
-          {/each}
-        </div>
+          </div>
+        {/each}
       </div>
     </div>
   </div>
 </section>
 
-<!-- Final Step -->
-<div class="container mb-32">
-  <div class="max-w-3xl mx-auto">
-    <div class="flex items-start gap-8">
-      <span class="text-8xl font-bold text-gray-200 dark:text-gray-800">4</span>
-      <h2 class="text-2xl font-semibold mt-8">
-        Transform your writing workflow into production websites
-      </h2>
-    </div>
-  </div>
-</div>
-
 <style>
-  .sticky {
-    position: sticky;
+  :global(.group) {
+    cursor: pointer;
   }
 </style>
