@@ -3,7 +3,7 @@
   // Removed Play import since we no longer need it
 </script>
 
-<section class="py-24 bg-background border-y">
+<!-- <section class="py-24 bg-background border-y"> -->
   <div class="container">
     <div class="max-w-4xl mx-auto">
       <div class="relative rounded-xl overflow-hidden bg-muted">
@@ -24,4 +24,4 @@
       </div>
     </div>
   </div>
-</section>
+<!-- </section> -->
