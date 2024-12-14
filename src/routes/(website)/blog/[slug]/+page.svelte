@@ -1,12 +1,22 @@
 <!-- routes/(website)/blog/[slug]/+page.svelte -->
 <script lang="ts">
   import type { BlogPost } from '$lib/pages/blog/types';
-  import { post } from '$lib/pages/blog/posts/wireframe-to-web';
+  import { onMount } from 'svelte';
   import EmailForm from "$lib/components/EmailForm.svelte";
   
-  // TODO: Replace with dynamic loading based on slug
-  const blogPost: BlogPost = post;
+  export let data;
+  let blogPost: BlogPost = data.post;
+  
+  // Optional: Add view tracking
+  onMount(() => {
+    // Track pageview
+  });
 </script>
+
+<svelte:head>
+  <title>{blogPost.title}</title>
+  <meta name="description" content={blogPost.excerpt} />
+</svelte:head>
 
 <article class="container max-w-4xl mx-auto py-24 px-4">
   <!-- Hero -->
@@ -30,20 +40,23 @@
       </p>
     </div>
 
-    <!-- Hero Image -->
-    <img 
-      src={blogPost.heroImage} 
-      alt={blogPost.title}
-      class="w-full aspect-video rounded-xl object-cover bg-muted"
-    />
+    {#if blogPost.heroImage}
+      <img 
+        src={blogPost.heroImage} 
+        alt={blogPost.title}
+        class="w-full aspect-video rounded-xl object-cover bg-muted"
+      />
+    {/if}
   </header>
 
   <!-- Content -->
   <div class="prose prose-lg dark:prose-invert max-w-none space-y-12">
     <!-- Intro -->
-    <p class="lead">
-      {blogPost.content.intro}
-    </p>
+    {#if blogPost.content.intro}
+      <p class="lead">
+        {blogPost.content.intro}
+      </p>
+    {/if}
 
     <!-- Video -->
     {#if blogPost.content.videoEmbed}
@@ -56,7 +69,9 @@
     {#each blogPost.content.chapters as chapter}
       <section>
         <h2>{chapter.title}</h2>
-        <p>{chapter.content}</p>
+        <div class="mt-4">
+          {@html chapter.content}
+        </div>
       </section>
     {/each}
 
@@ -72,8 +87,10 @@
     </div>
 
     <!-- Conclusion -->
-    <div class="lead">
-      {blogPost.content.conclusion}
-    </div>
+    {#if blogPost.content.conclusion}
+      <div class="lead">
+        {@html blogPost.content.conclusion}
+      </div>
+    {/if}
   </div>
 </article>
