@@ -2,6 +2,9 @@
 <script lang="ts">
   import EarlyButton from "$lib/components/EarlyButton.svelte";
   import Process from "./Process.svelte";
+  import VideoDemo from "./VideoDemo.svelte";
+  import LiveDemo from "./LiveDemo.svelte";
+
   import GumroadSection from "./GumroadSection.svelte";
   import { ExternalLink, ArrowRight, Download, Sparkles } from "lucide-svelte";
 
@@ -46,53 +49,15 @@
     </div>
   </section>
 
+  <!-- Video Demo Section -->
+  <VideoDemo />
+	
   <!-- Process Section -->
   <Process />
 
-  <!-- Video Demo Section -->
-  <!-- <VideoDemo /> -->
 
   <!-- Live Demo Section -->
-  <section class="container py-12 border-t">
-    <div class="max-w-4xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6">Live Demo</h2>
-      <div class="mb-6 rounded-lg border overflow-hidden">
-        <iframe 
-          src="/samples/horse-tinder/index.html"
-          class="w-full h-[600px] border-0"
-          title="Generated Landing Page Demo"
-        ></iframe>
-      </div>
-      <div class="flex justify-between items-center">
-        <div class="flex gap-3">
-          <button 
-            class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground"
-            on:click={downloadHtml}
-          >
-            <Download class="w-4 h-4 mr-2" />
-            Download HTML
-          </button>
-          <a 
-            href="/samples/horse-tinder/index.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex h-11 items-center justify-center rounded-md border bg-background px-8 text-base font-medium"
-          >
-            <ExternalLink class="w-4 h-4 mr-2" />
-            View Full Page
-          </a>
-        </div>
-        <a 
-          href="/early" 
-          class="inline-flex h-11 items-center justify-center rounded-md bg-primary px-8 text-base font-medium text-primary-foreground"
-        >
-          Start Pipewriting
-          <ArrowRight class="w-4 h-4 ml-2" />
-        </a>
-      </div>
-    </div>
-  </section>
-
+	<LiveDemo />
   <!-- Pricing Section -->
   <GumroadSection />
 </main>
