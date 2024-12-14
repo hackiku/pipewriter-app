@@ -3,33 +3,8 @@
   import EmailForm from "$lib/components/EmailForm.svelte";
   import ArticleCard from "$lib/pages/blog/ArticleCard.svelte";
 
-  // Dummy articles data
-  const articles = [
-    {
-      title: "Why Writers Should Lead Product Development",
-      excerpt: "Great products start with words, not wireframes. Here's how technical writers can drive the product development process from day one.",
-      date: "Dec 12, 2024",
-      slug: "writers-lead-product-development",
-      readingTime: "5 min read",
-      category: "Product Design"
-    },
-    {
-      title: "From Google Docs to Wireframes: A Writer's Journey",
-      excerpt: "How I transformed my copywriting process by treating Google Docs as a design tool, and why it made my clients happier.",
-      date: "Dec 10, 2024",
-      slug: "google-docs-wireframes",
-      readingTime: "4 min read",
-      category: "Case Study"
-    },
-    {
-      title: "The Content-First Design Revolution",
-      excerpt: "Content isn't just king - it's the whole kingdom. Learn how leading tech companies are putting writers at the heart of their design process.",
-      date: "Dec 8, 2024",
-      slug: "content-first-design",
-      readingTime: "6 min read",
-      category: "Industry"
-    }
-  ];
+  export let data;
+  const { posts } = data;
 </script>
 
 <main class="bg-background">
@@ -55,7 +30,7 @@
   <!-- Articles Grid -->
   <section class="container py-24">
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
-      {#each articles as article}
+      {#each posts as article}
         <ArticleCard {...article} />
       {/each}
     </div>
