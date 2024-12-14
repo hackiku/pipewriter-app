@@ -1,63 +1,104 @@
 <!-- src/lib/pages/ai/Process.svelte -->
 <script lang="ts">
+  import { onMount } from 'svelte';
+
   const steps = [
     {
-      number: '01',
-      title: 'Write in Google Docs',
-      description: 'Create wireframes directly in your document with our plugin.',
+      number: '1',
+      title: 'Write wireframes naturally in Google Docs with headings and lists',
+      image: 'demo/screenshots/pipewriter-wireframe.png'
     },
     {
-      number: '02',
-      title: 'Export to HTML',
-      description: 'One click to convert your wireframe into semantic HTML.',
+      number: '2',
+      title: 'Export your document to clean, semantic HTML with one click',
+      image: 'demo/screenshots/claude-prompt.png'
     },
     {
-      number: '03',
-      title: 'Ship to Production',
-      description: 'Production-ready code with optimized Tailwind styles.',
-    },
-    {
-      number: '04',
-      title: 'Customize & Deploy',
-      description: 'Tweak your design and push live with confidence.',
+      number: '3',
+      title: 'Get production-ready code with Tailwind styling and components',
+      image: 'demo/screenshots/live-html-page.png'
     }
   ];
+
+  let currentStep = 0;
+  let stepElements: HTMLElement[] = [];
+
+  onMount(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const index = stepElements.findIndex(el => el === entry.target);
+          if (index !== -1) currentStep = index;
+        }
+      });
+    }, {
+      threshold: 0.7,
+      rootMargin: '-20% 0px -20% 0px'
+    });
+
+    stepElements.forEach(el => observer.observe(el));
+
+    return () => observer.disconnect();
+  });
 </script>
 
-<section class="py-24 bg-gray-50 dark:bg-gray-900/50">
+<section class="py-32">
   <div class="container">
-    <h2 class="text-3xl font-bold mb-16">How It Works</h2>
-    
-    <div class="relative">
-      <!-- Scroll Container -->
-      <div class="overflow-x-auto pb-8">
-        <div class="flex gap-6 w-fit snap-x snap-mandatory">
-          {#each steps as step}
+    <div class="max-w-6xl mx-auto">
+      <div class="relative flex">
+        <!-- Left Column: Text -->
+        <div class="w-5/12 sticky top-32 h-fit">
+          {#each steps as step, i}
             <div 
-              class="snap-start shrink-0 w-[calc(100vw-4rem)] md:w-[400px] bg-background 
-                     rounded-xl p-8 border shadow-sm hover:shadow-md transition-shadow"
+              bind:this={stepElements[i]}
+              class="mb-48 last:mb-0 transition-opacity duration-500"
+              class:opacity-30={currentStep !== i}
             >
-              <span class="text-6xl font-bold text-primary/20">{step.number}</span>
-              <h3 class="text-2xl font-semibold mt-4 mb-3">{step.title}</h3>
-              <p class="text-muted-foreground">{step.description}</p>
+              <span class="text-8xl font-bold text-gray-200 dark:text-gray-800">
+                {step.number}
+              </span>
+              <h3 class="text-2xl font-semibold mt-4">
+                {step.title}
+              </h3>
+            </div>
+          {/each}
+        </div>
+
+        <!-- Right Column: Images -->
+        <div class="w-7/12 pl-16">
+          {#each steps as step, i}
+            <div 
+              class="mb-48 last:mb-0 transition-all duration-500"
+              class:opacity-30={currentStep !== i}
+              class:translate-y-4={currentStep !== i}
+            >
+              <img 
+                src={step.image} 
+                alt={step.title}
+                class="w-full rounded-lg shadow-sm"
+              />
             </div>
           {/each}
         </div>
       </div>
-      
-      <!-- Gradient Overlay -->
-      <div class="absolute right-0 top-0 h-full w-24 bg-gradient-to-l from-gray-50 dark:from-gray-900/50 to-transparent pointer-events-none"></div>
     </div>
   </div>
 </section>
 
+<!-- Final Step -->
+<div class="container mb-32">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex items-start gap-8">
+      <span class="text-8xl font-bold text-gray-200 dark:text-gray-800">4</span>
+      <h2 class="text-2xl font-semibold mt-8">
+        Transform your writing workflow into production websites
+      </h2>
+    </div>
+  </div>
+</div>
+
 <style>
-  /* Hide scrollbar but keep functionality */
-  .overflow-x-auto {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .overflow-x-auto::-webkit-scrollbar {
-    display: none;
+  .sticky {
+    position: sticky;
   }
 </style>
