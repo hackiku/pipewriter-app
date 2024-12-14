@@ -1,30 +1,8 @@
 <!-- src/routes/ai/+page.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
   import EarlyButton from "$lib/components/EarlyButton.svelte";
-  import PricingBar from "$lib/pages/ai/PricingBar.svelte";
   import GumroadSection from "$lib/pages/ai/GumroadSection.svelte";
   import { ExternalLink, ArrowRight, Download, Sparkles } from "lucide-svelte";
-  
-  let isSticky = false;
-  let isVisible = false;
-  
-  onMount(() => {
-    const observer = new IntersectionObserver(
-      ([e]) => {
-        if (e.isIntersecting) {
-          isVisible = true;
-        }
-        isSticky = !e.isIntersecting;
-      },
-      { threshold: [0.1] }
-    );
-    
-    const target = document.querySelector('#pricing-section');
-    if (target) observer.observe(target);
-    
-    return () => observer.disconnect();
-  });
 
   const downloadHtml = async () => {
     try {
@@ -122,9 +100,8 @@
     </div>
   </section>
 
-  <!-- Pricing Bar and Gumroad Section -->
-  <PricingBar {isSticky} {isVisible} />
-  <GumroadSection id="pricing-section" />
+  <!-- Pricing Section -->
+  <GumroadSection />
 </main>
 
 <style>
