@@ -10,9 +10,9 @@
 	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 	import PricingBar from "$lib/components/cta/PricingBar.svelte";
 	
-	import ComingSoon from "$lib/components/ComingSoon.svelte";
-
 	import { FileText, Layout, Layers } from 'lucide-svelte';
+	
+
 
 </script>
 

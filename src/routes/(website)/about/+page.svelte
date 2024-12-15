@@ -10,21 +10,17 @@
 
 	import ComingSoon from "$lib/components/ComingSoon.svelte";
 
-</script>
 
+</script>
 
   <ComingSoon 
     title="Coming Soon"
     description="Indie-founding ftw, check back soon."
   />
 
-
-
 <Nav />
 
 <main class="bg-background text-foreground">
-
-
 
   <section class="relative min-h-[50vh] flex items-center border-b">
     <div class="container relative z-10 pt-20">

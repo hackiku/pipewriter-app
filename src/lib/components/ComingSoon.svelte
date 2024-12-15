@@ -4,37 +4,31 @@
   import { Clock } from 'lucide-svelte';
   import EmailForm from './EmailForm.svelte';
   import { cn } from '$lib/utils';
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
 
   export let title = "Coming Soon";
   export let gif = "https://giphy.com/embed/tzHn7A5mohSfe";
   export let description = "This page is not ready yet. Join the waitlist to get notified when it launches!";
   export let className = "";
 
-  let gumroadLoaded = false;
-  let buttonContainer: HTMLDivElement;
+  let script: HTMLScriptElement;
 
   onMount(() => {
-    // Only load Gumroad once per session
-    if (!(window as any).GumroadOverlay) {
-      const script = document.createElement('script');
-      script.src = 'https://gumroad.com/js/gumroad.js';
-      script.onload = () => {
-        gumroadLoaded = true;
-        // Clear and recreate the button to prevent duplicates
-        if (buttonContainer) {
-          buttonContainer.innerHTML = '';
-          const button = document.createElement('a');
-          button.className = 'gumroad-button';
-          button.href = 'https://pipewriter.gumroad.com/l/wires-for-writers';
-          button.setAttribute('data-gumroad-overlay-checkout', 'false');
-          button.textContent = 'Buy on';
-          buttonContainer.appendChild(button);
-        }
-      };
-      document.head.appendChild(script);
-    }
+    // Remove any existing scripts first
+    // document.querySelectorAll('script[src*="gumroad.com"]').forEach(s => s.remove());
+    
+    // Add fresh script
+    script = document.createElement('script');
+    script.src = 'https://gumroad.com/js/gumroad.js';
+    document.body.appendChild(script);
   });
+
+  // onDestroy(() => {
+		
+  //   if (script && script.parentNode) {
+  //     script.parentNode.removeChild(script);
+  //   }
+  // });
 </script>
 
 <div 
@@ -46,6 +40,7 @@
   )}
   transition:fade={{ duration: 200 }}
 >
+  <!-- Rest of your component stays exactly the same -->
   <div class="h-screen px-4 flex items-center justify-center">
     <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-16 max-w-6xl">
       <div class="relative w-64 lg:w-80 aspect-square rounded-lg overflow-hidden shrink-0">
@@ -69,8 +64,13 @@
 
         <EmailForm size="sm" />
 
-        <!-- Button container with bind:this -->
-        <div bind:this={buttonContainer}></div>
+        <a 
+          class="gumroad-button" 
+          href="https://pipewriter.gumroad.com/l/wires-for-writers"
+          data-gumroad-overlay-checkout="false"
+        >
+          Buy on
+        </a>
       </div>
     </div>
   </div>
