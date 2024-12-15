@@ -7,6 +7,12 @@
 	let isSticky = false;
 	let pricingBarElement: HTMLElement;
 
+	function handleGradientClick() {
+		window.scrollBy({
+			top: window.innerHeight,
+			behavior: "smooth",
+		});
+	}
 
 	onMount(() => {
 		const handleScroll = () => {
@@ -60,7 +66,7 @@
 					<!-- Simple Gradient Overlay -->
 					<div
 						class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent cursor-grab"
-					  on:click={handleGradientClick}
+						  on:click={handleGradientClick}
 					/>
 				</div>
 			</div>

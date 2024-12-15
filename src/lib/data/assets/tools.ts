@@ -4,16 +4,22 @@ export const tools = {
 	pipewriter: {
 		name: "Pipewriter",
 		icon: "/tools/pipewriter.svg",
+		fallback: "✍️",
+		url: "https://pipewriter.io"
+	},
+	googleDocs: {
+		name: "Google Docs",
+		icon: "/tools/google-docs.svg",
 		fallback: "📝",
 		url: "https://pipewriter.io"
 	},
 	googleDrive: {
 		name: "Google Drive",
 		icon: "/tools/google-drive.svg",
-		fallback: "📝",
-		url: "https://pipewriter.io"
+		fallback: "📁",
+		url: "https://drive.google.com"
 	},
-	googleappsscript: {
+	googleAppsScript: {
 		name: "Google Apps Script",
 		icon: "/tools/google-apps-script.svg",
 		fallback: "📜",
@@ -61,5 +67,28 @@ export const tools = {
 		fallback: "🎨",
 		url: "https://tailwindcss.com"
 	},
-
+	claude: {
+		name: "Claude",
+		icon: "/tools/claude.svg",
+		fallback: "🤖",
+		url: "https://anthropic.com/claude"
+	},
+	gpt4: {
+		name: "GPT-4",
+		icon: "/tools/gpt4.svg",
+		fallback: "🧠",
+		url: "https://openai.com/gpt-4"
+	},
+	gemini: {
+		name: "Gemini",
+		icon: "/tools/gemini.svg",
+		fallback: "💫",
+		url: "https://deepmind.google/technologies/gemini/"
+	},
+	googledocs: {
+		name: "Google Docs",
+		icon: "/tools/gdocs.svg",
+		fallback: "📝",
+		url: "https://docs.google.com"
+	}
 } as const;
