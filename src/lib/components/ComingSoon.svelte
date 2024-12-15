@@ -35,7 +35,7 @@
   class={cn(
     "fixed inset-0 z-40",
     "bg-gradient-to-b from-background via-background/95 to-transparent",
-    "backdrop-blur-sm",
+    "backdrop-blur-lg",
     className
   )}
   transition:fade={{ duration: 200 }}
@@ -76,9 +76,9 @@
   </div>
 </div>
 
-<style>
+<!-- <style>
   .from-background {
-    animation: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    animation: pulse 4s cubic-bezier(0.2, 0, 0.4, 1) infinite;
   }
 
   @keyframes pulse {
@@ -93,4 +93,4 @@
   :global(.giphy-embed) {
     pointer-events: none !important;
   }
-</style>
+</style> -->
