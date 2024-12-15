@@ -84,6 +84,9 @@
 	</section>
 	<!-- Pricing Section -->
 	<GumroadSection />
+
+	<!-- <section class="h-72 bg-indigo-500 bg-opacity-10"></section> -->
+	 
 </main>
 
 <style>

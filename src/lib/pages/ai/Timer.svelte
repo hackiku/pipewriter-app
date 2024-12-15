@@ -1,0 +1,49 @@
+<!-- src/lib/pages/ai/Timer.svelte -->
+<script lang="ts">
+  import { onMount, onDestroy } from 'svelte';
+  
+  let days: number = 0;
+  let hours: number = 0;
+  let minutes: number = 0;
+  
+  // Set end date to January 1st, 2025
+  const endDate = new Date('2025-01-01T00:00:00');
+  let interval: NodeJS.Timer;
+  
+  function updateTimer() {
+    const now = new Date();
+    const diff = endDate.getTime() - now.getTime();
+    
+    if (diff <= 0) {
+      days = 0;
+      hours = 0;
+      minutes = 0;
+      return;
+    }
+    
+    days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  }
+  
+  onMount(() => {
+    updateTimer();
+    interval = setInterval(updateTimer, 1000 * 60); // Update every minute
+  });
+  
+  onDestroy(() => {
+    if (interval) clearInterval(interval);
+  });
+</script>
+
+<div class="flex items-center gap-2 text-sm font-medium text-muted-foreground">
+  <div class="flex items-center gap-1">
+    <span class="tabular-nums">{days}</span>d
+  </div>
+  <div class="flex items-center gap-1">
+    <span class="tabular-nums">{hours}</span>h
+  </div>
+  <div class="flex items-center gap-1">
+    <span class="tabular-nums">{minutes}</span>m
+  </div>
+</div>
