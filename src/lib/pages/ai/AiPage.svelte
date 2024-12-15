@@ -1,6 +1,12 @@
 <!-- src/lib/pages/ai/AiPage.svelte -->
 <script lang="ts">
-  import EarlyButton from "$lib/components/EarlyButton.svelte";
+  // import EarlyButton from "$lib/components/EarlyButton.svelte";
+  import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
+  import CartButton from "$lib/components/cta/CartButton.svelte";
+  import GumroadCartButton from "$lib/components/cta/GumroadCartButton.svelte";
+  import GumroadExternalButton from "$lib/components/cta/GumroadExternalButton.svelte";
+	
+
   import Process from "./Process.svelte";
   import VideoDemo from "./VideoDemo.svelte";
   import LiveDemo from "./LiveDemo.svelte";
@@ -35,7 +41,13 @@
         <p class="text-2xl text-muted-foreground mb-8">
           With 2× <kbd>click</kbd> and 2× <kbd>Ctrl</kbd> + <kbd>C</kbd>
         </p>
-        <EarlyButton />
+        <!-- <EarlyAccessButton /> -->
+        <div class="flex justify-center items-center gap-4">
+					<GumroadCartButton text="Add to Cart"/>
+					<GumroadExternalButton />
+					<!-- <CartButton /> -->
+				</div>
+				<!-- <p class="text-sm mt-2 opacity-50">One-Time Early Access</p> -->
       </div>
     </div>
   </section>
