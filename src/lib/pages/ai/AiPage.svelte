@@ -43,7 +43,8 @@
         </p>
         <!-- <EarlyAccessButton /> -->
         <div class="flex justify-center items-center gap-4">
-					<GumroadCartButton text="Add to Cart"/>
+					<!-- <CartButton text="Add to Cart" className="h-12"/> -->
+					<GumroadCartButton text="Add to Cart" source="ai_page"/>
 					<GumroadExternalButton />
 					<!-- <CartButton /> -->
 				</div>

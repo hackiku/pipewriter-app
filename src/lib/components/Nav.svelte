@@ -5,6 +5,7 @@
 	import { Badge } from "$lib/components/ui/badge";
 	import { Sun, Moon } from "lucide-svelte";
 	import EarlyButton from "./EarlyButton.svelte";
+	import CartButton from "./cta/CartButton.svelte";
 	import ContactModal from "./ContactModal.svelte";
 	import { onMount } from 'svelte';
 
@@ -67,7 +68,8 @@
           <span class="sr-only">Toggle theme</span>
         </Button>
 
-        <EarlyButton className="w-auto" />
+        <CartButton text="Buy" className="w-auto" />
+        <!-- <EarlyButton className="w-auto" /> -->
       </div>
 
       <!-- Mobile Navigation -->
