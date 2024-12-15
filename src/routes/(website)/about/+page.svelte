@@ -7,11 +7,25 @@
   import TeamGrid from "$lib/pages/about/TeamGrid.svelte";
   import ToolsList from "$lib/pages/about/ToolsList.svelte";
   import AboutCTA from "$lib/pages/about/AboutCTA.svelte";
+
+	import ComingSoon from "$lib/components/ComingSoon.svelte";
+
 </script>
+
+
+  <ComingSoon 
+    title="Coming Soon"
+    description="Indie-founding ftw, check back soon."
+  />
+
+
 
 <Nav />
 
 <main class="bg-background text-foreground">
+
+
+
   <section class="relative min-h-[50vh] flex items-center border-b">
     <div class="container relative z-10 pt-20">
       <div class="max-w-2xl mx-auto text-center">

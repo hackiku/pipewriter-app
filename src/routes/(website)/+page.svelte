@@ -9,12 +9,16 @@
   
 	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 	import PricingBar from "$lib/components/cta/PricingBar.svelte";
+	
+	import ComingSoon from "$lib/components/ComingSoon.svelte";
 
-  import { FileText, Layout, Layers } from 'lucide-svelte';
+	import { FileText, Layout, Layers } from 'lucide-svelte';
 
 </script>
 
 <BackgroundPattern />
+
+<!-- <ComingSoon /> -->
 
 <div class="flex flex-col min-h-screen">
   <main class="container flex-grow px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
