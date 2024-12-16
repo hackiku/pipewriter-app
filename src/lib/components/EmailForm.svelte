@@ -11,15 +11,16 @@
   export let className = "";
 
   const writerEmails = [
+    "hank@moody.ny",
     "ernie@hemingway.gg",
     "franz@kafka.dev",
+		"bea@xanthie.it",
     "fyodor@dostoevsky.ru",
     "margaret@atwood.ca",
     "jane@austen.io",
     "james@joyce.ie",
     "italo@calvino.it",
     "albert@camus.dz",
-    "hank@moody.ny",
     "isabel@allende.cl",
     "edgar@poe.xyz",
   ];
