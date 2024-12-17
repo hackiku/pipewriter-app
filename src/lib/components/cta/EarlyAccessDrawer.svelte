@@ -1,14 +1,14 @@
+<!-- $lib/components/cta/EarlyAccessDrawer.svelte -->
 <script lang="ts">
   import * as Drawer from "$lib/components/ui/drawer";
   import { Button } from "$lib/components/ui/button";
-  
-  export let open = false;
+  import { drawerOpen } from '$lib/stores/earlyAccessStore';
 </script>
 
-<Drawer.Root bind:open>
+<Drawer.Root bind:open={$drawerOpen}>
   <slot name="trigger" />
-  <Drawer.Content class="bg-background mt-24">
-    <div class="mx-auto w-full max-w-2xl">
+  <Drawer.Content class="bg-background">
+    <div class="mx-auto w-full max-w-2xl mt-24">
       <Drawer.Header class="text-center">
         <Drawer.Title>Early Access</Drawer.Title>
         <Drawer.Description>
