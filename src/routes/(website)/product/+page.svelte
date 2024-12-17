@@ -4,6 +4,5 @@
   import ProductPage from "$lib/pages/product/ProductPage.svelte";
 </script>
 
-<div class="opacity-30">PRODUCT</div>
 <!-- <AiPage /> -->
 <ProductPage />

@@ -2,7 +2,7 @@
 <script lang="ts">
   import { Sparkles } from "lucide-svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
-  import GumroadCartButton from "$lib/components/cta/GumroadCartButton.svelte";
+  import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
   import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 </script>
 
@@ -23,14 +23,7 @@
           Writer-first wireframing tools for copywriters and UX writers
         </p>
 
-        <EarlyAccessButton size="lg">
-          <GumroadCartButton 
-            slot="cart-button" 
-            text="Get Early Access $59" 
-            source="early_drawer" 
-            className="w-full max-w-sm"
-          />
-        </EarlyAccessButton>
+        <EarlyAccessButton size="lg" fullWidth={true} />
       </div>
     </div>
   </section>
@@ -45,24 +38,10 @@
     </div>
   </section>
 
-  <!-- Test Section -->
+  <!-- Bottom CTA Section -->
   <section class="py-20 bg-background border-t">
     <div class="container">
-      <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-3xl sm:text-4xl font-semibold mb-6">
-          Built for Writers
-        </h2>
-        <p class="text-xl text-muted-foreground mb-8">
-          Stop fighting with design tools. Start writing with superpowers.
-        </p>
-        <EarlyAccessButton>
-          <GumroadCartButton 
-            slot="cart-button" 
-            text="Join the Beta" 
-            source="early_drawer_bottom" 
-          />
-        </EarlyAccessButton>
-      </div>
+      <EarlyAccess embedded={true} showEmbed={false} />
     </div>
   </section>
 </main>
