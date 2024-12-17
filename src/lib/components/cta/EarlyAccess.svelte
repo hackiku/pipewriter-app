@@ -1,7 +1,7 @@
 <!-- $lib/components/cta/EarlyAccess.svelte -->
 <script lang="ts">
   import CartButton from "./CartButton.svelte";
-  import { Button } from "$lib/components/ui/button";
+  import Timer from "./Timer.svelte";
   import { ExternalLink } from "lucide-svelte";
   
   export let embedded = false;
@@ -10,32 +10,37 @@
 
 <div class="w-full {embedded ? 'max-w-5xl' : 'w-full'}">
   <!-- Sticky Header -->
-  <div class="sticky top-0 bg-background/80 backdrop-blur-sm z-10 -mx-6 px-6 pb-4 pt-2 border-b">
-    <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
-      <div class="flex-1">
-        <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] mb-2">
-          Writer-First Wireframing
-        </h2>
-        <p class="text-lg text-muted-foreground">
-          Join the first wave of copywriters using AI-powered design tools
-        </p>
+  <div class="sticky top-0 bg-background/80 backdrop-blur-sm z-10 -mx-6 px-6 pb-6 pt-4 border-b">
+    <div class="flex flex-col items-center text-center mb-6">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full 
+                  bg-primary/10 text-primary border border-primary/20 mb-4">
+        <Timer />
+        <span class="text-sm font-medium">until price increase</span>
       </div>
       
-      <div class="w-full sm:w-auto">
-        <CartButton 
-          size={embedded ? "default" : "lg"}
-          text="Add to Cart" 
-          showIcon={true}
-          className="w-full sm:w-auto"
-        />
-      </div>
+      <h2 class="text-3xl font-bold mb-2">
+        Early Access for <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED]">$59</span>
+        <span class="text-muted-foreground line-through ml-2">$99</span>
+      </h2>
+      <p class="text-lg text-muted-foreground max-w-xl">
+        Join the first wave of copywriters using AI-powered design tools. Price increases Jan 31st.
+      </p>
+    </div>
+
+    <div class="flex justify-center">
+      <CartButton 
+        size={embedded ? "default" : "lg"}
+        text="Add to Cart" 
+        showIcon={true}
+        className="w-full max-w-md"
+      />
     </div>
   </div>
   
   {#if showEmbed}
     <!-- Scrollable Content Area -->
     <div class="relative overflow-hidden bg-background">
-      <div class="h-[calc(100vh-18rem)] overflow-y-auto">
+      <div class="h-[calc(100vh-22rem)] overflow-y-auto">
         <!-- Gumroad Preview Content -->
         <div class="w-full aspect-[4/3] rounded-lg overflow-hidden">
           <div class="w-full h-full bg-black/5 backdrop-blur-sm 
