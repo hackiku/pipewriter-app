@@ -2,42 +2,76 @@
 <script lang="ts">
   import CartButton from "./CartButton.svelte";
   import { Button } from "$lib/components/ui/button";
+  import { ExternalLink } from "lucide-svelte";
   
   export let embedded = false;
   export let showEmbed = true;
 </script>
 
 <div class="w-full {embedded ? 'max-w-5xl' : 'w-full'}">
-  <!-- CTA Section -->
-  <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8 mb-8">
-    <div class="flex-1">
-      <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] mb-2">
-        Writer-First Wireframing
-      </h2>
-      <p class="text-lg text-muted-foreground">
-        Join the first wave of copywriters using AI-powered design tools
-      </p>
-    </div>
-    
-    <div class="w-full sm:w-auto">
-      <CartButton 
-        size={embedded ? "default" : "lg"}
-        text="Add to Cart" 
-        showIcon={true}
-        className="w-full sm:w-auto"
-      />
+  <!-- Sticky Header -->
+  <div class="sticky top-0 bg-background/80 backdrop-blur-sm z-10 -mx-6 px-6 pb-4 pt-2 border-b">
+    <div class="flex flex-col sm:flex-row items-center gap-6 sm:gap-8">
+      <div class="flex-1">
+        <h2 class="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED] mb-2">
+          Writer-First Wireframing
+        </h2>
+        <p class="text-lg text-muted-foreground">
+          Join the first wave of copywriters using AI-powered design tools
+        </p>
+      </div>
+      
+      <div class="w-full sm:w-auto">
+        <CartButton 
+          size={embedded ? "default" : "lg"}
+          text="Add to Cart" 
+          showIcon={true}
+          className="w-full sm:w-auto"
+        />
+      </div>
     </div>
   </div>
   
   {#if showEmbed}
-    <!-- Scrollable Gumroad Embed -->
-    <div class="relative w-full">
-      <div class="w-full aspect-[4/3] rounded-lg overflow-hidden">
-        <div class="w-full h-full bg-black/5 backdrop-blur-sm 
-                    border border-white/10 flex items-center justify-center">
-          <span class="text-sm text-muted-foreground">Gumroad Embed Preview</span>
+    <!-- Scrollable Content Area -->
+    <div class="relative overflow-hidden bg-background">
+      <div class="h-[calc(100vh-18rem)] overflow-y-auto">
+        <!-- Gumroad Preview Content -->
+        <div class="w-full aspect-[4/3] rounded-lg overflow-hidden">
+          <div class="w-full h-full bg-black/5 backdrop-blur-sm 
+                      border border-white/10 flex items-center justify-center">
+            <span class="text-sm text-muted-foreground">Gumroad Embed Preview</span>
+          </div>
+        </div>
+
+        <!-- Bottom Gradient & Gumroad Link -->
+        <div class="sticky bottom-0 pt-12">
+          <div class="absolute inset-x-0 top-0 h-24 bg-gradient-to-t from-background to-transparent" />
+          <div class="relative flex justify-center pb-6">
+            <a 
+              href="https://pipewriter.gumroad.com/l/wires-for-writers"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center gap-2 px-4 py-2 text-sm text-muted-foreground 
+                     hover:text-foreground transition-colors"
+            >
+              View on Gumroad
+              <ExternalLink class="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </div>
   {/if}
 </div>
+
+<style>
+  /* Hide scrollbar but keep functionality */
+  .overflow-y-auto {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .overflow-y-auto::-webkit-scrollbar {
+    display: none;
+  }
+</style>
