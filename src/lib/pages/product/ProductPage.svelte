@@ -4,8 +4,8 @@
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
   import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
   import EarlyAccessDrawer from "$lib/components/cta/EarlyAccessDrawer.svelte";
-  import * as Drawer from "$lib/components/ui/drawer";
-  import { drawerStore } from '$lib/stores/earlyAccessStore';
+  // import * as Drawer from "$lib/components/ui/drawer";
+  // import { drawerStore } from '$lib/stores/earlyAccessStore';
 </script>
 
 <main class="bg-background text-foreground">

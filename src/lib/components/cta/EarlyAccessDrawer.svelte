@@ -8,8 +8,8 @@
   let isOpen = false;
   $: isOpen = $drawerStore.isOpen;
   
-  function handleClose() {
-    drawerStore.close();
+  function handleOpenChange(open: boolean) {
+    if (!open) drawerStore.close();
   }
 
   onDestroy(() => {
@@ -17,42 +17,48 @@
   });
 </script>
 
-<Drawer.Root bind:open={isOpen}>
+<Drawer.Root bind:open={isOpen} onOpenChange={handleOpenChange}>
   <slot name="trigger" />
   
-  {#if isOpen}
-    <Drawer.Portal>
-      <Drawer.Overlay class="fixed inset-0 bg-black/40 z-50" />
-      <Drawer.Content 
-        class="fixed bottom-0 left-0 right-0 bg-background z-50 
-               border-t border-border shadow-lg rounded-t-xl"
-      >
-        <div class="mx-auto w-full max-w-2xl p-6">
-          <div class="flex justify-center mb-2">
-            <div class="w-12 h-1.5 rounded-full bg-muted" />
-          </div>
-          
-          <Drawer.Header class="text-center">
-            <Drawer.Title class="text-2xl font-bold">Early Access</Drawer.Title>
-            <Drawer.Description class="text-muted-foreground">
-              Join the beta program for Pipewriter
-            </Drawer.Description>
-          </Drawer.Header>
-          
-          <div class="p-4">
-            <slot />
-          </div>
+  <Drawer.Portal>
+    <Drawer.Overlay class="fixed inset-0 bg-black/40 z-50" />
+    <Drawer.Content 
+      class="fixed bottom-0 left-0 right-0 z-50 
+             bg-background border-t border-border
+             rounded-t-[10px] shadow-lg"
+    >
+      <!-- Drawer Handle -->
+      <div class="mx-auto w-full max-w-5xl">
+        <div class="flex h-7 items-center justify-center">
+          <div class="w-12 h-1.5 rounded-full bg-muted/60" />
+        </div>
+      </div>
 
-          <Drawer.Footer class="flex justify-center">
+      <!-- Main Content -->
+      <div class="mx-auto w-full max-w-5xl px-6 pb-6">
+        <!-- <Drawer.Header class="text-center pb-4">
+          <Drawer.Title class="text-2xl font-bold">Early Access</Drawer.Title>
+          <Drawer.Description class="text-muted-foreground">
+            Join the beta program for Pipewriter
+          </Drawer.Description>
+        </Drawer.Header> -->
+        
+        <!-- Scrollable Content Area -->
+        <div class="relative max-h-[calc(80vh-12rem)] overflow-y-auto">
+          <slot />
+        </div>
+
+        <Drawer.Footer class="flex justify-center pt-4">
+          <Drawer.Close asChild let:builder>
             <Button 
               variant="ghost" 
-              on:click={handleClose}
+              builders={[builder]}
             >
               Close
             </Button>
-          </Drawer.Footer>
-        </div>
-      </Drawer.Content>
-    </Drawer.Portal>
-  {/if}
+          </Drawer.Close>
+        </Drawer.Footer>
+      </div>
+    </Drawer.Content>
+  </Drawer.Portal>
 </Drawer.Root>
