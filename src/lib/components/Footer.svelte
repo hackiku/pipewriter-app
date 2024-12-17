@@ -114,7 +114,7 @@
     <!-- Copyright -->
     <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-800">
       <div class="text-sm text-muted-foreground">
-        Copyalright © {year} Pipewriter | <a href="/terms" class="hover:underline">Terms</a> | <a href="/privacy" class="hover:underline">Privacy</a>
+        Copyalright © {year} Pipewriter | <a href="/terms" target="_blank" class="hover:underline">Terms</a> | <a href="/privacy" target="_blank" class="hover:underline">Privacy</a>
       </div>
     </div>
   </div>
