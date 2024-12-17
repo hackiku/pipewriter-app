@@ -2,16 +2,16 @@
 <script lang="ts">
   import { ArrowUp } from "lucide-svelte";
   import { cn } from '$lib/utils';
-  import { drawerOpen } from '$lib/stores/earlyAccessStore';
+  import { drawerStore } from '$lib/stores/earlyAccessStore';
   
   export let size: "default" | "lg" = "default";
   export let className = "";
   export let fullWidth = false;
-  export let builders = [];
-
-  const handleClick = () => {
-    drawerOpen.set(true);
-  };
+  export let source = "default";
+  
+  function handleClick() {
+    drawerStore.open(source);
+  }
 </script>
 
 <button
@@ -30,9 +30,7 @@
     "transition-all duration-200",
     className
   )}
-  on:click={handleClick}
-  {...$$restProps}
-  use:builders={builders}
+  on:click|preventDefault|stopPropagation={handleClick}
 >
   <span 
     class="absolute inset-0 bg-gradient-to-r from-[#B345ED] to-[#3644FE] 

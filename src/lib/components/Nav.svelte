@@ -61,8 +61,12 @@
           </a>
         {/each}
         
-        <EarlyAccessButton size="sm" className="font-bold bg-gradient-to-r from-[#3644FE] to-[#B345ED] text-white" />
-        
+        <EarlyAccessButton 
+					size="sm" 
+					source="nav"
+					className="font-bold bg-gradient-to-r from-[#3644FE] to-[#B345ED] text-white" 
+				/>
+
         <Button on:click={toggleMode} variant="outline" size="icon" class="w-10">
           <Sun class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
           <Moon class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
