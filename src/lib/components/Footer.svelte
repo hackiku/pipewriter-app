@@ -57,22 +57,33 @@
 	];
 </script>
 
-<footer
-	class="w-full bg-slate-100 dark:bg-slate-900/50 border-t border-gray-200 dark:border-gray-800"
->
+<footer class="w-full bg-slate-100 dark:bg-slate-900/50 border-t border-gray-200 dark:border-gray-800">
 	<div class="container px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44 py-8">
-		<div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-			<!-- About -->
-			<div class="lg:col-span-5 space-y-4">
-				<div class="flex items-center gap-1">
-					<div>✍️</div>
-					<h3 class="text-2xl font-semibold">Pipewriter</h3>
+		<!-- Main Grid -->
+		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
+			<!-- Brand & Social - Spans full width on mobile, half on medium, 5 cols on large -->
+			<div class="md:col-span-1 lg:col-span-5 flex flex-col justify-between">
+				<!-- Logo & Description -->
+				<div class="space-y-4">
+					<div class="flex items-center gap-1">
+						<div>✍️</div>
+						<h3 class="text-2xl font-semibold">Pipewriter</h3>
+					</div>
+					<p class="text-muted-foreground text-sm max-w-xs">
+						Professional website copy decks in Google Docs. Design-ready templates + sidebar app.
+					</p>
+					<!-- Early Access Button -->
+					<div class="pt-2">
+						<EarlyAccessButton
+							size="sm"
+							source="footer"
+							className="w-fit font-normal"
+						/>
+					</div>
 				</div>
-				<p class="text-muted-foreground text-sm max-w-xs">
-					Professional website copy decks in Google Docs. Design-ready templates
-					+ sidebar app.
-				</p>
-				<div class="flex gap-6 mt-6">
+
+				<!-- Social Icons -->
+				<div class="flex gap-6 mt-8">
 					{#each socials as social}
 						<a
 							href={social.url}
@@ -99,39 +110,36 @@
 				</div>
 			</div>
 
-			<!-- Links -->
-			<div class="lg:col-span-3">
-				<h4 class="text-2xl font-medium mb-4">Links</h4>
-				<nav class="flex flex-col space-y-2 text-sm">
+			<!-- Links - Spans half width on medium, 3 cols on large -->
+			<div class="md:col-span-1 lg:col-span-3">
+				<h4 class="text-lg font-medium mb-4">Quick Links</h4>
+				<nav class="grid grid-cols-1 gap-2 text-sm">
 					{#each navItems as item}
 						<a
 							href={item.href}
-							class="text-muted-foreground hover:text-foreground transition-colors"
+							class="text-muted-foreground hover:text-foreground transition-colors w-fit"
 						>
 							{item.label}
 						</a>
 					{/each}
-					<EarlyAccessButton
-						size="sm"
-						source="footer"
-						className="w-fit font-normal"
-					/>
 				</nav>
 			</div>
 
-			<!-- Updates -->
-			<div class="lg:col-span-4">
-				<h4 class="text-2xl font-medium mb-4">UX-up your writerly inbox</h4>
+			<!-- Newsletter - Spans full width on mobile, spans remaining space on larger screens -->
+			<div class="md:col-span-2 lg:col-span-4 lg:pl-4">
+				<h4 class="text-lg font-medium mb-4">UX-up your writerly inbox</h4>
 				<EmailForm size="sm" wrap={true} />
 			</div>
 		</div>
 
 		<!-- Copyright -->
-		<div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-800">
+		<div class="mt-12 pt-4 border-t border-gray-200 dark:border-gray-800">
 			<div class="text-sm text-muted-foreground">
-				Copyalright © {year} Pipewriter |
-				<a href="/terms" target="_blank" class="hover:underline">Terms</a>
-				| <a href="/privacy" target="_blank" class="hover:underline">Privacy</a>
+				<span>Copyalright © {year} Pipewriter</span>
+				<span class="mx-2">|</span>
+				<a href="/terms" class="hover:underline">Terms</a>
+				<span class="mx-2">|</span>
+				<a href="/privacy" class="hover:underline">Privacy</a>
 			</div>
 		</div>
 	</div>

@@ -38,14 +38,14 @@
   />
   
   <div class="relative z-10 flex items-center justify-center text-white w-full">
-    <div class="relative flex items-center justify-center w-full">
-      <span class="transition-all duration-300 group-hover:-translate-x-4">
+    <div class="relative flex items-center justify-center w-full gap-0 group-hover:gap-3 transition-all duration-300">
+      <span class="transition-all duration-300 translate-x-2 group-hover:-translate-x-2">
         Early Access
       </span>
       <ArrowUp 
-        class="absolute right-0 w-4 h-4 transform transition-all duration-300 
-              translate-y-8 opacity-0
-              group-hover:translate-y-0 group-hover:opacity-100" 
+        class="w-4 h-4 transform transition-all duration-300 
+              translate-x-[-8px] translate-y-8 opacity-0
+              group-hover:translate-x-2 group-hover:translate-y-0 group-hover:opacity-100" 
       />
     </div>
   </div>

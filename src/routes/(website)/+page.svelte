@@ -29,11 +29,12 @@
 					Wireframes for Writers in Google Docs
 				</h1>
 
-				<EarlyAccessButton
-					size="lg"
-					fullWidth={true}
-					source="hero-home"
-				/>
+				<div class="w-full flex justify-start">
+					<EarlyAccessButton
+						size="lg"
+						source="hero-home"
+					/>
+				</div>
 			</div>
 
 			<!-- Dropper Preview -->
