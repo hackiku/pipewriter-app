@@ -1,5 +1,6 @@
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
+	import { dev } from '$app/environment';
   import "../../app.css";
   import Nav from "$lib/components/Nav.svelte";
   import Footer from "$lib/components/Footer.svelte";
@@ -8,7 +9,10 @@
   import { ModeWatcher } from "mode-watcher";
   import { drawerStore } from '$lib/stores/earlyAccessStore';
   import { onMount } from 'svelte';
-  
+
+	import { injectAnalytics } from '@vercel/analytics/sveltekit';
+	injectAnalytics({ mode: dev ? 'development' : 'production' });
+
   let isIframe = false;
   
   onMount(() => {
