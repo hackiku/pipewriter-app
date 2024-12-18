@@ -49,12 +49,9 @@
   </section>
 
   <!-- Video Demo Section -->
-  <section class="py-32 bg-background relative overflow-hidden">
+  <section class="py-2 bg-background relative overflow-hidden">
     <div class="container">
-      <h2 class="text-3xl sm:text-4xl font-semibold text-center mb-12">
-        See it in Action
-      </h2>
-
+    
       <!-- Video Placeholder -->
       <div class="relative w-full max-w-4xl mx-auto">
         <div class="w-full aspect-video bg-black/5 backdrop-blur-sm rounded-xl overflow-hidden">

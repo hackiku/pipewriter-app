@@ -2,6 +2,7 @@
 <script lang="ts">
   import CartButton from "./CartButton.svelte";
   import Timer from "./Timer.svelte";
+  import GumroadEmbed from "./GumroadEmbed.svelte";
   import { ExternalLink } from "lucide-svelte";
   
   export let embedded = false;
@@ -10,12 +11,16 @@
 
 <div class="w-full {embedded ? 'max-w-5xl' : 'w-full'}">
   <!-- Sticky Header -->
-  <div class="sticky top-0 bg-background/80 backdrop-blur-sm z-10 -mx-6 px-6 pb-6 pt-4 border-b">
+  <div class="sticky top-0 bg-background/80 backdrop-blur-sm z-10 -mx-6 px-6 py-1 border-b">
     <div class="flex flex-col md:flex-row md:items-start gap-6 md:gap-8 mb-6">
       <div class="flex-1 text-center md:text-left">
+        <!-- <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full 
+                    bg-primary/10 text-primary border border-primary/20 mb-4">
+          <Timer showText={true} />
+        </div> -->
         
         <h2 class="text-3xl font-bold mb-2">
-          Early Access for <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED]">$59</span>
+          Early Access Forever for <span class="bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED]">$59</span>
           <span class="text-muted-foreground line-through ml-2">$99</span>
         </h2>
         <p class="text-lg text-muted-foreground max-w-xl">
@@ -50,18 +55,10 @@
   </div>
   
   {#if showEmbed}
-    <!-- Scrollable Content Area -->
+    <!-- Gumroad Embed Area -->
     <div class="relative overflow-hidden bg-background">
-      <div class="h-[calc(100vh-22rem)] overflow-y-auto">
-        <!-- Gumroad Preview Content -->
-        <div class="w-full aspect-[4/3] rounded-lg overflow-hidden">
-          <div class="w-full h-full bg-black/5 backdrop-blur-sm 
-                      border border-white/10 flex items-center justify-center">
-            <span class="text-sm text-muted-foreground">Gumroad Embed Preview</span>
-          </div>
-        </div>
-      </div>
-    </div>
+      <GumroadEmbed height="calc(100vh - 12rem)" showGradient={true} />
+		</div>
   {/if}
 </div>
 
