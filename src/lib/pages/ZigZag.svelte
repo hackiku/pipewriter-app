@@ -4,7 +4,7 @@
   import { quintOut } from 'svelte/easing';
   import { ArrowRight } from 'lucide-svelte';
   import { onMount } from 'svelte';
-  import EditableCursor from '$lib/components/EditableCursor.svelte';
+  import EditableCursor from './EditableCursor.svelte';
 
   export let visible = false;
   export let direction: 'left' | 'right' = 'left';
