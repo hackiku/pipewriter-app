@@ -1,4 +1,3 @@
-<!-- src/lib/pages/Demo.svelte -->
 <script lang="ts">
   import { Sparkles } from "lucide-svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
@@ -45,6 +44,6 @@
 
   <!-- Dropper Preview -->
   <div class="relative flex-1 lg:max-w-[500px] min-h-[300px] lg:min-h-[400px]">
-    <DemoDropper />
+    <DemoDropper columns={3} rows={3} maxWidth="100%" />
   </div>
 </div>
