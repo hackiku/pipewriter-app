@@ -12,6 +12,14 @@
     if (binding === 'eyebrow') eyebrowText = target.innerText;
     if (binding === 'headline') headlineText = target.innerText;
   }
+
+  function handleElementSelect(elementId: string) {
+    if (elementId === 'blurbs-3') {
+      if (typeof window !== 'undefined' && (window as any).showBlurbs) {
+        (window as any).showBlurbs();
+      }
+    }
+  }
 </script>
 
 <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 pt-20 lg:pt-40">
@@ -41,6 +49,7 @@
   </div>
 
   <div class="relative flex-1 lg:max-w-[500px] min-h-[300px] lg:min-h-[400px]">
-    <DemoDropper columns={3} rows={3} maxWidth="100%" />
+    <DemoDropper columns={3} rows={3} maxWidth="100%" onElementSelect={handleElementSelect} />
   </div>
 </div>
+

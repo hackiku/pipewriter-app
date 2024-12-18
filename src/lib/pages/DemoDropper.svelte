@@ -6,6 +6,7 @@
   export let columns = 3;
   export let rows = 3;
   export let maxWidth = "500px";
+  export let onElementSelect: (elementId: string) => void;
 
   const clickableElements = [
     'hero',
@@ -24,8 +25,7 @@
 
   function handleElementSelect(elementId: string) {
     if (clickableElements.includes(elementId)) {
-      console.log(`Element ${elementId} clicked`);
-      // Add your logic here for handling clickable elements
+      onElementSelect(elementId);
     }
   }
 </script>
@@ -47,3 +47,4 @@
     </div>
   </div>
 </div>
+
