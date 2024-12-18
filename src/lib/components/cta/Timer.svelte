@@ -1,6 +1,8 @@
-<!-- $lib/components/cta/Timer.svelte -->
+<!-- src/lib/components/cta/Timer.svelte -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
+  
+  export let showText = false;
   
   let days: number = 0;
   let hours: number = 0;
@@ -36,10 +38,15 @@
   });
 </script>
 
-<div class="flex items-center gap-1 tabular-nums font-medium">
-  {#if days > 0}
-    <span>{days}d</span>
+<div class="flex items-center gap-2 tabular-nums font-medium">
+  <div class="flex items-center gap-1">
+    {#if days > 0}
+      <span>{days}d</span>
+    {/if}
+    <span>{hours}h</span>
+    <span>{minutes}m</span>
+  </div>
+  {#if showText}
+    <span>until price increase</span>
   {/if}
-  <span>{hours}h</span>
-  <span>{minutes}m</span>
 </div>

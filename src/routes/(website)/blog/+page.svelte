@@ -18,8 +18,8 @@
 				<h1 class="text-4xl sm:text-5xl md:text-7xl font-semibold">
           Writer's Unblock
         </h1>
-        <p class="text-xl text-muted-foreground">
-          Tips, tricks, and stories about writing-first product development.
+        <p class="text-2xl text-muted-foreground">
+          Comin' up very soon to UX you up and stuff.
         </p>
 
         <!-- Email Form -->
