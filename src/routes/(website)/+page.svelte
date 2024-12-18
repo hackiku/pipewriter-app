@@ -1,15 +1,10 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
 	import { Sparkles, FileText, Layout } from "lucide-svelte";
-	// layout
 	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
 	import DropperGrid from "$lib/iframe/features/dropper/DropperGrid.svelte";
 	import LogosMarquee from "$lib/components/LogosMarquee.svelte";
-	
 	import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
-	import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
-	import EarlyAccessDrawer from "$lib/components/cta/EarlyAccessDrawer.svelte";
-	
 	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 </script>
 
@@ -34,29 +29,20 @@
 					Wireframes for Writers in Google Docs
 				</h1>
 
-				<!-- Updated Hero CTA -->
-				<EarlyAccessDrawer>
-					<div slot="trigger">
-						<EarlyAccessButton
-							size="lg"
-							fullWidth={true}
-							source="hero-home"
-						/>
-					</div>
-					<EarlyAccess />
-				</EarlyAccessDrawer>
+				<EarlyAccessButton
+					size="lg"
+					fullWidth={true}
+					source="hero-home"
+				/>
 			</div>
 
 			<!-- Dropper Preview -->
 			<div
 				class="relative flex-1 lg:max-w-[500px] min-h-[300px] lg:min-h-[400px]"
 			>
-				<!-- Gradient Overlay -->
 				<div
 					class="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-background to-transparent z-10"
 				/>
-
-				<!-- Dropper Content -->
 				<div class="absolute inset-0 overflow-hidden">
 					<DropperGrid />
 				</div>
@@ -77,7 +63,7 @@
 
 		<section class="py-16 flex flex-col items-center gap-12">
 			<div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-				<!-- Feature cards... -->
+				<!-- Feature cards -->
 				<div class="flex flex-col items-center text-center group">
 					<div class="mb-4">
 						<FileText
@@ -119,16 +105,10 @@
 				<h2 class="text-3xl text-center sm:text-4xl font-semibold mb-8">
 					Check out writer-first prototyping
 				</h2>
-				<!-- Updated Bottom CTA -->
-				<EarlyAccessDrawer>
-					<div slot="trigger">
-						<EarlyAccessButton
-							size="lg"
-							source="bottom-home"
-						/>
-					</div>
-					<EarlyAccess />
-				</EarlyAccessDrawer>
+				<EarlyAccessButton
+					size="lg"
+					source="bottom-home"
+				/>
 			</div>
 		</section>
 	</main>
