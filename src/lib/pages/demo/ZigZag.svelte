@@ -4,7 +4,8 @@
   import { quintOut } from 'svelte/easing';
   import { ArrowRight } from 'lucide-svelte';
   import { onMount } from 'svelte';
-  import EditableCursor from './EditableCursor.svelte';
+  import EditableStyles from "./EditableStyles.svelte";
+  import { editingStore } from "$lib/stores/editingStore";
 
   export let visible = false;
   export let direction: 'left' | 'right' = 'left';
@@ -17,6 +18,14 @@
     heading: direction === 'left' ? 150 : 300,
     content: direction === 'left' ? 300 : 150
   };
+
+  function handleEditStart(id: string) {
+    editingStore.startEditing(id);
+  }
+
+  function handleEditStop() {
+    editingStore.stopEditing();
+  }
 </script>
 
 {#if visible}
@@ -30,33 +39,42 @@
       in:fly={{ x: direction === 'left' ? -20 : 20, duration: 300, delay: delays.content, easing: quintOut }}
     >
       <div class="space-y-3">
-        <h3 
-          class="text-lg font-medium text-muted-foreground outline-none" 
-          contenteditable="true"
-          bind:innerText={heading}
-        >
-          {heading}
-          <EditableCursor />
-        </h3>
+        <EditableStyles elementId="zigzag-{direction}-heading">
+          <h3 
+            class="text-lg font-medium text-muted-foreground outline-none" 
+            contenteditable="true"
+            bind:innerText={heading}
+            on:focus={() => handleEditStart(`zigzag-${direction}-heading`)}
+            on:blur={handleEditStop}
+          >
+            {heading}
+          </h3>
+        </EditableStyles>
         
-        <h2 
-          class="text-3xl font-semibold outline-none"
-          contenteditable="true"
-          bind:innerText={subheading}
-        >
-          {subheading}
-          <EditableCursor />
-        </h2>
+        <EditableStyles elementId="zigzag-{direction}-subheading">
+          <h2 
+            class="text-3xl font-semibold outline-none"
+            contenteditable="true"
+            bind:innerText={subheading}
+            on:focus={() => handleEditStart(`zigzag-${direction}-subheading`)}
+            on:blur={handleEditStop}
+          >
+            {subheading}
+          </h2>
+        </EditableStyles>
       </div>
 
-      <p 
-        class="text-lg text-muted-foreground outline-none"
-        contenteditable="true"
-        bind:innerText={description}
-      >
-        {description}
-        <EditableCursor />
-      </p>
+      <EditableStyles elementId="zigzag-{direction}-description">
+        <p 
+          class="text-lg text-muted-foreground outline-none"
+          contenteditable="true"
+          bind:innerText={description}
+          on:focus={() => handleEditStart(`zigzag-${direction}-description`)}
+          on:blur={handleEditStop}
+        >
+          {description}
+        </p>
+      </EditableStyles>
 
       <div class="flex items-center gap-2 group cursor-pointer">
         <span class="font-medium">Learn more</span>

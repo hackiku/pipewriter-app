@@ -5,8 +5,18 @@
   import { ExternalLink } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
   import { demoContent } from "./data";
+  import EditableStyles from "./EditableStyles.svelte";
+  import { editingStore } from "$lib/stores/editingStore";
   
   export let visible = false;
+
+  function handleEditStart(id: string) {
+    editingStore.startEditing(id);
+  }
+
+  function handleEditStop() {
+    editingStore.stopEditing();
+  }
 </script>
 
 {#if visible}
@@ -33,27 +43,40 @@
 
         <!-- Content -->
         <div class="flex-1 space-y-4">
-          <blockquote 
-            class="text-lg text-muted-foreground italic outline-none cursor-text"
-            contenteditable="true"
-          >
-            "{card.quote}"
-          </blockquote>
+          <EditableStyles elementId="testimonial-{i}-quote">
+            <blockquote 
+              class="text-lg text-muted-foreground italic outline-none"
+              contenteditable="true"
+              on:focus={() => handleEditStart(`testimonial-${i}-quote`)}
+              on:blur={handleEditStop}
+            >
+              "{card.quote}"
+            </blockquote>
+          </EditableStyles>
 
           <div class="flex items-end justify-between">
             <div>
-              <div 
-                class="font-semibold outline-none cursor-text"
-                contenteditable="true"
-              >
-                {card.firstName} {card.lastName}
-              </div>
-              <div 
-                class="text-sm text-muted-foreground outline-none cursor-text"
-                contenteditable="true"
-              >
-                {card.role}{#if card.company}, {card.company}{/if}
-              </div>
+              <EditableStyles elementId="testimonial-{i}-name">
+                <div 
+                  class="font-semibold outline-none"
+                  contenteditable="true"
+                  on:focus={() => handleEditStart(`testimonial-${i}-name`)}
+                  on:blur={handleEditStop}
+                >
+                  {card.firstName} {card.lastName}
+                </div>
+              </EditableStyles>
+
+              <EditableStyles elementId="testimonial-{i}-role">
+                <div 
+                  class="text-sm text-muted-foreground outline-none"
+                  contenteditable="true"
+                  on:focus={() => handleEditStart(`testimonial-${i}-role`)}
+                  on:blur={handleEditStop}
+                >
+                  {card.role}{#if card.company}, {card.company}{/if}
+                </div>
+              </EditableStyles>
             </div>
 
             <Button 

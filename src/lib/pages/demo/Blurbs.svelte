@@ -4,6 +4,8 @@
   import { quintOut } from 'svelte/easing';
   import { onMount } from 'svelte';
   import { demoContent } from "./data";
+  import EditableStyles from "./EditableStyles.svelte";
+  import { editingStore } from "$lib/stores/editingStore";
   
   export let visible = false;
 
@@ -23,9 +25,18 @@
         const selection = window.getSelection();
         selection?.removeAllRanges();
         selection?.addRange(range);
+        editingStore.startEditing('blurb-0-title');
       }, 500);
     }
   });
+
+  function handleEditStart(id: string) {
+    editingStore.startEditing(id);
+  }
+
+  function handleEditStop() {
+    editingStore.stopEditing();
+  }
 </script>
 
 {#if visible}
@@ -39,27 +50,39 @@
           class="flex flex-col text-left space-y-3"
           in:fly={{ y: 20, duration: 300, delay: 150 * (i + 1), easing: quintOut }}
         >
-          <div 
-            class="mb-2 font-bold text-3xl text-primary/80 outline-none cursor-text editable-content"
-            contenteditable="true"
-          >
-            {blurb.emoji}
-          </div>
+          <EditableStyles elementId="blurb-{i}-emoji">
+            <div 
+              class="mb-2 font-bold text-3xl text-primary/80 outline-none"
+              contenteditable="true"
+              on:focus={() => handleEditStart(`blurb-${i}-emoji`)}
+              on:blur={handleEditStop}
+            >
+              {blurb.emoji}
+            </div>
+          </EditableStyles>
           
-          <h3 
-            class="text-2xl font-semibold outline-none cursor-text editable-content"
-            contenteditable="true"
-            use:bindRef={i === 0}
-          >
-            {blurb.title}
-          </h3>
+          <EditableStyles elementId="blurb-{i}-title">
+            <h3 
+              class="text-2xl font-semibold outline-none"
+              contenteditable="true"
+              use:bindRef={i === 0}
+              on:focus={() => handleEditStart(`blurb-${i}-title`)}
+              on:blur={handleEditStop}
+            >
+              {blurb.title}
+            </h3>
+          </EditableStyles>
           
-          <p 
-            class="text-lg text-muted-foreground outline-none cursor-text editable-content"
-            contenteditable="true"
-          >
-            {blurb.description}
-          </p>
+          <EditableStyles elementId="blurb-{i}-description">
+            <p 
+              class="text-lg text-muted-foreground outline-none"
+              contenteditable="true"
+              on:focus={() => handleEditStart(`blurb-${i}-description`)}
+              on:blur={handleEditStop}
+            >
+              {blurb.description}
+            </p>
+          </EditableStyles>
         </div>
       {/each}
     </div>
@@ -67,38 +90,18 @@
 {/if}
 
 <style>
-  .editable-content {
-    position: relative;
-    transition: all 0.2s ease;
-    padding: 0.25rem 0.5rem;
-    margin: -0.25rem -0.5rem;
-    border-radius: 6px;
-  }
-
-  .editable-content:hover {
-    background: rgb(var(--primary) / 0.04);
-  }
-
-  .editable-content:focus {
-    background: rgb(var(--primary) / 0.08);
-    box-shadow: 
-      inset 0 0 0 2px rgb(var(--primary) / 0.2),
-      0 0 0 1px rgb(var(--primary) / 0.1);
-    outline: none;
-  }
-
-  /* Smooth transition for selection */
+  /* Selection styling */
   ::selection {
     background: rgb(var(--primary) / 0.2);
   }
 
   /* Fix emoji selection */
-  .editable-content:first-child::selection {
+  [contenteditable="true"]:first-child::selection {
     background: transparent;
   }
 
   @media (max-width: 768px) {
-    .editable-content {
+    [contenteditable="true"] {
       -webkit-tap-highlight-color: rgb(var(--primary) / 0.1);
     }
   }
