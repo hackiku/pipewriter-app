@@ -2,82 +2,46 @@
 <script lang="ts">
   import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
   import LogosMarquee from "$lib/components/LogosMarquee.svelte";
-  import Demo from "$lib/pages/Demo.svelte";
-  import Blurbs from "$lib/pages/Blurbs.svelte";
-  import ZigZag from "$lib/pages/ZigZag.svelte";
+  import { demoContent } from "$lib/pages/demo/data";
+  import Hero from "$lib/pages/demo/Hero.svelte";
+  import Dropper from "$lib/pages/demo/Dropper.svelte";
+  import Demo from "$lib/pages/demo/Demo.svelte";
   import { onMount } from 'svelte';
 
-  let blurbsVisible = false;
-  let zigZagLeftVisible = false;
-  let zigZagRightVisible = false;
+  let demo: Demo;
   
-  let blurbsSection: HTMLElement;
-  let zigZagLeftSection: HTMLElement;
-  let zigZagRightSection: HTMLElement;
-
-  function showBlurbs() {
-    blurbsVisible = true;
-    setTimeout(() => {
-      blurbsSection?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
+  function handleElementSelect(elementId: string) {
+    if (demo) {
+      demo.showElement(elementId);
+    }
   }
-
-  function showZigZagLeft() {
-    zigZagLeftVisible = true;
-    setTimeout(() => {
-      zigZagLeftSection?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  }
-
-  function showZigZagRight() {
-    zigZagRightVisible = true;
-    setTimeout(() => {
-      zigZagRightSection?.scrollIntoView({ behavior: 'smooth' });
-    }, 100);
-  }
-
-  onMount(() => {
-    (window as any).showBlurbs = showBlurbs;
-    (window as any).showZigZagLeft = showZigZagLeft;
-    (window as any).showZigZagRight = showZigZagRight;
-  });
 </script>
 
 <BackgroundPattern />
 
 <div class="flex flex-col min-h-screen">
   <main class="container flex-grow px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
-    <Demo />
+    <!-- Hero with closer logos -->
+    <div class="min-h-[calc(100vh-5rem)] flex flex-col justify-center">
+      <section class="flex items-center justify-between">
+        <Hero 
+          eyebrowText={demoContent.hero.eyebrow}
+          headlineText={demoContent.hero.headline}
+        />
+      </section>
 
-    <!-- Logos Section -->
-    <div class="py-8">
-      <LogosMarquee />
+      <!-- Logos closer to hero -->
+      <div class="mt-12 mb-24">
+        <LogosMarquee />
+      </div>
     </div>
 
-    <!-- ZigZag Sections -->
-    <section bind:this={zigZagLeftSection}>
-      <ZigZag 
-        visible={zigZagLeftVisible} 
-        direction="left"
-        heading="Built For Writers"
-        subheading="Professional Grade Templates"
-        description="Create beautiful wireframes directly in Google Docs. Perfect for copywriters and content designers who want to present their work professionally."
-      />
-    </section>
-
-    <section bind:this={zigZagRightSection}>
-      <ZigZag 
-        visible={zigZagRightVisible} 
-        direction="right"
-        heading="Seamless Integration"
-        subheading="Works Where You Work"
-        description="No need to learn new tools. Create and edit wireframes right in your Google Doc, making it easy to collaborate with your team."
-      />
-    </section>
-
-    <!-- Features Grid -->
-    <section class="py-16" bind:this={blurbsSection}>
-      <Blurbs visible={blurbsVisible} />
-    </section>
+    <!-- Demo Canvas -->
+    <div id="demo-section">
+      <Demo bind:this={demo} />
+    </div>
   </main>
 </div>
+
+<!-- Global Dropper -->
+<Dropper {handleElementSelect} startOpen={true} />

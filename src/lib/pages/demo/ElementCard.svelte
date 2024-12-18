@@ -1,9 +1,9 @@
-<!-- src/lib/pages/DemoElementCard.svelte -->
+<!-- src/lib/pages/demo/ElementCard.svelte -->
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
-  import type { ElementObject } from "$lib/iframe/elements";
+  import type { ElementObject } from "./elements";
   import { Plus } from 'lucide-svelte';
 
   export let element: ElementObject;
@@ -20,11 +20,9 @@
     "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700",
     disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-slate-400/30 dark:hover:bg-slate-900/80"
   );
-
-  $: imgSrc = element.src;
 </script>
 
-<div class="relative">
+<div class="relative aspect-video">
   <Tooltip.Root>
     <Tooltip.Trigger asChild>
       <Button
@@ -35,7 +33,7 @@
       >
         <div class="relative w-full h-full">
           <img
-            src={imgSrc}
+            src={element.src}
             alt={element.alt}
             class="w-full h-full object-cover group-hover:opacity-40 dark:invert"
           />

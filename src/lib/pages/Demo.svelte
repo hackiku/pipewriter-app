@@ -1,103 +1,97 @@
-<!-- src/lib/pages/Demo.svelte -->
+<!-- src/lib/pages/demo/Demo.svelte -->
 <script lang="ts">
-  import { Sparkles } from "lucide-svelte";
-  import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
-  import DemoDropper from "./DemoDropper.svelte";
+  import { onMount } from 'svelte';
+  import Hero from "./Hero.svelte";
+  import Dropper from "./Dropper.svelte";
+  import Blurbs from "./Blurbs.svelte";
+  import ZigZag from "../ZigZag.svelte";
+  import LogosMarquee from "$lib/components/LogosMarquee.svelte";
   import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
-  
-  let eyebrowText = "Type + Prototype";
-  let headlineText = "Wireframes for Writers in Google Docs";
-  let subheadlineText = "10× Your Copy Decks";
-  let descriptionText = "Create beautiful wireframes directly in Google Docs. Perfect for copywriters and content designers who want to present their work professionally.";
+  import { demoContent } from "./data";
 
-  function handleInput(event: Event, binding: 'eyebrow' | 'headline' | 'subheadline' | 'description') {
-    const target = event.target as HTMLElement;
-    if (binding === 'eyebrow') eyebrowText = target.innerText;
-    if (binding === 'headline') headlineText = target.innerText;
-    if (binding === 'subheadline') subheadlineText = target.innerText;
-    if (binding === 'description') descriptionText = target.innerText;
-  }
+  let blurbsVisible = false;
+  let zigZagLeftVisible = false;
+  let zigZagRightVisible = false;
+  
+  let blurbsSection: HTMLElement;
+  let zigZagLeftSection: HTMLElement;
+  let zigZagRightSection: HTMLElement;
 
   function handleElementSelect(elementId: string) {
-    if (elementId === 'blurbs-3' && typeof window !== 'undefined' && (window as any).showBlurbs) {
-      (window as any).showBlurbs();
+    if (elementId === 'blurbs-3') {
+      blurbsVisible = true;
+      setTimeout(() => {
+        blurbsSection?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     }
-    if (elementId === 'zz-left' && typeof window !== 'undefined' && (window as any).showZigZagLeft) {
-      (window as any).showZigZagLeft();
+    if (elementId === 'zz-left') {
+      zigZagLeftVisible = true;
+      setTimeout(() => {
+        zigZagLeftSection?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     }
-    if (elementId === 'zz-right' && typeof window !== 'undefined' && (window as any).showZigZagRight) {
-      (window as any).showZigZagRight();
+    if (elementId === 'zz-right') {
+      zigZagRightVisible = true;
+      setTimeout(() => {
+        zigZagRightSection?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     }
   }
+
+  onMount(() => {
+    (window as any).showBlurbs = () => handleElementSelect('blurbs-3');
+    (window as any).showZigZagLeft = () => handleElementSelect('zz-left');
+    (window as any).showZigZagRight = () => handleElementSelect('zz-right');
+  });
 </script>
 
 <!-- Hero Section -->
-<section class="flex flex-col lg:flex-row gap-12 lg:gap-16 pt-20 lg:pt-40">
-  <div class="flex flex-col items-start space-y-8 lg:w-[45%]">
-    <div
-      class="inline-flex items-center gap-1.5 px-3 py-1 mb-2 rounded-full bg-primary/10 text-primary border border-primary/20"
-    >
-      <Sparkles class="w-4 h-4" />
-      <span 
-        class="text-sm font-medium outline-none"
-        contenteditable="true"
-        on:input={(e) => handleInput(e, 'eyebrow')}
-      >{eyebrowText}</span>
-    </div>
-
-    <h1
-      class="text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight outline-none"
-      contenteditable="true"
-      on:input={(e) => handleInput(e, 'headline')}
-    >
-      {headlineText}
-    </h1>
-
-    <p
-      class="text-xl text-muted-foreground outline-none"
-      contenteditable="true"
-      on:input={(e) => handleInput(e, 'description')}
-    >
-      {descriptionText}
-    </p>
-
-    <div class="w-full flex justify-start">
-      <EarlyAccessButton size="lg" source="hero-home" />
-    </div>
-  </div>
-
-  <!-- Sliding Dropper -->
-  <div 
-    class="fixed right-0 top-20 bottom-0 w-[500px] transition-transform duration-300 ease-out hover:translate-x-0 translate-x-[80%] hover:shadow-xl"
-    style="z-index: 50;"
-  >
-    <div class="relative h-full">
-      <!-- Hover area indicator -->
-      <div class="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-background/50 to-transparent" />
-      
-      <DemoDropper 
-        columns={3} 
-        rows={3} 
-        maxWidth="100%" 
-        onElementSelect={handleElementSelect} 
-      />
-    </div>
-  </div>
+<section class="flex flex-col lg:flex-row gap-12 lg:gap-16 pt-20 lg:pt-40 min-h-[calc(100vh-5rem)]">
+  <Hero 
+    eyebrowText={demoContent.hero.eyebrow}
+    headlineText={demoContent.hero.headline}
+  />
+  
+  <Dropper 
+    onElementSelect={handleElementSelect}
+    isFixed={true}
+  />
 </section>
 
-<!-- Features Section -->
-<section class="mt-32">
-  <h2 
-    class="text-4xl text-center sm:text-5xl font-semibold mb-12 outline-none"
-    contenteditable="true"
-    on:input={(e) => handleInput(e, 'subheadline')}
-  >
-    {subheadlineText}
-  </h2>
+<!-- Logos Section -->
+<div class="py-8">
+  <LogosMarquee />
+</div>
 
-  <div class="py-8">
-    <LoomVideo />
-  </div>
+<!-- Features Section -->
+<section class="bg-background">
+  <h2 class="text-4xl text-center sm:text-5xl font-semibold mb-12">
+    {demoContent.features.headline}
+  </h2>
+</section>
+
+<LoomVideo />
+
+<!-- ZigZag Sections -->
+<section bind:this={zigZagLeftSection}>
+  <ZigZag 
+    visible={zigZagLeftVisible} 
+    direction="left"
+    {...demoContent.zigzags.left}
+  />
+</section>
+
+<section bind:this={zigZagRightSection}>
+  <ZigZag 
+    visible={zigZagRightVisible} 
+    direction="right"
+    {...demoContent.zigzags.right}
+  />
+</section>
+
+<!-- Features Grid -->
+<section class="py-16" bind:this={blurbsSection}>
+  <Blurbs visible={blurbsVisible} />
 </section>
 
 <style>

@@ -1,4 +1,4 @@
-<!-- src/lib/pages/Blurbs.svelte -->
+<!-- src/lib/pages/demo/Blurbs.svelte -->
 <script lang="ts">
   import { fade, fly } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
