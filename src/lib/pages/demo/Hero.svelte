@@ -76,16 +76,32 @@
 </div>
 
 <style>
-  :global([contenteditable="true"]:hover) {
+  :global([contenteditable="true"]) {
+    position: relative;
+    border-radius: 8px;
+  }
+
+  :global([contenteditable="true"]::before) {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 12px;
+    padding: 8px;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    opacity: 0;
+  }
+
+  :global([contenteditable="true"]:hover::before) {
+    opacity: 1;
     border: 2px dashed transparent;
     border-image: linear-gradient(to right, #3644FE, #B345ED) 1;
-    border-radius: 4px;
   }
   
-  :global([contenteditable="true"]:focus) {
+  :global([contenteditable="true"]:focus::before) {
+    opacity: 1;
     border: 2px dashed transparent;
     border-image: linear-gradient(to right, #B345ED, #3644FE) 1;
-    border-radius: 4px;
     background: linear-gradient(to right, rgba(54,68,254,0.05), rgba(179,69,237,0.05));
   }
 
