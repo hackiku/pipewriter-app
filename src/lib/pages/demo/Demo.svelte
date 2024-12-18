@@ -3,8 +3,7 @@
   import { demoContent } from "./data";
   import Blurbs from "./Blurbs.svelte";
   import ZigZag from "./ZigZag.svelte";
-  import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
-
+  
   let blurbsVisible = false;
   let zigZagLeftVisible = false;
   let zigZagRightVisible = false;
@@ -14,38 +13,35 @@
   let zigZagRightSection: HTMLElement;
 
   export function showElement(elementId: string) {
-    if (elementId === 'blurbs-3') {
-      blurbsVisible = true;
-      setTimeout(() => {
-        blurbsSection?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-    if (elementId === 'zz-left') {
-      zigZagLeftVisible = true;
-      setTimeout(() => {
-        zigZagLeftSection?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
-    }
-    if (elementId === 'zz-right') {
-      zigZagRightVisible = true;
-      setTimeout(() => {
-        zigZagRightSection?.scrollIntoView({ behavior: 'smooth' });
-      }, 100);
+    switch(elementId) {
+      case 'blurbs-3':
+        blurbsVisible = true;
+        requestAnimationFrame(() => {
+          blurbsSection?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        break;
+      case 'zz-left':
+        zigZagLeftVisible = true;
+        requestAnimationFrame(() => {
+          zigZagLeftSection?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        break;
+      case 'zz-right':
+        zigZagRightVisible = true;
+        requestAnimationFrame(() => {
+          zigZagRightSection?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        });
+        break;
     }
   }
 </script>
 
-<!-- Features Section -->
-<section class="bg-background py-16">
-  <h2 class="text-4xl text-center sm:text-5xl font-semibold mb-12">
-    {demoContent.features.headline}
-  </h2>
-  
-  <LoomVideo />
-</section>
-
 <!-- ZigZag Sections -->
-<section bind:this={zigZagLeftSection}>
+<section 
+  bind:this={zigZagLeftSection}
+  class="transition-opacity duration-300"
+  class:opacity-0={!zigZagLeftVisible}
+>
   <ZigZag 
     visible={zigZagLeftVisible} 
     direction="left"
@@ -53,7 +49,11 @@
   />
 </section>
 
-<section bind:this={zigZagRightSection}>
+<section 
+  bind:this={zigZagRightSection}
+  class="transition-opacity duration-300"
+  class:opacity-0={!zigZagRightVisible}
+>
   <ZigZag 
     visible={zigZagRightVisible} 
     direction="right"
@@ -62,6 +62,10 @@
 </section>
 
 <!-- Features Grid -->
-<section class="py-16" bind:this={blurbsSection}>
+<section 
+  bind:this={blurbsSection}
+  class="py-16 transition-opacity duration-300"
+  class:opacity-0={!blurbsVisible}
+>
   <Blurbs visible={blurbsVisible} />
 </section>
