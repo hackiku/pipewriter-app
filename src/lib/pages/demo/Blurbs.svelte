@@ -3,10 +3,16 @@
   import { fade, fly } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import { onMount } from 'svelte';
+  import { demoContent } from "./data";
+  import EditableCursor from './EditableCursor.svelte';
   
   export let visible = false;
 
   let firstHeading: HTMLElement;
+
+  function bindRef(node: HTMLElement, isFirst: boolean) {
+    if (isFirst) firstHeading = node;
+  }
 
   onMount(() => {
     // When the component becomes visible, focus and select the first heading
@@ -26,63 +32,54 @@
 </script>
 
 {#if visible}
-  <div 
-    class="grid grid-cols-1 md:grid-cols-3 gap-8"
-    in:fade={{ duration: 300 }}
-  >
+  <div class="container mx-auto">
     <div 
-      class="flex flex-col text-left space-y-3"
-      in:fly={{ y: 20, duration: 300, delay: 150, easing: quintOut }}
+      class="grid grid-cols-1 md:grid-cols-3 gap-8"
+      in:fade={{ duration: 300 }}
     >
-      <div class="mb-2 font-bold text-3xl text-primary/80">
-        80+
-      </div>
-      <h3 
-        bind:this={firstHeading}
-        class="text-2xl font-semibold outline-none cursor-text"
-        contenteditable="true"
-      >
-        UI Elements
-      </h3>
-      <p class="text-lg text-muted-foreground">
-        Components ready to copy and paste
-      </p>
-    </div>
-
-    <div 
-      class="flex flex-col text-left space-y-3"
-      in:fly={{ y: 20, duration: 300, delay: 300, easing: quintOut }}
-    >
-      <div class="mb-2 font-bold text-3xl text-primary/80">
-        📝
-      </div>
-      <h3 
-        class="text-2xl font-semibold outline-none cursor-text"
-        contenteditable="true"
-      >
-        Native Docs App
-      </h3>
-      <p class="text-lg text-muted-foreground">
-        Write and wireframe without leaving Google Docs
-      </p>
-    </div>
-
-    <div 
-      class="flex flex-col text-left space-y-3"
-      in:fly={{ y: 20, duration: 300, delay: 450, easing: quintOut }}
-    >
-      <div class="mb-2 font-bold text-3xl text-primary/80">
-        ✨
-      </div>
-      <h3 
-        class="text-2xl font-semibold outline-none cursor-text"
-        contenteditable="true"
-      >
-        Fancy Formatted Docs
-      </h3>
-      <p class="text-lg text-muted-foreground">
-        Pre-formatted templates that impress clients
-      </p>
+      {#each demoContent.features.blurbs as blurb, i}
+        <div 
+          class="flex flex-col text-left space-y-3"
+          in:fly={{ y: 20, duration: 300, delay: 150 * (i + 1), easing: quintOut }}
+        >
+          <div 
+            class="mb-2 font-bold text-3xl text-primary/80 outline-none cursor-text relative"
+            contenteditable="true"
+          >
+            {blurb.emoji}
+            <EditableCursor />
+          </div>
+          
+          <h3 
+            class="text-2xl font-semibold outline-none cursor-text relative"
+            contenteditable="true"
+            use:bindRef={i === 0}
+          >
+            {blurb.title}
+            <EditableCursor />
+          </h3>
+          
+          <p 
+            class="text-lg text-muted-foreground outline-none cursor-text relative"
+            contenteditable="true"
+          >
+            {blurb.description}
+            <EditableCursor />
+          </p>
+        </div>
+      {/each}
     </div>
   </div>
 {/if}
+
+<style>
+  [contenteditable="true"]:hover {
+    outline: 2px solid rgb(var(--primary) / 0.2);
+    border-radius: 4px;
+  }
+  
+  [contenteditable="true"]:focus {
+    outline: 2px solid rgb(var(--primary) / 0.4);
+    border-radius: 4px;
+  }
+</style>
