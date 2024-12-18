@@ -3,7 +3,7 @@
   import ElementCard from "./ElementCard.svelte";
   import { elements } from "$lib/iframe/elements";
   
-  export let onElementSelect: (elementId: string) => void;
+  export let onSelect: (elementId: string) => void;
 
   const clickableElements = [
     'blurbs-3',
@@ -14,28 +14,22 @@
     'cards-2'
   ];
 
-  // Filter unique elements and get exactly 12 (4 rows x 3 columns)
-  const uniqueElements = Object.values(elements)
+  // Get unique elements for the grid
+  const uniqueElements = [...new Set(Object.values(elements))]
     .filter(el => !el.id.startsWith('container-') && !el.id.startsWith('background-'))
-    .reduce((acc, current) => {
-      if (!acc.find(item => item.id === current.id)) {
-        acc.push(current);
-      }
-      return acc;
-    }, [] as typeof elements[keyof typeof elements][])
     .slice(0, 12);
   
   $: activeElements = uniqueElements.slice(0, 6);  // First 2 rows
   $: previewElements = uniqueElements.slice(6);    // Last 2 rows
 </script>
 
-<div class="w-[500px] bg-background/80 backdrop-blur-sm rounded-lg p-4">
+<div class="w-[28em] h-[50vh] p-4">
   <!-- Active elements (first 2 rows) -->
   <div class="grid grid-cols-3 gap-2">
     {#each activeElements as element (element.id)}
       <ElementCard 
         {element}
-        onSelect={onElementSelect}
+        {onSelect}
         disabled={!clickableElements.includes(element.id)}
       />
     {/each}
@@ -47,7 +41,7 @@
       {#each previewElements as element (element.id)}
         <ElementCard 
           {element}
-          onSelect={onElementSelect}
+          {onSelect}
           disabled={true}
         />
       {/each}

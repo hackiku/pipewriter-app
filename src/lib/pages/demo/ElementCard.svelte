@@ -3,7 +3,7 @@
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
-  import type { ElementObject } from "./elements";
+  import type { ElementObject } from "$lib/iframe/elements";
   import { Plus } from 'lucide-svelte';
 
   export let element: ElementObject;
@@ -22,13 +22,13 @@
   );
 </script>
 
-<div class="relative aspect-video">
+<div class="relative aspect-[1.618/1]">
   <Tooltip.Root>
     <Tooltip.Trigger asChild>
       <Button
         variant="ghost"
         class={buttonClass}
-        on:click={() => onSelect(element.id)}
+        on:click={() => !disabled && onSelect(element.id)}
         {disabled}
       >
         <div class="relative w-full h-full">
