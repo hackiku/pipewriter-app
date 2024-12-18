@@ -4,7 +4,6 @@
   import { quintOut } from 'svelte/easing';
   import { onMount } from 'svelte';
   import { demoContent } from "./data";
-  import EditableCursor from './EditableCursor.svelte';
   
   export let visible = false;
 
@@ -15,18 +14,16 @@
   }
 
   onMount(() => {
-    // When the component becomes visible, focus and select the first heading
     if (visible && firstHeading) {
       setTimeout(() => {
         firstHeading.focus();
-        // Create a range to place cursor at the end
         const range = document.createRange();
         range.selectNodeContents(firstHeading);
         range.collapse(false);
         const selection = window.getSelection();
         selection?.removeAllRanges();
         selection?.addRange(range);
-      }, 500); // Wait for animation to complete
+      }, 500);
     }
   });
 </script>
@@ -43,28 +40,25 @@
           in:fly={{ y: 20, duration: 300, delay: 150 * (i + 1), easing: quintOut }}
         >
           <div 
-            class="mb-2 font-bold text-3xl text-primary/80 outline-none cursor-text relative"
+            class="mb-2 font-bold text-3xl text-primary/80 outline-none cursor-text editable-content"
             contenteditable="true"
           >
             {blurb.emoji}
-            <EditableCursor />
           </div>
           
           <h3 
-            class="text-2xl font-semibold outline-none cursor-text relative"
+            class="text-2xl font-semibold outline-none cursor-text editable-content"
             contenteditable="true"
             use:bindRef={i === 0}
           >
             {blurb.title}
-            <EditableCursor />
           </h3>
           
           <p 
-            class="text-lg text-muted-foreground outline-none cursor-text relative"
+            class="text-lg text-muted-foreground outline-none cursor-text editable-content"
             contenteditable="true"
           >
             {blurb.description}
-            <EditableCursor />
           </p>
         </div>
       {/each}
@@ -73,13 +67,39 @@
 {/if}
 
 <style>
-  [contenteditable="true"]:hover {
-    outline: 2px solid rgb(var(--primary) / 0.2);
-    border-radius: 4px;
+  .editable-content {
+    position: relative;
+    transition: all 0.2s ease;
+    padding: 0.25rem 0.5rem;
+    margin: -0.25rem -0.5rem;
+    border-radius: 6px;
   }
-  
-  [contenteditable="true"]:focus {
-    outline: 2px solid rgb(var(--primary) / 0.4);
-    border-radius: 4px;
+
+  .editable-content:hover {
+    background: rgb(var(--primary) / 0.04);
+  }
+
+  .editable-content:focus {
+    background: rgb(var(--primary) / 0.08);
+    box-shadow: 
+      inset 0 0 0 2px rgb(var(--primary) / 0.2),
+      0 0 0 1px rgb(var(--primary) / 0.1);
+    outline: none;
+  }
+
+  /* Smooth transition for selection */
+  ::selection {
+    background: rgb(var(--primary) / 0.2);
+  }
+
+  /* Fix emoji selection */
+  .editable-content:first-child::selection {
+    background: transparent;
+  }
+
+  @media (max-width: 768px) {
+    .editable-content {
+      -webkit-tap-highlight-color: rgb(var(--primary) / 0.1);
+    }
   }
 </style>
