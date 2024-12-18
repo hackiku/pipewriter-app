@@ -1,3 +1,4 @@
+<!-- src/lib/pages/Demo.svelte -->
 <script lang="ts">
   import { Sparkles } from "lucide-svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
@@ -6,7 +7,6 @@
   let eyebrowText = "Type + Prototype";
   let headlineText = "Wireframes for Writers in Google Docs";
   
-  // Make text editable
   function handleInput(event: Event, binding: 'eyebrow' | 'headline') {
     const target = event.target as HTMLElement;
     if (binding === 'eyebrow') eyebrowText = target.innerText;
@@ -14,9 +14,7 @@
   }
 </script>
 
-<!-- Main Content -->
 <div class="flex flex-col lg:flex-row gap-12 lg:gap-16 pt-20 lg:pt-40">
-  <!-- Text Content -->
   <div class="flex flex-col items-start space-y-8 lg:w-[45%]">
     <div
       class="inline-flex items-center gap-1.5 px-3 py-1 mb-2 rounded-full bg-primary/10 text-primary border border-primary/20"
@@ -42,7 +40,6 @@
     </div>
   </div>
 
-  <!-- Dropper Preview -->
   <div class="relative flex-1 lg:max-w-[500px] min-h-[300px] lg:min-h-[400px]">
     <DemoDropper columns={3} rows={3} maxWidth="100%" />
   </div>
