@@ -6,6 +6,7 @@
   import type { SubscribeResponse } from '$lib/server/subscribe';
   import { cn } from '$lib/utils';
 
+	export let buttonText = "Loop me in";
   export let size: "sm" | "default" = "default";
   export let wrap = false;
   export let className = "";
@@ -127,7 +128,7 @@
         disabled={!email.trim() || isSubmitting}
       >
         <span class="relative z-10">
-          {isSubmitting ? 'Subscribing...' : 'Loop me in'}
+          {isSubmitting ? 'Subscribing...' : buttonText}
         </span>
         <div 
           class="absolute inset-0 bg-gradient-to-r from-[#B345ED] to-[#3644FE] 
