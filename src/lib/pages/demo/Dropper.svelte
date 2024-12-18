@@ -7,32 +7,29 @@
   
   export let onSelect: (elementId: string) => void;
 
-  const clickableElements = [
-    'blurbs-3',
-    'zz-left',
-    'zz-right',
-    'hero',
-    'button-left',
-    'cards-2'
-  ];
-
-  // Get unique elements for the grid
-  const uniqueElements = [...new Set(Object.values(elements))]
+  // Filter unique elements first and avoid duplicates
+  const uniqueElements = Object.values(elements)
     .filter(el => !el.id.startsWith('container-') && !el.id.startsWith('background-'))
+    .reduce((acc, current) => {
+      const exists = acc.find(item => item.id === current.id);
+      if (!exists) {
+        acc.push(current);
+      }
+      return acc;
+    }, [])
     .slice(0, 12);
   
-  $: activeElements = uniqueElements.slice(0, 6);  // First 2 rows
-  $: previewElements = uniqueElements.slice(6);    // Last 2 rows
+  $: activeElements = uniqueElements.slice(0, 6);
+  $: previewElements = uniqueElements.slice(6);
 </script>
 
-<div class="w-[28em] h-[50vh] p-4">
+<div class="w-[25em] h-[50vh] p-4">
   <!-- Active elements (first 2 rows) -->
   <div class="grid grid-cols-3 gap-2">
     {#each activeElements as element (element.id)}
       <ElementCard 
         {element}
         {onSelect}
-        disabled={!clickableElements.includes(element.id)}
       />
     {/each}
   </div>
@@ -49,10 +46,10 @@
       {/each}
     </div>
     
-    <!-- Transparent gradient overlay -->
+    <!-- True transparency gradient -->
     <div 
       class="absolute inset-0 pointer-events-none"
-      style="top: -60px; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);"
+      style="top: -60px; -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);"
     />
 
     <!-- Save button -->

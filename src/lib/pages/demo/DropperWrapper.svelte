@@ -1,55 +1,90 @@
 <!-- src/lib/pages/demo/DropperWrapper.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { cubicInOut } from 'svelte/easing';
+  import { browser } from '$app/environment';
   
   let isScrolled = false;
+  let isMobile = false;
+  let isHovered = false;
   let wrapper: HTMLDivElement;
   
   onMount(() => {
     const threshold = window.innerHeight * 0.3;
     
-    // Initial check
+    const checkMobile = () => {
+      isMobile = window.innerWidth < 768;
+    };
+    
+    // Initial checks
+    checkMobile();
     isScrolled = window.scrollY > threshold;
     
     const handleScroll = () => {
       if (!wrapper) return;
-      
-      const newScrolled = window.scrollY > threshold;
-      if (newScrolled !== isScrolled) {
-        isScrolled = newScrolled;
-      }
+      isScrolled = window.scrollY > threshold;
+    };
+
+    const handleResize = () => {
+      checkMobile();
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('resize', handleResize, { passive: true });
+    
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('resize', handleResize);
+    };
   });
 
   function handleMouseEnter() {
-    if (isScrolled) {
-      isScrolled = false;
-    }
+    isHovered = true;
   }
 
   function handleMouseLeave() {
-    if (window.scrollY > window.innerHeight * 0.3) {
-      isScrolled = true;
-    }
+    isHovered = false;
   }
+
+  $: rightMargin = (() => {
+    if (!browser) return '2rem';
+    if (isMobile) return '50%';
+    
+    // When scrolled and not hovered, hide almost completely
+    if (isScrolled && !isHovered) {
+      return '-20rem';
+    }
+    
+    // When scrolled and hovered, show partially
+    if (isScrolled && isHovered) {
+      return '-5rem';
+    }
+    
+    // Initial position (not scrolled), aligned with content
+    return window.innerWidth > 1280 ? '11rem' : 
+           window.innerWidth > 1024 ? '6rem' : 
+           window.innerWidth > 768 ? '4rem' : '2rem';
+  })();
+
+  $: verticalPosition = isMobile ? 
+    `bottom: ${isScrolled ? (isHovered ? '2rem' : '-15rem') : '2rem'}; transform: translate(-50%, 0)` : 
+    'top: 50vh; transform: translateY(-50%)';
+
+  $: hoverTriggerClass = isMobile 
+    ? "inset-x-0 -top-16 h-24" 
+    : "-left-32 top-0 bottom-0 w-24";
 </script>
 
 <div 
   bind:this={wrapper}
-  class="fixed z-50 transition-transform duration-500 ease-out"
-  class:translate-x-[85%]={isScrolled}
-  style="right: 2rem; top: 50vh; transform: translateY(-50%) {isScrolled ? 'translateX(85%)' : ''};"
+  class="fixed z-50 transition-all duration-500 ease-out"
+  style={`${isMobile ? 'left: 50%;' : `right: ${rightMargin};`} ${verticalPosition}`}
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
 >
-  <!-- Hover trigger area when scrolled -->
+  <!-- Hover trigger area -->
   {#if isScrolled}
     <div 
-      class="absolute -left-16 top-0 bottom-0 w-24 cursor-pointer"
+      class="absolute cursor-pointer {hoverTriggerClass}"
       aria-hidden="true"
     />
   {/if}

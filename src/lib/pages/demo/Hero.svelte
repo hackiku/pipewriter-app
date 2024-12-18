@@ -13,7 +13,7 @@
   }
 </script>
 
-<div class="flex flex-col items-start space-y-8 lg:w-[80%]">
+<div class="flex flex-col items-start space-y-8 md:w-3/4 lg:w-[45vw]">
   <div
     class="inline-flex items-center gap-1.5 px-3 py-1 mb-2 rounded-full bg-primary/10 text-primary border border-primary/20"
   >
