@@ -2,33 +2,14 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { Clock } from 'lucide-svelte';
-  import EmailForm from './EmailForm.svelte';
+  import EmailForm from '$lib/components/cta/EmailForm.svelte';
+  import EarlyAccessButton from '$lib/components/cta/EarlyAccessButton.svelte';
   import { cn } from '$lib/utils';
-  import { onMount, onDestroy } from 'svelte';
 
   export let title = "Coming Soon";
   export let gif = "https://giphy.com/embed/tzHn7A5mohSfe";
   export let description = "This page is not ready yet. Join the waitlist to get notified when it launches!";
   export let className = "";
-
-  let script: HTMLScriptElement;
-
-  onMount(() => {
-    // Remove any existing scripts first
-    // document.querySelectorAll('script[src*="gumroad.com"]').forEach(s => s.remove());
-    
-    // Add fresh script
-    script = document.createElement('script');
-    script.src = 'https://gumroad.com/js/gumroad.js';
-    document.body.appendChild(script);
-  });
-
-  // onDestroy(() => {
-		
-  //   if (script && script.parentNode) {
-  //     script.parentNode.removeChild(script);
-  //   }
-  // });
 </script>
 
 <div 
@@ -40,7 +21,6 @@
   )}
   transition:fade={{ duration: 200 }}
 >
-  <!-- Rest of your component stays exactly the same -->
   <div class="h-screen px-4 flex items-center justify-center">
     <div class="relative flex flex-col lg:flex-row items-center gap-8 lg:gap-16 max-w-6xl">
       <div class="relative w-64 lg:w-80 aspect-square rounded-lg overflow-hidden shrink-0">
@@ -50,8 +30,7 @@
             width="100%"
             height="100%"
             frameBorder="0"
-            class="giphy-embed absolute inset-0 w-full h-full"
-            style="pointer-events: none;"
+            class="giphy-embed absolute inset-0 w-full h-full pointer-events-none"
           />
         </div>
       </div>
@@ -63,34 +42,8 @@
         </div>
 
         <EmailForm size="sm" />
-
-        <a 
-          class="gumroad-button" 
-          href="https://pipewriter.gumroad.com/l/wires-for-writers"
-          data-gumroad-overlay-checkout="false"
-        >
-          Buy on
-        </a>
+        <EarlyAccessButton />
       </div>
     </div>
   </div>
 </div>
-
-<!-- <style>
-  .from-background {
-    animation: pulse 4s cubic-bezier(0.2, 0, 0.4, 1) infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% {
-      opacity: 1;
-    }
-    50% {
-      opacity: 0.95;
-    }
-  }
-
-  :global(.giphy-embed) {
-    pointer-events: none !important;
-  }
-</style> -->

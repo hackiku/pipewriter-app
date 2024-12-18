@@ -1,8 +1,13 @@
 <!-- src/routes/product/+page.svelte -->
 <script lang="ts">
-  // import AiPage from "$lib/pages/ai/AiPage.svelte";
-  import ProductPage from "$lib/pages/product/ProductPage.svelte";
+	import ProductPage from "$lib/pages/product/ProductPage.svelte";
+
+	import ComingSoon from "$lib/components/ComingSoon.svelte";
 </script>
 
-<!-- <AiPage /> -->
+<ComingSoon
+	title="Coming Soon"
+	description="Indie-founding ftw, check back soon."
+/>
+
 <ProductPage />

@@ -9,6 +9,8 @@
   import Dropper from "$lib/pages/demo/Dropper.svelte";
   import Demo from "$lib/pages/demo/Demo.svelte";
 
+	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
+
   let demo: Demo;
   let demoSection: HTMLElement;
   let isHeroVisible = true;
@@ -66,9 +68,10 @@
         {demoContent.features.headline}
       </h2>
       
-      <div class="aspect-video w-full max-w-4xl mx-auto bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg flex items-center justify-center">
-        <p class="text-lg text-muted-foreground">Video Player Placeholder</p>
-      </div>
+      <!-- <div class="aspect-video w-full max-w-4xl mx-auto bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg flex items-center justify-center"> -->
+        <!-- <p class="text-lg text-muted-foreground">Video Player Placeholder</p> -->
+				 <LoomVideo />
+      <!-- </div> -->
     </section>
 
     <!-- Demo Section -->
