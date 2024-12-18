@@ -13,6 +13,7 @@
 
   import FreeForm from '$lib/components/cta/FreeForm.svelte';
 
+	import EarlyAccess from '$lib/components/cta/EarlyAccess.svelte';
 
   let demo: Demo;
   let demoSection: HTMLElement;
@@ -81,7 +82,10 @@
     <section id="demo-section" class="pb-32" bind:this={demoSection}>
       <Demo bind:this={demo} />
     </section>
-  </main>
+  
+		<EarlyAccess />
+	
+	</main>
 </div>
 
 <DropperWrapper {isHeroVisible}>

@@ -1,8 +1,8 @@
 // src/lib/pages/demo/data.ts
 export const demoContent = {
 	hero: {
-		eyebrow: "Type + Prototype",
-		headline: "Wireframes for Writers in Google Docs",
+		eyebrow: "Prototyping by typing",
+		headline: "Wireframes for Writers in Google Docs++",
 	},
 	features: {
 		headline: "10× Your Copy Decks",

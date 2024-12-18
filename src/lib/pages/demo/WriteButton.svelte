@@ -15,11 +15,26 @@
   class="group flex items-center gap-2 h-12 relative"
   on:click={onClick}
 >
-  <div class="flex items-center gap-2">
-    {#if isEditing}
-      <div class="w-2 h-2 rounded-full animate-pulse" style="background: linear-gradient(to right, #3644FE, #B345ED);" />
-    {/if}
-    <span>Write {isEditing ? 'in progress' : 'for free'}</span>
+  <div class="flex items-center transition-all duration-300" class:gap-3={isEditing} class:gap-2={!isEditing}>
+    <!-- Status dot - always visible, changes color based on state -->
+    <div 
+      class="w-2 h-2 rounded-full transition-all duration-300" 
+      class:animate-pulse={isEditing}
+      style:background={isEditing ? 
+        'linear-gradient(to right, #3644FE, #B345ED)' : 
+        'rgb(var(--muted-foreground))'
+      }
+    />
+    
+    <!-- Text with conditional gradient -->
+    <span class="transition-all duration-300" style={isEditing ? 
+      'background: linear-gradient(to right, #3644FE, #B345ED); -webkit-background-clip: text; -webkit-text-fill-color: transparent;' : 
+      ''
+    }>
+      {isEditing ? 'Writing' : 'Write'}
+    </span>
+    
+    <!-- Icon remains unchanged -->
     <Edit2 
       class="w-4 h-4 transition-transform duration-300 group-hover:rotate-12" 
     />
