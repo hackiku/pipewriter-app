@@ -1,18 +1,27 @@
 <!-- src/lib/pages/demo/DropperWrapper.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { cubicInOut } from 'svelte/easing';
   
   let isScrolled = false;
+  let wrapper: HTMLDivElement;
   
   onMount(() => {
+    const threshold = window.innerHeight * 0.3;
+    
     // Initial check
-    isScrolled = window.scrollY > window.innerHeight * 0.3;
+    isScrolled = window.scrollY > threshold;
     
     const handleScroll = () => {
-      isScrolled = window.scrollY > window.innerHeight * 0.3;
+      if (!wrapper) return;
+      
+      const newScrolled = window.scrollY > threshold;
+      if (newScrolled !== isScrolled) {
+        isScrolled = newScrolled;
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   });
 
@@ -30,9 +39,10 @@
 </script>
 
 <div 
-  class="fixed z-50 transition-all duration-500 ease-in-out"
+  bind:this={wrapper}
+  class="fixed z-50 transition-transform duration-500 ease-out"
   class:translate-x-[85%]={isScrolled}
-  style="right: 2rem; top: 50vh; transform: translateY(-50%);"
+  style="right: 2rem; top: 50vh; transform: translateY(-50%) {isScrolled ? 'translateX(85%)' : ''};"
   on:mouseenter={handleMouseEnter}
   on:mouseleave={handleMouseLeave}
 >
@@ -49,7 +59,7 @@
 
 <style>
   div {
-    /* Ensure smooth animation on transform */
     will-change: transform;
+    backface-visibility: hidden;
   }
 </style>

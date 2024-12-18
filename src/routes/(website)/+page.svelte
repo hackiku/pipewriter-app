@@ -25,7 +25,7 @@
 
 <BackgroundPattern />
 
-<section class="container min-h-[calc(100vh-5rem)] flex flex-col justify-center">
+<section class="container pt-32 min-h-[calc(100vh-5rem)] flex flex-col justify-center">
   <div class="flex items-start justify-between">
     <div class="w-2/5">
       <Hero 
@@ -54,12 +54,11 @@
   </div>
 </section>
 
-<section id="demo-section" class="container" bind:this={demoSection}>
+<section id="demo-section" class="container pb-32" bind:this={demoSection}>
   <Demo bind:this={demo} />
 </section>
 
 <style>
-  /* :global(.container) { */
   .container {
     --container-width: 80rem;
     width: min(var(--container-width), 100vw - 2rem);

@@ -2,6 +2,8 @@
 <script lang="ts">
   import ElementCard from "./ElementCard.svelte";
   import { elements } from "$lib/iframe/elements";
+  import { Save } from "lucide-svelte";
+  import { Button } from "$lib/components/ui/button";
   
   export let onSelect: (elementId: string) => void;
 
@@ -47,10 +49,18 @@
       {/each}
     </div>
     
-    <!-- Gradient overlay -->
+    <!-- Transparent gradient overlay -->
     <div 
-      class="absolute inset-0 bg-gradient-to-t from-background via-background/95 to-transparent pointer-events-none"
-      style="top: -60px;"
+      class="absolute inset-0 pointer-events-none"
+      style="top: -60px; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%); -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 100%);"
     />
+
+    <!-- Save button -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 pb-4">
+      <Button variant="outline" size="sm">
+        <Save class="w-4 h-4 mr-2" />
+        Save
+      </Button>
+    </div>
   </div>
 </div>
