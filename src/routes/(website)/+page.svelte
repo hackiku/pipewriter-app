@@ -11,6 +11,9 @@
 
 	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 
+  import FreeForm from '$lib/components/cta/FreeForm.svelte';
+
+
   let demo: Demo;
   let demoSection: HTMLElement;
   let isHeroVisible = true;
@@ -84,3 +87,6 @@
 <DropperWrapper {isHeroVisible}>
   <Dropper onSelect={handleElementSelect} />
 </DropperWrapper>
+
+
+<FreeForm />

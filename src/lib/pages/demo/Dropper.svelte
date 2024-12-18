@@ -4,6 +4,7 @@
   import { elements } from "$lib/iframe/elements";
   import { Save } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
+    import FreeForm from "$lib/components/cta/FreeForm.svelte";
   
   export let onSelect: (elementId: string) => void;
 
@@ -35,10 +36,7 @@
     />
     <!-- Save button -->
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 pb-4">
-      <Button variant="outline" size="sm">
-        <Save class="w-4 h-4 mr-2" />
-        Save to Doc
-      </Button>
+<FreeForm />
     </div>
   </div>
 </div>
