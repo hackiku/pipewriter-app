@@ -24,7 +24,7 @@
         </div>
 
         <h1 class="text-4xl sm:text-5xl md:text-7xl font-semibold mb-6">
-          Join the Future of<br />UX Writing Tools
+          Invest $20k in the<br />Future of UX Writing
         </h1>
         <p class="text-xl sm:text-2xl text-muted-foreground mb-8">
           Seeking $20k investment to scale our profitable B2B SaaS
