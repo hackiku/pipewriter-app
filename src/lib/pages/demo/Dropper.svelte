@@ -4,7 +4,7 @@
   import { elements } from "$lib/iframe/elements";
   import { Save } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
-    import FreeForm from "$lib/components/cta/FreeForm.svelte";
+  import FreeForm from "$lib/components/cta/FreeForm.svelte";
   
   export let onSelect: (elementId: string) => void;
 

@@ -1,16 +1,62 @@
 <!-- src/lib/pages/demo/Demo.svelte -->
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { demoContent } from "./data";
   import Blurbs from "./Blurbs.svelte";
   import ZigZag from "./ZigZag.svelte";
+  import Testimonials from "./Testimonials.svelte";
   
   let blurbsVisible = false;
   let zigZagLeftVisible = false;
   let zigZagRightVisible = false;
+  let testimonialsVisible = false;
   
   let blurbsSection: HTMLElement;
   let zigZagLeftSection: HTMLElement;
   let zigZagRightSection: HTMLElement;
+  let testimonialsSection: HTMLElement;
+
+  onMount(() => {
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach(entry => {
+        const targetId = entry.target.id;
+        if (entry.isIntersecting) {
+          switch(targetId) {
+            case 'blurbs-section':
+              blurbsVisible = true;
+              break;
+            case 'zigzag-left':
+              zigZagLeftVisible = true;
+              break;
+            case 'zigzag-right':
+              zigZagRightVisible = true;
+              break;
+            case 'testimonials-section':
+              testimonialsVisible = true;
+              break;
+          }
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, {
+      threshold: 0.2,
+      rootMargin: '50px' // Trigger slightly before the element comes into view
+    });
+
+    // Observe all sections
+    [
+      { el: blurbsSection, id: 'blurbs-section' },
+      { el: zigZagLeftSection, id: 'zigzag-left' },
+      { el: zigZagRightSection, id: 'zigzag-right' },
+      { el: testimonialsSection, id: 'testimonials-section' }
+    ].forEach(({ el, id }) => {
+      if (el && !el.id) el.id = id;
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  });
 
   export function showElement(elementId: string) {
     switch(elementId) {
@@ -36,36 +82,56 @@
   }
 </script>
 
-<!-- ZigZag Sections -->
-<section 
-  bind:this={zigZagLeftSection}
-  class="transition-opacity duration-300"
-  class:opacity-0={!zigZagLeftVisible}
->
-  <ZigZag 
-    visible={zigZagLeftVisible} 
-    direction="left"
-    {...demoContent.zigzags.left}
-  />
-</section>
+<div class="space-y-32">
+  <!-- First ZigZag Section -->
+  <section 
+    id="zigzag-left"
+    bind:this={zigZagLeftSection}
+    class="transition-all duration-700 transform"
+    class:opacity-0={!zigZagLeftVisible}
+    class:translate-x-[-20px]={!zigZagLeftVisible}
+  >
+    <ZigZag 
+      visible={zigZagLeftVisible} 
+      direction="left"
+      {...demoContent.zigzags.left}
+    />
+  </section>
 
-<section 
-  bind:this={zigZagRightSection}
-  class="transition-opacity duration-300"
-  class:opacity-0={!zigZagRightVisible}
->
-  <ZigZag 
-    visible={zigZagRightVisible} 
-    direction="right"
-    {...demoContent.zigzags.right}
-  />
-</section>
+  <!-- Second ZigZag Section -->
+  <section 
+    id="zigzag-right"
+    bind:this={zigZagRightSection}
+    class="transition-all duration-700 transform"
+    class:opacity-0={!zigZagRightVisible}
+    class:translate-x-[20px]={!zigZagRightVisible}
+  >
+    <ZigZag 
+      visible={zigZagRightVisible} 
+      direction="right"
+      {...demoContent.zigzags.right}
+    />
+  </section>
 
-<!-- Features Grid -->
-<section 
-  bind:this={blurbsSection}
-  class="py-16 transition-opacity duration-300"
-  class:opacity-0={!blurbsVisible}
->
-  <Blurbs visible={blurbsVisible} />
-</section>
+  <!-- Features Grid Section -->
+  <section 
+    id="blurbs-section"
+    bind:this={blurbsSection}
+    class="py-16 transition-all duration-700 transform"
+    class:opacity-0={!blurbsVisible}
+    class:translate-y-[20px]={!blurbsVisible}
+  >
+    <Blurbs visible={blurbsVisible} />
+  </section>
+
+  <!-- Testimonials Section -->
+  <section
+    id="testimonials-section"
+    bind:this={testimonialsSection}
+    class="transition-all duration-700 transform"
+    class:opacity-0={!testimonialsVisible}
+    class:translate-y-[20px]={!testimonialsVisible}
+  >
+    <Testimonials visible={testimonialsVisible} />
+  </section>
+</div>

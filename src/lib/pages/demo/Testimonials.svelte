@@ -11,7 +11,7 @@
 
 {#if visible}
   <div 
-    class="grid grid-cols-1 gap-8"
+    class="grid grid-cols-1 gap-8 sm:mx-12 md:mx-24"
     in:fade={{ duration: 300 }}
   >
     {#each demoContent.testimonials.cards as card, i}
