@@ -1,70 +1,94 @@
-// src/lib/pages/demo/data.ts
+// lib/pages/demo/data.ts
+
+import { tools } from '$lib/data/assets/tools';
+
 export const demoContent = {
 	hero: {
 		eyebrow: "Type to prototype",
 		headline: "Wireframes for Writers in Google Docs++",
 	},
+	products: {
+		headline: "Everything You Get",
+		features: [
+			{
+				multiplier: 80,
+				tool: tools.googleDocs,
+				description: "Formatted docs with ready UI elements"
+			},
+			{
+				multiplier: 8,
+				tool: tools.googleAppsScript,
+				description: "Open source scripts attached to each doc"
+			},
+			{
+				multiplier: 1,
+				tool: tools.googleDrive,
+				description: "One folder, lifetime access"
+			}
+		]
+	},
 	features: {
-		headline: "10× Your Copy Decks",
+		headline: "Write 10× Copy Decks",
 		blurbs: [
 			{
-				emoji: "80",
-				title: "Ready elements to copy paste away",
-				description: "Break into tech without learning Figma. Create proper UX deliverables without touching code."
+				emoji: "⚡️",
+				title: "Click or Type to Insert",
+				description: "Drop in UI elements with a click or keyboard shortcut. No more hunting through menus or building tables by hand."
 			},
 			{
-				emoji: "📝",
-				title: "Copywriters",
-				description: "Level up from $500 to $5k projects with pro-grade deliverables that look as good as they convert."
+				emoji: "🎨",
+				title: "Dark Mode Built-in",
+				description: "Switch between light and dark themes instantly. Your copy and wireframes auto-update to match."
 			},
 			{
-				emoji: "📊",
-				title: "Content Strategists",
-				description: "Lead with content-first design that doesn't look like an afterthought."
+				emoji: "🔄",
+				title: "Export Anywhere",
+				description: "Turn docs into HTML, React, or Figma files with one click. No more copy-paste hell between tools."
 			}
 		]
 	},
 	zigzags: {
 		left: {
-			heading: "The Sidebar App",
-			subheading: "Design Superpowers in Docs",
-			description: "Put together webpage wireframes in minutes without leaving Google Docs. Our sidebar app makes UX writing as easy as adding a paragraph."
+			heading: "DOCS APP",
+			subheading: "Writey app in Google Docs",
+			description: "Native Docs sidebar app makes wireframing as fast as typing a paragraph."
 		},
 		right: {
-			heading: "Template System",
-			subheading: "80+ UI Elements Ready",
-			description: "From hero sections to pricing cards, get everything you need to prototype landing pages. Pre-formatted templates that make your copy look like a million bucks."
+			heading: "Pro Templates",
+			subheading: "80+ Ready Components",
+			description: "Tables are dead. Long live proper wireframe components that update everywhere. Pre-formatted for that sweet agency look."
 		}
 	},
 	testimonials: {
-		headline: "Trusted by Writers",
+		headline: "Writers Dig That",
 		cards: [
 			{
 				firstName: "Eoin",
 				lastName: "Cronolly",
 				role: "SaaS Copywriter",
-				quote: "I've never seen a tool like this that works natively in Docs. I've been building wireframes by hand using tables, even for five-figure contracts.",
+				quote: "I've never seen a tool like this that works natively in Docs. I've been building wireframes by hand using tables, even for five-figure contracts. This changes everything for us UX writers.",
 				imgSrc: "/testimonials/eoin.jpg"
 			},
 			{
 				firstName: "Warren",
 				lastName: "West",
-				role: "Copy Chief",
-				company: "WarrenWords",
-				quote: "Thanks Ivan! This looks super cool and is probably 1000x better than the wireframing I've been doing in Gdocs.",
+				role: "Copy Chief @ WarrenWords",
+				quote: "Thanks Ivan! this looks super cool and is probably 1000x better than the wireframing I've been doing in Gdocs.",
 				imgSrc: "/testimonials/warren.jpg"
 			},
 			{
 				firstName: "Giorgi",
 				lastName: "C.",
 				role: "Freelance Copywriter",
-				quote: "Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask.",
+				quote: "Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask. Plus, for me it's easier bcs I don't have to write long copies just to impress them.",
 				imgSrc: "/testimonials/giorgi.jpg"
 			}
 		]
 	},
 	cta: {
-		headline: "Start Designing in Google Docs",
-		buttonText: "Get Early Access — $59"
+		headline: "Beta Launch Special — $59 One-Time (Until Jan 1st)",
+		subheading: "The wait is over: the app is finally here. Join the first wave of writer-first wireframers for a one-off fee",
+		buttonText: "Get Pipewriter Forever @ $59 One-Time",
+		note: "Old Template Users Get 50% OFF! Check your email"
 	}
 };

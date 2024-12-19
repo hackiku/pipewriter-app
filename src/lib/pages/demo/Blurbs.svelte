@@ -40,9 +40,9 @@
 </script>
 
 {#if visible}
-  <div class="container mx-auto">
+  <div class="container mx-auto px-20">
     <div 
-      class="grid grid-cols-1 md:grid-cols-3 gap-8"
+      class="grid grid-cols-1 md:grid-cols-3 gap-16"
       in:fade={{ duration: 300 }}
     >
       {#each demoContent.features.blurbs as blurb, i}
@@ -63,7 +63,7 @@
           
           <EditableStyles elementId="blurb-{i}-title">
             <h3 
-              class="text-2xl font-semibold outline-none"
+              class="text-2xl font-regular outline-none"
               contenteditable="true"
               use:bindRef={i === 0}
               on:focus={() => handleEditStart(`blurb-${i}-title`)}
@@ -80,7 +80,7 @@
               on:focus={() => handleEditStart(`blurb-${i}-description`)}
               on:blur={handleEditStop}
             >
-              {blurb.description}
+              <!-- {blurb.description} -->
             </p>
           </EditableStyles>
         </div>

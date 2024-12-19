@@ -59,18 +59,18 @@
         ''
       }
     >
-      {isEditing ? 'Writing...' : 'Write now'}
+      {isEditing ? 'Writing...' : 'Write'}
     </span>
 
     <!-- Icon in circle -->
-    <div 
+    <!-- <div 
       class="w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300 group-hover:rotate-12 {isEditing ? 
         'bg-gradient-to-r from-primary/20 to-purple-500/20' : 
         'bg-muted'
       }"
     >
-      <Edit2 class="w-3.5 h-3.5" />
-    </div>
+	</div> -->
+	<Edit2 class="w-3.5 h-3.5 opacity-50" />
   </Button>
 
   <!-- Export button that appears when editing -->

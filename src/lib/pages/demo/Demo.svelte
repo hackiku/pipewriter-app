@@ -3,6 +3,7 @@
 	import { onMount } from "svelte";
 	import { demoContent } from "./data";
 	import Blurbs from "./Blurbs.svelte";
+  import ProductBlurbs from './ProductBlurbs.svelte';
 	import ZigZag from "./ZigZag.svelte";
 	import Testimonials from "./Testimonials.svelte";
 	import CTA from "./CTA.svelte";
@@ -11,7 +12,7 @@
 	let zigZagLeftVisible = false;
 	let zigZagRightVisible = false;
 	let testimonialsVisible = false;
-	let ctaVisible = false;
+	let ctaVisible = true;
 
 	let blurbsSection: HTMLElement;
 	let zigZagLeftSection: HTMLElement;
@@ -110,6 +111,17 @@
 		/>
 	</section>
 
+  <section
+    id="blurbs-section"
+    bind:this={blurbsSection}
+    class="py-16 transition-all duration-700 transform"
+    class:opacity-0={!blurbsVisible}
+    class:translate-y-[20px]={!blurbsVisible}
+  >
+    <ProductBlurbs visible={blurbsVisible} />
+  </section>
+
+
 	<!-- Blurbs Section -->
 	<section
 		id="blurbs-section"
@@ -148,7 +160,6 @@
 	</section>
 
 	<!-- CTA Section -->
-
 	<section
 		id="cta-section"
 		bind:this={ctaSection}

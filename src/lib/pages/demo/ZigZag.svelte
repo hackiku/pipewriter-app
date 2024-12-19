@@ -28,18 +28,18 @@
 
 {#if visible}
   <div 
-    class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center py-12"
+    class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center py-8"
     in:fade={{ duration: 300 }}
   >
     <!-- Text Content -->
     <div 
-      class="flex flex-col space-y-6 {direction === 'right' ? 'md:order-2' : ''}"
+      class="flex flex-col space-y-6 md:max-w-[100%] px-8 md:px-12 {direction === 'right' ? 'md:order-2' : ''}"
       in:fly={{ x: direction === 'left' ? -20 : 20, duration: 300, delay: delays.content, easing: quintOut }}
     >
-      <div class="space-y-3">
+      <div class="space-y-4">
         <EditableStyles elementId="zigzag-{direction}-heading">
           <h3 
-            class="text-lg font-medium text-muted-foreground outline-none" 
+            class="text-sm font-medium outline-none bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED]" 
             contenteditable="true"
             bind:innerText={heading}
             on:focus={() => handleEditStart(`zigzag-${direction}-heading`)}
@@ -51,7 +51,7 @@
         
         <EditableStyles elementId="zigzag-{direction}-subheading">
           <h2 
-            class="text-3xl font-semibold outline-none"
+            class="text-4xl md:text-5xl font-semibold leading-tight outline-none"
             contenteditable="true"
             bind:innerText={subheading}
             on:focus={() => handleEditStart(`zigzag-${direction}-subheading`)}
@@ -64,7 +64,7 @@
 
       <EditableStyles elementId="zigzag-{direction}-description">
         <p 
-          class="text-lg text-muted-foreground outline-none"
+          class="text-lg md:text-xl text-muted-foreground outline-none"
           contenteditable="true"
           bind:innerText={description}
           on:focus={() => handleEditStart(`zigzag-${direction}-description`)}
@@ -73,11 +73,6 @@
           {description}
         </p>
       </EditableStyles>
-
-      <!-- <div class="flex items-center gap-2 group cursor-pointer">
-        <span class="font-medium">Learn more</span>
-        <ArrowRight class="w-4 h-4 transition-transform group-hover:translate-x-1" />
-      </div> -->
     </div>
 
     <!-- Media Container with Gradient Shadow -->
@@ -87,17 +82,17 @@
     >
       <!-- Striped Gradient Shadow -->
       <div 
-        class="absolute -right-4 -top-4 w-full h-full rounded-2xl overflow-hidden"
+        class="absolute -right-2 -top-2 -left-2 -bottom-2 rounded-2xl overflow-hidden"
         style="
           background: repeating-linear-gradient(
             45deg,
-            rgba(54, 68, 254, 0.2),
-            rgba(179, 69, 237, 0.2) 25%,
+            rgba(54, 68, 254, 0.35),
+            rgba(179, 69, 237, 0.15) 25%,
             transparent 25%,
             transparent 50%
           );
-          background-size: 24px 24px;
-          transform: rotate(-2deg);
+          background-size: 32px 32px;
+          transform: rotate(-0deg);
         "
       />
 
@@ -121,6 +116,13 @@
             )
           "
         />
+
+        <!-- Tools Pill -->
+        <div class="absolute -bottom-4 -left-4 flex items-center gap-4 px-6 py-3 bg-white dark:bg-gray-900 rounded-full shadow-lg border border-gray-200 dark:border-gray-800">
+          <img src="tools/google-docs.svg" alt="Google Docs" class="w-8 h-8">
+          <div class="w-px h-6 bg-gray-200 dark:bg-gray-800"></div>
+          <img src="tools/google-apps-script.svg" alt="Google Apps Script" class="w-8 h-8">
+        </div>
       </div>
     </div>
   </div>
@@ -130,10 +132,16 @@
   /* Optional: Add a subtle animation to the striped shadow on hover */
   @keyframes slideStripes {
     from { background-position: 0 0; }
-    to { background-position: 24px 24px; }
+    to { background-position: 32px 32px; }
   }
 
   .relative:hover > div:first-child {
     animation: slideStripes 2s linear infinite;
+  }
+
+  /* Prevent text gradient from being editable */
+  [contenteditable="true"].text-transparent::selection {
+    color: transparent;
+    -webkit-text-fill-color: transparent;
   }
 </style>
