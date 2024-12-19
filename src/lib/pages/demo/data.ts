@@ -1,15 +1,15 @@
 // src/lib/pages/demo/data.ts
 export const demoContent = {
 	hero: {
-		eyebrow: "Prototyping by typing",
+		eyebrow: "Type to prototype",
 		headline: "Wireframes for Writers in Google Docs++",
 	},
 	features: {
 		headline: "10× Your Copy Decks",
 		blurbs: [
 			{
-				emoji: "✍️",
-				title: "UX Writers",
+				emoji: "80",
+				title: "Ready elements to copy paste away",
 				description: "Break into tech without learning Figma. Create proper UX deliverables without touching code."
 			},
 			{
@@ -62,5 +62,9 @@ export const demoContent = {
 				imgSrc: "/testimonials/giorgi.jpg"
 			}
 		]
+	},
+	cta: {
+		headline: "Start Designing in Google Docs",
+		buttonText: "Get Early Access — $59"
 	}
 };

@@ -83,7 +83,7 @@
       <Demo bind:this={demo} />
     </section>
   
-		<EarlyAccess />
+		<!-- <EarlyAccess /> -->
 	
 	</main>
 </div>
