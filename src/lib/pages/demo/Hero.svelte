@@ -79,7 +79,7 @@
     </h1>
   </EditableStyles>
 
-  <div class="w-full flex justify-start gap-4">
+  <div class="w-full flex justify-start gap-4 pt-6">
     <EarlyAccessButton size="lg" source="hero-home" />
     <WriteStatusButton onClick={focusHeadline} />
   </div>

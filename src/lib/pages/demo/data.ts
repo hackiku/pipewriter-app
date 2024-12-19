@@ -13,17 +13,17 @@ export const demoContent = {
 			{
 				multiplier: 80,
 				tool: tools.googleDocs,
-				description: "Formatted docs with ready UI elements"
+				description: "Copy-paste ready layouts"
 			},
 			{
 				multiplier: 8,
 				tool: tools.googleAppsScript,
-				description: "Open source scripts attached to each doc"
+				description: "Open source Apps Scripts"
 			},
 			{
 				multiplier: 1,
 				tool: tools.googleDrive,
-				description: "One folder, lifetime access"
+				description: "Lifetime access for early birdies"
 			}
 		]
 	},

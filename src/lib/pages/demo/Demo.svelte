@@ -1,5 +1,5 @@
 <!-- src/lib/pages/demo/Demo.svelte -->
-<!-- // lib/pages/demo/Demo.svelte -->
+
 <script lang="ts">
   import { onMount } from "svelte";
   import { demoStore } from '$lib/stores/demoStore';
