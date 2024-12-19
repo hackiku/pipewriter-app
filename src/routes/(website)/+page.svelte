@@ -11,10 +11,6 @@
 
 	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 
-  import FreeForm from '$lib/components/free/FreeForm.svelte';
-  // import FreeForm from '$lib/components/free/FreeForm.svelte';
-	// import EarlyAccess from '$lib/components/cta/EarlyAccess.svelte';
-
   let demo: Demo;
   let demoSection: HTMLElement;
   let isHeroVisible = true;

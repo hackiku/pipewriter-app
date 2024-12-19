@@ -74,11 +74,12 @@ export const initialSections: DemoSection[] = [
 	}
 ];
 
+
 // Map dropper elements to section configs
 export const dropperToSection: Record<string, Partial<DemoSection>> = {
 	'blurbs-3': { type: 'blurbs', id: 'features-blurbs' },
 	'zz-left': { type: 'zigzag', id: 'zigzag-left' },
 	'zz-right': { type: 'zigzag', id: 'zigzag-right' },
 	'testimonials': { type: 'testimonials', id: 'testimonials' },
-	'cta': { type: 'cta', id: 'cta' }
+	'button-center': { type: 'cta', id: 'cta' }
 };
