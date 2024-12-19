@@ -1,18 +1,25 @@
-<!-- $lib/pages/demo/Dropper.svelte -->
-
+<!-- src/lib/pages/demo/Dropper.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import ElementCard from "./ElementCard.svelte";
   import { Save, Plus } from "lucide-svelte";
   import ExportButton from "$lib/components/free/ExportButton.svelte";
   import { activeElements, sectionToElement } from './dropperConfig';
+  import { editingStore } from '$lib/stores/editingStore';
   
   export let onSelect: (elementId: string) => void;
+  export let activeSectionId: string | null = null;
 
   // First 6 elements are clickable
   $: clickableElements = activeElements.slice(0, 6);
   // Rest are for display
   $: displayElements = activeElements.slice(6, 12);
+
+  // Helper to check if an element corresponds to active section
+  function isElementActive(elementId: string): boolean {
+    if (!activeSectionId) return false;
+    return sectionToElement[activeSectionId] === elementId;
+  }
 </script>
 
 <div class="w-[24em] h-[40vh] md:h-[40vh] pb-2 backdrop-blur-xl rounded-xl">
@@ -23,6 +30,7 @@
         <ElementCard 
           {element}
           onSelect={() => onSelect(element.id)}
+          isActive={isElementActive(element.id)}
         />
       {/each}
     </div>
@@ -34,6 +42,7 @@
           <ElementCard 
             element={element}
             disabled={true}
+            isActive={false}
           />
         {/each}
       </div>

@@ -7,7 +7,7 @@
   
   // Import all section components
   import VideoSection from './layouts/VideoSection.svelte';
-  import Blurbs from './Blurbs.svelte';
+  import Blurbs from './layouts/Blurbs.svelte';
   import ProductBlurbs from './layouts/ProductBlurbs.svelte';
   import ZigZag from './layouts/ZigZag.svelte';
   import Testimonials from './layouts/Testimonials.svelte';
@@ -26,7 +26,7 @@
   };
 
   // Debug mode - set to true to show all sections
-  const DEBUG_MODE = true;
+  const DEBUG_MODE = false;
 
   // Initialize with debug sections if needed
   $: if (DEBUG_MODE) {

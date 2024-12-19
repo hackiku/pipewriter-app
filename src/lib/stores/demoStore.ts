@@ -1,100 +1,25 @@
-// src/lib/stores/demoStore.ts
+//src/lib/stores/demoStore.ts
 import { writable, derived } from 'svelte/store';
 import { demoContent as initialContent } from '$lib/pages/demo/data';
-import type { tools } from '$lib/data/assets/tools';
+import { editingStore } from './editingStore';
+import { initialSections } from '$lib/pages/demo/config';
+import type { DemoSection, DemoContent } from '$lib/pages/demo/types';
 
-interface ProductFeature {
-	multiplier: number;
-	tool: typeof tools[keyof typeof tools];
-	description: string;
+interface StoreState {
+	sections: DemoSection[];
+	content: DemoContent;
 }
 
-interface DemoState {
-	visibleSections: {
-		features: boolean;
-		productFeatures: boolean;
-		blurbs: boolean;
-		zigZagLeft: boolean;
-		zigZagRight: boolean;
-		testimonials: boolean;
-		cta: boolean;
-	};
-
-	content: {
-		hero: {
-			eyebrow: string;
-			headline: string;
-		};
-		products: {
-			headline: string;
-			features: ProductFeature[];
-		};
-		features: {
-			headline: string;
-			blurbs: {
-				emoji: string;
-				title: string;
-				description: string;
-			}[];
-		};
-		zigzags: {
-			left: {
-				heading: string;
-				subheading: string;
-				description: string;
-			};
-			right: {
-				heading: string;
-				subheading: string;
-				description: string;
-			};
-		};
-		testimonials: {
-			headline: string;
-			cards: {
-				firstName: string;
-				lastName: string;
-				role: string;
-				quote: string;
-				imgSrc: string;
-			}[];
-		};
-		cta: {
-			headline: string;
-			subheading: string;
-			buttonText: string;
-			note: string;
-		};
-	};
-}
+const initialState: StoreState = {
+	sections: initialSections,
+	content: initialContent
+};
 
 function createDemoStore() {
-	const initialState: DemoState = {
-		visibleSections: {
-			features: true,
-			productFeatures: true,
-			blurbs: false,
-			zigZagLeft: false,
-			zigZagRight: false,
-			testimonials: false,
-			cta: true
-		},
-		content: initialContent
-	};
-
-	const { subscribe, set, update } = writable<DemoState>(initialState);
+	const { subscribe, set, update } = writable<StoreState>(initialState);
 
 	return {
 		subscribe,
-
-		showSection: (section: keyof DemoState['visibleSections']) =>
-			update(state => ({
-				...state,
-				visibleSections: {
-					...state.visibleSections,
-					[section]: true
-				}
-			})),
 
 		updateContent: (path: string[], value: string) =>
 			update(state => {
@@ -109,8 +34,14 @@ function createDemoStore() {
 				return state;
 			}),
 
+		updateSectionOrder: (sections: DemoSection[]) =>
+			update(state => ({
+				...state,
+				sections: sections
+			})),
+
 		getEditedContent: () => {
-			let state: DemoState;
+			let state: StoreState;
 			subscribe(s => state = s)();
 			return state.content;
 		},
@@ -121,46 +52,80 @@ function createDemoStore() {
 
 export const demoStore = createDemoStore();
 
-// Complete formatted content for the FreeForm component
-export const formattedContent = derived(demoStore, ($demo) => {
-	const content = $demo.content;
+// Enhanced formatted content for TextEditor
+export const formattedContent = derived(
+	[demoStore, editingStore],
+	([$demo, $editing]) => {
+		const content = $demo.content;
+		const visibleSections = $demo.sections
+			.filter(s => s.visible)
+			.sort((a, b) => a.order - b.order);
 
-	return [
-		// Hero section
-		`# ${content.hero.headline}`,
-		content.hero.eyebrow,
-		'',
-		// Product features section
-		'## What You Get',
-		...content.products.features.map(feature =>
-			`${feature.multiplier}× ${feature.tool.name}\n${feature.description}`
-		),
-		'',
-		// Features section
-		`## ${content.features.headline}`,
-		...content.features.blurbs.map(blurb =>
-			`### ${blurb.emoji} ${blurb.title}\n${blurb.description}`
-		),
-		'',
-		// ZigZag sections
-		`## ${content.zigzags.left.heading}`,
-		`### ${content.zigzags.left.subheading}`,
-		content.zigzags.left.description,
-		'',
-		`## ${content.zigzags.right.heading}`,
-		`### ${content.zigzags.right.subheading}`,
-		content.zigzags.right.description,
-		'',
-		// Testimonials
-		`## ${content.testimonials.headline}`,
-		...content.testimonials.cards.map(card =>
-			`> "${card.quote}"\n> — ${card.firstName} ${card.lastName}, ${card.role}`
-		),
-		'',
-		// CTA
-		`## ${content.cta.headline}`,
-		content.cta.subheading,
-		'',
-		'_' + content.cta.note + '_'
-	].join('\n');
-});
+		const formatSection = (section: DemoSection): string[] => {
+			const isBeingEdited = $editing.activeElement?.startsWith(section.id);
+			const wrap = (text: string) => isBeingEdited ?
+				`<span class="highlight">${text}</span>` : text;
+
+			switch (section.id) {
+				case 'hero':
+					return [
+						wrap(`# ${content.hero.headline}`),
+						content.hero.eyebrow
+					];
+
+				case 'product-features':
+					return [
+						wrap('## What You Get'),
+						...content.products.features.map(feature =>
+							`${feature.multiplier}× ${feature.tool.name}\n${feature.description}`
+						)
+					];
+
+				case 'features-blurbs':
+					return [
+						wrap(`## ${content.features.headline}`),
+						...content.features.blurbs.map(blurb =>
+							`### ${blurb.emoji} ${blurb.title}\n${blurb.description}`
+						)
+					];
+
+				case 'zigzag-left':
+					return [
+						wrap(`## ${content.zigzags.left.heading}`),
+						`### ${content.zigzags.left.subheading}`,
+						content.zigzags.left.description
+					];
+
+				case 'zigzag-right':
+					return [
+						wrap(`## ${content.zigzags.right.heading}`),
+						`### ${content.zigzags.right.subheading}`,
+						content.zigzags.right.description
+					];
+
+				case 'testimonials':
+					return [
+						wrap(`## ${content.testimonials.headline}`),
+						...content.testimonials.cards.map(card =>
+							`> "${card.quote}"\n> — ${card.firstName} ${card.lastName}, ${card.role}`
+						)
+					];
+
+				case 'cta':
+					return [
+						wrap(`## ${content.cta.headline}`),
+						content.cta.subheading,
+						'',
+						'_' + content.cta.note + '_'
+					];
+
+				default:
+					return [];
+			}
+		};
+
+		return visibleSections
+			.map(section => formatSection(section).join('\n'))
+			.join('\n\n');
+	}
+);

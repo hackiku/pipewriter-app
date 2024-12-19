@@ -1,6 +1,5 @@
 <!-- $lib/components/free/FreeForm.svelte -->
 
-<!-- $lib/components/free/FreeForm.svelte -->
 <script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { Button } from "$lib/components/ui/button";

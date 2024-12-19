@@ -3,7 +3,7 @@
   import { fade, fly } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
   import { onMount } from 'svelte';
-  import EditableStyles from "./EditableStyles.svelte";
+  import EditableStyles from "../EditableStyles.svelte";
   import { editingStore } from "$lib/stores/editingStore";
   import { demoStore } from '$lib/stores/demoStore';
   
