@@ -1,4 +1,5 @@
 <!-- src/lib/pages/demo/Dropper.svelte -->
+<!-- src/lib/pages/demo/Dropper.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import ElementCard from "./ElementCard.svelte";
@@ -6,19 +7,40 @@
   import ExportButton from "$lib/components/free/ExportButton.svelte";
   import { activeElements, sectionToElement } from './dropperConfig';
   import { editingStore } from '$lib/stores/editingStore';
+  import { demoStore } from '$lib/stores/demoStore';
+  import { get } from 'svelte/store';
   
   export let onSelect: (elementId: string) => void;
-  export let activeSectionId: string | null = null;
 
   // First 6 elements are clickable
   $: clickableElements = activeElements.slice(0, 6);
   // Rest are for display
   $: displayElements = activeElements.slice(6, 12);
 
+  // Track active section from the store
+  $: activeSections = $demoStore.sections
+    .filter(s => s.visible)
+    .sort((a, b) => a.order - b.order);
+  $: activeSectionId = get(editingStore).activeElement?.split('-')[0] || 
+    activeSections[activeSections.length - 1]?.id || null;
+
   // Helper to check if an element corresponds to active section
   function isElementActive(elementId: string): boolean {
     if (!activeSectionId) return false;
-    return sectionToElement[activeSectionId] === elementId;
+    const activeElement = sectionToElement[activeSectionId];
+    return activeElement === elementId;
+  }
+
+  // Helper to check if a section is being edited
+  function isElementBeingEdited(elementId: string): boolean {
+    const section = Object.entries(sectionToElement)
+      .find(([_, el]) => el === elementId)?.[0];
+    if (!section) return false;
+    return get(editingStore).activeElement?.startsWith(section) || false;
+  }
+
+  function handleElementSelect(elementId: string) {
+    onSelect(elementId);
   }
 </script>
 
@@ -29,8 +51,9 @@
       {#each clickableElements as element (element.id)}
         <ElementCard 
           {element}
-          onSelect={() => onSelect(element.id)}
+          onSelect={() => handleElementSelect(element.id)}
           isActive={isElementActive(element.id)}
+          isEditing={isElementBeingEdited(element.id)}
         />
       {/each}
     </div>
@@ -43,6 +66,7 @@
             element={element}
             disabled={true}
             isActive={false}
+            isEditing={false}
           />
         {/each}
       </div>

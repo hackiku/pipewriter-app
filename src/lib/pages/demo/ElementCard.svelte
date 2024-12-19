@@ -1,28 +1,19 @@
 <!-- src/lib/pages/demo/ElementCard.svelte -->
+<!-- src/lib/pages/demo/ElementCard.svelte -->
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
-  import { editingStore } from "$lib/stores/editingStore";
   import type { ElementObject } from "$lib/iframe/elements";
   import { Plus } from 'lucide-svelte';
-  import { sectionMapping } from './sectionMapping';
 
   export let element: ElementObject;
   export let onSelect: (id: string) => void;
   export let disabled = false;
-  export let activeSectionId: string | null = null;
+  export let isActive = false;
+  export let isEditing = false;
 
-  // Determine if this card represents the active section
-  $: isActive = activeSectionId ? 
-    sectionMapping.isElementForSection(element.id, activeSectionId) : 
-    false;
-
-  // Check if the section this element represents is being edited
-  $: isBeingEdited = activeSectionId && $editingStore.activeElement === 
-    sectionMapping.getEditableId(activeSectionId);
-
-  $: cardClass = cn(
+  $: buttonClass = cn(
     "group relative w-full h-full p-0 rounded-lg overflow-hidden",
     "transition-all duration-200 ease-out",
     "hover:-translate-y-1 hover:-translate-x-1 hover:rotate-[-2deg]",
@@ -31,17 +22,18 @@
     "active:translate-y-0 active:translate-x-0 active:shadow-none",
     "bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700",
     isActive && "bg-purple-100/30 dark:bg-purple-900/20",
-    disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-slate-400/30 dark:hover:bg-slate-900/80"
+    disabled ? "opacity-50 cursor-not-allowed" : "hover:bg-slate-400/30 dark:hover:bg-slate-900/80",
+    isEditing && "card-editing"
   );
 </script>
 
 <div class="relative aspect-[1.618/1]">
   <Tooltip.Root>
     <Tooltip.Trigger asChild>
-      <div class="card-wrapper" class:editing={isBeingEdited}>
+      <div class="card-wrapper">
         <Button
           variant="ghost"
-          class={cardClass}
+          class={buttonClass}
           on:click={() => !disabled && onSelect(element.id)}
           {disabled}
         >
@@ -87,7 +79,11 @@
     transition: opacity 0.3s ease;
   }
 
-  .card-wrapper.editing::before {
+  .card-editing .card-wrapper::before {
     opacity: 1;
+  }
+
+  :global(.card-editing) {
+    background: linear-gradient(to right, rgba(54,68,254,0.1), rgba(179,69,237,0.1)) !important;
   }
 </style>
