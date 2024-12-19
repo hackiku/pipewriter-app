@@ -2,49 +2,71 @@
 <script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { X } from "lucide-svelte";
-  import { formattedContent } from '$lib/stores/demoStore';
+  import { demoStore, formattedContent } from '$lib/stores/demoStore';
   import TextEditor from './TextEditor.svelte';
-  import EmailForm from '../EmailForm.svelte';
+  import EmailForm from '../cta/EmailForm.svelte';
+  import { Button } from "$lib/components/ui/button";
+  import { RotateCcw } from "lucide-svelte";
+
+  export let showReset = false;
 </script>
 
-<AlertDialog.Content class="max-w-[95vw] w-[1000px] h-[85vh] p-6">
-  <AlertDialog.Cancel class="absolute right-6 top-6 z-50">
-    <div class="group relative inline-flex items-center">
-      <button class="h-8 rounded-full border bg-background hover:bg-muted transition-all duration-200 overflow-hidden">
-        <div class="flex items-center px-2 gap-2">
-          <X class="w-4 h-4" />
-          <span class="pr-1 text-xs text-muted-foreground opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
-            esc
-          </span>
+<AlertDialog.Portal>
+  <AlertDialog.Overlay class="fixed inset-0 bg-black/40 backdrop-blur-sm animate-in fade-in-0" />
+  <AlertDialog.Content class="fixed left-[50%] top-[50%] z-50 grid w-full max-w-[95vw] max-h-[95vh] translate-x-[-50%] translate-y-[-50%] gap-4 p-6 shadow-lg duration-200 animate-in fade-in-0 zoom-in-95 sm:rounded-lg md:w-[1000px] bg-background">
+    <AlertDialog.Cancel class="absolute right-6 top-6 z-50">
+      <div class="group relative inline-flex items-center">
+        <button class="h-8 rounded-full border bg-background hover:bg-muted transition-all duration-200 overflow-hidden">
+          <div class="flex items-center px-2 gap-2">
+            <X class="w-4 h-4" />
+            <span class="pr-1 text-xs text-muted-foreground opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+              esc
+            </span>
+          </div>
+        </button>
+      </div>
+    </AlertDialog.Cancel>
+
+    <div class="h-full flex items-center justify-center">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+        <div class="flex flex-col gap-4">
+          <h3 class="text-lg font-semibold">Your Content</h3>
+          <TextEditor 
+            value={$formattedContent}
+            readonly={true}
+          />
         </div>
-      </button>
-    </div>
-  </AlertDialog.Cancel>
 
-  <div class="h-full flex items-center justify-center">
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
-      <TextEditor 
-        value={$formattedContent}
-        readonly={true}
-      />
+        <div class="flex flex-col justify-center max-w-md mx-auto w-full gap-6">
+          <div class="space-y-2">
+            <h2 class="text-2xl font-bold">Get Your Free Template</h2>
+            <p class="text-muted-foreground">
+              We'll send you a Google Docs template with your content.
+            </p>
+          </div>
 
-      <div class="flex flex-col justify-center max-w-md mx-auto w-full gap-6">
-        <div class="space-y-2">
-          <h2 class="text-2xl font-bold">Get Your Free Template</h2>
-          <p class="text-muted-foreground">
-            We'll send you a Google Docs template with your content.
+          <EmailForm
+            buttonText="Send My Template"
+            wrap={true}
+          />
+          
+          {#if showReset}
+            <Button 
+              variant="ghost" 
+              size="sm"
+              on:click={() => demoStore.reset()}
+              class="w-full"
+            >
+              <RotateCcw class="w-4 h-4 mr-2" />
+              Reset Content
+            </Button>
+          {/if}
+
+          <p class="text-sm text-muted-foreground">
+            By submitting, you agree to receive updates. Unsubscribe anytime.
           </p>
         </div>
-
-        <EmailForm
-          buttonText="Send My Template"
-          wrap={true}
-        />
-        
-        <p class="text-sm text-muted-foreground">
-          By submitting, you agree to receive updates. Unsubscribe anytime.
-        </p>
       </div>
     </div>
-  </div>
-</AlertDialog.Content>
+  </AlertDialog.Content>
+</AlertDialog.Portal>

@@ -1,5 +1,4 @@
 <!-- src/lib/pages/demo/Demo.svelte -->
-
 <script lang="ts">
   import { onMount } from "svelte";
   import { demoStore } from '$lib/stores/demoStore';
@@ -9,7 +8,6 @@
   import Testimonials from "./Testimonials.svelte";
   import CTA from "./CTA.svelte";
 
-  // Reference sections for scrolling
   let sections: Record<string, HTMLElement> = {};
 
   onMount(() => {
@@ -27,7 +25,6 @@
       rootMargin: "50px",
     });
 
-    // Only observe sections that exist
     setTimeout(() => {
       Object.entries(sections).forEach(([key, el]) => {
         if (el && document.body.contains(el)) {
@@ -59,6 +56,11 @@
       });
     }
   }
+
+  // Helper function to update store content
+  function updateContent(path: string[], value: string) {
+    demoStore.updateContent(path, value);
+  }
 </script>
 
 <div class="space-y-6">
@@ -66,12 +68,17 @@
     visible={$demoStore.visibleSections.zigZagLeft}
     direction="left"
     bind:this={sections.zigZagLeft}
-    {...$demoStore.content.zigzags.left}
+    heading={$demoStore.content.zigzags.left.heading}
+    subheading={$demoStore.content.zigzags.left.subheading}
+    description={$demoStore.content.zigzags.left.description}
+    onUpdate={(field, value) => updateContent(['zigzags', 'left', field], value)}
   />
 
   <ProductBlurbs
     visible={$demoStore.visibleSections.productFeatures}
     bind:this={sections.productFeatures}
+    features={$demoStore.content.products.features}
+    onUpdate={(idx, field, value) => updateContent(['products', 'features', idx.toString(), field], value)}
   />
 
   {#if $demoStore.visibleSections.blurbs}
@@ -82,7 +89,13 @@
       class:opacity-0={!$demoStore.visibleSections.blurbs}
       class:translate-y-[20px]={!$demoStore.visibleSections.blurbs}
     >
-      <Blurbs visible={$demoStore.visibleSections.blurbs} />
+      <Blurbs 
+        visible={$demoStore.visibleSections.blurbs}
+        headline={$demoStore.content.features.headline}
+        blurbs={$demoStore.content.features.blurbs}
+        onUpdate={(idx, field, value) => updateContent(['features', 'blurbs', idx.toString(), field], value)}
+        onHeadlineUpdate={(value) => updateContent(['features', 'headline'], value)}
+      />
     </section>
   {/if}
 
@@ -91,7 +104,10 @@
       visible={$demoStore.visibleSections.zigZagRight}
       direction="right"
       bind:this={sections.zigZagRight}
-      {...$demoStore.content.zigzags.right}
+      heading={$demoStore.content.zigzags.right.heading}
+      subheading={$demoStore.content.zigzags.right.subheading}
+      description={$demoStore.content.zigzags.right.description}
+      onUpdate={(field, value) => updateContent(['zigzags', 'right', field], value)}
     />
   {/if}
 
@@ -103,9 +119,22 @@
       class:opacity-0={!$demoStore.visibleSections.testimonials}
       class:translate-y-[20px]={!$demoStore.visibleSections.testimonials}
     >
-      <Testimonials visible={$demoStore.visibleSections.testimonials} />
+      <Testimonials 
+        visible={$demoStore.visibleSections.testimonials}
+        headline={$demoStore.content.testimonials.headline}
+        cards={$demoStore.content.testimonials.cards}
+        onUpdate={(idx, field, value) => updateContent(['testimonials', 'cards', idx.toString(), field], value)}
+        onHeadlineUpdate={(value) => updateContent(['testimonials', 'headline'], value)}
+      />
     </section>
   {/if}
 
-  <CTA visible={$demoStore.visibleSections.cta} />
+  <CTA 
+    visible={$demoStore.visibleSections.cta}
+    headline={$demoStore.content.cta.headline}
+    subheading={$demoStore.content.cta.subheading}
+    buttonText={$demoStore.content.cta.buttonText}
+    note={$demoStore.content.cta.note}
+    onUpdate={(field, value) => updateContent(['cta', field], value)}
+  />
 </div>

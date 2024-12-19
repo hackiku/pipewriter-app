@@ -4,6 +4,7 @@
   import { elements } from "$lib/iframe/elements";
   import { Save } from "lucide-svelte";
   import FreeForm from "$lib/components/free/FreeForm.svelte";
+  import ExportButton from "$lib/components/free/ExportButton.svelte";
   
   export let onSelect: (elementId: string) => void;
 
@@ -32,7 +33,7 @@
     
     <!-- Export and Reset buttons -->
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-4 pb-4">
-      <FreeForm 
+      <ExportButton 
         text="Export"
         icon={Save}
         showReset={true}

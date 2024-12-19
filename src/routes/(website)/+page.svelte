@@ -11,10 +11,9 @@
 
 	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 
-  import FreeForm from '$lib/components/free/FreeForm.svelte';
-  // import FreeForm from '$lib/components/cta/FreeForm.svelte';
+  // import FreeForm from '$lib/components/free/FreeForm.svelte';
+	// import EarlyAccess from '$lib/components/cta/EarlyAccess.svelte';
 
-	import EarlyAccess from '$lib/components/cta/EarlyAccess.svelte';
 
   let demo: Demo;
   let demoSection: HTMLElement;
@@ -47,11 +46,14 @@
   }
 </script>
 
-<BackgroundPattern />
+<!-- <BackgroundPattern /> -->
+
 
 <div class="flex flex-col min-h-screen">
-  <main class="flex-grow px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
+
+	<main class="flex-grow px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
     <!-- Hero Section -->
+
     <section id="hero-section" class="pt-20 lg:pt-40 min-h-[calc(100vh-5rem)]">
       <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
         <div class="lg:w-[45%]">
@@ -94,4 +96,4 @@
 </DropperWrapper>
 
 
-<FreeForm />
+<!-- <FreeForm /> -->

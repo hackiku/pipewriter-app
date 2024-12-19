@@ -2,7 +2,6 @@
 <script lang="ts">
   import { fade, fly } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
-  import { ArrowRight } from 'lucide-svelte';
   import EditableStyles from "./EditableStyles.svelte";
   import { editingStore } from "$lib/stores/editingStore";
 
@@ -39,7 +38,7 @@
       <div class="space-y-4">
         <EditableStyles elementId="zigzag-{direction}-heading">
           <h3 
-            class="text-sm font-medium outline-none bg-clip-text text-transparent bg-gradient-to-r from-[#3644FE] to-[#B345ED]" 
+            class="text-sm font-medium outline-none text-muted-foreground"
             contenteditable="true"
             bind:innerText={heading}
             on:focus={() => handleEditStart(`zigzag-${direction}-heading`)}
@@ -118,10 +117,10 @@
         />
 
         <!-- Tools Pill -->
-        <div class="absolute -bottom-4 -left-4 flex items-center gap-4 px-6 py-3 bg-white dark:bg-gray-900 rounded-full shadow-lg border border-gray-200 dark:border-gray-800">
-          <img src="tools/google-docs.svg" alt="Google Docs" class="w-8 h-8">
-          <div class="w-px h-6 bg-gray-200 dark:bg-gray-800"></div>
-          <img src="tools/google-apps-script.svg" alt="Google Apps Script" class="w-8 h-8">
+        <div class="absolute -bottom-4 -left-4 flex items-center gap-4 px-6 py-3 bg-background rounded-full shadow-lg border">
+          <img src="/tools/google-docs.svg" alt="Google Docs" class="w-8 h-8">
+          <div class="w-px h-6 bg-border"></div>
+          <img src="/tools/google-apps-script.svg" alt="Google Apps Script" class="w-8 h-8">
         </div>
       </div>
     </div>
@@ -137,11 +136,5 @@
 
   .relative:hover > div:first-child {
     animation: slideStripes 2s linear infinite;
-  }
-
-  /* Prevent text gradient from being editable */
-  [contenteditable="true"].text-transparent::selection {
-    color: transparent;
-    -webkit-text-fill-color: transparent;
   }
 </style>
