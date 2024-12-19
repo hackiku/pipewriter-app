@@ -5,26 +5,7 @@
   import { Textarea } from "$lib/components/ui/textarea";
   import EmailForm from "./EmailForm.svelte";
   import { X } from "lucide-svelte";
-  import { demoContent } from "$lib/pages/demo/data";
-  
-  // Format the demo content for the textarea
-  const formattedContent = [
-    `# ${demoContent.hero.headline}`,
-    demoContent.hero.eyebrow,
-    '',
-    `## ${demoContent.features.headline}`,
-    ...demoContent.features.blurbs.map(blurb => 
-      `### ${blurb.title}\n${blurb.description}`
-    ),
-    '',
-    `## ${demoContent.zigzags.left.heading}`,
-    demoContent.zigzags.left.subheading,
-    demoContent.zigzags.left.description,
-    '',
-    `## ${demoContent.zigzags.right.heading}`,
-    demoContent.zigzags.right.subheading,
-    demoContent.zigzags.right.description
-  ].join('\n');
+  import { formattedContent } from '$lib/stores/demoStore';
 </script>
 
 <AlertDialog.Root>
@@ -35,13 +16,12 @@
   </AlertDialog.Trigger>
   
   <AlertDialog.Content class="max-w-[95vw] w-[1000px] h-[85vh] p-6">
-    <!-- Close Button -->
     <AlertDialog.Cancel class="absolute right-6 top-6 z-50">
       <div class="group relative inline-flex items-center">
         <button class="h-8 rounded-full border bg-background hover:bg-muted transition-all duration-200 overflow-hidden">
           <div class="flex items-center px-2 gap-2">
             <X class="w-4 h-4" />
-            <span class="pr-1 text-xs text-muted-foreground opacitsy-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
+            <span class="pr-1 text-xs text-muted-foreground opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-200">
               esc
             </span>
           </div>
@@ -49,23 +29,15 @@
       </div>
     </AlertDialog.Cancel>
 
-    <!-- Main Content -->
     <div class="h-full flex items-center justify-center">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
         <!-- Left Column: Text Content -->
         <div class="flex flex-col gap-4">
-          <div class="space-y-2">
-            <h3 class="text-lg font-semibold">Your Content</h3>
-            <div class="flex items-center gap-2 text-sm text-muted-foreground">
-              <div class="rounded-full border p-1.5">
-                <img src="tools/google-docs.svg" alt="Google Docs" class="w-4 h-4" />
-              </div>
-              <span>Will be formatted as a Google Docs wireframe</span>
-            </div>
-          </div>
+          <h3 class="text-lg font-semibold">Your Content</h3>
           <Textarea 
             class="flex-1 min-h-[400px] font-mono text-sm text-muted-foreground [&_strong]:text-foreground [&_h1]:text-foreground [&_h2]:text-foreground [&_h3]:text-foreground"
-            value={formattedContent}
+            value={$formattedContent}
+            readonly
           />
         </div>
 
@@ -74,7 +46,7 @@
           <div class="space-y-2">
             <h2 class="text-2xl font-bold">Get Your Free Template</h2>
             <p class="text-muted-foreground">
-              We'll send you a Google Docs template with your content pre-formatted as wireframes.
+              We'll send you a Google Docs template with your content.
             </p>
           </div>
 
@@ -84,7 +56,7 @@
           />
           
           <p class="text-sm text-muted-foreground">
-            By submitting, you agree to receive product updates and marketing emails. You can unsubscribe at any time.
+            By submitting, you agree to receive updates. Unsubscribe anytime.
           </p>
         </div>
       </div>

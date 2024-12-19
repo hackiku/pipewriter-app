@@ -11,7 +11,8 @@
 
 	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 
-  import FreeForm from '$lib/components/cta/FreeForm.svelte';
+  import FreeForm from '$lib/components/free/FreeForm.svelte';
+  // import FreeForm from '$lib/components/cta/FreeForm.svelte';
 
 	import EarlyAccess from '$lib/components/cta/EarlyAccess.svelte';
 
