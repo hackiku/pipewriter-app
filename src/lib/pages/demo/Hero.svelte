@@ -5,7 +5,8 @@
   import WriteStatusButton from "./WriteButton.svelte";
   import EditableStyles from "./EditableStyles.svelte";
   import { editingStore } from "$lib/stores/editingStore";
-  
+  import { demoStore } from '$lib/stores/demoStore';
+
   export let eyebrowText = "Type + Prototype";
   export let headlineText = "Wireframes for Writers in Google Docs";
   
@@ -13,9 +14,9 @@
   
   function handleInput(event: Event, binding: 'eyebrow' | 'headline') {
     const target = event.target as HTMLElement;
-    if (binding === 'eyebrow') eyebrowText = target.innerText;
-    if (binding === 'headline') headlineText = target.innerText;
+    demoStore.updateContent(['hero', binding], target.innerText);
   }
+
 
   function focusHeadline() {
     if (headlineElement) {
