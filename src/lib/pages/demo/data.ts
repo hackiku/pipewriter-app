@@ -88,7 +88,7 @@ export const demoContent = {
 	cta: {
 		headline: "Beta Launch Special — $59 One-Time (Until Jan 1st)",
 		subheading: "The wait is over: the app is finally here. Join the first wave of writer-first wireframers for a one-off fee",
-		buttonText: "Get Pipewriter Forever @ $59 One-Time",
+		buttonText: "Docs Bundle 40% OFF",
 		note: "Old Template Users Get 50% OFF! Check your email"
 	}
 };
