@@ -1,4 +1,5 @@
-<!-- $lib/pages/demo/Demo.svelte -->
+<!-- src/lib/pages/demo/Demo.svelte -->
+<!-- // lib/pages/demo/Demo.svelte -->
 <script lang="ts">
   import { onMount } from "svelte";
   import { demoStore } from '$lib/stores/demoStore';
@@ -26,10 +27,14 @@
       rootMargin: "50px",
     });
 
-    // Observe all sections that exist in the DOM
-    Object.values(sections).forEach(el => {
-      if (el) observer.observe(el);
-    });
+    // Only observe sections that exist
+    setTimeout(() => {
+      Object.entries(sections).forEach(([key, el]) => {
+        if (el && document.body.contains(el)) {
+          observer.observe(el);
+        }
+      });
+    }, 0);
 
     return () => observer.disconnect();
   });
@@ -39,24 +44,24 @@
       'blurbs-3': 'blurbs',
       'zz-left': 'zigZagLeft',
       'zz-right': 'zigZagRight',
-      // Add other mappings as needed
     };
 
     const sectionName = sectionMap[elementId];
     if (sectionName) {
       demoStore.showSection(sectionName);
       requestAnimationFrame(() => {
-        sections[sectionName]?.scrollIntoView({
-          behavior: "smooth",
-          block: "center",
-        });
+        if (sections[sectionName]) {
+          sections[sectionName].scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
       });
     }
   }
 </script>
 
 <div class="space-y-6">
-  <!-- Initial visible sections -->
   <ZigZag
     visible={$demoStore.visibleSections.zigZagLeft}
     direction="left"
@@ -69,7 +74,6 @@
     bind:this={sections.productFeatures}
   />
 
-  <!-- User-insertable sections -->
   {#if $demoStore.visibleSections.blurbs}
     <section
       id="blurbs-section"
@@ -103,6 +107,5 @@
     </section>
   {/if}
 
-  <!-- Always visible CTA -->
   <CTA visible={$demoStore.visibleSections.cta} />
 </div>
