@@ -9,7 +9,7 @@ export const sectionToElement: Record<string, string> = {
 	'zigzag-left': 'zz-left',
 	'blurbs': 'blurbs-3',
 	'testimonials': 'cards-2-center',
-	'cta': 'button-center',
+	'cta': 'button-secondary-left',
 	// 'zigzag-right': 'zz-right'
 };
 

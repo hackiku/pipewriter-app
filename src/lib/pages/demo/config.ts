@@ -4,10 +4,20 @@ import { demoContent } from './data';
 
 export const initialSections: DemoSection[] = [
 	{
+		id: 'hero',
+		type: 'hero',
+		visible: true,
+		order: 0,
+		props: {
+			eyebrow: demoContent.hero.eyebrow,
+			headline: demoContent.hero.headline
+		}
+	},
+	{
 		id: 'demo-video',
 		type: 'video',
 		visible: true,
-		order: 0,
+		order: 1,
 		props: {
 			title: "Quick demo video - 2 min",
 			placeholder: true
@@ -17,7 +27,7 @@ export const initialSections: DemoSection[] = [
 		id: 'product-features',
 		type: 'product-blurbs',
 		visible: true,
-		order: 1,
+		order: 2,
 		props: {
 			headline: demoContent.products.headline,
 			features: demoContent.products.features
