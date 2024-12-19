@@ -1,24 +1,55 @@
 <!-- $lib/components/free/TextEditor.svelte -->
 <script lang="ts">
-  import { Textarea } from "$lib/components/ui/textarea";
   import { onMount } from 'svelte';
+  import { demoStore } from '$lib/stores/demoStore';
+  
   export let value: string;
   export let readonly: boolean = false;
 
   let editor: HTMLDivElement;
 
+  function handleInput(event: Event) {
+    if (readonly) return;
+    
+    const target = event.target as HTMLDivElement;
+    const content = target.innerText;
+    
+    // Parse the content and update store
+    const sections = content.split('\n\n');
+    sections.forEach(section => {
+      const lines = section.split('\n');
+      
+      // Match section by its heading format
+      if (lines[0].startsWith('# ')) { // Hero section
+        demoStore.updateContent(['hero', 'headline'], lines[0].replace('# ', ''));
+        if (lines[1]) {
+          demoStore.updateContent(['hero', 'eyebrow'], lines[1]);
+        }
+      }
+      // Add more section matching logic here
+    });
+  }
+
   onMount(() => {
     if (editor) {
       editor.addEventListener('keydown', (e: KeyboardEvent) => {
-        // Prevent new lines
-        if (e.key === 'Enter') {
-          e.preventDefault();
+        if (readonly) return;
+        
+        // Allow basic editing keys
+        const allowedKeys = ['Backspace', 'Delete', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'];
+        if (!allowedKeys.includes(e.key)) {
+          // Only allow alphanumeric and punctuation
+          if (!/^[\w\s.,!?-]$/.test(e.key)) {
+            e.preventDefault();
+          }
         }
       });
 
       // Handle paste to strip formatting
       editor.addEventListener('paste', (e: ClipboardEvent) => {
         e.preventDefault();
+        if (readonly) return;
+        
         const text = e.clipboardData?.getData('text/plain') || '';
         document.execCommand('insertText', false, text);
       });
@@ -30,6 +61,7 @@
   <div
     bind:this={editor}
     contenteditable={!readonly}
+    on:input={handleInput}
     class="flex-1 min-h-[400px] font-mono text-sm text-muted-foreground whitespace-pre-wrap p-3 rounded-md border bg-muted/5 overflow-y-auto outline-none
       [&_strong]:text-foreground 
       [&_h1]:text-foreground 
@@ -43,6 +75,7 @@
     {@html value.replace(/\n/g, '<br>')}
   </div>
 </div>
+
 
 <style>
   :global(.highlight) {

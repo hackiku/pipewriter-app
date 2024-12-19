@@ -32,18 +32,18 @@ export const demoContent = {
 		blurbs: [
 			{
 				emoji: "⚡️",
-				title: "Click or Type to Insert",
-				description: "Drop in UI elements with a click or keyboard shortcut. No more hunting through menus or building tables by hand."
+				title: "Click-drop workflow",
+				description: "Native Docs app"
 			},
 			{
 				emoji: "🎨",
-				title: "Dark Mode Built-in",
-				description: "Switch between light and dark themes instantly. Your copy and wireframes auto-update to match."
+				title: "SaaS B2B looks",
+				description: "Ultra polished templates"
 			},
 			{
 				emoji: "🔄",
-				title: "Export Anywhere",
-				description: "Turn docs into HTML, React, or Figma files with one click. No more copy-paste hell between tools."
+				title: "Writer's IDE",
+				description: "Write Words + UX"
 			}
 		]
 	},

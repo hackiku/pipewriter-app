@@ -33,7 +33,7 @@
           <h3 class="text-lg font-semibold">Your Content</h3>
           <TextEditor 
             value={$formattedContent}
-            readonly={true}
+            readonly={false}
           />
         </div>
 

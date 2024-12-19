@@ -1,7 +1,7 @@
 <!-- $lib/components/EmailForm.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import { Check, X } from 'lucide-svelte';
+  import { Check, X, Mail } from 'lucide-svelte';
   import { onMount } from 'svelte';
   import type { SubscribeResponse } from '$lib/server/subscribe';
   import { cn } from '$lib/utils';
@@ -112,7 +112,7 @@
 
 {#if !isSubmitted}
   <form on:submit={handleSubmit} class={formClass}>
-    <div class="sm:flex-1">
+    <div class="sm:flex-1 relative">
       <input
         type="email"
         placeholder={placeholder}
@@ -120,6 +120,9 @@
         class={inputClass}
         required
       />
+      <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none">
+        <Mail class="text-gray-400/30 dark:text-gray-500/30" size={size === "default" ? 24 : 20} />
+      </div>
     </div>
     <div class={wrap ? "w-full" : "w-full sm:w-auto"}>
       <button
@@ -135,8 +138,7 @@
                  opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         />
       </button>
-    </div>
-  </form>
+    </div>  </form>
   {#if errorMessage}
     <p class="text-red-500 mt-2 text-sm">{errorMessage}</p>
   {/if}
