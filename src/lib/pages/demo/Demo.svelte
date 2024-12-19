@@ -5,20 +5,20 @@
   import type { DemoSection } from './types';
   
   // Import all section components
-  import VideoSection from './sections/VideoSection.svelte';
-  import ProductBlurbs from './ProductBlurbs.svelte';
-  import ZigZag from './ZigZag.svelte';
+  import VideoSection from './layouts/VideoSection.svelte';
   import Blurbs from './Blurbs.svelte';
-  import Testimonials from './Testimonials.svelte';
-  import CTA from './CTA.svelte';
+  import ProductBlurbs from './layouts/ProductBlurbs.svelte';
+  import ZigZag from './layouts/ZigZag.svelte';
+  import Testimonials from './layouts/Testimonials.svelte';
+  import CTA from './layouts/CTA.svelte';
 
   const sections = writable<DemoSection[]>(initialSections);
   
   const sectionComponents = {
     'video': VideoSection,
+    'blurbs': Blurbs,
     'product-blurbs': ProductBlurbs,
     'zigzag': ZigZag,
-    'blurbs': Blurbs,
     'testimonials': Testimonials,
     'cta': CTA
   };

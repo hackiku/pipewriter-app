@@ -1,8 +1,8 @@
-<!-- src/lib/pages/demo/ZigZag.svelte -->
+<!-- $lib/pages/demo/sections/ZigZag.svelte -->
 <script lang="ts">
   import { fade, fly } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
-  import EditableStyles from "./EditableStyles.svelte";
+  import EditableStyles from "../EditableStyles.svelte";
   import { editingStore } from "$lib/stores/editingStore";
 
   export let visible = false;

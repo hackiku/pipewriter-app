@@ -1,12 +1,13 @@
-<!-- src/lib/pages/demo/sections/ProductBlurbs.svelte -->
+<!-- $lib/pages/demo/sections/layouts/ProductBlurbs.svelte -->
 <script lang="ts">
   import { fade, fly } from 'svelte/transition';
   import { quintOut } from 'svelte/easing';
-  import { demoContent } from '../data';
+  import { demoStore } from '$lib/stores/demoStore';
+  import { editingStore } from "$lib/stores/editingStore";
   import EditableStyles from '../EditableStyles.svelte';
-  import { editingStore } from "$lib/stores/demoStore";
   
   export let visible = false;
+  export let features = $demoStore.content.products.features;
 
   function handleEditStart(id: string) {
     editingStore.startEditing(id);
@@ -14,6 +15,11 @@
 
   function handleEditStop() {
     editingStore.stopEditing();
+  }
+
+  function handleInput(event: Event, index: number, field: string) {
+    const target = event.target as HTMLElement;
+    demoStore.updateContent(['products', 'features', index.toString(), field], target.innerText);
   }
 </script>
 
@@ -23,7 +29,7 @@
       class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16"
       in:fade={{ duration: 300 }}
     >
-      {#each demoContent.products.features as feature, i}
+      {#each features as feature, i}
         <div 
           class="group relative flex flex-col items-center rounded-xl bg-background hover:bg-muted/50 transition-colors"
           in:fly={{ y: 20, duration: 300, delay: 150 * (i + 1), easing: quintOut }}
@@ -36,11 +42,11 @@
               <div 
                 class="text-4xl font-bold text-primary mr-2"
                 contenteditable="true"
+                bind:innerText={feature.multiplier}
+                on:input={(e) => handleInput(e, i, 'multiplier')}
                 on:focus={() => handleEditStart(`product-${i}-pill`)}
                 on:blur={handleEditStop}
-              >
-                {feature.multiplier}
-              </div>
+              />
               
               <span class="text-4xl font-light text-primary/40">×</span>
               
@@ -60,11 +66,11 @@
             <p 
               class="text-xl text-center font-medium outline-none"
               contenteditable="true"
+              bind:innerText={feature.description}
+              on:input={(e) => handleInput(e, i, 'description')}
               on:focus={() => handleEditStart(`product-${i}-description`)}
               on:blur={handleEditStop}
-            >
-              {feature.description}
-            </p>
+            />
           </EditableStyles>
 
           <!-- Hover effect indicator -->
