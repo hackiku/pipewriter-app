@@ -11,9 +11,9 @@
 
 	import LoomVideo from "$lib/components/marketing/LoomVideo.svelte";
 
+  import FreeForm from '$lib/components/free/FreeForm.svelte';
   // import FreeForm from '$lib/components/free/FreeForm.svelte';
 	// import EarlyAccess from '$lib/components/cta/EarlyAccess.svelte';
-
 
   let demo: Demo;
   let demoSection: HTMLElement;
@@ -69,17 +69,6 @@
       </div>
     </section>
 
-    <!-- Features Section -->
-    <section class="py-16 text-center">
-      <h2 class="text-4xl sm:text-5xl font-semibold mb-12">
-        {demoContent.features.headline}
-      </h2>
-      
-      <!-- <div class="aspect-video w-full max-w-4xl mx-auto bg-gray-100 dark:bg-gray-800 rounded-lg shadow-lg flex items-center justify-center"> -->
-        <!-- <p class="text-lg text-muted-foreground">Video Player Placeholder</p> -->
-				 <LoomVideo />
-      <!-- </div> -->
-    </section>
 
     <!-- Demo Section -->
     <section id="demo-section" class="pb-32" bind:this={demoSection}>
@@ -95,5 +84,3 @@
   <Dropper onSelect={handleElementSelect} />
 </DropperWrapper>
 
-
-<!-- <FreeForm /> -->
