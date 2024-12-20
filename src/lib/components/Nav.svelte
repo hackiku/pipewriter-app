@@ -5,7 +5,7 @@
 	import { Badge } from "$lib/components/ui/badge";
 	import { Sun, Moon, Menu, X } from "lucide-svelte";
 	import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
-	import { contactModalStore } from "$lib/stores/contactModalStore"
+	import { contactModalStore } from "$lib/stores/contactModalStore";
 	import { onMount } from "svelte";
 
 	let isMenuOpen = false;
@@ -37,7 +37,7 @@
 		{ href: "/about", label: "About" },
 		{ href: "/ai", label: "AI" },
 		{ href: "/blog", label: "Blog" },
-		{ href: "", label: "Contact", onClick: () => $contactModalStore = true }
+		{ href: "", label: "Contact", onClick: () => ($contactModalStore = true) },
 	];
 </script>
 
@@ -63,8 +63,13 @@
 				{#each navItems as item}
 					<a
 						href={item.href}
-						class="text-md font-medium text-muted-foreground hover:text-foreground transition-colors"
-						on:click|preventDefault={item.onClick}
+						class="text-muted-foreground hover:text-foreground transition-colors w-fit"
+						on:click={(e) => {
+							if (item.onClick) {
+								e.preventDefault();
+								item.onClick();
+							}
+						}}
 					>
 						{item.label}
 					</a>
@@ -120,6 +125,12 @@
 						<a
 							href={item.href}
 							class="block w-full text-left px-3 py-2 text-sm font-medium text-foreground hover:bg-accent rounded-md"
+							on:click={(e) => {
+								if (item.onClick) {
+									e.preventDefault();
+									item.onClick();
+								}
+							}}
 						>
 							{item.label}
 						</a>
@@ -135,5 +146,4 @@
 			</div>
 		{/if}
 	</div>
-
 </nav>

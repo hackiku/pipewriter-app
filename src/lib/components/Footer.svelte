@@ -9,7 +9,7 @@
 	} from "lucide-svelte";
 	import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
 	// import ContactModal from "./ContactModal.svelte";
-	import { contactModalStore } from "$lib/stores/contactModalStore"
+	import { contactModalStore } from "$lib/stores/contactModalStore";
 
 	const year = new Date().getFullYear();
 
@@ -56,20 +56,22 @@
 		{ href: "/about", label: "About" },
 		{ href: "/ai", label: "AI" },
 		{ href: "/blog", label: "Blog" },
-		{ href: "", label: "Contact", onClick: () => $contactModalStore = true }
-
+		{ href: "", label: "Contact", onClick: () => ($contactModalStore = true) },
 	];
 </script>
 
-<footer class="w-full bg-slate-100 dark:bg-slate-900/50 border-t border-gray-200 dark:border-gray-800">
-	
+<footer
+	class="w-full bg-slate-100 dark:bg-slate-900/50 border-t border-gray-200 dark:border-gray-800"
+>
 	<!-- {#if $contactModalStore}
   	<ContactModal on:close={() => $contactModalStore = false} />
 	{/if} -->
 
 	<div class="container px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44 py-8">
 		<!-- Main Grid -->
-		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
+		<div
+			class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12"
+		>
 			<!-- Brand & Social - Spans full width on mobile, half on medium, 5 cols on large -->
 			<div class="md:col-span-1 lg:col-span-5 flex flex-col justify-between">
 				<!-- Logo & Description -->
@@ -79,7 +81,8 @@
 						<h3 class="text-2xl font-semibold">Pipewriter</h3>
 					</div>
 					<p class="text-muted-foreground text-sm max-w-xs">
-						Professional website copy decks in Google Docs. Design-ready templates + sidebar app.
+						Professional website copy decks in Google Docs. Design-ready
+						templates + sidebar app.
 					</p>
 					<!-- Early Access Button -->
 					<div class="pt-2">
@@ -127,7 +130,12 @@
 						<a
 							href={item.href}
 							class="text-muted-foreground hover:text-foreground transition-colors w-fit"
-							on:click|preventDefault={item.onClick}
+							on:click={(e) => {
+								if (item.onClick) {
+									e.preventDefault();
+									item.onClick();
+								}
+							}}
 						>
 							{item.label}
 						</a>
@@ -153,5 +161,4 @@
 			</div>
 		</div>
 	</div>
-
 </footer>
