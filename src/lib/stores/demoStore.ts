@@ -15,6 +15,8 @@ const initialState: StoreState = {
 	content: initialContent
 };
 
+const SHOW_ALL = true;
+
 function createDemoStore() {
 	const { subscribe, set, update } = writable<StoreState>(initialState);
 

@@ -2,11 +2,13 @@
 import type { DemoSection } from './types';
 import { demoContent } from './data';
 
+export const SHOW_ALL = false; 
+
 export const initialSections: DemoSection[] = [
 	{
 		id: 'hero',
 		type: 'hero',
-		visible: true,
+		visible: SHOW_ALL || true,
 		order: 0,
 		props: {
 			eyebrow: demoContent.hero.eyebrow,
@@ -16,7 +18,7 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'demo-video',
 		type: 'video',
-		visible: true,
+		visible: SHOW_ALL || true,
 		order: 1,
 		props: {
 			title: "Quick demo video - 2 min",
@@ -26,7 +28,7 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'product-features',
 		type: 'product-blurbs',
-		visible: true,
+		visible: SHOW_ALL || true,
 		order: 2,
 		props: {
 			headline: demoContent.products.headline,
@@ -36,8 +38,8 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'zigzag-left',
 		type: 'zigzag',
-		visible: true,
-		order: 2,
+		visible: SHOW_ALL || true,
+		order: 3,  // Fixed conflicting order
 		props: {
 			direction: 'left',
 			...demoContent.zigzags.left
@@ -46,8 +48,8 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'features-blurbs',
 		type: 'blurbs',
-		visible: false,
-		order: 3,
+		visible: SHOW_ALL || false,
+		order: 4,
 		props: {
 			headline: demoContent.features.headline,
 			blurbs: demoContent.features.blurbs
@@ -56,8 +58,8 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'zigzag-right',
 		type: 'zigzag',
-		visible: false,
-		order: 4,
+		visible: SHOW_ALL || false,
+		order: 5,
 		props: {
 			direction: 'right',
 			...demoContent.zigzags.right
@@ -66,8 +68,8 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'testimonials',
 		type: 'testimonials',
-		visible: false,
-		order: 5,
+		visible: SHOW_ALL || false,
+		order: 6,
 		props: {
 			headline: demoContent.testimonials.headline,
 			cards: demoContent.testimonials.cards
@@ -76,14 +78,13 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'cta',
 		type: 'cta',
-		visible: false,
-		order: 6,
+		visible: SHOW_ALL || false,
+		order: 7,
 		props: {
 			...demoContent.cta
 		}
 	}
 ];
-
 
 // Map dropper elements to section configs
 export const dropperToSection: Record<string, Partial<DemoSection>> = {

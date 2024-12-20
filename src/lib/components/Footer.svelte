@@ -8,6 +8,8 @@
 		ShoppingBag,
 	} from "lucide-svelte";
 	import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
+	// import ContactModal from "./ContactModal.svelte";
+	import { contactModalStore } from "$lib/stores/contactModalStore"
 
 	const year = new Date().getFullYear();
 
@@ -42,7 +44,7 @@
 		},
 		{
 			name: "Instagram",
-			url: "https://instagram.com/jzro_",
+			url: "https://instagram.com/free2lance",
 			svg: "icons/instagram.svg",
 			icon: Instagram,
 			ariaLabel: "Follow on Instagram",
@@ -50,14 +52,21 @@
 	];
 
 	const navItems = [
-		{ href: "/product", label: "Product" },
+		// { href: "/product", label: "Product" },
 		{ href: "/about", label: "About" },
 		{ href: "/ai", label: "AI" },
 		{ href: "/blog", label: "Blog" },
+		{ href: "", label: "Contact", onClick: () => $contactModalStore = true }
+
 	];
 </script>
 
 <footer class="w-full bg-slate-100 dark:bg-slate-900/50 border-t border-gray-200 dark:border-gray-800">
+	
+	<!-- {#if $contactModalStore}
+  	<ContactModal on:close={() => $contactModalStore = false} />
+	{/if} -->
+
 	<div class="container px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44 py-8">
 		<!-- Main Grid -->
 		<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -118,6 +127,7 @@
 						<a
 							href={item.href}
 							class="text-muted-foreground hover:text-foreground transition-colors w-fit"
+							on:click|preventDefault={item.onClick}
 						>
 							{item.label}
 						</a>
@@ -143,4 +153,5 @@
 			</div>
 		</div>
 	</div>
+
 </footer>

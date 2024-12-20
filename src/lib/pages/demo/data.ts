@@ -54,8 +54,8 @@ export const demoContent = {
 			description: "Native Docs sidebar app makes wireframing as fast as typing a paragraph."
 		},
 		right: {
-			heading: "Pro Templates",
-			subheading: "80+ Ready Components",
+			heading: "UX for Writers",
+			subheading: "Write 10× copy decks",
 			description: "Tables are dead. Long live proper wireframe components that update everywhere. Pre-formatted for that sweet agency look."
 		}
 	},

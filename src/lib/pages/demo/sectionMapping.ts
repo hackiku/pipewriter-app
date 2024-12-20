@@ -76,7 +76,7 @@ export const sectionConfigs: SectionConfig[] = [
 	{
 		id: 'testimonials',
 		type: 'testimonials',
-		elementId: 'testimonials',
+		elementId: 'cards-2x2',
 		editableId: 'testimonial-0-quote',
 		initialProps: {
 			headline: demoContent.testimonials.headline,
@@ -124,7 +124,7 @@ export const getInitialSections = (): DemoSection[] =>
 	sectionConfigs.map((config, index) => ({
 		id: config.id,
 		type: config.type,
-		visible: index < 3, // First 3 sections visible by default
+		visible: index < 3, 
 		order: index,
 		props: config.initialProps
 	}));

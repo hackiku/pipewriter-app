@@ -6,9 +6,13 @@
   import Footer from "$lib/components/Footer.svelte";
   import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
   import EarlyAccessDrawer from "$lib/components/cta/EarlyAccessDrawer.svelte";
+  import ContactModal from "$lib/components/ContactModal.svelte";
+
   import { ModeWatcher } from "mode-watcher";
   import { drawerStore } from '$lib/stores/earlyAccessStore';
-  import { onMount } from 'svelte';
+	import { contactModalStore } from '$lib/stores/contactModalStore';
+  
+	import { onMount } from 'svelte';
 
 	import { injectAnalytics } from '@vercel/analytics/sveltekit';
 	injectAnalytics({ mode: dev ? 'development' : 'production' });
@@ -40,4 +44,8 @@
 
 {#if !isIframe}
   <Footer />
+{/if}
+
+{#if $contactModalStore}
+  <ContactModal on:close={() => $contactModalStore = false} />
 {/if}
