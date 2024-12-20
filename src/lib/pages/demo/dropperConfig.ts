@@ -8,8 +8,8 @@ export const sectionToElement: Record<string, string> = {
 	'zigzag-right': 'zz-right',
 	'zigzag-left': 'zz-left',
 	'blurbs': 'blurbs-3',
-	'testimonials': 'cards-2-center',
-	'cta': 'button-secondary-left',
+	'testimonials': 'cards-3',
+	'cta': 'button-primary-left',
 	// 'zigzag-right': 'zz-right'
 };
 

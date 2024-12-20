@@ -8,20 +8,32 @@ import type { DemoSection, DemoContent } from '$lib/pages/demo/types';
 interface StoreState {
 	sections: DemoSection[];
 	content: DemoContent;
+	showAll: boolean;
 }
 
 const initialState: StoreState = {
 	sections: initialSections,
-	content: initialContent
+	content: initialContent,
+	showAll: false,
 };
 
-const SHOW_ALL = true;
 
 function createDemoStore() {
 	const { subscribe, set, update } = writable<StoreState>(initialState);
 
 	return {
 		subscribe,
+
+		toggleShowAll: () => update(state => {
+			const newShowAll = !state.showAll;
+			return {
+				...state,
+				sections: state.sections.map(section => ({
+					...section,
+					visible: newShowAll || section.visible
+				}))
+			};
+		}),
 
 		updateContent: (path: string[], value: string) =>
 			update(state => {
@@ -54,7 +66,7 @@ function createDemoStore() {
 
 export const demoStore = createDemoStore();
 
-// in demoStore.ts
+
 export const formattedContent = derived(
 	[demoStore],
 	([$demo]) => {

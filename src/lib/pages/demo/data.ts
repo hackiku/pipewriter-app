@@ -8,7 +8,7 @@ export const demoContent = {
 		headline: "Wireframes for Writers in Google Docs++",
 	},
 	products: {
-		headline: "Everything You Get",
+		headline: "Write 10× Copy Decks",
 		features: [
 			{
 				multiplier: 80,
@@ -55,7 +55,7 @@ export const demoContent = {
 		},
 		right: {
 			heading: "UX for Writers",
-			subheading: "Write 10× copy decks",
+			subheading: "Write content + experience",
 			description: "Tables are dead. Long live proper wireframe components that update everywhere. Pre-formatted for that sweet agency look."
 		}
 	},

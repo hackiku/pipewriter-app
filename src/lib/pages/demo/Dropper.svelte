@@ -1,7 +1,7 @@
 <!-- src/lib/pages/demo/Dropper.svelte -->
-<!-- src/lib/pages/demo/Dropper.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
+  import { Checkbox } from "$lib/components/ui/checkbox";
   import ElementCard from "./ElementCard.svelte";
   import { Save, Plus } from "lucide-svelte";
   import ExportButton from "$lib/components/free/ExportButton.svelte";
@@ -84,13 +84,27 @@
       </div>
     </div>
     
-    <!-- Export and Reset buttons -->
-    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-4 pb-4">
+<!-- Export and Reset buttons -->
+    <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-4 pb-4 flex items-center gap-4">
       <ExportButton 
         text="Export"
         icon={Save}
         showReset={true}
       />
+      
+      <div class="flex items-center space-x-2">
+        <Checkbox
+          id="show-all"
+          checked={$demoStore.showAll}
+          onCheckedChange={() => demoStore.toggleShowAll()}
+        />
+        <label
+          for="show-all"
+          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+        >
+          Show All
+        </label>
+      </div>
     </div>
   </div>
 </div>

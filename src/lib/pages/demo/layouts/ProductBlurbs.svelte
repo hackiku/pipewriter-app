@@ -8,6 +8,7 @@
   
   export let visible = false;
   export let features = $demoStore.content.products.features;
+  export let headline = $demoStore.content.products.headline;
 
   function handleEditStart(id: string) {
     editingStore.startEditing(id);
@@ -21,17 +22,36 @@
     const target = event.target as HTMLElement;
     demoStore.updateContent(['products', 'features', index.toString(), field], target.innerText);
   }
+
+  function handleHeadlineInput(event: Event) {
+    const target = event.target as HTMLElement;
+    demoStore.updateContent(['products', 'headline'], target.innerText);
+  }
 </script>
 
 {#if visible}
-  <div class="container mx-auto px-4 md:px-20">
+  <div class="container mx-auto px-4 md:px-20 space-y-12">
+    <!-- Added Headline -->
+    <EditableStyles elementId="product-headline">
+      <h2 
+        class="text-3xl md:text-4xl font-semibold text-center outline-none"
+        contenteditable="true"
+        bind:innerText={headline}
+        on:input={handleHeadlineInput}
+        on:focus={() => handleEditStart('product-headline')}
+        on:blur={handleEditStop}
+      >
+        {headline}
+      </h2>
+    </EditableStyles>
+
     <div 
       class="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-16"
       in:fade={{ duration: 300 }}
     >
       {#each features as feature, i}
         <div 
-          class="group relative flex flex-col items-center rounded-xl bg-background hover:bg-muted/50 transition-colors"
+          class="relative flex flex-col items-center rounded-xl bg-background"
           in:fly={{ y: 20, duration: 300, delay: 150 * (i + 1), easing: quintOut }}
         >
           <!-- Number + Icon Pill -->
@@ -72,9 +92,6 @@
               on:blur={handleEditStop}
             />
           </EditableStyles>
-
-          <!-- Hover effect indicator -->
-          <div class="absolute inset-0 border-2 border-primary/0 rounded-xl transition-colors group-hover:border-primary/10" />
         </div>
       {/each}
     </div>

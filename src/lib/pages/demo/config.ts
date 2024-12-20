@@ -1,14 +1,19 @@
 // lib/pages/demo/config.ts
 import type { DemoSection } from './types';
 import { demoContent } from './data';
+import { get } from 'svelte/store';
+import { demoStore } from '$lib/stores/demoStore';
 
-export const SHOW_ALL = false; 
+// Get initial visibility from store
+const getDefaultVisibility = (sectionId: string): boolean => {
+	return ['hero', 'demo-video', 'product-features', 'cta'].includes(sectionId);
+};
 
 export const initialSections: DemoSection[] = [
 	{
 		id: 'hero',
 		type: 'hero',
-		visible: SHOW_ALL || true,
+		visible: getDefaultVisibility('hero'),
 		order: 0,
 		props: {
 			eyebrow: demoContent.hero.eyebrow,
@@ -18,7 +23,7 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'demo-video',
 		type: 'video',
-		visible: SHOW_ALL || true,
+		visible: getDefaultVisibility('demo-video'),
 		order: 1,
 		props: {
 			title: "Quick demo video - 2 min",
@@ -28,7 +33,7 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'product-features',
 		type: 'product-blurbs',
-		visible: SHOW_ALL || true,
+		visible: getDefaultVisibility('product-features'),
 		order: 2,
 		props: {
 			headline: demoContent.products.headline,
@@ -36,10 +41,19 @@ export const initialSections: DemoSection[] = [
 		}
 	},
 	{
+		id: 'cta',
+		type: 'cta',
+		visible: getDefaultVisibility('cta'),
+		order: 3,
+		props: {
+			...demoContent.cta
+		}
+	},
+	{
 		id: 'zigzag-left',
 		type: 'zigzag',
-		visible: SHOW_ALL || true,
-		order: 3,  // Fixed conflicting order
+		visible: getDefaultVisibility('zigzag-left'),
+		order: 4,
 		props: {
 			direction: 'left',
 			...demoContent.zigzags.left
@@ -48,8 +62,8 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'features-blurbs',
 		type: 'blurbs',
-		visible: SHOW_ALL || false,
-		order: 4,
+		visible: getDefaultVisibility('features-blurbs'),
+		order: 5,
 		props: {
 			headline: demoContent.features.headline,
 			blurbs: demoContent.features.blurbs
@@ -58,8 +72,8 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'zigzag-right',
 		type: 'zigzag',
-		visible: SHOW_ALL || false,
-		order: 5,
+		visible: getDefaultVisibility('zigzag-right'),
+		order: 6,
 		props: {
 			direction: 'right',
 			...demoContent.zigzags.right
@@ -68,20 +82,11 @@ export const initialSections: DemoSection[] = [
 	{
 		id: 'testimonials',
 		type: 'testimonials',
-		visible: SHOW_ALL || false,
-		order: 6,
+		visible: getDefaultVisibility('testimonials'),
+		order: 7,
 		props: {
 			headline: demoContent.testimonials.headline,
 			cards: demoContent.testimonials.cards
-		}
-	},
-	{
-		id: 'cta',
-		type: 'cta',
-		visible: SHOW_ALL || false,
-		order: 7,
-		props: {
-			...demoContent.cta
 		}
 	}
 ];
@@ -91,6 +96,6 @@ export const dropperToSection: Record<string, Partial<DemoSection>> = {
 	'blurbs-3': { type: 'blurbs', id: 'features-blurbs' },
 	'zz-left': { type: 'zigzag', id: 'zigzag-left' },
 	'zz-right': { type: 'zigzag', id: 'zigzag-right' },
-	'testimonials': { type: 'testimonials', id: 'testimonials' },
-	'button-center': { type: 'cta', id: 'cta' }
+	'cards-3': { type: 'testimonials', id: 'testimonials' },
+	'button-2-center': { type: 'cta', id: 'cta' }
 };

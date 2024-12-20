@@ -76,7 +76,7 @@ export const sectionConfigs: SectionConfig[] = [
 	{
 		id: 'testimonials',
 		type: 'testimonials',
-		elementId: 'cards-2x2',
+		elementId: 'cards-3',
 		editableId: 'testimonial-0-quote',
 		initialProps: {
 			headline: demoContent.testimonials.headline,
@@ -86,7 +86,7 @@ export const sectionConfigs: SectionConfig[] = [
 	{
 		id: 'cta',
 		type: 'cta',
-		elementId: 'button-center',
+		elementId: 'buttons-2-left',
 		editableId: 'cta-headline',
 		initialProps: {
 			...demoContent.cta
