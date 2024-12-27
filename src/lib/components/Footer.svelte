@@ -10,54 +10,11 @@
 	import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
 	// import ContactModal from "./ContactModal.svelte";
 	import { contactModalStore } from "$lib/stores/contactModalStore";
-
+  import { socialLinks, footerSections } from '$lib/data/navigation';
+  import { mainNavItems } from '$lib/data/navigation';
+	
 	const year = new Date().getFullYear();
 
-	const socials = [
-		{
-			name: "Gumroad",
-			url: "https://pipewriter.gumroad.com",
-			svg: "icons/gumroad.svg",
-			icon: ShoppingBag,
-			ariaLabel: "Get Pipewriter on Gumroad",
-		},
-		{
-			name: "LinkedIn",
-			url: "https://linkedin.com/in/ivankaraman",
-			svg: "icons/linkedin.svg",
-			icon: LinkedinIcon,
-			ariaLabel: "Connect on LinkedIn",
-		},
-		{
-			name: "GitHub",
-			url: "https://github.com/hackiku",
-			svg: "icons/github.svg",
-			icon: GithubIcon,
-			ariaLabel: "View projects on GitHub",
-		},
-		{
-			name: "TikTok",
-			url: "https://www.tiktok.com/@pipewriter.io",
-			svg: "icons/tiktok.svg",
-			icon: GithubIcon,
-			ariaLabel: "Follow on TikTok",
-		},
-		{
-			name: "Instagram",
-			url: "https://instagram.com/free2lance",
-			svg: "icons/instagram.svg",
-			icon: Instagram,
-			ariaLabel: "Follow on Instagram",
-		},
-	];
-
-	const navItems = [
-		// { href: "/product", label: "Product" },
-		{ href: "/about", label: "About" },
-		{ href: "/ai", label: "AI" },
-		{ href: "/blog", label: "Blog" },
-		{ href: "", label: "Contact", onClick: () => ($contactModalStore = true) },
-	];
 </script>
 
 <footer
@@ -96,7 +53,7 @@
 
 				<!-- Social Icons -->
 				<div class="flex gap-6 mt-8">
-					{#each socials as social}
+					{#each socialLinks as social}
 						<a
 							href={social.url}
 							class="text-muted-foreground hover:text-foreground transition-colors"
@@ -126,7 +83,7 @@
 			<div class="md:col-span-1 lg:col-span-3">
 				<h4 class="text-lg font-medium mb-4">Quick Links</h4>
 				<nav class="grid grid-cols-1 gap-2 text-sm">
-					{#each navItems as item}
+					{#each mainNavItems as item}
 						<a
 							href={item.href}
 							class="text-muted-foreground hover:text-foreground transition-colors w-fit"

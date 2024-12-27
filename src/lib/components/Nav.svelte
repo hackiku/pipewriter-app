@@ -7,6 +7,8 @@
 	import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
 	import { contactModalStore } from "$lib/stores/contactModalStore";
 	import { onMount } from "svelte";
+  import { mainNavItems } from '$lib/data/navigation';
+
 
 	let isMenuOpen = false;
 	let isVisible = true;
@@ -32,13 +34,6 @@
 		return () => window.removeEventListener("scroll", handleScroll);
 	});
 
-	const navItems = [
-		// { href: "/product", label: "Product" },
-		{ href: "/about", label: "About" },
-		{ href: "/ai", label: "AI" },
-		{ href: "/blog", label: "Blog" },
-		{ href: "", label: "Contact", onClick: () => ($contactModalStore = true) },
-	];
 </script>
 
 <nav
@@ -60,7 +55,7 @@
 			<!-- Desktop Navigation -->
 
 			<div class="hidden md:flex items-center gap-6">
-				{#each navItems as item}
+				{#each mainNavItems as item}
 					<a
 						href={item.href}
 						class="text-muted-foreground hover:text-foreground transition-colors w-fit"
@@ -121,7 +116,7 @@
 		{#if isMenuOpen}
 			<div class="md:hidden px-4 py-2 border-t">
 				<div class="space-y-2">
-					{#each navItems as item}
+					{#each mainNavItems as item}
 						<a
 							href={item.href}
 							class="block w-full text-left px-3 py-2 text-sm font-medium text-foreground hover:bg-accent rounded-md"
