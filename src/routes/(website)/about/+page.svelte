@@ -10,13 +10,12 @@
 
 	import ComingSoon from "$lib/components/ComingSoon.svelte";
 
-
 </script>
 
-  <ComingSoon 
+  <!-- <ComingSoon 
     title="Coming Soon"
     description="Indie-founding ftw, check back soon."
-  />
+  /> -->
 
 <Nav />
 
@@ -24,12 +23,12 @@
 
   <section class="relative min-h-[50vh] flex items-center border-b">
     <div class="container relative z-10 pt-20">
-      <div class="max-w-2xl mx-auto text-center">
+      <div class="max-w-2xl mx-auto">
         <h1 class="text-4xl sm:text-5xl md:text-7xl font-semibold mb-6">
-          We the Writers
+          We writers, and stuff
         </h1>
         <p class="text-xl text-muted-foreground">
-          Building tools for technical writers, by technical writers.
+          If that comma triggers you, you're one of us
         </p>
       </div>
     </div>
@@ -42,7 +41,7 @@
 
   <!-- Team section with title -->
   <section class="container py-24 border-t">
-    <h2 class="text-3xl font-bold mb-12">Thanks for helping it happen 🫶</h2>
+    <h2 class="text-3xl font-bold mb-12">Thanks for helping it to life 🫶</h2>
     <TeamGrid />
   </section>
   

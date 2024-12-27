@@ -4,6 +4,8 @@
   import "../../app.css";
   import Nav from "$lib/components/Nav.svelte";
   import Footer from "$lib/components/Footer.svelte";
+  import SEO from "$lib/components/SEO.svelte";
+
   import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
   import EarlyAccessDrawer from "$lib/components/cta/EarlyAccessDrawer.svelte";
   import ContactModal from "$lib/components/ContactModal.svelte";
@@ -23,6 +25,8 @@
     isIframe = window?.location?.pathname?.startsWith('/iframe') || false;
   });
 </script>
+
+<SEO />
 
 <!-- Global Early Access Drawer -->
 <EarlyAccessDrawer>

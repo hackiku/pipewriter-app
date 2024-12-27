@@ -8,8 +8,8 @@
 
   let sections = [
     {
-      title: "They laughed when I set down at the piano...",
-      content: "Because writers have always been seen as the 'content people'. Not anymore. We're building the tools that transform writers into product development powerhouses.",
+      title: "The writer's RAM memory is story",
+      content: "The writer's RAM memory is the human mind",
       image: "/images/writer-meeting.jpg",
       align: "left"
     },
