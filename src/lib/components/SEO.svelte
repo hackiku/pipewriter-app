@@ -1,43 +1,65 @@
 <!-- $lib/components/SEO.svelte -->
 <script lang="ts">
   import { page } from '$app/stores';
+  import { getSEOData } from '$lib/utils/seo';
+  import type { SEOData } from '$lib/data/seo/types';
 
-  export let title = "Pipewriter — Wireframes for Writers in Google Docs";
-  export let description = "Build landing pages and copy decks right in Google Docs. Made for UX writers, copywriters, and content strategists who understand that words are the heart of product development.";
-  // export let image = "https://pipewriter.io/og.png"; // Replace with actual OG image URL
-  export let type = "website";
+  // Allow override of any SEO field via props
+  export let title: string | undefined = undefined;
+  export let description: string | undefined = undefined;
+  export let type: SEOData['type'] | undefined = undefined;
+  export let image: string | undefined = undefined;
+
+  // Get data based on current route
+  $: seoData = getSEOData($page.url.pathname, $page.data);
   
-  // Compute canonical URL
-  $: canonicalUrl = `https://pipewriter.io${$page.url.pathname}`;
+  // Props override default/page-specific data
+  $: finalSEO = {
+    ...seoData,
+    ...(title && { title }),
+    ...(description && { description }),
+    ...(type && { type }),
+    ...(image && { image })
+  };
 </script>
 
 <svelte:head>
   <!-- Basic Meta -->
-  <title>{title}</title>
-  <meta name="description" content={description} />
-  <link rel="canonical" href={canonicalUrl} />
+  <title>{finalSEO.title}</title>
+  <meta name="description" content={finalSEO.description} />
+  <link rel="canonical" href={`https://pipewriter.io${$page.url.pathname}`} />
 
   <!-- Open Graph -->
-  <meta property="og:title" content={title} />
-  <meta property="og:description" content={description} />
-  <meta property="og:type" content={type} />
-  <meta property="og:url" content={canonicalUrl} />
-  <!-- <meta property="og:image" content={image} /> -->
-  <meta property="og:site_name" content="Pipewriter" />
+  <meta property="og:title" content={finalSEO.title} />
+  <meta property="og:description" content={finalSEO.description} />
+  <meta property="og:type" content={finalSEO.type} />
+  <meta property="og:url" content={`https://pipewriter.io${$page.url.pathname}`} />
+  {#if finalSEO.image}
+    <meta property="og:image" content={finalSEO.image} />
+  {/if}
 
-  <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:site" content="@pipewriter" /> <!-- Replace with actual Twitter handle -->
-  <meta name="twitter:title" content={title} />
-  <meta name="twitter:description" content={description} />
-  <!-- <meta name="twitter:image" content={image} /> -->
+  <!-- Additional meta based on page type -->
+  {#if finalSEO.type === 'article'}
+    {#if finalSEO.datePublished}
+      <meta property="article:published_time" content={finalSEO.datePublished} />
+    {/if}
+    {#if finalSEO.dateModified}
+      <meta property="article:modified_time" content={finalSEO.dateModified} />
+    {/if}
+    {#if finalSEO.author}
+      <meta property="article:author" content={finalSEO.author} />
+    {/if}
+  {/if}
 
-  <!-- Other Important Meta -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#3644FE" /> <!-- Using your brand blue -->
-  
-  <!-- Application-specific -->
-  <meta name="application-name" content="Pipewriter" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-title" content="Pipewriter" />
+  <!-- JSON-LD Structured Data -->
+  {#if finalSEO.structuredData}
+    <script type="application/ld+json">
+      {JSON.stringify(finalSEO.structuredData)}
+    </script>
+  {/if}
+
+  <!-- No index if specified -->
+  {#if finalSEO.noIndex}
+    <meta name="robots" content="noindex" />
+  {/if}
 </svelte:head>
