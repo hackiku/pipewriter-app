@@ -12,7 +12,7 @@
   import SpaceDrawer from "./SpaceDrawer.svelte";
 </script>
 
-<main class="bg-background text-foreground relative">
+<main class="bg-backgrounds text-foreground relative">
   <!-- Fixed Background Pattern -->
   <div class="fixed inset-0 pointer-events-none">
     <BackgroundPattern size="lg" opacity="high" gradient={true} />
@@ -54,6 +54,29 @@
       </div>
     </section>
 
+		<!-- Products Section -->
+    <section class="py-24 relative border-t border-border/50">
+      <div class="container">
+        <div class="flex justify-center mb-16">
+          <div class="w-3/5 space-y-4">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 
+                        rounded-full bg-primary/10 text-primary border border-primary/20">
+              <Rocket class="w-4 h-4" />
+              <span class="text-sm font-medium">Why Space?</span>
+            </div>
+            
+            <h2 class="text-5xl font-bold">From Engineer to Engineer</h2>
+            <p class="text-xl text-muted-foreground">
+              Building tools for the next generation of space exploration.
+              Here's what we're working on:
+            </p>
+          </div>
+        </div>
+
+        <Products />
+      </div>
+    </section>
+
     <!-- Testimonials Section -->
     <section class="py-24 relative">
       <div class="container">
@@ -74,28 +97,7 @@
       </div>
     </section>
 
-    <!-- Products Section -->
-    <section class="py-24 relative border-t border-border/50">
-      <div class="container">
-        <div class="flex justify-end mb-16">
-          <div class="w-3/5 space-y-4">
-            <div class="inline-flex items-center gap-1.5 px-3 py-1 
-                        rounded-full bg-primary/10 text-primary border border-primary/20">
-              <Rocket class="w-4 h-4" />
-              <span class="text-sm font-medium">Why Space?</span>
-            </div>
-            
-            <h2 class="text-5xl font-bold">From Engineer to Engineer</h2>
-            <p class="text-xl text-muted-foreground">
-              Building tools for the next generation of space exploration.
-              Here's what we're working on:
-            </p>
-          </div>
-        </div>
 
-        <Products />
-      </div>
-    </section>
 
     <!-- Pricing Section -->
     <Pricing />
