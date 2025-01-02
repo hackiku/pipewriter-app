@@ -1,4 +1,4 @@
-<!-- src/lib/pages/space/SpaceProcess.svelte -->
+<!-- src/lib/pages/space/Process.svelte -->
 <script lang="ts">
   import { Rocket, Edit, Code } from "lucide-svelte";
 

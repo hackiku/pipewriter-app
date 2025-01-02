@@ -1,106 +1,105 @@
 <!-- src/lib/pages/space/SpacePage.svelte -->
 <script lang="ts">
-  import { Rocket, Code, Stars } from "lucide-svelte";
+  import { Rocket, Code, Stars, Plane, ChevronRight } from "lucide-svelte";
   import Hero from "./Hero.svelte";
-  import SpaceProcess from "./SpaceProcess.svelte";
   import BeforeAfter from "./BeforeAfter.svelte";
+  import Process from "./Process.svelte";
+  import Products from "./Products.svelte";
   import SpaceButton from "./SpaceButton.svelte";
   import SpaceDrawer from "./SpaceDrawer.svelte";
-  import ToolsGrid from "$lib/components/proof/ToolsGrid.svelte";
   
-  const toolsToShow = [
-    { name: 'React', icon: '/tools/react.svg' },
-    { name: 'Vue', icon: '/tools/vue.svg' },
-    { name: 'Svelte', icon: '/tools/svelte.svg' },
-    { 
-      tools: [
-        { name: 'Tailwind', icon: '/tools/tailwind.svg' },
-        { name: 'GSAP', icon: '/tools/gsap.svg' }
-      ],
-      interval: 300
-    }
-  ];
 </script>
 
 <main class="bg-background text-foreground">
-  <!-- Hero Section with new editorial layout -->
+  <!-- Hero Section -->
   <Hero />
 
-  <!-- Before/After Gallery -->
-  <section class="py-24 bg-background relative overflow-hidden">
+  <!-- Before/After Gallery - Moved up, visible on first viewport -->
+  <section class="relative -mt-32 pb-24 bg-background">
     <div class="container">
-      <h2 class="text-3xl font-semibold mb-16 lg:max-w-xl">
-        From Legacy to Launch-Ready
-      </h2>
       <BeforeAfter />
-      
-      <div class="mt-16 max-w-xl">
-        <p class="text-lg text-muted-foreground mb-8">
-          See how we transform outdated space industry websites into modern, 
-          high-converting landing pages - all in clean, maintainable code.
-        </p>
-        
-        <SpaceDrawer>
-          <div slot="trigger">
-            <SpaceButton text="Get Your Redesign" source="gallery" />
-          </div>
-        </SpaceDrawer>
-      </div>
     </div>
   </section>
 
   <!-- Process Section -->
-  <section class="py-24 bg-background relative">
-    <div class="absolute inset-0 bg-gradient-to-b from-background via-background/50 to-background" />
-    <SpaceProcess />
-  </section>
+  <Process />
 
-  <!-- Export Options -->
+  <!-- Products Section -->
   <section class="py-24 bg-background">
+		<Products />
+	</section>
+
+  <!-- Pricing Section -->
+  <section class="py-24 bg-background border-t">
     <div class="container">
       <div class="grid grid-cols-12 gap-8 items-center">
-        <div class="col-span-12 lg:col-span-5 lg:col-start-2">
-          <h2 class="text-3xl font-semibold mb-6">
-            Beyond No-Code
-          </h2>
-          <p class="text-lg text-muted-foreground mb-8">
-            Get clean, production-ready code your developers will thank you for. Export to
-            any modern framework - no WordPress, no Webflow, just pure semantic markup.
-          </p>
-
-          <SpaceDrawer>
-            <div slot="trigger">
-              <SpaceButton text="Schedule a Demo" source="frameworks" />
+        <div class="col-span-12 md:col-span-5 md:col-start-2">
+          <div class="p-8 rounded-xl border bg-card">
+            <div class="flex items-end gap-2 mb-6">
+              <span class="text-4xl font-bold">$2,000</span>
+              <span class="text-muted-foreground">/page</span>
             </div>
-          </SpaceDrawer>
+            
+            <ul class="space-y-4 mb-8">
+              <li class="flex items-start gap-2">
+                <Rocket class="w-5 h-5 text-primary mt-1" />
+                <span>Full redesign in pure, semantic code</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <Rocket class="w-5 h-5 text-primary mt-1" />
+                <span>Export to React, Vue, or Svelte</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <Rocket class="w-5 h-5 text-primary mt-1" />
+                <span>72-hour turnaround time</span>
+              </li>
+            </ul>
+            
+            <SpaceDrawer>
+              <div slot="trigger">
+                <SpaceButton 
+                  text="Schedule Your Redesign" 
+                  source="pricing"
+                  fullWidth={true}
+                />
+              </div>
+            </SpaceDrawer>
+          </div>
         </div>
 
-        <div class="col-span-12 lg:col-span-4 lg:col-start-8">
-          <ToolsGrid tools={toolsToShow} columns={2} gap="md" />
+        <div class="col-span-12 md:col-span-4 md:col-start-8">
+          <h3 class="text-2xl font-semibold mb-4">
+            Ready for Launch
+          </h3>
+          <p class="text-lg text-muted-foreground">
+            Get your landing page redesigned and coded in just 72 hours.
+            Simple, transparent pricing with no hidden fees.
+          </p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Final CTA -->
-  <section class="relative py-32 bg-background border-t">
+  <section class="py-24 bg-background">
     <div class="container">
       <div class="max-w-3xl mx-auto text-center">
         <h2 class="text-4xl font-semibold mb-6">
-          Ready for Liftoff?
+          Ready for Takeoff?
         </h2>
         <p class="text-xl text-muted-foreground mb-8">
-          Book a 30-minute call to discuss your redesign needs.
+          Book a quick call to discuss your redesign needs.
         </p>
         
         <SpaceDrawer>
           <div slot="trigger">
-            <SpaceButton size="lg" text="Schedule Your Call" source="final_cta" />
+            <SpaceButton size="lg" text="Schedule a Call" source="final_cta" />
           </div>
         </SpaceDrawer>
 
         <p class="mt-6 text-sm text-muted-foreground">
-          Or email directly at <a href="mailto:ivan@pipewriter.io" class="text-primary hover:underline">ivan@pipewriter.io</a>
+          Or email directly at <a href="mailto:ivan@pipewriter.io" 
+          class="text-primary hover:underline">ivan@pipewriter.io</a>
         </p>
       </div>
     </div>
