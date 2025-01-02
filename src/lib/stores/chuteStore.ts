@@ -17,6 +17,7 @@ interface RedesignsState {
 
 function createRedesignsStore() {
 	const { subscribe, set, update } = writable<RedesignsState>({
+		// Update examples in chuteStore.ts
 		examples: [
 			{
 				id: 'phase-four',
@@ -26,7 +27,14 @@ function createRedesignsStore() {
 				afterUrl: '/examples/space/phase-four-after',
 				status: 'done'
 			},
-			// Add more examples as they come in
+			{
+				id: 'horse-tinder',
+				company: 'HorseMingle',
+				description: 'Connecting equestrian enthusiasts worldwide',
+				beforeUrl: '/samples/horse-tinder/before.html',
+				afterUrl: '/samples/horse-tinder/index.html',
+				status: 'done'
+			}
 		],
 		currentIndex: 0
 	});

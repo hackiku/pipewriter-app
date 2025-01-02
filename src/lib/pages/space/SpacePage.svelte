@@ -1,147 +1,146 @@
-<!-- src/lib/pages/space/SpacePage.svelte -->
+<!-- SpacePage.svelte -->
 <script lang="ts">
-	import { Rocket, Code, Stars, Plane, ChevronRight } from "lucide-svelte";
-	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
-	import Hero from "./Hero.svelte";
-	import BeforeAfter from "./BeforeAfter.svelte";
-	import Process from "./Process.svelte";
-	import Products from "./Products.svelte";
-	import SpaceButton from "./SpaceButton.svelte";
-	import SpaceDrawer from "./SpaceDrawer.svelte";
+  import { Rocket, Stars } from "lucide-svelte";
+  import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
+  import Hero from "./Hero.svelte";
+  import BeforeAfter from "./BeforeAfter.svelte";
+  import Process from "./Process.svelte";
+  import Products from "./Products.svelte";
+  import Testimonials from "./Testimonials.svelte";
+  import Pricing from "./Pricing.svelte";
+  import SpaceButton from "./SpaceButton.svelte";
+  import SpaceDrawer from "./SpaceDrawer.svelte";
 </script>
 
+<main class="bg-background text-foreground relative">
+  <!-- Fixed Background Pattern -->
+  <div class="fixed inset-0 pointer-events-none">
+    <BackgroundPattern size="lg" opacity="high" gradient={true} />
+  </div>
 
+  <!-- Content -->
+  <div class="relative">
+    <!-- Hero Section -->
+    <Hero />
 
-<main class="bg-backsground text-foreground">
-	<!-- Hero Section -->
-	<Hero />
+    <!-- Before/After Gallery -->
+    <section class="relative -mt-6 pb-24">
+      <div class="container">
+        <BeforeAfter />
+      </div>
+    </section>
 
-	<!-- <div class="fixed top-0"> -->
-	<!-- <div> -->
-		<BackgroundPattern
-			size="lg"
-			opacity="high"
-			gradient=true
-		/>
-	<!-- </div> -->
+    <!-- Process Section -->
+    <section class="py-24 relative">
+      <div class="container">
+        <!-- Section Header -->
+        <div class="flex justify-end mb-16">
+          <div class="w-3/5 space-y-4">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 
+                        rounded-full bg-primary/10 text-primary border border-primary/20">
+              <Stars class="w-4 h-4" />
+              <span class="text-sm font-medium">Our Process</span>
+            </div>
+            
+            <h2 class="text-5xl font-bold">Space Startup Redesign</h2>
+            <p class="text-xl text-muted-foreground">
+              Your landing page rebuilt in your live code stack.
+              No templates, no compromises.
+            </p>
+          </div>
+        </div>
 
+        <Process />
+      </div>
+    </section>
 
-	<!-- Before/After Gallery - Moved up, visible on first viewport -->
-	<section class="relative -mt-6 pb-24 bg-background">
-		<div class="container">
-			<BeforeAfter />
-		</div>
-	</section>
+    <!-- Testimonials Section -->
+    <section class="py-24 relative">
+      <div class="container">
+        <div class="text-center mb-16 space-y-4">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 
+                      rounded-full bg-primary/10 text-primary border border-primary/20">
+            <Stars class="w-4 h-4" />
+            <span class="text-sm font-medium">Client Stories</span>
+          </div>
+          
+          <h2 class="text-4xl font-bold">From the Launch Pad</h2>
+          <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
+            See how other space startups transformed their digital presence
+          </p>
+        </div>
 
-	<!-- Process Section -->
-	<!-- <BackgroundPattern
-		size="lg"
-		opacity="high"
-		gradient=true
-	/> -->
+        <Testimonials />
+      </div>
+    </section>
 
-	<section class="py-24 bg-background">
-		<div class="w-3/5 mx-44">
-			<h2 class="text-3xl font-semibold mb-6">Space startup redesign</h2>
-			<p class="text-xl text-muted-foreground mb-8 leading-relaxed">
-				Your landing page rebuilt in your live code stack.
-			</p>
-		</div>
+    <!-- Products Section -->
+    <section class="py-24 relative border-t border-border/50">
+      <div class="container">
+        <div class="flex justify-end mb-16">
+          <div class="w-3/5 space-y-4">
+            <div class="inline-flex items-center gap-1.5 px-3 py-1 
+                        rounded-full bg-primary/10 text-primary border border-primary/20">
+              <Rocket class="w-4 h-4" />
+              <span class="text-sm font-medium">Why Space?</span>
+            </div>
+            
+            <h2 class="text-5xl font-bold">From Engineer to Engineer</h2>
+            <p class="text-xl text-muted-foreground">
+              Building tools for the next generation of space exploration.
+              Here's what we're working on:
+            </p>
+          </div>
+        </div>
 
-		<!-- write up this component like the ToolsList but less spacey, more compact icons somehow, rewrite it from scratch -->
-		<!-- <StackGrid />  -->
+        <Products />
+      </div>
+    </section>
 
-		<Process />
-	</section>
-	<!-- Products Section -->
-	<section class="py-24 bg-background">
+    <!-- Pricing Section -->
+    <Pricing />
 
-		<div class="w-3/5 mx-44">
-			<h2 class="text-3xl font-semibold mb-6">Why space startups?</h2>
-			<p class="text-xl text-muted-foreground mb-8 leading-relaxed">
-				
-			</p>
-		</div>
-		
-		<!-- write this component somewhat like the Founder attached, but less cheesy, -->
-		<!-- better design and more in line with space theme and rest of page.  -->
-		<!-- <About /> -->
- 
-		<Products />
-	</section>
+    <!-- Final CTA -->
+    <section class="py-24 relative">
+      <div class="container">
+        <div class="max-w-3xl mx-auto text-center space-y-8">
+          <div class="inline-flex items-center gap-1.5 px-3 py-1 
+                      rounded-full bg-primary/10 text-primary border border-primary/20">
+            <Rocket class="w-4 h-4" />
+            <span class="text-sm font-medium">Ready?</span>
+          </div>
 
-	<!-- TODO: Abstract to ./Pricing.svelte -->
-	<!-- Pricing Section -->
-	<section class="py-24 bg-background border-t">
-		<div class="container">
-			<div class="grid grid-cols-12 gap-8 items-center">
-				<div class="col-span-12 md:col-span-5 md:col-start-2">
-					<div class="p-8 rounded-xl border bg-card">
-						<div class="flex items-end gap-2 mb-6">
-							<span class="text-4xl font-bold">$2,000</span>
-							<span class="text-muted-foreground">/page</span>
-						</div>
+          <h2 class="text-5xl font-bold">Time for Launch</h2>
+          
+          <p class="text-xl text-muted-foreground">
+            Book a quick call to discuss your redesign needs.
+            72-hour turnaround guaranteed.
+          </p>
 
-						<ul class="space-y-4 mb-8">
-							<li class="flex items-start gap-2">
-								<Rocket class="w-5 h-5 text-primary mt-1" />
-								<span>Full redesign in pure, semantic code</span>
-							</li>
-							<li class="flex items-start gap-2">
-								<Rocket class="w-5 h-5 text-primary mt-1" />
-								<span>Export to React, Vue, or Svelte</span>
-							</li>
-							<li class="flex items-start gap-2">
-								<Rocket class="w-5 h-5 text-primary mt-1" />
-								<span>72-hour turnaround time</span>
-							</li>
-						</ul>
+          <div class="pt-4">
+            <SpaceDrawer>
+              <div slot="trigger">
+                <SpaceButton size="lg" text="Schedule a Call" source="final_cta" />
+              </div>
+            </SpaceDrawer>
 
-						<SpaceDrawer>
-							<div slot="trigger">
-								<SpaceButton
-									text="Schedule Your Redesign"
-									source="pricing"
-									fullWidth={true}
-								/>
-							</div> 
-						</SpaceDrawer>
-					</div>
-				</div>
-
-				<div class="col-span-12 md:col-span-4 md:col-start-8">
-					<h3 class="text-2xl font-semibold mb-4">Ready for Launch</h3>
-					<p class="text-lg text-muted-foreground">
-						Get your landing page redesigned and coded in just 72 hours. Simple,
-						transparent pricing with no hidden fees.
-					</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Final CTA -->
-	<section class="py-24 bg-background">
-		<div class="container">
-			<div class="max-w-3xl mx-auto text-center">
-				<h2 class="text-4xl font-semibold mb-6">Ready for Takeoff?</h2>
-				<p class="text-xl text-muted-foreground mb-8">
-					Book a quick call to discuss your redesign needs.
-				</p>
-
-				<SpaceDrawer>
-					<div slot="trigger">
-						<SpaceButton size="lg" text="Schedule a Call" source="final_cta" />
-					</div>
-				</SpaceDrawer>
-
-				<p class="mt-6 text-sm text-muted-foreground">
-					Or email directly at <a
-						href="mailto:ivan@pipewriter.io"
-						class="text-primary hover:underline">ivan@pipewriter.io</a
-					>
-				</p>
-			</div>
-		</div>
-	</section>
+            <p class="mt-6 text-sm text-muted-foreground">
+              Or email directly at 
+              <a href="mailto:ivan@pipewriter.io" 
+                 class="text-primary hover:underline">
+                ivan@pipewriter.io
+              </a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
 </main>
+
+<!-- <style>
+  /* Optional: Smooth scroll behavior */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+</style> -->

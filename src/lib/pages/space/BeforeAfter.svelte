@@ -1,7 +1,7 @@
-<!-- src/lib/pages/space/BeforeAfter.svelte -->
+<!-- BeforeAfter.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { fade } from 'svelte/transition';
+  import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-svelte';
+  import { Button } from "$lib/components/ui/button";
   import { redesignsStore } from '$lib/stores/chuteStore';
   
   let sliderPosition = 50;
@@ -10,6 +10,18 @@
   
   $: currentExample = $redesignsStore.examples[$redesignsStore.currentIndex];
   
+  function nextExample() {
+    const nextIndex = ($redesignsStore.currentIndex + 1) % $redesignsStore.examples.length;
+    redesignsStore.setExample(nextIndex);
+  }
+
+  function prevExample() {
+    const prevIndex = $redesignsStore.currentIndex === 0 
+      ? $redesignsStore.examples.length - 1 
+      : $redesignsStore.currentIndex - 1;
+    redesignsStore.setExample(prevIndex);
+  }
+
   function handleMouseDown(e: MouseEvent) {
     isDragging = true;
     document.addEventListener('mousemove', handleMouseMove);
@@ -18,7 +30,6 @@
   
   function handleMouseMove(e: MouseEvent) {
     if (!isDragging || !containerRef) return;
-    
     const rect = containerRef.getBoundingClientRect();
     const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width));
     sliderPosition = (x / rect.width) * 100;
@@ -29,47 +40,38 @@
     document.removeEventListener('mousemove', handleMouseMove);
     document.removeEventListener('mouseup', handleMouseUp);
   }
-  
-  onMount(() => {
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  });
 </script>
 
-<div class="container">
+<div class="container relative">
   <div class="max-w-5xl mx-auto">
-    
-    <!-- Slider Container -->
     <div 
       bind:this={containerRef}
-      class="relative aspect-[16/9] rounded-xl overflow-hidden border bg-card"
+      class="relative aspect-[16/9] rounded-xl overflow-hidden border bg-card group"
     >
-      <!-- Before - Original Site -->
+      <!-- Before -->
       <div class="absolute inset-0">
         <iframe 
           src={currentExample.beforeUrl}
-          title={`${currentExample.company} original website`}
-          class="w-full h-full"
+          title={`${currentExample.company} original site`}
+          class="w-full h-full pointer-events-none"
         />
       </div>
 
-      <!-- After - Redesigned Version -->
+      <!-- After -->
       <div 
-        class="absolute inset-0 bg-primary/10"
+        class="absolute inset-0"
         style:clip-path="inset(0 {100 - sliderPosition}% 0 0)"
       >
-        <div class="w-full h-full flex items-center justify-center">
-          <div class="text-lg font-medium">
-            Redesigned Version
-          </div>
-        </div>
+        <iframe 
+          src={currentExample.afterUrl}
+          title={`${currentExample.company} redesigned site`}
+          class="w-full h-full pointer-events-none"
+        />
       </div>
 
       <!-- Slider Handle -->
       <div 
-        class="absolute top-0 bottom-0 w-1 bg-primary cursor-ew-resize"
+        class="absolute top-0 bottom-0 w-1 bg-white/80 cursor-ew-resize shadow-lg"
         style:left="{sliderPosition}%"
         style:transform="translateX(-50%)"
         on:mousedown={handleMouseDown}
@@ -81,29 +83,30 @@
         </div>
       </div>
 
-      <!-- Labels -->
-      <div class="absolute bottom-4 left-4 text-sm font-medium text-white">
-        Original Site
-      </div>
-      <div class="absolute bottom-4 right-4 text-sm font-medium text-white">
-        Redesigned
-      </div>
-    </div>
+      <!-- Info Overlay -->
+      <div class="absolute bottom-0 inset-x-0 
+                  bg-gradient-to-t from-black/80 via-black/40 to-transparent
+                  pt-16 pb-6 px-8
+                  opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+        <div class="flex items-center justify-between text-white">
+          <Button variant="ghost" size="icon" class="text-white hover:bg-white/20" on:click={prevExample}>
+            <ChevronLeft class="w-6 h-6" />
+          </Button>
 
-    <!-- Company Info -->
-    <div class="mt-6 text-center">
-      <h3 class="text-xl font-semibold">
-        {currentExample.company}
-      </h3>
-      <p class="text-muted-foreground mt-2">
-        {currentExample.description}
-      </p>
+          <div class="text-center">
+            <h3 class="text-xl font-semibold mb-1">{currentExample.company}</h3>
+            <p class="text-sm text-white/80">{currentExample.description}</p>
+            <Button variant="ghost" size="sm" class="mt-2 gap-2 hover:bg-white/20">
+              <Maximize2 class="w-4 h-4" />
+              View Full Comparison
+            </Button>
+          </div>
+
+          <Button variant="ghost" size="icon" class="text-white hover:bg-white/20" on:click={nextExample}>
+            <ChevronRight class="w-6 h-6" />
+          </Button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<style>
-  iframe {
-    pointer-events: none; /* Prevent iframe interaction while dragging */
-  }
-</style>
