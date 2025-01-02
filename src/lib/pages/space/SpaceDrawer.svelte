@@ -1,4 +1,4 @@
-<!-- src/lib/components/cta/SpaceDrawer.svelte -->
+<!-- src/lib/pages/space/SpaceDrawer.svelte -->
 <script lang="ts">
   import * as Drawer from "$lib/components/ui/drawer";
   import { Button } from "$lib/components/ui/button";

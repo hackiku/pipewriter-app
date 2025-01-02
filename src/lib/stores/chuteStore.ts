@@ -24,7 +24,7 @@ function createRedesignsStore() {
 				company: 'Phase Four',
 				description: 'Electric propulsion systems for satellites',
 				beforeUrl: 'https://jzro.co/chute-repack/repacks/phasefour.io',
-				afterUrl: '/examples/space/phase-four-after',
+				afterUrl: '/pages/space/phase-four-after.png',
 				status: 'done'
 			},
 			{
