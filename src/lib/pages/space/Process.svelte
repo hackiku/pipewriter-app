@@ -22,10 +22,6 @@
 </script>
 
 <div class="container">
-  <h2 class="text-3xl font-semibold text-center mb-16">
-    How It Works
-  </h2>
-
   <div class="grid md:grid-cols-3 gap-8">
     {#each steps as step}
       <div class="relative p-6 rounded-xl border bg-card">

@@ -40,13 +40,37 @@
 		gradient=true
 	/> -->
 
-	<Process />
+	<section class="py-24 bg-background">
+		<div class="w-3/5 mx-44">
+			<h2 class="text-3xl font-semibold mb-6">Space startup redesign</h2>
+			<p class="text-xl text-muted-foreground mb-8 leading-relaxed">
+				Your landing page rebuilt in your live code stack.
+			</p>
+		</div>
 
+		<!-- write up this component like the ToolsList but less spacey, more compact icons somehow, rewrite it from scratch -->
+		<!-- <StackGrid />  -->
+
+		<Process />
+	</section>
 	<!-- Products Section -->
 	<section class="py-24 bg-background">
+
+		<div class="w-3/5 mx-44">
+			<h2 class="text-3xl font-semibold mb-6">Why space startups?</h2>
+			<p class="text-xl text-muted-foreground mb-8 leading-relaxed">
+				
+			</p>
+		</div>
+		
+		<!-- write this component somewhat like the Founder attached, but less cheesy, -->
+		<!-- better design and more in line with space theme and rest of page.  -->
+		<!-- <About /> -->
+ 
 		<Products />
 	</section>
 
+	<!-- TODO: Abstract to ./Pricing.svelte -->
 	<!-- Pricing Section -->
 	<section class="py-24 bg-background border-t">
 		<div class="container">
@@ -80,7 +104,7 @@
 									source="pricing"
 									fullWidth={true}
 								/>
-							</div>
+							</div> 
 						</SpaceDrawer>
 					</div>
 				</div>

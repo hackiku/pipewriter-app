@@ -31,9 +31,7 @@
   ];
 </script>
 
-<div class="container">
-  <h2 class="text-3xl font-semibold mb-16">More from the Hangar</h2>
-  
+<div class="container"> 
   <div class="grid md:grid-cols-3 gap-8">
     {#each products as product}
       <div class="group relative rounded-xl border bg-card overflow-hidden">
