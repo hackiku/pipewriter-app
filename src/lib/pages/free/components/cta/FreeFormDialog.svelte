@@ -4,11 +4,11 @@
   import { X } from "lucide-svelte";
   import { demoStore, formattedContent } from '$lib/stores/demoStore';
   import TextEditor from './TextEditor.svelte';
-  import EmailForm from '$lib/components/cta/EmailForm.svelte';
+  import EmailForm from '../cta/EmailForm.svelte';
   import { Button } from "$lib/components/ui/button";
   import { RotateCcw } from "lucide-svelte";
-  export let showReset = false;
 
+  export let showReset = false;
 </script>
 
 <AlertDialog.Portal>
@@ -39,7 +39,7 @@
 
         <div class="flex flex-col justify-center max-w-md mx-auto w-full gap-6">
           <div class="space-y-2">
-            <h2 class="text-2xl font-bold">Export your UX copy</h2>
+            <h2 class="text-2xl font-bold">Get Your Free Template</h2>
             <p class="text-muted-foreground">
               We'll send you a Google Docs template with your content.
             </p>

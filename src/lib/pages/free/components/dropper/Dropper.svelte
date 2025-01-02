@@ -2,13 +2,11 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { elementConfig } from '../../config';
-	import ExportButton from '../cta/ExportButton.svelte';
-	import ElementCard from './ElementCard.svelte';
+  import ElementCard from './ElementCard.svelte';
   import { editorStore } from '../../stores/content';
   import { Plus } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
   import { Checkbox } from "$lib/components/ui/checkbox";
-	
 
   export let onSelect: (elementId: string) => void;
 
@@ -25,8 +23,7 @@
 </script>
 
 <div class="w-[24em] h-[40vh] pb-2 backdrop-blur-xl rounded-xl">
-  <ExportButton /> 
-	<div class="relative">
+  <div class="relative">
     <!-- Active Elements Grid -->
     <div class="grid grid-cols-3 gap-2">
       {#each activeElements as element (element.id)}

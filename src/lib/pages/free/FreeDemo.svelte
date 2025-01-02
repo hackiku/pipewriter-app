@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import { editorStore, visibleSections } from './stores/editorStore';
   import Dropper from './components/dropper/Dropper.svelte';
-  import ExportButton from './components/cta/ExportButton.svelte';
   
   // Import all section components
   import Hero from './components/sections/Hero.svelte';
