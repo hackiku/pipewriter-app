@@ -1,81 +1,59 @@
-// src/lib/pages/app/stores/editorStore.ts
+// src/lib/pages/free/stores/editorStore.ts
+
 import { writable, derived } from 'svelte/store';
-import { elementConfig } from '../config';
-import type { Section, EditorState } from '../types';
+import type { EditorState, Section, SectionContent } from '../types';
+import { defaultContent } from '../data/default';
 
-export interface EditorStore {
-	sections: Section[];
-	activeSection: string | null;
-	editingField: string | null;
-	showAll: boolean;
-}
-
-const initialState: EditorStore = {
-	sections: Object.values(elementConfig).map((config, index) => ({
-		id: config.id,
-		type: config.type,
-		order: index,
-		visible: index === 0, // Only hero visible initially
-		content: config.defaultContent
-	})),
+const initialState: EditorState = {
+	sections: [],
+	content: defaultContent,
 	activeSection: null,
-	editingField: null,
-	showAll: false
+	editingField: null
 };
 
 function createEditorStore() {
-	const { subscribe, set, update } = writable<EditorStore>(initialState);
+	const { subscribe, set, update } = writable<EditorState>(initialState);
 
 	return {
 		subscribe,
 
+		// Content Management
+		updateContent: (path: string[], value: string) => {
+			update(state => {
+				let current = { ...state.content } as any;
+				const lastKey = path.pop()!;
+
+				for (const key of path) {
+					current = current[key];
+				}
+				current[lastKey] = value;
+
+				return { ...state, content: current };
+			});
+		},
+
 		// Section Management
-		toggleSection: (id: string, visible?: boolean) => {
+		addSection: (type: keyof SectionContent, order?: number) => {
+			update(state => {
+				const newSection: Section = {
+					id: `${type}-${Date.now()}`,
+					type,
+					order: order ?? state.sections.length,
+					visible: true
+				};
+
+				return {
+					...state,
+					sections: [...state.sections, newSection].sort((a, b) => a.order - b.order)
+				};
+			});
+		},
+
+		removeSection: (id: string) => {
 			update(state => ({
 				...state,
-				sections: state.sections.map(s =>
-					s.id === id ? { ...s, visible: visible ?? !s.visible } : s
-				)
+				sections: state.sections.filter(s => s.id !== id)
 			}));
-		},
-
-		toggleAllSections: (visible: boolean) => {
-			update(state => ({
-				...state,
-				showAll: visible,
-				sections: state.sections.map(s => ({ ...s, visible }))
-			}));
-		},
-
-		reorderSections: (orderedIds: string[]) => {
-			update(state => ({
-				...state,
-				sections: state.sections.map(section => ({
-					...section,
-					order: orderedIds.indexOf(section.id)
-				}))
-			}));
-		},
-
-		// Content Updates
-		updateContent: (sectionId: string, field: string, value: any) => {
-			update(state => ({
-				...state,
-				sections: state.sections.map(section =>
-					section.id === sectionId
-						? { ...section, content: { ...section.content, [field]: value } }
-						: section
-				)
-			}));
-		},
-
-		// UI State
-		setActiveSection: (sectionId: string | null) => {
-			update(state => ({ ...state, activeSection: sectionId }));
-		},
-
-		setEditingField: (fieldId: string | null) => {
-			update(state => ({ ...state, editingField: fieldId }));
 		},
 
 		reset: () => set(initialState)
@@ -84,15 +62,7 @@ function createEditorStore() {
 
 export const editorStore = createEditorStore();
 
-// Derived stores
-export const visibleSections = derived(editorStore, $store =>
-	$store.sections
-		.filter(s => s.visible)
-		.sort((a, b) => a.order - b.order)
-);
-
-export const availableSections = derived(editorStore, $store =>
-	$store.sections
-		.filter(s => !s.visible)
-		.sort((a, b) => a.order - b.order)
+// Derived stores for sections
+export const visibleSections = derived(editorStore,
+	$store => $store.sections.filter(s => s.visible).sort((a, b) => a.order - b.order)
 );

@@ -1,24 +1,23 @@
-<!-- components/dropper/Dropper.svelte -->
+<!-- src/lib/pages/free/components/dropper/Dropper.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { elementConfig } from '../../config';
   import ElementCard from './ElementCard.svelte';
-  import { editorStore } from '../../stores/content';
+  import { editorStore } from '../../stores/editorStore';
   import { Plus } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
-  import { Checkbox } from "$lib/components/ui/checkbox";
 
   export let onSelect: (elementId: string) => void;
 
-  // Active elements
   const activeElements = elementConfig.slice(0, 6);
   const previewElements = elementConfig.slice(6, 12);
 
+  $: activeSection = $editorStore.activeSection;
   $: showAll = $editorStore.showAll;
-  $: activeSectionId = $editorStore.activeSection;
-
-  function toggleShowAll() {
-    editorStore.update(state => ({ ...state, showAll: !state.showAll }));
+  
+  function handleShowAll() {
+    const sections = elementConfig.map(config => config.id);
+    sections.forEach(id => editorStore.addSection(id));
   }
 </script>
 
@@ -29,8 +28,8 @@
       {#each activeElements as element (element.id)}
         <ElementCard 
           {element}
-          onSelect={() => onSelect(element.id)}
-          isActive={element.id === activeSectionId}
+          {onSelect}
+          isActive={element.id === activeSection}
         />
       {/each}
     </div>
@@ -40,7 +39,7 @@
       <div class="grid grid-cols-3 gap-2 opacity-50">
         {#each previewElements as element (element.id)}
           <ElementCard 
-            element={element}
+            {element}
             disabled={true}
           />
         {/each}
@@ -61,19 +60,14 @@
 
     <!-- Controls -->
     <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full px-4 pb-4 flex items-center gap-4">
-      <div class="flex items-center space-x-2">
-        <Checkbox
-          id="show-all"
-          checked={showAll}
-          onCheckedChange={toggleShowAll}
-        />
-        <label
-          for="show-all"
-          class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-        >
-          Show All
-        </label>
-      </div>
+      <Button 
+        variant="ghost" 
+        size="sm"
+        on:click={handleShowAll}
+        class="text-sm font-medium text-muted-foreground hover:text-foreground"
+      >
+        Show All Sections
+      </Button>
     </div>
   </div>
 </div>

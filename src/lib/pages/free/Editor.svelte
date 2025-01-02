@@ -1,20 +1,24 @@
-<!-- src/lib/pages/app/Demo.svelte -->
+<!-- src/lib/pages/free/Editor.svelte -->
+
 <script lang="ts">
   import { onMount } from 'svelte';
   import { editorStore, visibleSections } from './stores/editorStore';
   import Dropper from './components/dropper/Dropper.svelte';
+  import Section from './components/Section.svelte';
+  import AddSection from './components/AddSection.svelte';
   
-  // Import all section components
+  // Import section components
   import Hero from './components/sections/Hero.svelte';
   import CTA from './components/sections/CTA.svelte';
   import Testimonials from './components/sections/Testimonials.svelte';
+  import Features from './components/sections/Features.svelte';
   
   const sectionComponents = {
     hero: Hero,
     cta: CTA,
     testimonials: Testimonials,
-    // Add other components as we create them
-  };
+    features: Features
+  } as const;
 
   let isHeroVisible = true;
   
@@ -35,9 +39,8 @@
   });
 
   function handleElementSelect(elementId: string) {
-    editorStore.toggleSection(elementId, true);
+    editorStore.addSection(elementId);
     
-    // Scroll to section
     setTimeout(() => {
       const section = document.getElementById(elementId);
       section?.scrollIntoView({ 
@@ -50,17 +53,18 @@
 
 <div class="relative min-h-screen">
   <div class="space-y-24">
-    {#each $visibleSections as section (section.id)}
-      <div 
-        id={section.id}
-        class="transition-all duration-500"
-      >
+    <!-- Add Section at the top -->
+    <AddSection order={0} />
+    
+    {#each $visibleSections as section, index (section.id)}
+      <Section {section}>
         <svelte:component 
           this={sectionComponents[section.type]} 
-          content={section.content}
+          content={$editorStore.content[section.type]}
           visible={true}
         />
-      </div>
+        <AddSection order={index + 1} />
+      </Section>
     {/each}
   </div>
 

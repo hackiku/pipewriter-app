@@ -1,21 +1,22 @@
-<!-- src/lib/pages/app/components/editor/EditableField.svelte -->
+<!-- src/lib/pages/free/components/editor/Editable.svelte -->
+
 <script lang="ts">
-  import { editorStore } from '../../stores/content';
+  import { editorStore } from '../../stores/editorStore';
+  import type { EditableProps } from './types';
   
-  export let sectionId: string;
-  export let fieldId: string;
-  export let value: string;
-  export let className = '';
+  export let path: EditableProps['path'];
+  export let value: EditableProps['value'];
+  export let className: EditableProps['className'] = '';
   
-  const fullFieldId = `${sectionId}-${fieldId}`;
+  const fieldId = path.join('-');
   
   function handleInput(event: Event) {
     const target = event.target as HTMLElement;
-    editorStore.updateContent(sectionId, fieldId, target.innerText);
+    editorStore.updateContent(path, target.innerText);
   }
   
   function handleFocus() {
-    editorStore.setEditingField(fullFieldId);
+    editorStore.setEditingField(fieldId);
   }
   
   function handleBlur() {
@@ -37,5 +38,7 @@
   div:focus {
     background: rgba(var(--primary), 0.1);
     border-radius: 4px;
+    padding: 0 0.25rem;
+    margin: 0 -0.25rem;
   }
 </style>

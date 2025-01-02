@@ -1,0 +1,44 @@
+// src/lib/pages/free/data/default.ts
+
+import type { SectionContent } from '../types';
+
+export const defaultContent: SectionContent = {
+	hero: {
+		eyebrow: "Type to prototype",
+		headline: "Wireframes for Writers in Google Docs++"
+	},
+	features: {
+		headline: "Write 10× Copy Decks",
+		blurbs: [
+			{
+				emoji: "⚡️",
+				title: "Click-drop workflow",
+				description: "Native Docs app"
+			},
+			{
+				emoji: "🎨",
+				title: "SaaS B2B looks",
+				description: "Ultra polished templates"
+			}
+		]
+	},
+	testimonials: {
+		headline: "Writers Dig That",
+		cards: [
+			{
+				firstName: "Eoin",
+				lastName: "Cronolly",
+				role: "SaaS Copywriter",
+				quote: "I've never seen a tool like this that works natively in Docs...",
+				imgSrc: "/testimonials/eoin.jpg"
+			}
+			// Add other testimonials...
+		]
+	},
+	cta: {
+		headline: "Ready to start?",
+		subheading: "Join the first wave of writer-first wireframers",
+		buttonText: "Get Started",
+		note: "Early access pricing available"
+	}
+};

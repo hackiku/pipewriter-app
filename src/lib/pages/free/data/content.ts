@@ -1,4 +1,4 @@
-// src/lib/pages/app/stores/sections.ts
+// src/lib/pages/free/data/content.ts
 
 import { writable, derived } from 'svelte/store';
 import { elementConfig } from '../config';
