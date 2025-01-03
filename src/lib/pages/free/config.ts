@@ -1,4 +1,4 @@
-// src/lib/pages/app/config.ts
+// src/lib/pages/free/config.ts
 import type { ElementConfig } from './types';
 import {
 	LayoutTemplate,

@@ -36,7 +36,8 @@
   }
 </script>
 
-<DropdownMenu.Root>
+<!-- Add modal={false} to prevent scroll locking -->
+<DropdownMenu.Root modal={false}>
   <DropdownMenu.Trigger asChild let:builder>
     <Button 
       variant="outline" 

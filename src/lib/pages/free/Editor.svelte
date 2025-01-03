@@ -4,6 +4,7 @@
   import { contentStore } from './stores/contentStore';
   import { editorStore, visibleSections } from './stores/editorStore';
   import Dropper from './components/dropper/Dropper.svelte';
+  import DropperWrapper from './components/dropper/DropperWrapper.svelte';
   import Section from './components/Section.svelte';
   import AddSection from './components/AddSection.svelte';
   import { elementConfig } from './config';
@@ -59,9 +60,14 @@
       }
     }, 100);
   }
+
+  function handleAddSectionClick() {
+    // Make dropper visible when Add Section is clicked
+    isHeroVisible = false;
+  }
 </script>
 
-<div class="relative min-h-screen overflow-x-hidden xxx_bg-background">
+<div class="relative min-h-screen overflow-x-hidden">
   <!-- Main content area with max-width constraint -->
   <div class="max-w-screen-2xl mx-auto">
     <!-- Sections with consistent spacing -->
@@ -79,16 +85,19 @@
 
     <!-- Add Section Button -->
     {#if $visibleSections.length}
-      <AddSection order={$visibleSections.length} />
+      <AddSection 
+        order={$visibleSections.length} 
+        on:click={handleAddSectionClick}
+      />
     {/if}
   </div>
 
-  <!-- Fixed Dropper -->
-  <div class="fixed bottom-1/3 right-8 z-50">
+  <!-- Dropper with wrapper -->
+  <DropperWrapper>
     <div class="transition-opacity duration-200" class:opacity-0={!isHeroVisible}>
-      <Dropper onSelect={handleElementSelect} />
+      <Dropper {handleElementSelect} />
     </div>
-  </div>
+  </DropperWrapper>
 </div>
 
 <style>

@@ -1,7 +1,6 @@
 <!-- src/routes/+page.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
   import Demo from "$lib/pages/demo/Demo.svelte";
   import DropperWrapper from "$lib/pages/demo/DropperWrapper.svelte";
   import Dropper from "$lib/pages/demo/Dropper.svelte";

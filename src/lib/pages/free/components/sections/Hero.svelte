@@ -55,8 +55,11 @@
         </Styles>
 
         <div class="w-full flex justify-start gap-4 pt-8">
-          <EarlyAccessButton size="lg" source="hero-home" />
-          <ExportButton text="Export" showReset={true} />
+          <EarlyAccessButton size="sm" source="hero-home" />
+          <ExportButton 
+						text="Free Doc"
+						showReset={false}
+					/>
         </div>
       </div>
     </div>

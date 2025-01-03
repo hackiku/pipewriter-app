@@ -12,6 +12,7 @@
   export let icon = Save;
   export let showReset = false;
   export let iconOnly = false;
+  export let variant: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link" = "default";
 
   function handleReset(event: MouseEvent) {
     event.stopPropagation();
@@ -23,7 +24,7 @@
   <AlertDialog.Trigger>
     <div class="flex items-center gap-2">
       <Button 
-        variant="outline" 
+        {variant}
         size={iconOnly ? "icon" : "sm"}
         class={cn(
           "relative",
