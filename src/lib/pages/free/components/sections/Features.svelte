@@ -36,7 +36,7 @@
 </script>
 
 {#if visible}
-  <section {id} class="py-24">
+  <section {id} class="xxx_py-24">
     <div class="container mx-auto px-8 md:px-20">
       <!-- Section Headline -->
       <Styles sectionId="features-headline">

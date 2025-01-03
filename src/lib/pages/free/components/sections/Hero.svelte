@@ -18,7 +18,7 @@
 {#if visible}
 <section 
   {id}
-  class="pt-20 lg:pt-40 min-h-[calc(100vh-5rem)]"
+  class="pt-20 lg:pt-36 xxx_min-h-[calc(100vh-5rem)]"
   in:fade={{ duration: 300 }}
 >
   <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">

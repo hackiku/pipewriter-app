@@ -60,25 +60,28 @@
   }
 </script>
 
-<div class="relative min-h-screen pb-24">
-  <!-- Sections -->
-  <div class="space-y-24">
-    {#each $visibleSections as section, i (section.id)}
-      <Section {section}>
-        <svelte:component 
-          this={sectionComponents[section.type]} 
-          content={$editorStore.content[section.type]}
-          visible={true}
-          id={`${section.id}-section`}
-        />
-      </Section>
-    {/each}
-  </div>
+<div class="relative min-h-screen overflow-x-hidden bg-background">
+  <!-- Main content area with max-width constraint -->
+  <div class="max-w-screen-2xl mx-auto">
+    <!-- Sections with consistent spacing -->
+    <div class="space-y-24 md:space-y-32">
+      {#each $visibleSections as section, i (section.id)}
+        <Section {section}>
+          <svelte:component 
+            this={sectionComponents[section.type]} 
+            content={$editorStore.content[section.type]}
+            visible={true}
+            id={`${section.id}-section`}
+          />
+        </Section>
+      {/each}
+    </div>
 
-  <!-- Add Section Button -->
-  {#if $visibleSections.length}
-    <AddSection order={$visibleSections.length} />
-  {/if}
+    <!-- Add Section Button -->
+    {#if $visibleSections.length}
+      <AddSection order={$visibleSections.length} />
+    {/if}
+  </div>
 
   <!-- Fixed Dropper -->
   <div class="fixed bottom-1/3 right-8 z-50">
@@ -87,3 +90,15 @@
     </div>
   </div>
 </div>
+
+<style>
+  /* Ensure content doesn't overflow horizontally */
+  :global(body) {
+    overflow-x: hidden;
+  }
+  
+  /* Smooth scrolling for the entire page */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+</style>

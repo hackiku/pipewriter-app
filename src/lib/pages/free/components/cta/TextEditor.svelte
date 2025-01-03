@@ -20,9 +20,14 @@
           start: `<${element.type}>`, 
           end: `</${element.type}>`
         };
+      case 'tailwind':
+        return { 
+          start: `<${element.type} class="text-base">`, 
+          end: `</${element.type}>`
+        };
       case 'react':
         return {
-          start: `<${element.type} className="...">`,
+          start: `<${element.type} className="text-base">`,
           end: `</${element.type}>`
         };
       case 'markdown':
@@ -115,7 +120,7 @@
                   <!-- Editable content -->
                   <div
                     contenteditable="true"
-                    class="outline-none min-w-[1rem] min-h-[1em] rounded transition-colors
+                    class="outline-none min-w-[1rem] min-h-[1em] rounded transition-all
                            {element.type === 'h1' ? 'font-bold' : 
                             element.type === 'h2' ? 'font-semibold' : 
                             element.type === 'h3' ? 'font-medium' : ''}"
@@ -173,6 +178,8 @@
 
   [contenteditable="true"]:hover {
     background: rgb(var(--muted) / 0.1);
+    padding: 0 0.5rem;
+    margin: 0 -0.5rem;
   }
 
   [contenteditable="true"]:focus {

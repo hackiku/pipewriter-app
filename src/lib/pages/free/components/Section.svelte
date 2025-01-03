@@ -41,11 +41,11 @@
 
 <div 
   bind:this={sectionEl}
-  class="group relative flex items-start gap-4 max-w-screen-xl mx-auto px-4"
+  class="group relative"
   in:fade={{ duration: 200 }}
 >
-  <!-- Delete Button Container -->
-  <div class="sticky top-24 pt-4">
+  <!-- Delete Button -->
+  <div class="absolute left-4 md:left-8 top-4 z-10">
     <button
       class="opacity-0 transition-opacity duration-200 p-2 rounded-lg hover:bg-destructive/10
              {isNearby ? 'group-hover:opacity-100' : ''}"
@@ -57,7 +57,5 @@
   </div>
   
   <!-- Section Content -->
-  <div class="flex-1">
-    <slot />
-  </div>
+  <slot />
 </div>

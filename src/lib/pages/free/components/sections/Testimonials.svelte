@@ -21,7 +21,7 @@
 </script>
 
 {#if visible}
-  <section {id} class="py-24 container mx-auto" in:fade={{ duration: 300 }}>
+  <section {id} class="container mx-auto px-4 md:px-8" in:fade={{ duration: 300 }}>
     <!-- Section Headline -->
     <Styles sectionId="testimonials-headline">
       <h2 class="text-4xl font-semibold tracking-tight text-center mb-16">
@@ -33,15 +33,15 @@
       </h2>
     </Styles>
 
-    <!-- Cards -->
-    <div class="flex flex-col md:flex-row gap-8 md:overflow-x-auto md:snap-x md:snap-mandatory md:pb-4 scroll-smooth">
+    <!-- Cards Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
       {#each content.cards as card, i}
         <Styles sectionId={`testimonial-${i}`}>
           <div
-            class="relative flex-shrink-0 md:w-[500px] flex flex-col md:flex-row gap-6 p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-md transition-all snap-center"
+            class="flex flex-col gap-6 p-6 rounded-xl border bg-card text-card-foreground shadow-sm hover:shadow-md transition-all"
             in:fly={{
-              x: 1000,
-              duration: 800,
+              y: 20,
+              duration: 300,
               delay: 150 * (i + 1),
               easing: quintOut,
             }}
@@ -105,26 +105,11 @@
         </Styles>
       {/each}
     </div>
-
-    <!-- Scroll Fade Gradients -->
-    <div class="hidden md:block absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-background to-transparent pointer-events-none" />
-    <div class="hidden md:block absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-background to-transparent pointer-events-none" />
   </section>
 {/if}
 
 <style>
-  .scroll-smooth {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .scroll-smooth::-webkit-scrollbar {
-    display: none;
-  }
-
-  @media (min-width: 768px) {
-    .scroll-smooth {
-      scroll-behavior: smooth;
-      -webkit-overflow-scrolling: touch;
-    }
+  ::selection {
+    background: rgb(var(--primary) / 0.2);
   }
 </style>
