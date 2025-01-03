@@ -9,7 +9,7 @@ export const initialContent: ContentStructure = {
 			elements: [
 				{
 					type: 'h1',
-					value: 'Wireframes for Writers in Google Docs++',
+					value: 'UX App  Writers in Google Docs+',
 					path: ['hero', 'headline'],
 					metadata: {
 						className: 'text-4xl font-bold tracking-tight'
