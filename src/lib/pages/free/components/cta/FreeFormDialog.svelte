@@ -1,40 +1,13 @@
 <!-- src/lib/pages/free/components/cta/FreeFormDialog.svelte -->
-
 <script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { X, RotateCcw } from "lucide-svelte";
-  import { editorStore } from '../../stores/editorStore';
+  import { editorStore, visibleSections } from '../../stores/editorStore';
   import TextEditor from './TextEditor.svelte';
   import EmailForm from '$lib/components/cta/EmailForm.svelte';
   import { Button } from "$lib/components/ui/button";
-  import { derived } from 'svelte/store';
 
   export let showReset = false;
-
-  // Create a derived store for formatted content
-  const formattedContent = derived(editorStore, ($store) => {
-    const content = $store.content;
-    let formatted = '';
-
-    // Hero Section
-    if (content.hero) {
-      formatted += `# ${content.hero.headline}\n`;
-      formatted += `${content.hero.eyebrow}\n\n`;
-    }
-
-    // Features Section
-    if (content.features?.blurbs) {
-      formatted += `## Features\n\n`;
-      content.features.blurbs.forEach(blurb => {
-        formatted += `${blurb.emoji} ${blurb.title}\n`;
-        formatted += `${blurb.description}\n\n`;
-      });
-    }
-
-    // Add other sections as needed...
-
-    return formatted;
-  });
 </script>
 
 <AlertDialog.Portal>
@@ -58,8 +31,8 @@
         <div class="flex flex-col gap-4">
           <h3 class="text-lg font-semibold">Your UX copy</h3>
           <TextEditor 
-            value={$formattedContent}
-            readonly={false}
+            content={$editorStore.content}
+            sections={$visibleSections}
           />
         </div>
 

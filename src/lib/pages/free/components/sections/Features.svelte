@@ -7,6 +7,7 @@
   import { editorStore } from '../../stores/editorStore';
   
   export let content: {
+    headline: string;
     blurbs: Array<{
       emoji: string;
       title: string;
@@ -14,15 +15,16 @@
     }>;
   };
   export let visible = false;
+  export let id = 'features-section';
 
-  let firstHeading: HTMLElement;
+  let titleElements: Record<number, HTMLElement> = {};
   
   onMount(() => {
-    if (visible && firstHeading) {
+    if (visible && titleElements[0]) {
       setTimeout(() => {
-        firstHeading.focus();
+        titleElements[0].focus();
         const range = document.createRange();
-        range.selectNodeContents(firstHeading);
+        range.selectNodeContents(titleElements[0]);
         range.collapse(false);
         const selection = window.getSelection();
         selection?.removeAllRanges();
@@ -34,43 +36,67 @@
 </script>
 
 {#if visible}
-  <div class="container mx-auto px-8 md:px-20">
-    <div 
-      class="grid grid-cols-1 md:grid-cols-3 gap-16"
-      in:fade={{ duration: 300 }}
-    >
-      {#each content.blurbs as blurb, i}
-        <div 
-          class="flex flex-col text-left space-y-3"
-          in:fly={{ y: 20, duration: 300, delay: 150 * (i + 1), easing: quintOut }}
-        >
-          <Styles sectionId={`features-${i}-emoji`}>
-            <Editable
-              path={['features', 'blurbs', i, 'emoji']}
-              value={blurb.emoji}
-              class="mb-2 font-bold text-3xl text-primary/80"
-            />
-          </Styles>
-          
-          <Styles sectionId={`features-${i}-title`}>
-            <Editable
-              path={['features', 'blurbs', i, 'title']}
-              value={blurb.title}
-              class="text-2xl font-regular"
-            />
-          </Styles>
-          
-          <Styles sectionId={`features-${i}-description`}>
-            <Editable
-              path={['features', 'blurbs', i, 'description']}
-              value={blurb.description}
-              class="text-lg text-muted-foreground"
-            />
-          </Styles>
-        </div>
-      {/each}
+  <section {id} class="py-24">
+    <div class="container mx-auto px-8 md:px-20">
+      <!-- Section Headline -->
+      <Styles sectionId="features-headline">
+        <h2 class="text-4xl font-semibold tracking-tight text-center mb-16">
+          <Editable
+            path={['features', 'headline']}
+            value={content.headline}
+            className="outline-none"
+          />
+        </h2>
+      </Styles>
+
+      <!-- Blurbs Grid -->
+      <div 
+        class="grid grid-cols-1 md:grid-cols-3 gap-16"
+        in:fade={{ duration: 300 }}
+      >
+        {#each content.blurbs as blurb, i}
+          <div 
+            class="flex flex-col text-left space-y-3"
+            in:fly={{ y: 20, duration: 300, delay: 150 * (i + 1), easing: quintOut }}
+          >
+            <!-- Emoji -->
+            <Styles sectionId={`features-${i}-emoji`}>
+              <div class="mb-2 font-bold text-3xl text-primary/80">
+                <Editable
+                  path={['features', 'blurbs', i, 'emoji']}
+                  value={blurb.emoji}
+                  className="outline-none"
+                />
+              </div>
+            </Styles>
+            
+            <!-- Title -->
+            <Styles sectionId={`features-${i}-title`}>
+              <h3 class="text-2xl font-regular">
+                <Editable
+                  bind:this={titleElements[i]}
+                  path={['features', 'blurbs', i, 'title']}
+                  value={blurb.title}
+                  className="outline-none"
+                />
+              </h3>
+            </Styles>
+            
+            <!-- Description -->
+            <Styles sectionId={`features-${i}-description`}>
+              <p class="text-lg text-muted-foreground">
+                <Editable
+                  path={['features', 'blurbs', i, 'description']}
+                  value={blurb.description}
+                  className="outline-none"
+                />
+              </p>
+            </Styles>
+          </div>
+        {/each}
+      </div>
     </div>
-  </div>
+  </section>
 {/if}
 
 <style>

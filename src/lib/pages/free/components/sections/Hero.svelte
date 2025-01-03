@@ -12,10 +12,12 @@
     headline: string;
   };
   export let visible = true;
+  export let id = 'hero-section'; // Optional prop with default
 </script>
 
 {#if visible}
 <section 
+  {id}
   class="pt-20 lg:pt-40 min-h-[calc(100vh-5rem)]"
   in:fade={{ duration: 300 }}
 >
@@ -30,6 +32,7 @@
               <Editable
                 path={['hero', 'eyebrow']}
                 value={content.eyebrow}
+                className="outline-none"
               />
             </div>
           </div>
@@ -41,6 +44,7 @@
             <Editable
               path={['hero', 'headline']}
               value={content.headline}
+              className="outline-none"
             />
           </h1>
         </Styles>
