@@ -23,7 +23,7 @@
 {#if visible}
 <section 
   {id}
-  class="container mx-auto px-4 pt-20 lg:pt-36"
+  class="container mx-auto px-4"
   in:fade={{ duration: 300 }}
 >
   <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">

@@ -7,7 +7,7 @@
   import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
   import BackgroundButton from "./BackgroundButton.svelte";
   import ExportButton from "$lib/pages/free/components/cta/ExportButton.svelte";
-  import BackgroundPattern from "./BackgroundPattern.svelte";
+  // import BackgroundPattern from "./BackgroundPattern.svelte";
   import { contactModalStore } from "$lib/stores/contactModalStore";
   import { onMount } from "svelte";
   import { mainNavItems } from '$lib/data/navigation';
@@ -17,21 +17,11 @@
   let lastScrollY = 0;
   let showContactModal = false;
 
-  // Background pattern state
-  let patternSize = "md";
-  let patternOpacity = "medium";
-  let patternGradient = true;
 
   const toggleMenu = () => {
     isMenuOpen = !isMenuOpen;
   };
 
-  function handleBackgroundUpdate(event: CustomEvent) {
-    const { size, opacity, gradient } = event.detail;
-    patternSize = size;
-    patternOpacity = opacity;
-    patternGradient = gradient;
-  }
 
   onMount(() => {
     const handleScroll = () => {
@@ -50,11 +40,15 @@
 </script>
 
 <!-- Background Pattern -->
-<BackgroundPattern 
+	<!-- <div class="fixed inset-0 pointer-events-none">
+		<BackgroundPattern size="lg" opacity="high" gradient={true} />
+	</div> -->
+
+<!-- <BackgroundPattern 
   size={patternSize}
   opacity={patternOpacity}
   gradient={patternGradient}
-/>
+/> -->
 
 <nav
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
@@ -73,7 +67,7 @@
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-6">
+      <div class="hidden md:flex items-center gap-3.5">
         {#each mainNavItems as item}
           <a
             href={item.href}
@@ -89,9 +83,9 @@
           </a>
         {/each}
 
-        <ExportButton iconOnly={true} />
-        <BackgroundButton iconOnly={true} on:update={handleBackgroundUpdate} />
+        <BackgroundButton iconOnly={true} />
         <EarlyAccessButton size="sm" source="nav" className="font-normal" iconOnly={true} />
+        <ExportButton iconOnly={true} />
 
         <Button
           on:click={toggleMode}
@@ -152,7 +146,7 @@
           
           <div class="px-3 space-y-2">
             <ExportButton iconOnly={false} />
-            <BackgroundButton iconOnly={false} on:update={handleBackgroundUpdate} />
+            <BackgroundButton iconOnly={false} />
             <EarlyAccessButton
               size="md"
               source="nav-mobile"

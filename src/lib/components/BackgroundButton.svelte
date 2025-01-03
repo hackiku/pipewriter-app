@@ -1,10 +1,10 @@
 <!-- $lib/components/BackgroundButton.svelte -->
-
 <script lang="ts">
   import { Grid } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
   import * as DropdownMenu from "$lib/components/ui/dropdown-menu";
   import { cn } from "$lib/utils";
+  import { backgroundStore } from "$lib/stores/backgroundStore";
 
   export let iconOnly = false;
   
@@ -22,30 +22,31 @@
     { value: "high", label: "High (12%)" }
   ];
 
-  let selectedSize = "md";
-  let selectedOpacity = "medium";
-  let gradientEnabled = true;
+  $: selectedSize = $backgroundStore.size;
+  $: selectedOpacity = $backgroundStore.opacity;
+  $: gradientEnabled = $backgroundStore.gradient;
 
   function updateBackground(type: string, value: string | boolean) {
-    if (type === "size") selectedSize = value as string;
-    if (type === "opacity") selectedOpacity = value as string;
-    if (type === "gradient") gradientEnabled = value as boolean;
-    
-    // Dispatch event to update background pattern
-    dispatch("update", {
-      size: selectedSize,
-      opacity: selectedOpacity,
-      gradient: gradientEnabled
+    backgroundStore.update(state => {
+      if (type === "size") return { ...state, size: value as "xs" | "sm" | "md" | "lg" | "xl" };
+      if (type === "opacity") return { ...state, opacity: value as "low" | "medium" | "high" };
+      if (type === "gradient") return { ...state, gradient: value as boolean };
+      return state;
     });
   }
 </script>
 
 <DropdownMenu.Root>
-  <DropdownMenu.Trigger asChild>
-    <Button variant="outline" size={iconOnly ? "icon" : "sm"} class={cn(
-      "relative",
-      iconOnly ? "w-10" : "gap-2"
-    )}>
+  <DropdownMenu.Trigger asChild let:builder>
+    <Button 
+      variant="outline" 
+      size={iconOnly ? "icon" : "sm"} 
+      builders={[builder]}
+      class={cn(
+        "relative",
+        iconOnly ? "w-10" : "gap-2"
+      )}
+    >
       <Grid class="h-[1.2rem] w-[1.2rem]" />
       {#if !iconOnly}
         <span>Background</span>
@@ -54,27 +55,31 @@
   </DropdownMenu.Trigger>
   
   <DropdownMenu.Content class="w-56">
-    <DropdownMenu.Label>Grid Size</DropdownMenu.Label>
-    {#each gridSizes as size}
-      <DropdownMenu.CheckboxItem
-        checked={selectedSize === size.value}
-        onCheckedChange={() => updateBackground("size", size.value)}
-      >
-        {size.label}
-      </DropdownMenu.CheckboxItem>
-    {/each}
+    <DropdownMenu.Group>
+      <DropdownMenu.Label>Grid Size</DropdownMenu.Label>
+      {#each gridSizes as size}
+        <DropdownMenu.CheckboxItem 
+          checked={selectedSize === size.value}
+          onCheckedChange={() => updateBackground("size", size.value)}
+        >
+          {size.label}
+        </DropdownMenu.CheckboxItem>
+      {/each}
+    </DropdownMenu.Group>
     
     <DropdownMenu.Separator />
     
-    <DropdownMenu.Label>Opacity</DropdownMenu.Label>
-    {#each opacityLevels as level}
-      <DropdownMenu.CheckboxItem
-        checked={selectedOpacity === level.value}
-        onCheckedChange={() => updateBackground("opacity", level.value)}
-      >
-        {level.label}
-      </DropdownMenu.CheckboxItem>
-    {/each}
+    <DropdownMenu.Group>
+      <DropdownMenu.Label>Opacity</DropdownMenu.Label>
+      {#each opacityLevels as level}
+        <DropdownMenu.CheckboxItem 
+          checked={selectedOpacity === level.value}
+          onCheckedChange={() => updateBackground("opacity", level.value)}
+        >
+          {level.label}
+        </DropdownMenu.CheckboxItem>
+      {/each}
+    </DropdownMenu.Group>
     
     <DropdownMenu.Separator />
     

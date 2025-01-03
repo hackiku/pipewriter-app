@@ -2,7 +2,8 @@
 <script lang="ts">
 	import { dev } from '$app/environment';
   import "../../app.css";
-  import Nav from "$lib/components/Nav.svelte";
+  import BackgroundPattern from '$lib/components/BackgroundPattern.svelte';
+	import Nav from "$lib/components/Nav.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import SEO from "$lib/components/SEO.svelte";
 
@@ -42,13 +43,24 @@
   <Nav />
 {/if}
 
-<main class="flex min-h-screen flex-col">
-  <slot />
-</main>
+<div class="flex min-h-screen flex-col relative">
+  <!-- Background Pattern - Fixed position for main content area -->
+  <div class="fixed inset-0 pointer-events-none">
+    <BackgroundPattern />
+  </div>
 
-{#if !isIframe}
-  <Footer />
-{/if}
+  <!-- Main content with transparent background -->
+  <main class="flex-grow relative">
+    <slot />
+  </main>
+
+  <!-- Footer with solid background to cover pattern -->
+  {#if !isIframe}
+    <div class="relative">
+      <Footer />
+    </div>
+  {/if}
+</div>
 
 {#if $contactModalStore}
   <ContactModal on:close={() => $contactModalStore = false} />

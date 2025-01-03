@@ -6,15 +6,16 @@
   import { Editable, Styles } from '../editor';
   import ExportButton from "../cta/ExportButton.svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
+  import { contentStore, getFieldValue } from '../../stores/contentStore';
   
-  export let content: {
-    headline: string;
-    subheading: string;
-    buttonText: string;
-    note: string;
-  };
   export let visible = false;
   export let id = 'cta-section';
+
+  // Get values reactively with fallbacks
+  $: headlineText = getFieldValue($contentStore.content, ['cta', 'headline']) || 'Beta Launch Special';
+  $: subheadingText = getFieldValue($contentStore.content, ['cta', 'subheading']) || 'Join now';
+  $: buttonText = getFieldValue($contentStore.content, ['cta', 'buttonText']) || 'Get Started';
+  $: noteText = getFieldValue($contentStore.content, ['cta', 'note']) || '';
 </script>
 
 {#if visible}
@@ -26,7 +27,7 @@
           
           <Editable
             path={['cta', 'headline']}
-            value={content.headline}
+            value={headlineText}
             class="relative text-4xl md:text-5xl font-semibold leading-tight"
           />
         </div>
@@ -37,7 +38,7 @@
         <Styles sectionId="cta-subheading">
           <Editable
             path={['cta', 'subheading']}
-            value={content.subheading}
+            value={subheadingText}
             class="text-xl text-muted-foreground"
           />
         </Styles>
@@ -45,17 +46,19 @@
         <!-- Action Buttons -->
         <div class="flex justify-center gap-4">
           <EarlyAccessButton size="lg" source="cta-section" />
-          <ExportButton text={content.buttonText} showReset={true} />
+          <ExportButton text={buttonText} showReset={true} />
         </div>
 
         <!-- Note -->
-        <Styles sectionId="cta-note">
-          <Editable
-            path={['cta', 'note']}
-            value={content.note}
-            class="text-sm text-muted-foreground"
-          />
-        </Styles>
+        {#if noteText}
+          <Styles sectionId="cta-note">
+            <Editable
+              path={['cta', 'note']}
+              value={noteText}
+              class="text-sm text-muted-foreground"
+            />
+          </Styles>
+        {/if}
       </div>
     </div>
   </section>

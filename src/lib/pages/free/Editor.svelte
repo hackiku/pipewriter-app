@@ -61,11 +61,11 @@
   }
 </script>
 
-<div class="relative min-h-screen overflow-x-hidden bg-background">
+<div class="relative min-h-screen overflow-x-hidden xxx_bg-background">
   <!-- Main content area with max-width constraint -->
   <div class="max-w-screen-2xl mx-auto">
     <!-- Sections with consistent spacing -->
-    <div class="space-y-24 md:space-y-32">
+    <div class="space-y-24 md:space-y-32 pt-44">
       {#each $visibleSections as section (section.id)}
         <Section {section}>
           <svelte:component 
