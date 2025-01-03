@@ -13,36 +13,37 @@
   }> = [
     { 
       id: 'text', 
-      label: 'Text', 
+      label: 'Plain Text', 
       icon: FileText,
-      description: 'Plain text format'
+      description: 'Basic text format with minimal styling'
     },
     { 
       id: 'html', 
       label: 'HTML', 
       icon: Code,
-      description: 'HTML template with styling'
+      description: 'HTML with Tailwind CSS classes'
     },
     { 
       id: 'react', 
       label: 'React', 
       icon: FileJson,
-      description: 'React components'
+      description: 'React components with styling'
     },
     { 
       id: 'markdown', 
-      label: 'MD', 
+      label: 'Markdown', 
       icon: FileDown,
-      description: 'Markdown format'
+      description: 'Standard Markdown format'
     }
   ];
 </script>
 
 <div class="flex items-center justify-center gap-2">
   {#each options as option}
-    <Tooltip.Root>
-      <Tooltip.Trigger asChild>
+    <Tooltip.Root openDelay={0} closeDelay={0}>
+      <Tooltip.Trigger asChild let:builder>
         <Button
+          builders={[builder]}
           variant={$exportStore.selectedFormat === option.id ? "default" : "outline"}
           size="icon"
           class="w-10 h-10"
@@ -52,7 +53,7 @@
           <span class="sr-only">{option.label}</span>
         </Button>
       </Tooltip.Trigger>
-      <Tooltip.Content>
+      <Tooltip.Content side="top" sideOffset={10}>
         <div class="text-center">
           <p class="font-medium">{option.label}</p>
           <p class="text-xs text-muted-foreground">{option.description}</p>

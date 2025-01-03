@@ -4,6 +4,7 @@
   import { exportStore } from '../../stores/exportStore';
   import ExportOptions from './ExportOptions.svelte';
   import type { ContentElement, ContentSection } from '../../types';
+  import { Card } from "$lib/components/ui/card";
   
   function handleContentEdit(event: Event) {
     const target = event.target as HTMLElement;
@@ -13,57 +14,18 @@
     }
   }
 
-  function renderElement(element: ContentElement) {
-    const classes = {
-      h1: 'text-4xl font-bold mb-4',
-      h2: 'text-2xl font-semibold mb-3',
-      h3: 'text-xl font-medium mb-2',
-      text: 'text-base mb-2',
-      button: 'font-medium text-primary',
-      quote: 'italic text-muted-foreground',
-      label: 'text-sm text-muted-foreground',
-      emoji: 'text-2xl mr-2',
-      image: 'text-sm text-muted-foreground italic'
-    }[element.type];
-
-    const value = element.type === 'quote' ? `"${element.value}"` : element.value;
-
-    return `
-      <div
-        contenteditable="true"
-        data-path="${element.path.join('.')}"
-        class="${classes} ${element.metadata?.className || ''}"
-      >${value}</div>
-    `;
-  }
-
-  function renderSection(section: ContentSection): string {
-    let output = `
-      <div class="mb-8">
-        <!-- Section elements -->
-        ${section.elements.map(renderElement).join('\n')}
-        
-        <!-- Children elements if any -->
-        ${section.children ? 
-          section.children.map(child => `
-            <div class="ml-4 mb-4">
-              ${child.elements.map(renderElement).join('\n')}
-            </div>
-          `).join('\n') 
-          : ''
-        }
-      </div>
-    `;
-
-    return output;
+  function getElementClasses(element: ContentElement): string {
+    const formatter = exportStore.getStylesForFormat($exportStore.selectedFormat)[element.type];
+    return formatter.className || '';
   }
 
   $: sections = $contentStore.content.sections.sort((a, b) => a.order - b.order);
 </script>
 
-<div class="relative h-[500px]">
-  <div class="h-full overflow-y-auto pb-20">
-    <div class="font-mono text-sm whitespace-pre-wrap p-3 rounded-md border bg-muted/5">
+<div class="relative h-[500px] rounded-lg border bg-card">
+  <!-- Main scrollable content -->
+  <div class="h-full overflow-y-auto hide-scrollbar">
+    <div class="p-4 pb-32">
       {#each sections as section}
         <!-- Section Header -->
         <div class="text-xs uppercase tracking-wider text-muted-foreground font-bold mb-2">
@@ -71,26 +33,58 @@
         </div>
 
         <!-- Section Content -->
-        {@html renderSection(section)}
+        <div class="mb-8">
+          {#each section.elements as element}
+            <div
+              contenteditable="true"
+              data-path={element.path.join('.')}
+              class={getElementClasses(element)}
+              on:input={handleContentEdit}
+            >{element.value}</div>
+          {/each}
 
-        <!-- Section Divider -->
+          {#if section.children}
+            {#each section.children as child}
+              <div class="ml-4 mb-4">
+                {#each child.elements as element}
+                  <div
+                    contenteditable="true"
+                    data-path={element.path.join('.')}
+                    class={getElementClasses(element)}
+                    on:input={handleContentEdit}
+                  >{element.value}</div>
+                {/each}
+              </div>
+            {/each}
+          {/if}
+        </div>
+
         {#if section !== sections[sections.length - 1]}
-          <hr class="my-6 border-muted" />
+          <hr class="my-6 border-border" />
         {/if}
       {/each}
     </div>
-  </div>
 
-  <!-- Bottom Gradient & Export Options -->
-  <div class="absolute bottom-0 inset-x-0 h-24 pointer-events-none
-              bg-gradient-to-t from-background via-background/80 to-transparent" />
-  
-  <div class="absolute bottom-4 inset-x-0">
-    <ExportOptions />
+    <!-- Gradient overlay and export options -->
+    <div class="absolute bottom-0 inset-x-0">
+      <div class="h-32 bg-gradient-to-t from-card via-card/80 to-transparent pointer-events-none" />
+      <div class="absolute bottom-4 inset-x-0 pointer-events-auto">
+        <ExportOptions />
+      </div>
+    </div>
   </div>
 </div>
 
 <style>
+  .hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
   [contenteditable="true"] {
     outline: none;
     min-width: 1rem;
@@ -99,6 +93,7 @@
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
     transition: background-color 0.2s;
+    margin-bottom: 0.5rem;
   }
 
   [contenteditable="true"]:hover {
