@@ -5,7 +5,8 @@ import type { SectionContent } from '../types';
 export const defaultContent: SectionContent = {
 	hero: {
 		eyebrow: "Type to prototype",
-		headline: "Wireframes for Writers in Google Docs++"
+		headline: "UX App for Writers"
+		// description: "Wireframes in Google Docs and on the web."
 	},
 	features: {
 		headline: "Write 10× Copy Decks",

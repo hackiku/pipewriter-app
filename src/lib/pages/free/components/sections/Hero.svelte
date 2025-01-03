@@ -12,7 +12,7 @@
     headline: string;
   };
   export let visible = true;
-  export let id = 'hero-section';
+  export let id = 'hero-section'; // Optional prop with default
 </script>
 
 {#if visible}
@@ -49,13 +49,9 @@
           </h1>
         </Styles>
 
-        <div class="w-full flex justify-start items-center gap-4 pt-8">
-          <EarlyAccessButton 
-            size="lg" 
-            source="hero-home"
-            text="Try Pipewriter"
-          />
-          <ExportButton text="Save Draft" />
+        <div class="w-full flex justify-start gap-4 pt-8">
+          <EarlyAccessButton size="lg" source="hero-home" />
+          <ExportButton text="Export" showReset={true} />
         </div>
       </div>
     </div>
