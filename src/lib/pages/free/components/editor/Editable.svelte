@@ -1,5 +1,4 @@
 <!-- src/lib/pages/free/components/editor/Editable.svelte -->
-
 <script lang="ts">
   import { editorStore } from '../../stores/editorStore';
   import type { EditableProps } from './types';
@@ -26,19 +25,12 @@
 
 <div
   contenteditable="true"
-  class="outline-none {className}"
+  class="outline-none rounded transition-all duration-300 px-0
+         focus:px-2 focus:-mx-2
+         {className}"
   on:input={handleInput}
   on:focus={handleFocus}
   on:blur={handleBlur}
 >
   {value}
 </div>
-
-<style>
-  div:focus {
-    background: rgba(var(--primary), 0.1);
-    border-radius: 4px;
-    padding: 0 0.25rem;
-    margin: 0 -0.25rem;
-  }
-</style>

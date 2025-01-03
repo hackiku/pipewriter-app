@@ -10,4 +10,4 @@
       <Editor />
     </section>
   </main>
-</div>
+</div> 

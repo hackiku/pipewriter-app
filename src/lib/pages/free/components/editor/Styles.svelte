@@ -10,16 +10,18 @@
 </script>
 
 <div 
-  class="relative transition-all duration-300 {className}"
+  class="relative transition-all duration-300 rounded-lg {className}"
   class:active={isActive}
 >
   <slot />
   
-  <!-- Hover/Active Border Effect -->
+  <!-- Border and Background Effect -->
   <div 
-    class="absolute inset-0 pointer-events-none opacity-0 transition-opacity duration-300
-           hover:opacity-100 active:opacity-100 rounded-lg border-2 border-dashed border-primary/30
-           {isActive ? 'opacity-100 bg-primary/5' : ''}"
+    class="absolute -inset-2 rounded-xl pointer-events-none transition-opacity duration-300
+           opacity-0 hover:opacity-100 border-2 border-dashed border-transparent
+           {isActive ? 'opacity-100' : ''}"
+    style="background: {isActive ? 'linear-gradient(to right, rgba(54,68,254,0.05), rgba(179,69,237,0.05))' : 'transparent'};
+           border-image: linear-gradient(to right, #3644FE, #B345ED) 1;"
   />
 </div>
 
@@ -28,7 +30,7 @@
   @media (max-width: 768px) {
     div {
       cursor: text;
-      -webkit-tap-highlight-color: rgba(var(--primary), 0.1);
+      -webkit-tap-highlight-color: rgba(179,69,237,0.1);
     }
   }
 </style>

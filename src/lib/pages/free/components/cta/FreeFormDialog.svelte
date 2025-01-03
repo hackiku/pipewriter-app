@@ -65,7 +65,7 @@
 
         <div class="flex flex-col justify-center max-w-md mx-auto w-full gap-6">
           <div class="space-y-2">
-            <h2 class="text-2xl font-bold">Get Your Free Template</h2>
+            <h2 class="text-2xl font-bold">Export your wire's content</h2>
             <p class="text-muted-foreground">
               We'll send you a Google Docs template with your content.
             </p>
