@@ -1,7 +1,7 @@
-<!-- $lib/components/free/TextEditor.svelte -->
+<!-- src/lib/pages/free/components/cta/TextEditor.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { demoStore } from '$lib/stores/demoStore';
+  import { editorStore } from '../../stores/editorStore';
   
   export let value: string;
   export let readonly: boolean = false;
@@ -21,12 +21,25 @@
       
       // Match section by its heading format
       if (lines[0].startsWith('# ')) { // Hero section
-        demoStore.updateContent(['hero', 'headline'], lines[0].replace('# ', ''));
+        editorStore.updateContent(['hero', 'headline'], lines[0].replace('# ', ''));
         if (lines[1]) {
-          demoStore.updateContent(['hero', 'eyebrow'], lines[1]);
+          editorStore.updateContent(['hero', 'eyebrow'], lines[1]);
         }
+      } else if (lines[0] === '## Features') { // Features section
+        const blurbs = [];
+        for (let i = 2; i < lines.length; i += 2) {
+          if (!lines[i]) continue;
+          const [emoji, ...titleParts] = lines[i].split(' ');
+          const description = lines[i + 1];
+          blurbs.push({
+            emoji,
+            title: titleParts.join(' '),
+            description
+          });
+        }
+        editorStore.updateContent(['features', 'blurbs'], blurbs);
       }
-      // Add more section matching logic here
+      // Add more section parsing as needed
     });
   }
 
@@ -75,7 +88,6 @@
     {@html value.replace(/\n/g, '<br>')}
   </div>
 </div>
-
 
 <style>
   :global(.highlight) {

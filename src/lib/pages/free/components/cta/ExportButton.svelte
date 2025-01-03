@@ -1,10 +1,10 @@
-<!-- $lib/components/free/ExportButton.svelte -->
+<!-- src/lib/pages/free/components/cta/ExportButton.svelte -->
 <script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { Button } from "$lib/components/ui/button";
   import { Save, RotateCcw } from "lucide-svelte";
   import * as Tooltip from "$lib/components/ui/tooltip";
-  import { demoStore } from '$lib/stores/demoStore';
+  import { editorStore } from '../../stores/editorStore';
   import FreeFormDialog from './FreeFormDialog.svelte';
 
   export let text = "Export";
@@ -13,7 +13,7 @@
 
   function handleReset(event: MouseEvent) {
     event.stopPropagation();
-    demoStore.reset();
+    editorStore.reset();
   }
 </script>
 
