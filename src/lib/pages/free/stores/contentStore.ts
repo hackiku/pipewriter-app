@@ -1,10 +1,10 @@
 // src/lib/pages/free/stores/contentStore.ts
 import { writable, derived } from 'svelte/store';
-import { initialContent, type SectionContent } from '../data/content';
+import { initialContent } from '../data/content';
+import type { ContentStructure, ContentElement } from '../types';
 
 interface ContentState {
-	original: SectionContent;
-	changes: Partial<{ [K in keyof SectionContent]: Partial<SectionContent[K]> }>;
+	content: ContentStructure;
 	ui: {
 		activeSection: string | null;
 		editingField: string | null;
@@ -12,8 +12,7 @@ interface ContentState {
 }
 
 const initialState: ContentState = {
-	original: initialContent,
-	changes: {},
+	content: initialContent,
 	ui: {
 		activeSection: null,
 		editingField: null
@@ -29,30 +28,37 @@ function createContentStore() {
 		// Update specific content field
 		updateField: (path: string[], value: string) => {
 			update(state => {
-				const [section, ...rest] = path;
-				const changes = { ...state.changes };
+				const [sectionId, ...elementPath] = path;
+				const newContent = { ...state.content };
 
-				// Initialize section if it doesn't exist in changes
-				if (!changes[section]) {
-					changes[section] = {};
-				}
+				const section = newContent.sections.find(s => s.id === sectionId);
+				if (!section) return state;
 
-				// Handle nested updates
-				let current = changes[section];
-				const lastKey = rest[rest.length - 1];
-
-				for (let i = 0; i < rest.length - 1; i++) {
-					const key = rest[i];
-					if (!current[key]) {
-						current[key] = {};
+				// Helper to find and update element
+				const updateElement = (elements: ContentElement[], path: string[]): boolean => {
+					for (let i = 0; i < elements.length; i++) {
+						if (elements[i].path.join('.') === path.join('.')) {
+							elements[i] = { ...elements[i], value };
+							return true;
+						}
 					}
-					current = current[key];
+					return false;
+				};
+
+				// Try to update main section elements
+				let updated = updateElement(section.elements, path);
+
+				// If not found, try children
+				if (!updated && section.children) {
+					for (const child of section.children) {
+						updated = updateElement(child.elements, path);
+						if (updated) break;
+					}
 				}
-				current[lastKey] = value;
 
 				return {
 					...state,
-					changes
+					content: newContent
 				};
 			});
 		},
@@ -78,27 +84,22 @@ function createContentStore() {
 
 export const contentStore = createContentStore();
 
-// Derived store for actual content merging original with changes
-export const currentContent = derived(contentStore, $store => {
-	const merged = { ...$store.original };
-
-	// Merge changes into original content
-	Object.entries($store.changes).forEach(([section, changes]) => {
-		merged[section] = {
-			...merged[section],
-			...changes
-		};
-	});
-
-	return merged;
-});
-
 // Helper for getting specific field value
-export function getFieldValue(content: SectionContent, path: string[]): string {
-	let current: any = content;
-	for (const key of path) {
-		if (!current?.[key]) return '';
-		current = current[key];
+export function getFieldValue(content: ContentStructure, path: string[]): string {
+	const [sectionId, ...elementPath] = path;
+	const section = content.sections.find(s => s.id === sectionId);
+	if (!section) return '';
+
+	// Search in main elements
+	let element = section.elements.find(e => e.path.join('.') === path.join('.'));
+
+	// If not found, search in children
+	if (!element && section.children) {
+		for (const child of section.children) {
+			element = child.elements.find(e => e.path.join('.') === path.join('.'));
+			if (element) break;
+		}
 	}
-	return current?.toString() || '';
+
+	return element?.value || '';
 }

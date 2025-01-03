@@ -1,104 +1,130 @@
 // src/lib/pages/free/data/content.ts
+import type { ContentStructure } from '../types';
 
-export interface SectionContent {
-	hero: {
-		eyebrow: string;
-		headline: string;
-	};
-	products?: {
-		headline: string;
-		features: Array<{
-			multiplier: number;
-			tool: any; // We'll type this properly once we have the tools import
-			description: string;
-		}>;
-	};
-	features: {
-		headline: string;
-		blurbs: Array<{
-			emoji: string;
-			title: string;
-			description: string;
-		}>;
-	};
-	zigzags?: {
-		left: {
-			heading: string;
-			subheading: string;
-			description: string;
-		};
-		right: {
-			heading: string;
-			subheading: string;
-			description: string;
-		};
-	};
-	testimonials: {
-		headline: string;
-		cards: Array<{
-			firstName: string;
-			lastName: string;
-			role: string;
-			quote: string;
-			imgSrc: string;
-		}>;
-	};
-	cta: {
-		headline: string;
-		subheading: string;
-		buttonText: string;
-		note?: string;
-	};
-}
-
-export const initialContent: SectionContent = {
-	hero: {
-		eyebrow: "Type to prototype",
-		headline: "Wireframes for Writers in Google Docs++"
-	},
-	features: {
-		headline: "Write 10× Copy Decks",
-		blurbs: [
-			{
-				emoji: "⚡️",
-				title: "Click-drop workflow",
-				description: "Native Docs app"
-			},
-			{
-				emoji: "🎨",
-				title: "SaaS B2B looks",
-				description: "Ultra polished templates"
-			},
-			{
-				emoji: "🔄",
-				title: "Writer's IDE",
-				description: "Write Words + UX"
-			}
-		]
-	},
-	testimonials: {
-		headline: "Writers Dig That",
-		cards: [
-			{
-				firstName: "Eoin",
-				lastName: "Cronolly",
-				role: "SaaS Copywriter",
-				quote: "I've never seen a tool like this that works natively in Docs. I've been building wireframes by hand using tables, even for five-figure contracts. This changes everything for us UX writers.",
-				imgSrc: "/testimonials/eoin.jpg"
-			},
-			{
-				firstName: "Warren",
-				lastName: "West",
-				role: "Copy Chief @ WarrenWords",
-				quote: "Thanks Ivan! this looks super cool and is probably 1000x better than the wireframing I've been doing in Gdocs.",
-				imgSrc: "/testimonials/warren.jpg"
-			}
-		]
-	},
-	cta: {
-		headline: "Beta Launch Special — $59 One-Time (Until Jan 10th)",
-		subheading: "The wait is over: the app is finally here. Join the first wave of writer-first wireframers for a one-off fee",
-		buttonText: "Docs Bundle 40% OFF",
-		note: "Old Template Users Get 50% OFF! Check your email"
-	}
+export const initialContent: ContentStructure = {
+	sections: [
+		{
+			id: 'hero',
+			order: 0,
+			elements: [
+				{
+					type: 'h1',
+					value: 'Wireframes for Writers in Google Docs++',
+					path: ['hero', 'headline'],
+					metadata: {
+						className: 'text-4xl font-bold tracking-tight'
+					}
+				},
+				{
+					type: 'text',
+					value: 'Type to prototype',
+					path: ['hero', 'eyebrow'],
+					metadata: {
+						className: 'text-primary/80'
+					}
+				}
+			]
+		},
+		{
+			id: 'features',
+			order: 1,
+			elements: [
+				{
+					type: 'h2',
+					value: 'Write 10× Copy Decks',
+					path: ['features', 'headline'],
+					metadata: {
+						className: 'text-3xl font-semibold'
+					}
+				}
+			],
+			children: [
+				{
+					id: 'feature-1',
+					elements: [
+						{
+							type: 'emoji',
+							value: '⚡️',
+							path: ['features', 'blurbs', 0, 'emoji']
+						},
+						{
+							type: 'h3',
+							value: 'Click-drop workflow',
+							path: ['features', 'blurbs', 0, 'title']
+						},
+						{
+							type: 'text',
+							value: 'Native Docs app',
+							path: ['features', 'blurbs', 0, 'description']
+						}
+					]
+				},
+				// More features...
+			]
+		},
+		{
+			id: 'testimonials',
+			order: 2,
+			elements: [
+				{
+					type: 'h2',
+					value: 'Writers Dig That',
+					path: ['testimonials', 'headline']
+				}
+			],
+			children: [
+				{
+					id: 'testimonial-1',
+					elements: [
+						{
+							type: 'quote',
+							value: "I've never seen a tool like this that works natively in Docs...",
+							path: ['testimonials', 'cards', 0, 'quote']
+						},
+						{
+							type: 'text',
+							value: 'Eoin',
+							path: ['testimonials', 'cards', 0, 'firstName']
+						},
+						{
+							type: 'text',
+							value: 'Cronolly',
+							path: ['testimonials', 'cards', 0, 'lastName']
+						},
+						{
+							type: 'label',
+							value: 'SaaS Copywriter',
+							path: ['testimonials', 'cards', 0, 'role']
+						}
+					]
+				}
+			]
+		},
+		{
+			id: 'cta',
+			order: 3,
+			elements: [
+				{
+					type: 'h2',
+					value: 'Beta Launch Special — $59 One-Time (Until Jan 10th)',
+					path: ['cta', 'headline']
+				},
+				{
+					type: 'text',
+					value: 'Join the first wave of writer-first wireframers for a one-off fee',
+					path: ['cta', 'subheading']
+				},
+				{
+					type: 'button',
+					value: 'Docs Bundle 40% OFF',
+					path: ['cta', 'buttonText']
+				},
+				{
+					type: 'label',
+					value: 'Old Template Users Get 50% OFF! Check your email',
+					path: ['cta', 'note']
+				}
+			]
+		}
+	]
 };

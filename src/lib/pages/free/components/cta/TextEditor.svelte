@@ -1,139 +1,82 @@
 <!-- src/lib/pages/free/components/cta/TextEditor.svelte -->
 <script lang="ts">
-  import { contentStore, currentContent } from '../../stores/contentStore';
+  import { contentStore } from '../../stores/contentStore';
+  import { exportStore } from '../../stores/exportStore';
   import ExportOptions from './ExportOptions.svelte';
+  import type { ContentElement, ContentSection } from '../../types';
   
-  function handleContentEdit(event: Event, sectionId: string) {
+  function handleContentEdit(event: Event) {
     const target = event.target as HTMLElement;
     const path = target.dataset.path?.split('.') || [];
     if (path.length > 0) {
-      contentStore.updateField(sectionId, path, target.innerText);
+      contentStore.updateField(path, target.innerText);
     }
   }
-  
-  $: sections = Object.entries($currentContent)
-    .map(([id, content]) => ({ id, content }))
-    .sort((a, b) => {
-      const order = ['hero', 'features', 'testimonials', 'cta'];
-      return order.indexOf(a.id) - order.indexOf(b.id);
-    });
+
+  function renderElement(element: ContentElement) {
+    const classes = {
+      h1: 'text-4xl font-bold mb-4',
+      h2: 'text-2xl font-semibold mb-3',
+      h3: 'text-xl font-medium mb-2',
+      text: 'text-base mb-2',
+      button: 'font-medium text-primary',
+      quote: 'italic text-muted-foreground',
+      label: 'text-sm text-muted-foreground',
+      emoji: 'text-2xl mr-2',
+      image: 'text-sm text-muted-foreground italic'
+    }[element.type];
+
+    const value = element.type === 'quote' ? `"${element.value}"` : element.value;
+
+    return `
+      <div
+        contenteditable="true"
+        data-path="${element.path.join('.')}"
+        class="${classes} ${element.metadata?.className || ''}"
+      >${value}</div>
+    `;
+  }
+
+  function renderSection(section: ContentSection): string {
+    let output = `
+      <div class="mb-8">
+        <!-- Section elements -->
+        ${section.elements.map(renderElement).join('\n')}
+        
+        <!-- Children elements if any -->
+        ${section.children ? 
+          section.children.map(child => `
+            <div class="ml-4 mb-4">
+              ${child.elements.map(renderElement).join('\n')}
+            </div>
+          `).join('\n') 
+          : ''
+        }
+      </div>
+    `;
+
+    return output;
+  }
+
+  $: sections = $contentStore.content.sections.sort((a, b) => a.order - b.order);
 </script>
 
 <div class="relative h-[500px]">
-  <!-- Content Area -->
   <div class="h-full overflow-y-auto pb-20">
-    <div 
-      class="font-mono text-sm text-muted-foreground whitespace-pre-wrap p-3 rounded-md border bg-muted/5"
-    >
-      {#each sections as {id, content}}
-        {#if id === 'hero'}
-          <h1 
-            contenteditable="true"
-            data-path="headline"
-            on:input={(e) => handleContentEdit(e, id)}
-            class="text-2xl font-bold mb-2"
-          >{content.headline}</h1>
-          <p
-            contenteditable="true"
-            data-path="eyebrow"
-            on:input={(e) => handleContentEdit(e, id)}
-            class="mb-6"
-          >{content.eyebrow}</p>
-        {:else if id === 'features'}
-          <h2 
-            contenteditable="true"
-            data-path="headline"
-            on:input={(e) => handleContentEdit(e, id)}
-            class="text-xl font-semibold mb-4"
-          >{content.headline}</h2>
-          {#each content.blurbs as blurb, i}
-            <div class="mb-4">
-              <span
-                contenteditable="true"
-                data-path={`blurbs.${i}.emoji`}
-                on:input={(e) => handleContentEdit(e, id)}
-                class="mr-2"
-              >{blurb.emoji}</span>
-              <span
-                contenteditable="true"
-                data-path={`blurbs.${i}.title`}
-                on:input={(e) => handleContentEdit(e, id)}
-                class="font-semibold"
-              >{blurb.title}</span>
-              <div
-                contenteditable="true"
-                data-path={`blurbs.${i}.description`}
-                on:input={(e) => handleContentEdit(e, id)}
-                class="ml-6 text-muted-foreground"
-              >{blurb.description}</div>
-            </div>
-          {/each}
-        {:else if id === 'testimonials'}
-          <h2 
-            contenteditable="true"
-            data-path="headline"
-            on:input={(e) => handleContentEdit(e, id)}
-            class="text-xl font-semibold mb-4"
-          >{content.headline}</h2>
-          {#each content.cards as card, i}
-            <div class="mb-6">
-              <p
-                contenteditable="true"
-                data-path={`cards.${i}.quote`}
-                on:input={(e) => handleContentEdit(e, id)}
-                class="italic mb-2"
-              >"{card.quote}"</p>
-              <div class="ml-4">
-                <span
-                  contenteditable="true"
-                  data-path={`cards.${i}.firstName`}
-                  on:input={(e) => handleContentEdit(e, id)}
-                  class="font-medium"
-                >{card.firstName}</span>
-                <span
-                  contenteditable="true"
-                  data-path={`cards.${i}.lastName`}
-                  on:input={(e) => handleContentEdit(e, id)}
-                  class="font-medium ml-1"
-                >{card.lastName}</span>
-                <div
-                  contenteditable="true"
-                  data-path={`cards.${i}.role`}
-                  on:input={(e) => handleContentEdit(e, id)}
-                  class="text-muted-foreground"
-                >{card.role}</div>
-              </div>
-            </div>
-          {/each}
-        {:else if id === 'cta'}
-          <h2 
-            contenteditable="true"
-            data-path="headline"
-            on:input={(e) => handleContentEdit(e, id)}
-            class="text-xl font-semibold mb-2"
-          >{content.headline}</h2>
-          <p
-            contenteditable="true"
-            data-path="subheading"
-            on:input={(e) => handleContentEdit(e, id)}
-            class="mb-2"
-          >{content.subheading}</p>
-          <p
-            contenteditable="true"
-            data-path="buttonText"
-            on:input={(e) => handleContentEdit(e, id)}
-            class="font-medium mb-2"
-          >{content.buttonText}</p>
-          {#if content.note}
-            <p
-              contenteditable="true"
-              data-path="note"
-              on:input={(e) => handleContentEdit(e, id)}
-              class="text-muted-foreground italic"
-            >{content.note}</p>
-          {/if}
+    <div class="font-mono text-sm whitespace-pre-wrap p-3 rounded-md border bg-muted/5">
+      {#each sections as section}
+        <!-- Section Header -->
+        <div class="text-xs uppercase tracking-wider text-muted-foreground font-bold mb-2">
+          {section.id}
+        </div>
+
+        <!-- Section Content -->
+        {@html renderSection(section)}
+
+        <!-- Section Divider -->
+        {#if section !== sections[sections.length - 1]}
+          <hr class="my-6 border-muted" />
         {/if}
-        <hr class="my-8 border-muted" />
       {/each}
     </div>
   </div>
@@ -146,3 +89,27 @@
     <ExportOptions />
   </div>
 </div>
+
+<style>
+  [contenteditable="true"] {
+    outline: none;
+    min-width: 1rem;
+    min-height: 1em;
+    cursor: text;
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+  }
+
+  [contenteditable="true"]:hover {
+    background: rgb(var(--muted) / 0.1);
+  }
+
+  [contenteditable="true"]:focus {
+    background: rgb(var(--muted) / 0.2);
+  }
+
+  ::selection {
+    background: rgb(var(--primary) / 0.2);
+  }
+</style>
