@@ -16,7 +16,7 @@ export const elementConfig: ElementConfig[] = [
 		label: 'Hero',
 		icon: LayoutTemplate,
 		defaultContent: {
-			eyebrow: "Type to prototype",
+			eyebrow: "Type to prsdsdsototype",
 			headline: "Wireframes for Writers in Google Docs++"
 		}
 	},

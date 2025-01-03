@@ -5,6 +5,7 @@
   import { Editable, Styles } from '../editor';
   import ExportButton from "../cta/ExportButton.svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
+  import LogosMarquee from "$lib/components/LogosMarquee.svelte";
   
   export let content: {
     eyebrow: string;
@@ -15,7 +16,7 @@
 
 {#if visible}
 <section 
-  class="pt-20 lg:pt-40 min-h-[calc(100vh-5rem)]"
+  class="pt-20 lg:pt-40 min-h-[calc(100vh-15rem)]"
   in:fade={{ duration: 300 }}
 >
   <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -27,25 +28,31 @@
             <Editable
               path={['hero', 'eyebrow']}
               value={content.eyebrow}
-              class="text-sm font-medium"
+              class="text-sm font-medium tracking-tight"
             />
           </div>
         </Styles>
 
         <Styles sectionId="hero-headline">
-          <Editable
-            path={['hero', 'headline']}
-            value={content.headline}
-            class="text-4xl sm:text-5xl md:text-6xl font-semibold leading-tight"
-          />
+          <h1>
+            <Editable
+              path={['hero', 'headline']}
+              value={content.headline}
+              class="text-5xl sm:text-6xl md:text-7xl font-semibold leading-[1.1] tracking-tight"
+            />
+          </h1>
         </Styles>
 
-        <div class="w-full flex justify-start gap-4 pt-6">
+        <div class="w-full flex justify-start gap-4 pt-8">
           <EarlyAccessButton size="lg" source="hero-home" />
           <ExportButton text="Export" showReset={true} />
         </div>
       </div>
     </div>
+  </div>
+
+  <div class="mt-12">
+    <LogosMarquee />
   </div>
 </section>
 {/if}
