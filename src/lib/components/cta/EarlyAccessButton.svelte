@@ -1,6 +1,6 @@
 <!-- $lib/components/cta/EarlyAccessButton.svelte -->
 <script lang="ts">
-  import { ArrowUp } from "lucide-svelte";
+  import { ArrowUp, ShoppingCart } from "lucide-svelte";
   import { cn } from '$lib/utils';
   import { drawerStore } from '$lib/stores/earlyAccessStore';
   
@@ -8,6 +8,12 @@
   export let className = "";
   export let fullWidth = false;
   export let source = "default";
+  export let iconOnly = false;
+  export let text = "Early Access";
+  
+  const baseHeight = size === "lg" ? "h-12" : "h-10";
+  const baseIconSize = size === "lg" ? "w-6 h-6" : "w-5 h-5";
+  const baseFontSize = size === "lg" ? "text-lg" : "text-base";
   
   function handleClick() {
     drawerStore.open(source);
@@ -19,7 +25,8 @@
     "relative group overflow-hidden inline-flex items-center justify-center",
     "font-normal rounded-lg",
     "bg-gradient-to-r from-[#3644FE] to-[#B345ED]",
-    size === "lg" ? "h-12 text-lg px-8" : "h-10 text-base px-6",
+    baseHeight,
+    iconOnly ? "w-10" : "px-6",
     fullWidth ? "w-full max-w-md" : "w-auto",
     "shadow-[4px_4px_0px_0px_rgba(54,68,254,0.7)]",
     "hover:shadow-none",
@@ -38,15 +45,23 @@
   />
   
   <div class="relative z-10 flex items-center justify-center text-white w-full">
-    <div class="relative flex items-center justify-center w-full gap-0 group-hover:gap-3 transition-all duration-300">
-      <span class="transition-all duration-300 translate-x-2 group-hover:-translate-x-2">
-        Early Access
-      </span>
-      <ArrowUp 
-        class="w-4 h-4 transform transition-all duration-300 
-              translate-x-[-8px] translate-y-8 opacity-0
-              group-hover:translate-x-2 group-hover:translate-y-0 group-hover:opacity-100" 
-      />
-    </div>
+    {#if iconOnly}
+      <div class="flex items-center justify-center gap-2 min-w-[2.5rem] group-hover:min-w-[140px] transition-all duration-200">
+        <ShoppingCart class={baseIconSize} />
+        <span class="opacity-0 group-hover:opacity-100 transition-all duration-200 whitespace-nowrap {baseFontSize}">
+          {text}
+        </span>
+        <ArrowUp 
+          class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all duration-200" 
+        />
+      </div>
+    {:else}
+      <div class="flex items-center justify-center gap-2 min-w-fit group-hover:min-w-[calc(100%+2rem)] transition-all duration-200">
+        <span class="whitespace-nowrap {baseFontSize}">{text}</span>
+        <ArrowUp 
+          class="w-4 h-4 opacity-0 group-hover:opacity-100 transition-all duration-200" 
+        />
+      </div>
+    {/if}
   </div>
 </button>

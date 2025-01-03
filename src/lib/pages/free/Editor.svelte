@@ -74,7 +74,7 @@
   </div>
 
   <!-- Fixed Dropper -->
-  <div class="fixed bottom-8 right-8 z-50">
+  <div class="fixed bottom-1/3 right-8 z-50">
     <div class="transition-opacity duration-200" class:opacity-0={!isHeroVisible}>
       <Dropper onSelect={handleElementSelect} />
     </div>

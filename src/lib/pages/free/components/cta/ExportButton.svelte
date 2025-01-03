@@ -1,4 +1,4 @@
-<!-- src/lib/pages/free/components/cta/ExportButton.svelte -->
+<!-- $lib/pages/free/components/cta/ExportButton.svelte -->
 <script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { Button } from "$lib/components/ui/button";
@@ -6,10 +6,12 @@
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { editorStore } from '../../stores/editorStore';
   import FreeFormDialog from './FreeFormDialog.svelte';
+  import { cn } from "$lib/utils";
 
   export let text = "Export";
   export let icon = Save;
   export let showReset = false;
+  export let iconOnly = false;
 
   function handleReset(event: MouseEvent) {
     event.stopPropagation();
@@ -20,12 +22,21 @@
 <AlertDialog.Root>
   <AlertDialog.Trigger>
     <div class="flex items-center gap-2">
-      <Button variant="default" size="sm">
-        <svelte:component this={icon} class="w-4 h-4 mr-2" />
-        {text}
+      <Button 
+        variant="outline" 
+        size={iconOnly ? "icon" : "sm"}
+        class={cn(
+          "relative",
+          iconOnly ? "w-10" : "gap-2"
+        )}
+      >
+        <svelte:component this={icon} class="w-[1.2rem] h-[1.2rem]" />
+        {#if !iconOnly}
+          <span>{text}</span>
+        {/if}
       </Button>
 
-      {#if showReset}
+      {#if showReset && !iconOnly}
         <Tooltip.Root>
           <Tooltip.Trigger asChild>
             <Button

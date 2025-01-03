@@ -7,6 +7,7 @@
   import { Editable, Styles } from '../editor';
 
   export let content: {
+    headline: string;
     cards: Array<{
       imgSrc: string;
       firstName: string;
@@ -16,10 +17,23 @@
     }>;
   };
   export let visible = false;
+  export let id = 'testimonials-section';
 </script>
 
 {#if visible}
-  <div class="relative w-full" in:fade={{ duration: 300 }}>
+  <section {id} class="py-24 container mx-auto" in:fade={{ duration: 300 }}>
+    <!-- Section Headline -->
+    <Styles sectionId="testimonials-headline">
+      <h2 class="text-4xl font-semibold tracking-tight text-center mb-16">
+        <Editable
+          path={['testimonials', 'headline']}
+          value={content.headline}
+          class="outline-none"
+        />
+      </h2>
+    </Styles>
+
+    <!-- Cards -->
     <div class="flex flex-col md:flex-row gap-8 md:overflow-x-auto md:snap-x md:snap-mandatory md:pb-4 scroll-smooth">
       {#each content.cards as card, i}
         <Styles sectionId={`testimonial-${i}`}>
@@ -33,6 +47,7 @@
             }}
             style="transform: rotate({-1 + Math.random() * 2}deg)"
           >
+            <!-- Avatar -->
             <div class="shrink-0">
               <div class="w-16 h-16 rounded-full bg-muted overflow-hidden">
                 <img
@@ -44,6 +59,7 @@
             </div>
 
             <div class="flex-1 space-y-4">
+              <!-- Quote -->
               <Editable
                 path={['testimonials', 'cards', i, 'quote']}
                 value={card.quote}
@@ -51,17 +67,20 @@
               />
 
               <div class="flex items-end justify-between">
+                <!-- Author Info -->
                 <div>
-                  <Editable
-                    path={['testimonials', 'cards', i, 'firstName']}
-                    value={card.firstName}
-                    class="font-semibold inline"
-                  />
-                  <Editable
-                    path={['testimonials', 'cards', i, 'lastName']}
-                    value={card.lastName}
-                    class="font-semibold inline ml-1"
-                  />
+                  <div class="font-semibold">
+                    <Editable
+                      path={['testimonials', 'cards', i, 'firstName']}
+                      value={card.firstName}
+                      class="inline"
+                    />
+                    <Editable
+                      path={['testimonials', 'cards', i, 'lastName']}
+                      value={card.lastName}
+                      class="inline ml-1"
+                    />
+                  </div>
                   <Editable
                     path={['testimonials', 'cards', i, 'role']}
                     value={card.role}
@@ -69,6 +88,7 @@
                   />
                 </div>
 
+                <!-- Action Button -->
                 <Button
                   variant="outline"
                   size="sm"
@@ -86,11 +106,11 @@
       {/each}
     </div>
 
+    <!-- Scroll Fade Gradients -->
     <div class="hidden md:block absolute left-0 top-0 bottom-4 w-16 bg-gradient-to-r from-background to-transparent pointer-events-none" />
     <div class="hidden md:block absolute right-0 top-0 bottom-4 w-16 bg-gradient-to-l from-background to-transparent pointer-events-none" />
-  </div>
+  </section>
 {/if}
-
 
 <style>
   .scroll-smooth {
