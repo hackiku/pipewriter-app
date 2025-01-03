@@ -4,6 +4,7 @@
   import { editorStore, visibleSections } from './stores/editorStore';
   import Dropper from './components/dropper/Dropper.svelte';
   import Section from './components/Section.svelte';
+  import AddSection from './components/AddSection.svelte';
   import { elementConfig } from './config';
   
   // Import section components
@@ -59,9 +60,10 @@
   }
 </script>
 
-<div class="relative min-h-screen">
+<div class="relative min-h-screen pb-24">
+  <!-- Sections -->
   <div class="space-y-24">
-    {#each $visibleSections as section (section.id)}
+    {#each $visibleSections as section, i (section.id)}
       <Section {section}>
         <svelte:component 
           this={sectionComponents[section.type]} 
@@ -72,6 +74,11 @@
       </Section>
     {/each}
   </div>
+
+  <!-- Add Section Button -->
+  {#if $visibleSections.length}
+    <AddSection order={$visibleSections.length} />
+  {/if}
 
   <!-- Fixed Dropper -->
   <div class="fixed bottom-1/3 right-8 z-50">
