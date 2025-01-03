@@ -2,7 +2,7 @@
 <script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { X, RotateCcw } from "lucide-svelte";
-  import { editorStore, visibleSections } from '../../stores/editorStore';
+  import { contentStore } from '../../stores/contentStore';
   import TextEditor from './TextEditor.svelte';
   import EmailForm from '$lib/components/cta/EmailForm.svelte';
   import { Button } from "$lib/components/ui/button";
@@ -30,10 +30,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
         <div class="flex flex-col gap-4">
           <h3 class="text-lg font-semibold">Your UX copy</h3>
-          <TextEditor 
-            content={$editorStore.content}
-            sections={$visibleSections}
-          />
+          <TextEditor />
         </div>
 
         <div class="flex flex-col justify-center max-w-md mx-auto w-full gap-6">
@@ -53,7 +50,7 @@
             <Button 
               variant="ghost" 
               size="sm"
-              on:click={() => editorStore.reset()}
+              on:click={() => contentStore.reset()}
               class="w-full"
             >
               <RotateCcw class="w-4 h-4 mr-2" />
