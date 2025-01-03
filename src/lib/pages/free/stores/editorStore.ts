@@ -1,13 +1,20 @@
 // src/lib/pages/free/stores/editorStore.ts
-
 import { writable, derived } from 'svelte/store';
-import type { EditorState, Section, SectionContent } from '../types';
-import { defaultContent } from '../data/default';
+import type { Section } from '../types';
 import { elementConfig } from '../config';
+import { contentStore } from './contentStore';
+import { get } from 'svelte/store';
+import { initialContent } from '../data/content';
+
+interface EditorState {
+	sections: Section[];
+	activeSection: string | null;
+	editingField: string | null;
+	showAll: boolean;
+}
 
 const initialState: EditorState = {
 	sections: [],
-	content: defaultContent,
 	activeSection: null,
 	editingField: null,
 	showAll: false
@@ -19,27 +26,8 @@ function createEditorStore() {
 	return {
 		subscribe,
 
-		// Content Management
-		updateContent: (path: string[], value: string) => {
+		addSection: (elementId: string) => {
 			update(state => {
-				let current = { ...state.content } as any;
-				const lastKey = path.pop()!;
-
-				for (const key of path) {
-					current = current[key];
-				}
-				current[lastKey] = value;
-
-				return { ...state, content: current };
-			});
-		},
-
-		// Section Management
-		addSection: (elementId: string, order?: number) => {
-			update(state => {
-				const config = elementConfig.find(e => e.id === elementId);
-				if (!config) return state;
-
 				// Check if section already exists
 				const existingSection = state.sections.find(s => s.id === elementId);
 				if (existingSection) {
@@ -52,10 +40,31 @@ function createEditorStore() {
 					};
 				}
 
+				// Get section config
+				const config = elementConfig.find(e => e.id === elementId);
+				if (!config) return state;
+
+				// Get initial content for this section
+				const sectionContent = initialContent.sections.find(s => s.id === elementId);
+				if (!sectionContent) return state;
+
+				// Add section to contentStore if not already present
+				const currentContent = get(contentStore);
+				if (!currentContent.content.sections.find(s => s.id === elementId)) {
+					contentStore.update(store => ({
+						...store,
+						content: {
+							...store.content,
+							sections: [...store.content.sections, sectionContent]
+						}
+					}));
+				}
+
+				// Add section to editorStore
 				const newSection: Section = {
 					id: elementId,
 					type: config.type,
-					order: order ?? state.sections.length,
+					order: state.sections.length,
 					visible: true
 				};
 
@@ -75,7 +84,6 @@ function createEditorStore() {
 			}));
 		},
 
-		// UI State
 		setActiveSection: (sectionId: string | null) => {
 			update(state => ({ ...state, activeSection: sectionId }));
 		},
@@ -87,28 +95,27 @@ function createEditorStore() {
 		toggleShowAll: () => {
 			update(state => {
 				const showAll = !state.showAll;
-				const sections = elementConfig.map((config, index) => ({
-					id: config.id,
-					type: config.type,
-					order: index,
-					visible: showAll
-				}));
 
-				return {
-					...state,
-					showAll,
-					sections: showAll ? sections : sections.filter(s => s.id === 'hero')
-				};
+				if (showAll) {
+					// Add all sections
+					elementConfig.forEach(config => {
+						this.addSection(config.id);
+					});
+				}
+
+				return { ...state, showAll };
 			});
 		},
 
-		reset: () => set(initialState)
+		reset: () => {
+			contentStore.reset();
+			set(initialState);
+		}
 	};
 }
 
 export const editorStore = createEditorStore();
 
-// Derived stores for sections
 export const visibleSections = derived(editorStore,
 	$store => $store.sections.filter(s => s.visible).sort((a, b) => a.order - b.order)
 );

@@ -1,5 +1,6 @@
-<!-- // src/lib/pages/free/components/editor/Editable.svelte -->
+<!-- src/lib/pages/free/components/editor/Editable.svelte -->
 <script lang="ts">
+  import { contentStore } from '../../stores/contentStore';
   import { editorStore } from '../../stores/editorStore';
   import type { EditableProps } from './types';
   
@@ -13,7 +14,7 @@
   
   function handleInput(event: Event) {
     const target = event.target as HTMLElement;
-    editorStore.updateContent(path, target.innerText);
+    contentStore.updateField(path, target.innerText);
   }
   
   function handleFocus() {

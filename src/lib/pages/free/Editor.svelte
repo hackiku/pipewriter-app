@@ -1,6 +1,7 @@
 <!-- src/lib/pages/free/Editor.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { contentStore } from './stores/contentStore';
   import { editorStore, visibleSections } from './stores/editorStore';
   import Dropper from './components/dropper/Dropper.svelte';
   import Section from './components/Section.svelte';
@@ -49,7 +50,7 @@
     
     // Scroll to new section
     setTimeout(() => {
-      const section = document.getElementById(elementId);
+      const section = document.getElementById(`${elementId}-section`);
       if (section) {
         section.scrollIntoView({ 
           behavior: 'smooth',
@@ -65,11 +66,10 @@
   <div class="max-w-screen-2xl mx-auto">
     <!-- Sections with consistent spacing -->
     <div class="space-y-24 md:space-y-32">
-      {#each $visibleSections as section, i (section.id)}
+      {#each $visibleSections as section (section.id)}
         <Section {section}>
           <svelte:component 
             this={sectionComponents[section.type]} 
-            content={$editorStore.content[section.type]}
             visible={true}
             id={`${section.id}-section`}
           />
@@ -92,12 +92,10 @@
 </div>
 
 <style>
-  /* Ensure content doesn't overflow horizontally */
   :global(body) {
     overflow-x: hidden;
   }
   
-  /* Smooth scrolling for the entire page */
   :global(html) {
     scroll-behavior: smooth;
   }

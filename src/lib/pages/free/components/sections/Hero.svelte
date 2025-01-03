@@ -6,19 +6,24 @@
   import ExportButton from "../cta/ExportButton.svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
   import LogosMarquee from "$lib/components/LogosMarquee.svelte";
+  import { contentStore, getFieldValue } from '../../stores/contentStore';
+  import { editorStore } from '../../stores/editorStore';
   
-  export let content: {
-    eyebrow: string;
-    headline: string;
-  };
   export let visible = true;
-  export let id = 'hero-section'; // Optional prop with default
+  export let id = 'hero-section';
+
+  // Get values reactively from the content store
+  $: eyebrowText = getFieldValue($contentStore.content, ['hero', 'eyebrow']);
+  $: headlineText = getFieldValue($contentStore.content, ['hero', 'headline']);
+
+  // Track active state from editor store
+  $: isActive = $editorStore.activeSection === 'hero';
 </script>
 
 {#if visible}
 <section 
   {id}
-  class="pt-20 lg:pt-36 xxx_min-h-[calc(100vh-5rem)]"
+  class="container mx-auto px-4 pt-20 lg:pt-36"
   in:fade={{ duration: 300 }}
 >
   <div class="flex flex-col lg:flex-row gap-12 lg:gap-16">
@@ -31,7 +36,7 @@
             <div class="text-sm font-medium tracking-tight">
               <Editable
                 path={['hero', 'eyebrow']}
-                value={content.eyebrow}
+                value={eyebrowText}
                 className="outline-none"
               />
             </div>
@@ -43,7 +48,7 @@
           <h1 class="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.1] tracking-tight">
             <Editable
               path={['hero', 'headline']}
-              value={content.headline}
+              value={headlineText}
               className="outline-none"
             />
           </h1>
