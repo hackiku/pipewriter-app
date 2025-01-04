@@ -18,7 +18,7 @@ export const initialContent: ContentStructure = {
 				},
 				{
 					type: 'text',
-					value: 'In Google Docs, on the web, and more.',
+					value: 'Wireframes in Google Docs, on the web, and with AI.',
 					path: ['hero', 'subhead'],
 				}
 			]
