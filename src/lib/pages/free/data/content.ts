@@ -56,7 +56,6 @@ export const initialContent: ContentStructure = {
 						}
 					]
 				},
-				// More features...
 			]
 		},
 		{

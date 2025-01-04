@@ -10,8 +10,7 @@ import {
 	Video
 } from 'lucide-svelte';
 
-// Sections that should be visible when the page loads
-// export const defaultVisibleSections = ['hero', 'zigzag-right', 'zigzag-left', 'features', 'video', 'cta'];
+// Default visible sections on page load
 export const defaultVisibleSections = ['hero', 'features', 'video', 'cta'];
 
 // Available section configurations
@@ -20,54 +19,64 @@ export const elementConfig: ElementConfig[] = [
 		id: 'hero',
 		type: 'hero',
 		label: 'Hero',
-		icon: LayoutTemplate
+		description: 'Main landing section with headline and subhead',
+		icon: LayoutTemplate,
+		preview: '/elements/hero.svg'
 	},
 	{
 		id: 'features',
 		type: 'features',
 		label: 'Features',
-		icon: Type
-	},
-	{
-		id: 'image-left',
-		type: 'media',
-		label: 'Image + Text',
-		icon: Image
+		description: 'Feature blocks with icons and descriptions',
+		icon: Type,
+		preview: '/elements/blurbs-3.svg',
 	},
 	{
 		id: 'testimonials',
 		type: 'testimonials',
 		label: 'Testimonials',
-		icon: MessageSquare
+		description: 'Customer testimonials and reviews',
+		icon: MessageSquare,
+		preview: '/elements/cards-3.svg'
 	},
 	{
 		id: 'cta',
 		type: 'cta',
 		label: 'Call to Action',
-		icon: MousePointer2
+		description: 'Convert visitors with a strong CTA',
+		icon: MousePointer2,
+		preview: '/elements/buttons-2-center.svg'
 	},
 	{
 		id: 'social-proof',
 		type: 'social',
 		label: 'Social Proof',
-		icon: ThumbsUp
+		description: 'Show off your customer logos and metrics',
+		icon: ThumbsUp,
+		preview: '/elements/cards-2.svg'
 	},
 	{
 		id: 'zigzag-left',
 		type: 'zigzag-left',
 		label: 'Zigzag Left',
-		icon: Image
+		description: 'Alternating content layout - image left',
+		icon: Image,
+		preview: '/elements/zz-left.svg'
 	},
 	{
 		id: 'zigzag-right',
 		type: 'zigzag-right',
 		label: 'Zigzag Right',
-		icon: Image
+		description: 'Alternating content layout - image right',
+		icon: Image,
+		preview: '/elements/zz-right.svg'
 	},
 	{
 		id: 'video',
 		type: 'video',
 		label: 'Video Section',
-		icon: Video
-	},
+		description: 'Embed a video with supporting text',
+		icon: Video,
+		preview: '/elements/background-empty.svg'
+	}
 ];

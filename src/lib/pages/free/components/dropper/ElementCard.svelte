@@ -37,21 +37,30 @@
           on:click={() => !disabled && onSelect?.(element.id)}
           {disabled}
         >
-          <div class="relative w-full h-full p-3">
-            <div class="flex flex-col items-center justify-center gap-2">
-              <!-- Icon -->
-              <div class="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center">
-                <svelte:component 
-                  this={element.icon} 
-                  class="w-4 h-4 text-primary" 
+          <div class="relative w-full h-full p-2">
+            <!-- SVG Preview -->
+            {#if element.preview}
+              <div class="w-full h-full rounded-md overflow-hidden bg-background/50">
+                <img
+                  src={element.preview}
+                  alt={element.label}
+                  class="w-full h-full object-cover dark:invert dark:brightness-90"
                 />
               </div>
-              
-              <!-- Label -->
-              <span class="text-xs font-medium">
-                {element.label}
-              </span>
-            </div>
+            {:else}
+              <!-- Fallback to icon if no preview -->
+              <div class="flex flex-col items-center justify-center gap-2 h-full">
+                <div class="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center">
+                  <svelte:component 
+                    this={element.icon} 
+                    class="w-4 h-4 text-primary" 
+                  />
+                </div>
+                <span class="text-xs font-medium">
+                  {element.label}
+                </span>
+              </div>
+            {/if}
 
             {#if !disabled}
               <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 dark:bg-gray-900/80">
@@ -63,7 +72,7 @@
       </div>
     </Tooltip.Trigger>
     <Tooltip.Content>
-      <p>{element.description || element.label}</p>
+      <p class="text-sm">{element.description || element.label}</p>
     </Tooltip.Content>
   </Tooltip.Root>
 </div>
