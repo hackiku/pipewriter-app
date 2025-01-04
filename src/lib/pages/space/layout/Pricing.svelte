@@ -1,9 +1,9 @@
-<!-- src/lib/pages/space/Pricing.svelte -->
+<!-- src/lib/pages/space/layout/Pricing.svelte -->
  
 <script lang="ts">
+  import SpaceButton from "../cta/SpaceButton.svelte";
   import { Rocket } from "lucide-svelte";
-  import SpaceButton from "./SpaceButton.svelte";
-  import SpaceDrawer from "./SpaceDrawer.svelte";
+  import SpaceDrawer from "../cta/SpaceDrawer.svelte";
   
   const features = [
     "Full redesign in pure, semantic code",

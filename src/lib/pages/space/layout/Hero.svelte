@@ -1,8 +1,8 @@
-<!-- src/lib/components/space/Hero.svelte -->
+<!-- src/lib/components/space/layout/Hero.svelte -->
 <script lang="ts">
 	import { Send } from "lucide-svelte";
-	import SpaceButton from "./SpaceButton.svelte";
-	import SpaceDrawer from "./SpaceDrawer.svelte";
+	import SpaceButton from "../cta/SpaceButton.svelte";
+	import SpaceDrawer from "../cta/SpaceDrawer.svelte";
 
 	let containerRef: HTMLElement;
 	let animationRef: HTMLElement;

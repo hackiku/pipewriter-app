@@ -2,17 +2,17 @@
 <script lang="ts">
 	import { Rocket, Stars } from "lucide-svelte";
 	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
-	import Hero from "./Hero.svelte";
-	import BeforeAfter from "./BeforeAfter.svelte";
-	import Process from "./Process.svelte";
-	import Products from "./Products.svelte";
-	import Testimonials from "./Testimonials.svelte";
-	import About from "./About.svelte";
-	import StackIcons from "./StackIcons.svelte";
-	import SpaceForm from "./SpaceForm.svelte";
-	import PricingCard from "./PricingCard.svelte";
+	import Hero from "./layout/Hero.svelte";
+	import BeforeAfter from "./content/BeforeAfter.svelte";
+	import Process from "./content/Process.svelte";
+	import Products from "./content/Products.svelte";
+	import Testimonials from "./proof/Testimonials.svelte";
+	import About from "./content/About.svelte";
+	import StackIcons from "./proof/StackIcons.svelte";
+	import SpaceForm from "./cta/SpaceForm.svelte";
+	import PricingCard from "./cta/PricingCard.svelte";
 
-	import SpaceButton from "./SpaceButton.svelte";
+	import SpaceButton from "./cta/SpaceButton.svelte";
 
 </script>
 
