@@ -11,7 +11,7 @@ export interface SEOData {
 	keywords?: string[];             // Meta keywords if needed
 	section?: string;                // For blog posts/articles
 	noIndex?: boolean;               // For pages you don't want indexed
-	alternateUrls?: {               // For internationalization
+	alternateUrls?: {                // For internationalization
 		[locale: string]: string;
 	};
 	structuredData?: object;        // JSON-LD data

@@ -1,22 +1,26 @@
-<!-- SpacePage.svelte -->
+<!-- $lib/pages/space/SpacePage.svelte -->
 <script lang="ts">
 	import { Rocket, Stars } from "lucide-svelte";
 	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
+	// layout
 	import Hero from "./layout/Hero.svelte";
+	import Problem from "./layout/Problem.svelte";
+	// content
 	import BeforeAfter from "./content/BeforeAfter.svelte";
 	import Process from "./content/Process.svelte";
 	import Products from "./content/Products.svelte";
-	import Testimonials from "./proof/Testimonials.svelte";
 	import About from "./content/About.svelte";
+	// proof
 	import StackIcons from "./proof/StackIcons.svelte";
+	import Testimonials from "./proof/Testimonials.svelte";
+	// cta
+	import SpaceButton from "./cta/SpaceButton.svelte";
 	import SpaceForm from "./cta/SpaceForm.svelte";
 	import PricingCard from "./cta/PricingCard.svelte";
 
-	import SpaceButton from "./cta/SpaceButton.svelte";
-
 </script>
 
-<main class="bg-background text-foreground relative">
+<main class="bg-background text-foreground relative overflow-x-hidden">
 	<!-- Fixed Background Pattern -->
 	<div class="fixed inset-0 pointer-events-none">
 		<BackgroundPattern size="lg" opacity="high" gradient={true} />
@@ -34,36 +38,39 @@
 			</div>
 		</section>
 
-		<!-- Process Section -->
 		<section class="py-24 relative">
 			<div class="container">
-				<!-- Section Header -->
-				<div class="flex justify-end mb-16">
-					<div class="w-3/5 space-y-4">
-						<div
-							class="inline-flex items-center gap-1.5 px-3 py-1
-                        rounded-full bg-primary/10 text-primary border border-primary/20"
-						>
-							<Stars class="w-4 h-4" />
-							<span class="text-sm font-medium">Our Process</span>
-						</div>
-
-						<h2 class="text-5xl font-bold">Space Startup Redesign</h2>
-						<p class="text-xl text-muted-foreground">
-							Your landing page rebuilt in your live code stack. No templates,
-							no compromises.
-						</p>
-					</div>
-				</div>
-
-				<Process />
-
-				<!-- Tech Stack -->
-				<div class="mt-12">
-					<StackIcons />
-				</div>
+				<Problem />
 			</div>
 		</section>
+
+
+		<!-- Process Section -->
+<section class="py-24 relative">
+    <div class="container">
+        <!-- Editorial Header: Right-aligned for visual interest -->
+        <div class="flex justify-end mb-24">
+            <div class="w-3/5">
+                <div class="inline-flex items-center gap-1.5 px-3 py-1 
+                           rounded-full bg-primary/10 text-primary border border-primary/20 mb-8">
+                    <Stars class="w-4 h-4" />
+                    <span class="text-sm font-medium">The Process</span>
+                </div>
+
+                <p class="text-3xl font-regular leading-snug text-balance">
+                    Every space startup deserves a proper landing. Chute Repack is a 7-day redesign sprint that rebuilds your website in production-ready code. Clean, semantic, and engineered to convert.
+                </p>
+            </div>
+        </div>
+
+        <Process />
+
+        <div class="flex flex-col items-center mt-24">
+            <StackIcons />
+						<SpaceButton text="Get Repack'd — $2k"/>
+        </div>
+    </div>
+</section>
 
 		<!-- Proof Section -->
 		<section class="py-24 relative border-t border-border/50">

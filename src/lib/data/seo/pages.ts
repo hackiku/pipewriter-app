@@ -13,12 +13,37 @@ export const pageSEO: Record<string, SEOData | ((data: any) => SEOData)> = {
 	},
 
 	'/blog': {
-		title: "Pipewriter Blog — UX Writing & Technical Content",
-		description: "Articles about UX writing, technical writing, and building better documentation.",
+		title: "Pipewriter Blog — UX Writing & Product Design",
+		description: "Articles about UX writing, copywriting, product design, and the odd space rant.",
 		type: "website",
 		image: "/og-blog.png"
 	},
-
+	'/space': {
+		title: "Chute Repack — Aerospace Website Redesign & Dev",
+		description: "Custom landing page redesigns for space and aerospace companies. Get your technical content translated into clean, semantic code with expert UX writing. 72-hour turnaround.",
+		type: "website",
+		image: "/og-space.png",
+		structuredData: {
+			"@context": "https://schema.org",
+			"@type": "Service",
+			"name": "Chute Repack",
+			"description": "Professional landing page redesign service for aerospace and space technology companies",
+			"provider": {
+				"@type": "Organization",
+				"name": "Pipewriter",
+				"url": "https://pipewriter.io"
+			},
+			"offers": {
+				"@type": "Offer",
+				"price": "2000",
+				"priceCurrency": "USD",
+				"priceValidUntil": "2024-12-31",
+				"availability": "https://schema.org/InStock"
+			},
+			"serviceType": "Web Design",
+			"category": "Aerospace Web Development",
+		}
+	},
 	// Dynamic route example (blog posts)
 	'blog/[slug]': (post: any): SEOData => ({
 		title: `${post.title} — Pipewriter Blog`,
