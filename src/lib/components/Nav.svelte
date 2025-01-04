@@ -39,17 +39,6 @@
   });
 </script>
 
-<!-- Background Pattern -->
-	<!-- <div class="fixed inset-0 pointer-events-none">
-		<BackgroundPattern size="lg" opacity="high" gradient={true} />
-	</div> -->
-
-<!-- <BackgroundPattern 
-  size={patternSize}
-  opacity={patternOpacity}
-  gradient={patternGradient}
-/> -->
-
 <nav
   class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
   class:translate-y-4={isVisible}
@@ -67,7 +56,7 @@
       </a>
 
       <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-3.5">
+      <div class="hidden md:flex items-center gap-6">
         {#each mainNavItems as item}
           <a
             href={item.href}
@@ -82,11 +71,9 @@
             {item.label}
           </a>
         {/each}
-
-        <BackgroundButton iconOnly={true} />
-        <EarlyAccessButton size="sm" source="nav" className="font-normal" iconOnly={true} />
-        <ExportButton iconOnly={true} />
-
+			</div>
+			
+			<div class="hidden md:flex items-center gap-6">
         <Button
           on:click={toggleMode}
           variant="outline"
@@ -101,6 +88,18 @@
           />
           <span class="sr-only">Toggle theme</span>
         </Button>
+        <!-- <BackgroundButton iconOnly={true} /> -->
+        <EarlyAccessButton
+					size="sm"
+					source="nav"
+					className="font-normal"
+					iconOnly={true}
+					showPrice={true}
+					text="Get Bundle"
+				/>
+
+        <ExportButton iconOnly={true} />
+
       </div>
 
       <!-- Mobile Navigation -->

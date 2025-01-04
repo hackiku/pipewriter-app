@@ -16,7 +16,7 @@
 
 {#if visible}
   <div 
-    class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center py-8"
+    class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
     in:fade={{ duration: 300 }}
   >
     <!-- Text Content -->

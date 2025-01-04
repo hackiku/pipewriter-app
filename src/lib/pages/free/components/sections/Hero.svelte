@@ -5,7 +5,7 @@
   import { Editable, Styles } from '../editor';
   import ExportButton from "../cta/ExportButton.svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
-  import LogosMarquee from "$lib/components/LogosMarquee.svelte";
+  import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
   import { contentStore, getFieldValue } from '../../stores/contentStore';
   import { editorStore } from '../../stores/editorStore';
   
@@ -68,11 +68,18 @@
 
 
         <div class="w-full flex justify-start gap-4 pt-4">
-          <EarlyAccessButton size="sm" source="hero-home" />
-          <!-- <ExportButton 
+					<EarlyAccessButton
+						size="sm"
+						source="hero-home"
+						className="font-normal"
+						iconOnly={false}
+						showPrice={false}
+						text="Get the Drive"
+					/>
+          <ExportButton 
 						text="Free Doc"
 						showReset={false}
-					/> -->
+					/>
         </div>
       </div>
     </div>

@@ -11,7 +11,8 @@ import {
 } from 'lucide-svelte';
 
 // Sections that should be visible when the page loads
-export const defaultVisibleSections = ['hero', 'video', 'zigzag-right', 'zigzag-left', 'features', 'cta'];
+// export const defaultVisibleSections = ['hero', 'zigzag-right', 'zigzag-left', 'features', 'video', 'cta'];
+export const defaultVisibleSections = ['hero', 'features', 'video', 'cta'];
 
 // Available section configurations
 export const elementConfig: ElementConfig[] = [
