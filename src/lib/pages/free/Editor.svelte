@@ -13,14 +13,20 @@
   
   // Section components
   import Hero from './components/sections/Hero.svelte';
+  import ZigzagLeft from './components/sections/ZigzagLeft.svelte';
+  import ZigzagRight from './components/sections/ZigzagRight.svelte';
   import Features from './components/sections/Features.svelte';
+  import VideoSection from './components/sections/VideoSection.svelte';
   import CTA from './components/sections/CTA.svelte';
   import Testimonials from './components/sections/Testimonials.svelte';
   
   // Define available section components
   const sectionComponents = {
     hero: Hero,
+    'zigzag-right': ZigzagRight,  
+    'zigzag-left': ZigzagLeft,  
     features: Features,
+    video: VideoSection,
     cta: CTA,
     testimonials: Testimonials,
     media: Features,  // Fallback to Features for now

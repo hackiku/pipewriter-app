@@ -1,0 +1,114 @@
+<!-- src/lib/pages/free/components/sections/ZigzagLeft.svelte -->
+<script lang="ts">
+  import { fade, fly } from 'svelte/transition';
+  import { quintOut } from 'svelte/easing';
+  import { Editable, Styles } from '../editor';
+  import { contentStore, getFieldValue } from '../../stores/contentStore';
+  
+  export let visible = false;
+  export let id = 'zigzag-left-section';
+
+  // Get values reactively with fallbacks
+  $: headingText = getFieldValue($contentStore.content, ['zigzag-left', 'heading']) || 'DOCS APP';
+  $: subheadingText = getFieldValue($contentStore.content, ['zigzag-left', 'subheading']) || 'Writey app in Google Docs';
+  $: descriptionText = getFieldValue($contentStore.content, ['zigzag-left', 'description']) || 'Native Docs sidebar app makes wireframing as fast as typing a paragraph.';
+</script>
+
+{#if visible}
+  <div 
+    class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center py-8"
+    in:fade={{ duration: 300 }}
+  >
+    <!-- Text Content -->
+    <div 
+      class="flex flex-col space-y-6 md:max-w-[100%] px-8 md:px-12"
+      in:fly={{ x: -20, duration: 300, delay: 150, easing: quintOut }}
+    >
+      <div class="space-y-4">
+        <Styles sectionId="zigzag-left-heading">
+          <h3 class="text-sm font-medium text-muted-foreground">
+            <Editable
+              path={['zigzag-left', 'heading']}
+              value={headingText}
+              className="outline-none"
+            />
+          </h3>
+        </Styles>
+        
+        <Styles sectionId="zigzag-left-subheading">
+          <h2 class="text-4xl md:text-5xl font-semibold leading-tight">
+            <Editable
+              path={['zigzag-left', 'subheading']}
+              value={subheadingText}
+              className="outline-none"
+            />
+          </h2>
+        </Styles>
+      </div>
+
+      <Styles sectionId="zigzag-left-description">
+        <p class="text-lg md:text-xl text-muted-foreground">
+          <Editable
+            path={['zigzag-left', 'description']}
+            value={descriptionText}
+            className="outline-none"
+          />
+        </p>
+      </Styles>
+    </div>
+
+    <!-- Media Container -->
+    <div 
+      class="relative"
+      in:fly={{ x: 20, duration: 300, delay: 300, easing: quintOut }}
+    >
+      <!-- Striped Gradient Shadow -->
+      <div 
+        class="absolute -right-2 -top-2 -left-2 -bottom-2 rounded-2xl overflow-hidden opacity-50"
+        style="
+          background: repeating-linear-gradient(
+            45deg,
+            rgba(54, 68, 254, 0.35),
+            rgba(179, 69, 237, 0.15) 25%,
+            transparent 25%,
+            transparent 50%
+          );
+          background-size: 32px 32px;
+        "
+      />
+
+      <!-- Main Media Container -->
+      <div class="relative aspect-video rounded-xl overflow-hidden bg-gradient-to-tr from-muted/50 to-muted">
+        <img
+          src="/demo/videos/wireframing-demo.webp"
+          alt="Wireframing demo"
+          class="w-full h-full object-cover"
+        />
+        
+        <!-- Gradient Overlay -->
+        <div 
+          class="absolute inset-0"
+          style="background: linear-gradient(45deg, transparent 70%, rgba(54, 68, 254, 0.1) 85%, rgba(179, 69, 237, 0.15))"
+        />
+
+        <!-- Tools Pill -->
+        <div class="absolute -bottom-4 -left-4 flex items-center gap-4 px-6 py-3 bg-background rounded-full shadow-lg border">
+          <img src="/tools/google-docs.svg" alt="Google Docs" class="w-8 h-8">
+          <div class="w-px h-6 bg-border"></div>
+          <img src="/tools/google-apps-script.svg" alt="Google Apps Script" class="w-8 h-8">
+        </div>
+      </div>
+    </div>
+  </div>
+{/if}
+
+<style>
+  @keyframes slideStripes {
+    from { background-position: 0 0; }
+    to { background-position: 32px 32px; }
+  }
+
+  .relative:hover > div:first-child {
+    animation: slideStripes 2s linear infinite;
+  }
+</style>

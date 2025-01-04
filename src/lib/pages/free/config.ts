@@ -6,11 +6,12 @@ import {
 	Image,
 	MessageSquare,
 	ThumbsUp,
-	MousePointer2
+	MousePointer2,
+	Video
 } from 'lucide-svelte';
 
 // Sections that should be visible when the page loads
-export const defaultVisibleSections = ['hero', 'features', 'cta'];
+export const defaultVisibleSections = ['hero', 'video', 'zigzag-right', 'zigzag-left', 'features', 'cta'];
 
 // Available section configurations
 export const elementConfig: ElementConfig[] = [
@@ -49,5 +50,23 @@ export const elementConfig: ElementConfig[] = [
 		type: 'social',
 		label: 'Social Proof',
 		icon: ThumbsUp
-	}
+	},
+	{
+		id: 'zigzag-left',
+		type: 'zigzag-left',
+		label: 'Zigzag Left',
+		icon: Image
+	},
+	{
+		id: 'zigzag-right',
+		type: 'zigzag-right',
+		label: 'Zigzag Right',
+		icon: Image
+	},
+	{
+		id: 'video',
+		type: 'video',
+		label: 'Video Section',
+		icon: Video
+	},
 ];

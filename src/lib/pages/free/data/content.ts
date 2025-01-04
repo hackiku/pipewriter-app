@@ -13,7 +13,7 @@ export const initialContent: ContentStructure = {
 				},
 				{
 					type: 'text',
-					value: 'Type to prototype',
+					value: 'Prototype with type',
 					path: ['hero', 'eyebrow'],
 				},
 				{
@@ -118,6 +118,58 @@ export const initialContent: ContentStructure = {
 					type: 'label',
 					value: 'Old Template Users Get 50% OFF! Check your email',
 					path: ['cta', 'note']
+				}
+			]
+		},
+
+
+		{
+			id: 'zigzag-left',
+			elements: [
+				{
+					type: 'h3',
+					value: 'DOCS APP',
+					path: ['zigzag-left', 'heading']
+				},
+				{
+					type: 'h2',
+					value: 'Writey app in Google Docs',
+					path: ['zigzag-left', 'subheading']
+				},
+				{
+					type: 'text',
+					value: 'Native Docs sidebar app makes wireframing as fast as typing a paragraph.',
+					path: ['zigzag-left', 'description']
+				}
+			]
+		},
+		{
+			id: 'zigzag-right',
+			elements: [
+				{
+					type: 'h3',
+					value: 'UX for Writers',
+					path: ['zigzag-right', 'heading']
+				},
+				{
+					type: 'h2',
+					value: 'Write content + experience',
+					path: ['zigzag-right', 'subheading']
+				},
+				{
+					type: 'text',
+					value: 'Tables are dead. Long live proper wireframe components that update everywhere. Pre-formatted for that sweet agency look.',
+					path: ['zigzag-right', 'description']
+				}
+			]
+		},
+		{
+			id: 'video',
+			elements: [
+				{
+					type: 'text',
+					value: 'Watch the 2-minute demo',
+					path: ['video', 'title']
 				}
 			]
 		}

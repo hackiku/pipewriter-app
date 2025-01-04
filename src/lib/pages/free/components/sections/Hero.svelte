@@ -67,7 +67,7 @@
 				</Styles>
 
 
-        <div class="w-full flex justify-start gap-4 pt-8">
+        <div class="w-full flex justify-start gap-4 pt-4">
           <EarlyAccessButton size="sm" source="hero-home" />
           <!-- <ExportButton 
 						text="Free Doc"
