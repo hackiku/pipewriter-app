@@ -24,7 +24,6 @@ export interface ContentElement {
 
 export interface ContentSection {
 	id: string;
-	order: number;
 	elements: ContentElement[];
 	children?: Array<{
 		id: string;

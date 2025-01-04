@@ -3,34 +3,43 @@
   import { onMount } from 'svelte';
   import { contentStore } from './stores/contentStore';
   import { editorStore, visibleSections } from './stores/editorStore';
+  import { elementConfig, defaultVisibleSections } from './config';
+  
+  // Core layout components
   import Dropper from './components/dropper/Dropper.svelte';
   import DropperWrapper from './components/dropper/DropperWrapper.svelte';
   import Section from './components/Section.svelte';
   import AddSection from './components/AddSection.svelte';
-  import { elementConfig } from './config';
   
-  // Import section components
+  // Section components
   import Hero from './components/sections/Hero.svelte';
-  import CTA from './components/sections/CTA.svelte';
   import Features from './components/sections/Features.svelte';
+  import CTA from './components/sections/CTA.svelte';
   import Testimonials from './components/sections/Testimonials.svelte';
   
+  // Define available section components
   const sectionComponents = {
     hero: Hero,
-    cta: CTA,
     features: Features,
-    testimonials: Testimonials
+    cta: CTA,
+    testimonials: Testimonials,
+    media: Features,  // Fallback to Features for now
+    social: Testimonials  // Fallback to Testimonials for now
   } as const;
 
+  // Tracks hero section visibility for dropper animation
   let isHeroVisible = true;
   
   onMount(() => {
-    // Initialize with hero section
-    const heroConfig = elementConfig.find(e => e.type === 'hero');
-    if (heroConfig) {
-      editorStore.addSection(heroConfig.id);
-    }
+    // Initialize default sections on page load
+    defaultVisibleSections.forEach(sectionId => {
+      const config = elementConfig.find(e => e.id === sectionId);
+      if (config) {
+        editorStore.addSection(config.id);
+      }
+    });
 
+    // Setup intersection observer for hero section
     const observer = new IntersectionObserver(
       ([entry]) => {
         isHeroVisible = entry.isIntersecting;
@@ -46,10 +55,11 @@
     return () => observer.disconnect();
   });
 
+  // Handler for adding new sections
   function handleElementSelect(elementId: string) {
     editorStore.addSection(elementId);
     
-    // Scroll to new section
+    // Scroll to newly added section
     setTimeout(() => {
       const section = document.getElementById(`${elementId}-section`);
       if (section) {
@@ -61,16 +71,16 @@
     }, 100);
   }
 
+  // Handle "Add Section" button click
   function handleAddSectionClick() {
-    // Make dropper visible when Add Section is clicked
-    isHeroVisible = false;
+    isHeroVisible = false; // Show dropper menu
   }
 </script>
 
 <div class="relative min-h-screen overflow-x-hidden">
-  <!-- Main content area with max-width constraint -->
+  <!-- Main content area -->
   <div class="max-w-screen-2xl mx-auto">
-    <!-- Sections with consistent spacing -->
+    <!-- Sections container with consistent spacing -->
     <div class="space-y-24 md:space-y-32 pt-44">
       {#each $visibleSections as section (section.id)}
         <Section {section}>
@@ -83,7 +93,7 @@
       {/each}
     </div>
 
-    <!-- Add Section Button -->
+    <!-- Add Section button -->
     {#if $visibleSections.length}
       <AddSection 
         order={$visibleSections.length} 
@@ -92,20 +102,25 @@
     {/if}
   </div>
 
-  <!-- Dropper with wrapper -->
+  <!-- Dropper UI with wrapper -->
   <DropperWrapper>
-    <div class="transition-opacity duration-200" class:opacity-0={!isHeroVisible}>
+    <div 
+      class="transition-opacity duration-200" 
+      class:opacity-0={!isHeroVisible}
+    >
       <Dropper {handleElementSelect} />
     </div>
   </DropperWrapper>
 </div>
 
 <style>
-  :global(body) {
+  /* Prevent horizontal scroll */
+  body {
     overflow-x: hidden;
   }
   
-  :global(html) {
+  /* Enable smooth scrolling */
+  html {
     scroll-behavior: smooth;
   }
 </style>

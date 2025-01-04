@@ -15,6 +15,8 @@
   // Get values reactively from the content store
   $: eyebrowText = getFieldValue($contentStore.content, ['hero', 'eyebrow']);
   $: headlineText = getFieldValue($contentStore.content, ['hero', 'headline']);
+	$: subheadText = getFieldValue($contentStore.content, ['hero', 'subhead']);
+
 
   // Track active state from editor store
   $: isActive = $editorStore.activeSection === 'hero';
@@ -53,6 +55,17 @@
             />
           </h1>
         </Styles>
+
+				<Styles sectionId="hero-subhead">
+					<p class="text-xl text-muted-foreground">
+						<Editable
+							path={['hero', 'subhead']}
+							value={subheadText}
+							className="outline-none"
+						/>
+					</p>
+				</Styles>
+
 
         <div class="w-full flex justify-start gap-4 pt-8">
           <EarlyAccessButton size="sm" source="hero-home" />

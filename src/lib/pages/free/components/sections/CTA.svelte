@@ -25,22 +25,26 @@
         <div class="relative" in:fly={{ y: 20, duration: 300, delay: 150, easing: quintOut }}>
           <div class="absolute -inset-x-8 -inset-y-4 bg-gradient-to-r from-primary/5 via-purple-500/5 to-primary/5 blur-xl" aria-hidden="true" />
           
-          <Editable
-            path={['cta', 'headline']}
-            value={headlineText}
-            class="relative text-4xl md:text-5xl font-semibold leading-tight"
-          />
+          <h2 class="relative">
+            <Editable
+              path={['cta', 'headline']}
+              value={headlineText}
+              className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]"
+            />
+          </h2>
         </div>
       </Styles>
 
       <div class="space-y-8" in:fly={{ y: 20, duration: 300, delay: 300, easing: quintOut }}>
         <!-- Subheading -->
         <Styles sectionId="cta-subheading">
-          <Editable
-            path={['cta', 'subheading']}
-            value={subheadingText}
-            class="text-xl text-muted-foreground"
-          />
+          <p class="relative">
+            <Editable
+              path={['cta', 'subheading']}
+              value={subheadingText}
+              className="text-xl text-muted-foreground"
+            />
+          </p>
         </Styles>
 
         <!-- Action Buttons -->
@@ -52,11 +56,13 @@
         <!-- Note -->
         {#if noteText}
           <Styles sectionId="cta-note">
-            <Editable
-              path={['cta', 'note']}
-              value={noteText}
-              class="text-sm text-muted-foreground"
-            />
+            <p class="relative">
+              <Editable
+                path={['cta', 'note']}
+                value={noteText}
+                className="text-sm text-muted-foreground"
+              />
+            </p>
           </Styles>
         {/if}
       </div>

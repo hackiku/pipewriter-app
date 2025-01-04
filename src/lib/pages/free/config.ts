@@ -9,65 +9,45 @@ import {
 	MousePointer2
 } from 'lucide-svelte';
 
+// Sections that should be visible when the page loads
+export const defaultVisibleSections = ['hero', 'features', 'cta'];
+
+// Available section configurations
 export const elementConfig: ElementConfig[] = [
 	{
 		id: 'hero',
 		type: 'hero',
 		label: 'Hero',
-		icon: LayoutTemplate,
-		defaultContent: {
-			eyebrow: "Type to prsdsdsototype",
-			headline: "Wireframes for Writers in Google Docs++"
-		}
+		icon: LayoutTemplate
 	},
 	{
 		id: 'features',
 		type: 'features',
 		label: 'Features',
-		icon: Type,
-		defaultContent: {
-			title: "Features",
-			items: []
-		}
+		icon: Type
 	},
 	{
 		id: 'image-left',
 		type: 'media',
 		label: 'Image + Text',
-		icon: Image,
-		defaultContent: {
-			title: "Image Section",
-			description: "Add your description"
-		}
+		icon: Image
 	},
 	{
 		id: 'testimonials',
 		type: 'testimonials',
 		label: 'Testimonials',
-		icon: MessageSquare,
-		defaultContent: {
-			title: "What People Say",
-			items: []
-		}
+		icon: MessageSquare
 	},
 	{
 		id: 'cta',
 		type: 'cta',
 		label: 'Call to Action',
-		icon: MousePointer2,
-		defaultContent: {
-			headline: "Ready to start?",
-			buttonText: "Get Started"
-		}
+		icon: MousePointer2
 	},
 	{
 		id: 'social-proof',
 		type: 'social',
 		label: 'Social Proof',
-		icon: ThumbsUp,
-		defaultContent: {
-			title: "Trusted by",
-			logos: []
-		}
+		icon: ThumbsUp
 	}
 ];

@@ -5,26 +5,29 @@ export const initialContent: ContentStructure = {
 	sections: [
 		{
 			id: 'hero',
+			order: 0,
 			elements: [
 				{
 					type: 'h1',
 					value: 'UX App for Writers',
 					path: ['hero', 'headline'],
+					metadata: {
+						className: 'text-4xl font-bold tracking-tight'
+					}
 				},
 				{
 					type: 'text',
 					value: 'Type to prototype',
 					path: ['hero', 'eyebrow'],
-				},
-				{
-					type: 'text',
-					value: 'In Google Docs, on the web, and more.',
-					path: ['hero', 'subhead'],
+					metadata: {
+						className: 'text-primary/80'
+					}
 				}
 			]
 		},
 		{
 			id: 'features',
+			order: 1,
 			elements: [
 				{
 					type: 'h2',
@@ -61,6 +64,7 @@ export const initialContent: ContentStructure = {
 		},
 		{
 			id: 'testimonials',
+			order: 2,
 			elements: [
 				{
 					type: 'h2',
@@ -98,6 +102,7 @@ export const initialContent: ContentStructure = {
 		},
 		{
 			id: 'cta',
+			order: 3,
 			elements: [
 				{
 					type: 'h2',
