@@ -7,6 +7,7 @@
   import { spaceDrawerStore } from '$lib/stores/spaceDrawerStore';
   import { onDestroy } from 'svelte';
   import { X } from 'lucide-svelte';
+  import Calendar from './Calendar.svelte';
   
   let isOpen = false;
   $: isOpen = $spaceDrawerStore.isOpen;
@@ -65,11 +66,7 @@
         <div class="grid md:grid-cols-2 gap-8 h-full">
           <!-- Cal.com Embed -->
           <div class="h-full">
-            <iframe
-              src="https://cal.com/aerospace/repack"
-              class="w-full h-full rounded-lg border"
-              frameborder="0"
-            ></iframe>
+            <Calendar />
           </div>
 
           <!-- Contact Form -->
@@ -115,4 +112,3 @@
     </Drawer.Content>
   </Drawer.Portal>
 </Drawer.Root>
-
