@@ -1,21 +1,17 @@
-<!-- src/lib/pages/free/components/dropper/ElementCard.svelte -->
+<!-- src/lib/pages/demo/ElementCard.svelte -->
+<!-- src/lib/pages/demo/ElementCard.svelte -->
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import * as Tooltip from "$lib/components/ui/tooltip";
   import { cn } from "$lib/utils";
-  import type { ElementConfig } from '../../types';
+  import type { ElementObject } from "$lib/iframe/elements";
   import { Plus } from 'lucide-svelte';
-  import { fade } from 'svelte/transition';
 
-  export let element: ElementConfig;
-  export let onSelect: ((id: string) => void) | undefined = undefined;
+  export let element: ElementObject;
+  export let onSelect: (id: string) => void;
+  export let disabled = false;
   export let isActive = false;
   export let isEditing = false;
-  export let disabled = false;
-
-  // Get current theme
-  import { mode } from '$lib/components/ui/mode';
-  $: previewSrc = element.preview?.[($mode === 'dark') ? 'dark' : 'light'];
 
   $: buttonClass = cn(
     "group relative w-full h-full p-0 rounded-lg overflow-hidden",
@@ -38,37 +34,19 @@
         <Button
           variant="ghost"
           class={buttonClass}
-          on:click={() => !disabled && onSelect?.(element.id)}
+          on:click={() => !disabled && onSelect(element.id)}
           {disabled}
         >
-          <div class="relative w-full h-full p-2">
-            <!-- SVG Preview -->
-            {#if previewSrc}
-              <div class="w-full h-full rounded-md overflow-hidden bg-background/50">
-                <img
-                  src={previewSrc}
-                  alt={element.label}
-                  class="w-full h-full object-cover"
-                />
-              </div>
-            {:else}
-              <!-- Fallback to icon if no preview -->
-              <div class="flex flex-col items-center justify-center gap-2 h-full">
-                <div class="w-8 h-8 rounded-md bg-primary/10 flex items-center justify-center">
-                  <svelte:component 
-                    this={element.icon} 
-                    class="w-4 h-4 text-primary" 
-                  />
-                </div>
-                <span class="text-xs font-medium">
-                  {element.label}
-                </span>
-              </div>
-            {/if}
-
+          <div class="relative w-full h-full">
+            <img
+              src={element.src}
+              alt={element.alt}
+              class="w-full h-full object-cover group-hover:opacity-40 dark:invert"
+            />
+            
             {#if !disabled}
-              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity bg-white/80 dark:bg-gray-900/80">
-                <Plus class="text-primary" size={24} />
+              <div class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                <Plus class="text-gray-500 dark:text-white" size={30} />
               </div>
             {/if}
           </div>
@@ -76,7 +54,7 @@
       </div>
     </Tooltip.Trigger>
     <Tooltip.Content>
-      <p class="text-sm">{element.description || element.label}</p>
+      <p>{element.description}</p>
     </Tooltip.Content>
   </Tooltip.Root>
 </div>
