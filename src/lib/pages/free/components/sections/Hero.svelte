@@ -5,6 +5,7 @@
   import { Editable, Styles } from '../editor';
   import ExportButton from "../cta/ExportButton.svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
+  import WriteButton from "../cta/WriteButton.svelte";
   import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
   import { contentStore, getFieldValue } from '../../stores/contentStore';
   import { editorStore } from '../../stores/editorStore';
@@ -12,14 +13,24 @@
   export let visible = true;
   export let id = 'hero-section';
 
+  // Reference to headline element
+  let headlineElement: HTMLElement;
+
   // Get values reactively from the content store
   $: eyebrowText = getFieldValue($contentStore.content, ['hero', 'eyebrow']);
   $: headlineText = getFieldValue($contentStore.content, ['hero', 'headline']);
-	$: subheadText = getFieldValue($contentStore.content, ['hero', 'subhead']);
-
+  $: subheadText = getFieldValue($contentStore.content, ['hero', 'subhead']);
 
   // Track active state from editor store
   $: isActive = $editorStore.activeSection === 'hero';
+
+  // Function to focus headline
+  function focusHeadline() {
+    if (headlineElement) {
+      headlineElement.focus();
+      editorStore.setEditingField('hero-headline');
+    }
+  }
 </script>
 
 {#if visible}
@@ -46,40 +57,39 @@
         </Styles>
 
         <!-- Headline -->
-        <Styles sectionId="hero-headline">
-          <h1 class="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.1] tracking-tight">
+<!-- Headline -->
+<Styles sectionId="hero-headline">
+  <h1 
+    class="text-4xl sm:text-5xl md:text-6xl font-normal leading-[1.1] tracking-tight"
+  >
+    <Editable
+      path={['hero', 'headline']}
+      value={headlineText}
+      className="outline-none"
+      bind:elementRef={headlineElement}
+    />
+  </h1>
+</Styles>
+        <Styles sectionId="hero-subhead">
+          <p class="text-xl text-muted-foreground">
             <Editable
-              path={['hero', 'headline']}
-              value={headlineText}
+              path={['hero', 'subhead']}
+              value={subheadText}
               className="outline-none"
             />
-          </h1>
+          </p>
         </Styles>
 
-				<Styles sectionId="hero-subhead">
-					<p class="text-xl text-muted-foreground">
-						<Editable
-							path={['hero', 'subhead']}
-							value={subheadText}
-							className="outline-none"
-						/>
-					</p>
-				</Styles>
-
-
         <div class="w-full flex justify-start gap-4 pt-4">
-					<EarlyAccessButton
-						size="sm"
-						source="hero-home"
-						className="font-normal"
-						iconOnly={false}
-						showPrice={false}
-						text="Get the Drive"
-					/>
-          <ExportButton 
-						text="Free Doc"
-						showReset={false}
-					/>
+          <EarlyAccessButton
+            size="sm"
+            source="hero-home"
+            className="font-normal"
+            iconOnly={false}
+            showPrice={false}
+            text="Get the Drive"
+          />
+            <WriteButton size="lg" bind:headlineElement />
         </div>
       </div>
     </div>

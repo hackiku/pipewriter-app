@@ -10,6 +10,8 @@
   export let placeholder = 'Type something...';
   export let multiline = false;
   
+  export let elementRef: HTMLElement | null = null;  // for WriteButton focusing
+
   const fieldId = path.join('-');
   
   function handleInput(event: Event) {
@@ -34,6 +36,7 @@
 </script>
 
 <div
+  bind:this={elementRef} 
   contenteditable="true"
   class="outline-none rounded transition-all duration-300
          focus:px-2 focus:-mx-2 empty:before:content-[attr(data-placeholder)]

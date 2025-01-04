@@ -94,7 +94,7 @@
 					source="nav"
 					className="font-normal"
 					iconOnly={true}
-					showPrice={true}
+					showPrice={false}
 					text="Get Bundle"
 				/>
 
