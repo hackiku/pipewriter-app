@@ -13,7 +13,7 @@ export const initialContent: ContentStructure = {
 				},
 				{
 					type: 'text',
-					value: 'Prototype with type',
+					value: 'Prototyping by typing',
 					path: ['hero', 'eyebrow'],
 				},
 				{

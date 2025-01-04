@@ -1,5 +1,4 @@
 <!-- src/lib/pages/free/components/dropper/DropperWrapper.svelte -->
-
 <script lang="ts">
   import { onMount } from 'svelte';
   import { browser } from '$app/environment';
@@ -11,10 +10,7 @@
   
   onMount(() => {
     const threshold = window.innerHeight * 0.3;
-    
-    const checkMobile = () => {
-      isMobile = window.innerWidth < 768;
-    };
+    const checkMobile = () => isMobile = window.innerWidth < 768;
     
     checkMobile();
     isScrolled = window.scrollY > threshold;
@@ -24,65 +20,50 @@
       isScrolled = window.scrollY > threshold;
     };
 
-    const handleResize = () => {
-      checkMobile();
-    };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize, { passive: true });
+    window.addEventListener('resize', checkMobile, { passive: true });
     
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener('resize', checkMobile);
     };
   });
-
-  function handleMouseEnter() {
-    isHovered = true;
-  }
-
-  function handleMouseLeave() {
-    isHovered = false;
-  }
 
   $: rightMargin = (() => {
     if (!browser) return '2rem';
     if (isMobile) return '50%';
     
-    if (isScrolled && !isHovered) {
-      return '-20rem';
-    }
-    
-    if (isScrolled && isHovered) {
-      return '-5rem';
-    }
-    
-    return window.innerWidth > 1280 ? '11rem' : 
-           window.innerWidth > 1024 ? '6rem' : 
-           window.innerWidth > 768 ? '4rem' : '2rem';
+    // Just two states: visible or hidden
+    return isScrolled && !isHovered ? '-20rem' : '2rem';
   })();
 
   $: verticalPosition = isMobile ? 
     `bottom: ${isScrolled ? (isHovered ? '2rem' : '-15rem') : '2rem'}; transform: translate(-50%, 0)` : 
     'top: 50vh; transform: translateY(-50%)';
 
+  // Wider hover area for better UX
   $: hoverTriggerClass = isMobile 
     ? "inset-x-0 -top-16 h-24" 
-    : "-left-32 top-0 bottom-0 w-24";
+    : "-left-24 top-0 bottom-0 w-16";
 
   export { isScrolled, isMobile };
 </script>
 
 <div 
   bind:this={wrapper}
-  class="fixed z-50 transition-all duration-500 ease-out"
+  class="fixed z-50 transition-all duration-500 ease-out group"
   style={`${isMobile ? 'left: 50%;' : `right: ${rightMargin};`} ${verticalPosition}`}
-  on:mouseenter={handleMouseEnter}
-  on:mouseleave={handleMouseLeave}
+  on:mouseenter={() => isHovered = true}
+  on:mouseleave={() => isHovered = false}
 >
   {#if isScrolled}
+    <!-- Enhanced hover trigger area with gradient -->
     <div 
-      class="absolute cursor-pointer {hoverTriggerClass}"
+      class="absolute {hoverTriggerClass} cursor-pointer"
+      style="background: linear-gradient(to {isMobile ? 'top' : 'right'}, 
+        rgba(54, 68, 254, 0.02),
+        rgba(179, 69, 237, 0.03)
+      );"
       aria-hidden="true"
     />
   {/if}
