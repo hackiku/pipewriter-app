@@ -3,7 +3,7 @@
   import { toggleMode } from "mode-watcher";
   import { Button } from "$lib/components/ui/button";
   import { Badge } from "$lib/components/ui/badge";
-  import { Sun, Moon, Menu, X } from "lucide-svelte";
+  import { Sun, Moon, Menu, X, PenTool } from "lucide-svelte";
   import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
   import ExportButton from "$lib/pages/free/components/cta/ExportButton.svelte";
   import { onMount } from "svelte";
@@ -60,7 +60,8 @@
       <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <!-- Logo -->
         <a href="/" class="flex items-center gap-1">
-          <div>✍️</div>
+          <!-- <div>✍️</div> -->
+					<PenTool class="h-5 -rotate-90"/>
           <h1 class="text-lg font-semibold">Pipewriter</h1>
           <Badge variant="outline" class="font-normal">beta</Badge>
         </a>
