@@ -9,7 +9,6 @@
   export let buttonText = "Send My Template";
   export let size: "sm" | "default" = "default";
   export let wrap = false;
-  export let withContent = false;
 
   // Fun writer email placeholders for animation
   const writerEmails = [
@@ -50,51 +49,30 @@
     errorMessage = '';
 
     try {
-      // First subscribe to mailing list
-      const subscribeResponse = await fetch('/api/subscribe', {
+      const exportResponse = await fetch('/api/export', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ 
+        body: JSON.stringify({
           email,
-          source: 'free-export'
+          content: $contentStore.content,
+          format: $exportStore.selectedFormat
         }),
       });
 
-      const subscribeResult = await subscribeResponse.json();
+      const result = await exportResponse.json();
 
-      if (!subscribeResult.success) {
-        throw new Error(subscribeResult.message);
-      }
-
-      // If we have content to export, send it to Make.com
-      if (withContent) {
-        const exportResponse = await fetch('/api/export', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            email,
-            content: $contentStore.content,
-            format: $exportStore.selectedFormat
-          }),
-        });
-
-        const exportResult = await exportResponse.json();
-
-        if (!exportResult.success) {
-          throw new Error(exportResult.message);
-        }
+      if (!result.success) {
+        throw new Error(result.message);
       }
 
       isSubmitted = true;
       email = '';
       
     } catch (error) {
-      console.error('Form submission error:', error);
-      errorMessage = error instanceof Error ? error.message : 'An error occurred';
+      console.error('Export error:', error);
+      errorMessage = error instanceof Error ? error.message : 'Failed to send content';
     } finally {
       isSubmitting = false;
     }
@@ -107,7 +85,7 @@
   }
 
   // Tailwind classes
-  const formClass = `w-full flex
+  const formClass = `w-full flex 
     ${wrap ? "flex-col" : "flex-col sm:flex-row"} 
     gap-3 
     ${size === "default" ? "max-w-2xl" : "max-w-xl"}`;
@@ -187,14 +165,12 @@
     <div class="flex items-center justify-center mb-3">
       <Check size={24} class="mr-2" />
       <h3 class={size === "default" ? "text-xl font-semibold" : "text-lg"}>
-        {withContent ? "Content sent!" : "You're in!"}
+        Content sent!
       </h3>
     </div>
     
     <p class={size === "sm" ? "text-sm" : ""}>
-      {withContent 
-        ? "Check your inbox for your template and updates!" 
-        : "Check your inbox for a welcome message."}
+      Check your inbox for your template!
     </p>
   </div>
 {/if}

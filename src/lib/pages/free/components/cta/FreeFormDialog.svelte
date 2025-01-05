@@ -52,7 +52,6 @@
 					<EmailForm
 						buttonText="Send My Template"
 						wrap={true}
-						withContent={true}
 						size="default"
 					/>
 					
@@ -71,7 +70,6 @@
 				<p class="text-sm text-muted-foreground">
 					By submitting, you agree to receive updates. Unsubscribe anytime.
 				</p>
-					<p class="text-xs opacity-40 -my-4 ml-auto font-mono">webhook</p>
 				</div>
 			</div>
 		</div>
