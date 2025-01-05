@@ -5,23 +5,17 @@
   import { Badge } from "$lib/components/ui/badge";
   import { Sun, Moon, Menu, X } from "lucide-svelte";
   import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
-  import BackgroundButton from "./BackgroundButton.svelte";
   import ExportButton from "$lib/pages/free/components/cta/ExportButton.svelte";
-  // import BackgroundPattern from "./BackgroundPattern.svelte";
-  import { contactModalStore } from "$lib/stores/contactModalStore";
   import { onMount } from "svelte";
   import { mainNavItems } from '$lib/data/navigation';
 
   let isMenuOpen = false;
   let isVisible = true;
   let lastScrollY = 0;
-  let showContactModal = false;
-
 
   const toggleMenu = () => {
     isMenuOpen = !isMenuOpen;
   };
-
 
   onMount(() => {
     const handleScroll = () => {
@@ -40,98 +34,43 @@
 </script>
 
 <nav
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 p-4 sm:p-6 md:px-16 lg:px-24 xl:px-44"
   class:translate-y-4={isVisible}
   class:translate-y-[-100%]={!isVisible}
 >
-  <div
-    class="bg-background/80 backdrop-blur-sm shadow-sm rounded-full px-1 md:px-4 mx-4 sm:mx-6 md:mx-16 lg:mx-24 xl:mx-44"
-  >
-    <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-      <!-- Logo -->
-      <a href="/" class="flex items-center gap-1">
-        <div>✍️</div>
-        <h1 class="text-lg font-semibold">Pipewriter</h1>
-        <Badge variant="outline" class="font-normal">beta</Badge>
-      </a>
+  <!-- Gradient glow container -->
+  <div class="relative rounded-full">
+    <!-- Subtle gradient glow -->
+    <div 
+      class="absolute inset-0 rounded-full opacity-50 dark:opacity-30 blur-xl -z-10"
+      style="
+        background: radial-gradient(
+          circle at 50% 50%,
+          rgba(54, 68, 254, 0.08),
+          rgba(179, 69, 237, 0.08),
+          transparent 70%
+        );
+      "
+    />
+    
+    <!-- Main nav content -->
+    <div
+      class="bg-background/70 backdrop-blur-md border border-border/5 shadow-sm rounded-full px-1 md:px-4"
+    >
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-1">
+          <div>✍️</div>
+          <h1 class="text-lg font-semibold">Pipewriter</h1>
+          <Badge variant="outline" class="font-normal">beta</Badge>
+        </a>
 
-      <!-- Desktop Navigation -->
-      <div class="hidden md:flex items-center gap-6">
-        {#each mainNavItems as item}
-          <a
-            href={item.href}
-            class="text-muted-foreground hover:text-foreground transition-colors w-fit"
-            on:click={(e) => {
-              if (item.onClick) {
-                e.preventDefault();
-                item.onClick();
-              }
-            }}
-          >
-            {item.label}
-          </a>
-        {/each}
-			</div>
-			
-			<div class="hidden md:flex items-center gap-6">
-        <Button
-          on:click={toggleMode}
-          variant="outline"
-          size="icon"
-          class="w-10"
-        >
-          <Sun
-            class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-          />
-          <Moon
-            class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-          />
-          <span class="sr-only">Toggle theme</span>
-        </Button>
-        <!-- <BackgroundButton iconOnly={true} /> -->
-        <EarlyAccessButton
-					size="sm"
-					source="nav"
-					className="font-normal"
-					iconOnly={true}
-					showPrice={false}
-					text="Get Bundle"
-				/>
-
-        <ExportButton iconOnly={true} />
-
-      </div>
-
-      <!-- Mobile Navigation -->
-      <div class="md:hidden flex items-center gap-2">
-        <Button on:click={toggleMode} variant="outline" size="icon">
-          <Sun
-            class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
-          />
-          <Moon
-            class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
-          />
-          <span class="sr-only">Toggle theme</span>
-        </Button>
-
-        <button class="p-2" on:click={toggleMenu}>
-          {#if isMenuOpen}
-            <X class="w-6 h-6" />
-          {:else}
-            <Menu class="w-6 h-6" />
-          {/if}
-        </button>
-      </div>
-    </div>
-
-    <!-- Mobile Menu -->
-    {#if isMenuOpen}
-      <div class="md:hidden px-4 py-2 border-t">
-        <div class="space-y-2">
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center gap-6">
           {#each mainNavItems as item}
             <a
               href={item.href}
-              class="block w-full text-left px-3 py-2 text-sm font-medium text-foreground hover:bg-accent rounded-md"
+              class="text-muted-foreground hover:text-foreground font-medium transition-colors w-fit"
               on:click={(e) => {
                 if (item.onClick) {
                   e.preventDefault();
@@ -142,18 +81,87 @@
               {item.label}
             </a>
           {/each}
-          
-          <div class="px-3 space-y-2">
-            <ExportButton iconOnly={false} />
-            <BackgroundButton iconOnly={false} />
-            <EarlyAccessButton
-              size="md"
-              source="nav-mobile"
-              className="w-full font-normal"
+        </div>
+        
+        <div class="hidden md:flex items-center gap-6">
+          <Button
+            on:click={toggleMode}
+            variant="outline"
+            size="icon"
+            class="w-10"
+          >
+            <Sun
+              class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
             />
-          </div>
+            <Moon
+              class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+            />
+            <span class="sr-only">Toggle theme</span>
+          </Button>
+
+          <EarlyAccessButton
+            size="sm"
+            source="nav"
+            className="font-normal"
+            iconOnly={true}
+            showPrice={false}
+          />
+
+          <ExportButton iconOnly={true} />
+        </div>
+
+        <!-- Mobile Navigation -->
+        <div class="md:hidden flex items-center gap-2">
+          <Button on:click={toggleMode} variant="outline" size="icon">
+            <Sun
+              class="h-[1.2rem] w-[1.2rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0"
+            />
+            <Moon
+              class="absolute h-[1.2rem] w-[1.2rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100"
+            />
+            <span class="sr-only">Toggle theme</span>
+          </Button>
+
+          <button class="p-2" on:click={toggleMenu}>
+            {#if isMenuOpen}
+              <X class="w-6 h-6" />
+            {:else}
+              <Menu class="w-6 h-6" />
+            {/if}
+          </button>
         </div>
       </div>
-    {/if}
+
+      <!-- Mobile Menu -->
+      {#if isMenuOpen}
+        <div class="md:hidden px-4 py-2 border-t">
+          <div class="space-y-2">
+            {#each mainNavItems as item}
+              <a
+                href={item.href}
+                class="block w-full text-left px-3 py-2 text-sm font-medium text-foreground hover:bg-accent rounded-md"
+                on:click={(e) => {
+                  if (item.onClick) {
+                    e.preventDefault();
+                    item.onClick();
+                  }
+                }}
+              >
+                {item.label}
+              </a>
+            {/each}
+            
+            <div class="px-3 space-y-2">
+              <ExportButton iconOnly={false} />
+              <EarlyAccessButton
+                size="md"
+                source="nav-mobile"
+                className="w-full font-normal"
+              />
+            </div>
+          </div>
+        </div>
+      {/if}
+    </div>
   </div>
 </nav>

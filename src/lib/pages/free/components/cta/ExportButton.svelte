@@ -14,6 +14,8 @@
   export let iconOnly = false;
   export let variant: "default" | "secondary" | "destructive" | "outline" | "ghost" | "link" = "default";
 
+  let isHovered = false;
+
   function handleReset(event: MouseEvent) {
     event.stopPropagation();
     editorStore.reset();
@@ -27,14 +29,35 @@
         {variant}
         size={iconOnly ? "icon" : "sm"}
         class={cn(
-          "relative",
-          iconOnly ? "w-10" : "gap-2"
+          "relative overflow-visible transition-[width,box-shadow] duration-300 ease-out",
+          "inline-flex items-center justify-center",
+          iconOnly && "w-10",
+          isHovered && iconOnly && "w-auto px-4",
+          !iconOnly && "gap-2 px-4",
+          "hover:ring-2 hover:ring-primary/20"
         )}
+        on:mouseenter={() => isHovered = true}
+        on:mouseleave={() => isHovered = false}
       >
-        <svelte:component this={icon} class="w-[1.2rem] h-[1.2rem]" />
-        {#if !iconOnly}
-          <span>{text}</span>
-        {/if}
+        <!-- Content wrapper -->
+        <div class="flex items-center justify-center gap-3">
+          <svelte:component this={icon} class="w-[1.2rem] h-[1.2rem]" />
+          
+          {#if !iconOnly || isHovered}
+            <span class="whitespace-nowrap">{text}</span>
+          {/if}
+        </div>
+
+        <!-- Glow effect -->
+        <div
+          class={cn(
+            "absolute inset-0 -z-10",
+            "rounded-md opacity-0 transition-opacity duration-300",
+            "bg-primary/10",
+            "blur-md",
+            isHovered && "opacity-100"
+          )}
+        />
       </Button>
 
       {#if showReset && !iconOnly}

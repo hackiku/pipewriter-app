@@ -1,5 +1,4 @@
 <!-- $lib/components/free/FreeForm.svelte -->
-
 <script lang="ts">
   import * as AlertDialog from "$lib/components/ui/alert-dialog";
   import { Button } from "$lib/components/ui/button";
@@ -9,10 +8,14 @@
   export let showReset = false;
   export let text = "Export";
   export let icon = Save;
+
+  function handleTriggerClick(e: MouseEvent) {
+    e.stopPropagation();
+  }
 </script>
 
 <AlertDialog.Root>
-  <AlertDialog.Trigger>
+  <AlertDialog.Trigger on:click={handleTriggerClick}>
     <Button variant="default" size="sm">
       <svelte:component this={icon} class="w-4 h-4 mr-2" />
       {text}

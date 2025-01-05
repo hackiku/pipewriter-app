@@ -1,8 +1,11 @@
 <!-- $lib/components/cta/EarlyAccessButton.svelte -->
 <script lang="ts">
   import { ArrowUp } from "lucide-svelte";
+  import { ShoppingCart } from "lucide-svelte";
   import { cn } from '$lib/utils';
   import { drawerStore } from '$lib/stores/earlyAccessStore';
+  import { slide, fly } from 'svelte/transition';
+  import { quartOut } from 'svelte/easing';
   
   export let size: "default" | "lg" = "default";
   export let className = "";
@@ -12,11 +15,22 @@
   export let text = "Get Bundle";
   export let showPrice = false;
   export let price = "$59";
+  export let useCart = false;
   
-  const baseHeight = size === "lg" ? "h-12" : "h-10";
-  const baseWidth = size === "lg" ? "w-12" : "w-10";
-  const baseIconSize = size === "lg" ? "w-6 h-6" : "w-5 h-5";
-  const baseFontSize = size === "lg" ? "text-lg" : "text-base";
+  let isHovered = false;
+  let buttonElement: HTMLButtonElement;
+  
+  const dimensions = size === "lg" ? {
+    height: "h-12",
+    width: "w-12",
+    icon: "w-6 h-6",
+    text: "text-lg"
+  } : {
+    height: "h-10",
+    width: "w-10",
+    icon: "w-5 h-5",
+    text: "text-base"
+  };
   
   function handleClick() {
     drawerStore.open(source);
@@ -24,66 +38,86 @@
 </script>
 
 <button
+  bind:this={buttonElement}
   class={cn(
-    "relative group overflow-hidden",
-    "inline-flex items-center justify-center",
-    "font-medium rounded-lg",
+    // Base styles
+    "relative inline-flex items-center justify-center",
+    "rounded-lg font-medium",
     "bg-gradient-to-r from-[#3644FE] to-[#B345ED]",
-    baseHeight,
-    iconOnly ? baseWidth : "px-4",
-    fullWidth ? "w-full max-w-md" : "w-auto",
-    "shadow-[4px_4px_0px_0px_rgba(54,68,254,0.7)]",
-    "hover:shadow-none",
-    "hover:translate-x-[4px] hover:translate-y-[4px]",
-    "hover:ring-2 hover:ring-[#B345ED]/30",
-    "dark:shadow-[4px_4px_0px_0px_rgba(179,69,237,0.3)]",
-    "dark:hover:ring-[#3644FE]/50",
-    "transition-all duration-200",
+    
+    // Dimensions
+    dimensions.height,
+    iconOnly ? dimensions.width : "px-4",
+    fullWidth && "w-full max-w-md",
+    
+    // Transitions for container expansion
+    "transition-[width,transform,box-shadow] duration-300 ease-out",
+    "overflow-visible",
+    isHovered && iconOnly && "w-auto px-4",
+    
+    // Hover effects
+    "hover:ring-4 hover:ring-[#3644FE]/20 dark:hover:ring-[#B345ED]/20",
+    
     className
   )}
   on:click|preventDefault|stopPropagation={handleClick}
+  on:mouseenter={() => isHovered = true}
+  on:mouseleave={() => isHovered = false}
 >
-  <!-- Background gradient animation -->
-  <span 
-    class="absolute inset-0 bg-gradient-to-r from-[#B345ED] to-[#3644FE] 
-           opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-  />
-  
-  <!-- Content -->
-  <div class="relative z-10 flex items-center justify-center text-white w-full">
-    {#if iconOnly}
-      <div class="relative z-10 flex items-center justify-center text-white w-full">
+  <!-- Content wrapper -->
+  <div class="relative flex items-center justify-center text-white gap-3">
+    <!-- Icon -->
+    <div class="flex items-center justify-center {iconOnly ? 'w-full' : ''}">
+      {#if useCart}
+        <ShoppingCart class={cn("text-white", dimensions.icon)} />
+      {:else}
         <img 
           src="/icons/google-drive.svg" 
           alt="Google Drive"
-          class="{baseIconSize} transition-transform duration-300"
+          class={dimensions.icon}
         />
-        <div class="flex items-center gap-2 w-0 opacity-0 group-hover:w-auto group-hover:opacity-100 whitespace-nowrap overflow-hidden transition-all duration-300">
-          <span class="{baseFontSize}">{text}</span>
-          {#if showPrice}
-            <span class="text-white/40">— {price}</span>
-          {/if}
-          <ArrowUp class="w-4 h-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
-        </div>
-      </div>
-    {:else}
-      <div class="flex items-center justify-center gap-2">
-        <img src="/icons/google-drive.svg" alt="Google Drive" class={baseIconSize} />
-        <span class="whitespace-nowrap {baseFontSize}">{text}</span>
+      {/if}
+    </div>
+    
+    <!-- Text content with transition -->
+    {#if !iconOnly || isHovered}
+      <div 
+        class="flex items-center whitespace-nowrap"
+      >
+        <span class={dimensions.text}>{text}</span>
+        
         {#if showPrice}
-          <div class="relative">
-            <span class="inline-flex transition-all duration-300 group-hover:opacity-0 group-hover:-translate-y-2 opacity-40">
-              — {price}
-            </span>
-            <ArrowUp 
-              class="absolute right-0 top-0 w-4 h-4 
-                     transition-all duration-300
-                     translate-y-2 opacity-0
-                     group-hover:translate-y-0 group-hover:opacity-100" 
-            />
-          </div>
+          <span class="ml-3 text-white/50 font-normal">— {price}</span>
         {/if}
       </div>
     {/if}
+
+    <!-- Arrow with fly animation -->
+    {#if isHovered}
+      <div 
+        in:fly|local={{y: 20, duration: 200, delay: 100}}
+        out:fly|local={{y: 20, duration: 200}}
+        class="flex items-center"
+      >
+        <ArrowUp 
+          class={cn(
+            "w-4 h-4 transition-transform duration-300",
+            "translate-y-0.5",
+            isHovered && "-translate-y-0.5"
+          )}
+        />
+      </div>
+    {/if}
   </div>
+
+  <!-- Glow effect -->
+  <div
+    class={cn(
+      "absolute inset-0 -z-10",
+      "rounded-lg opacity-0 transition-opacity duration-300",
+      "bg-gradient-to-r from-[#3644FE]/30 to-[#B345ED]/30",
+      "blur-xl",
+      isHovered && "opacity-100"
+    )}
+  />
 </button>

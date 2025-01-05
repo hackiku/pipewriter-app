@@ -53,7 +53,37 @@ export const initialContent: ContentStructure = {
 							type: 'text',
 							value: 'Native Docs app',
 							path: ['features', 'blurbs', 0, 'description']
-						}
+						},
+						{
+							type: 'emoji',
+							value: '🎨',
+							path: ['features', 'blurbs', 1, 'emoji']
+						},
+						{
+							type: 'h3',
+							value: 'SaaS B2B looks',
+							path: ['features', 'blurbs', 1, 'title']
+						},
+						{
+							type: 'text',
+							value: 'Ultra polished templates',
+							path: ['features', 'blurbs', 1, 'description']
+						},
+						{
+							type: 'emoji',
+							value: '✏️',
+							path: ['features', 'blurbs', 2, 'emoji']
+						},
+						{
+							type: 'h3',
+							value: 'Writer\'s IDE',
+							path: ['features', 'blurbs', 2, 'title']
+						},
+						{
+							type: 'text',
+							value: 'Write Words + UX',
+							path: ['features', 'blurbs', 2, 'description']
+						},
 					]
 				},
 			]
