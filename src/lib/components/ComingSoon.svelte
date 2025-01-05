@@ -42,7 +42,18 @@
         </div>
 
         <EmailForm size="sm" />
-        <EarlyAccessButton />
+        
+				<hr>
+
+				<div class="md:w-3/4">
+					<EarlyAccessButton 
+						text="Get Early Access"
+						showIcon={true}
+						showPrice={true}
+						size='md'
+					/>
+				</div>
+				
       </div>
     </div>
   </div>

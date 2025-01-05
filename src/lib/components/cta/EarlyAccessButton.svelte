@@ -12,7 +12,7 @@
   export let fullWidth = false;
   export let source = "default";
   export let iconOnly = false;
-  export let text = "Get Bundle";
+  export let text = "Get Access";
   export let showPrice = false;
   export let price = "$59";
   export let useCart = false;
