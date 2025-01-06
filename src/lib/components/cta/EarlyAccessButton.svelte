@@ -87,7 +87,7 @@
         <span class={dimensions.text}>{text}</span>
         
         {#if showPrice}
-          <span class="ml-3 text-white/50 font-normal">— {price}</span>
+          <span class="ml-3 text-white/50 font-normal">{price}</span>
         {/if}
       </div>
     {/if}
