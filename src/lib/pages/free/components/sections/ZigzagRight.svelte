@@ -19,23 +19,23 @@
     class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
     in:fade={{ duration: 300 }}
   >
-    <!-- Media Container (Now First) -->
+    <!-- Media Container with Gradient Background -->
     <div 
       class="relative md:order-1"
       in:fly={{ x: -20, duration: 300, delay: 150, easing: quintOut }}
     >
-      <!-- Striped Gradient Shadow -->
+      <!-- Striped Gradient Background -->
       <div 
-        class="absolute -right-2 -top-2 -left-2 -bottom-2 rounded-2xl overflow-hidden opacity-50"
+        class="absolute -inset-4 rounded-2xl overflow-hidden opacity-40"
         style="
           background: repeating-linear-gradient(
             45deg,
-            rgba(54, 68, 254, 0.35),
-            rgba(179, 69, 237, 0.15) 25%,
-            transparent 25%,
-            transparent 50%
+            rgba(54, 68, 254, 0.15),
+            rgba(179, 69, 237, 0.08) 10%,
+            transparent 10%,
+            transparent 20%
           );
-          background-size: 32px 32px;
+          background-size: 40px 40px;
         "
       />
 
@@ -52,17 +52,10 @@
           class="absolute inset-0"
           style="background: linear-gradient(45deg, transparent 70%, rgba(54, 68, 254, 0.1) 85%, rgba(179, 69, 237, 0.15))"
         />
-
-        <!-- Tools Pill -->
-        <div class="absolute -bottom-4 -right-4 flex items-center gap-4 px-6 py-3 bg-background rounded-full shadow-lg border">
-          <img src="/tools/google-docs.svg" alt="Google Docs" class="w-8 h-8">
-          <div class="w-px h-6 bg-border"></div>
-          <img src="/tools/google-apps-script.svg" alt="Google Apps Script" class="w-8 h-8">
-        </div>
       </div>
     </div>
 
-    <!-- Text Content (Now Second) -->
+    <!-- Text Content -->
     <div 
       class="flex flex-col space-y-6 md:max-w-[100%] px-8 md:px-12 md:order-2"
       in:fly={{ x: 20, duration: 300, delay: 300, easing: quintOut }}
@@ -79,7 +72,7 @@
         </Styles>
         
         <Styles sectionId="zigzag-right-subheading">
-          <h2 class="text-4xl md:text-5xl font-semibold leading-tight">
+          <h2 class="text-4xl md:text-5xl font-medium leading-tight">
             <Editable
               path={['zigzag-right', 'subheading']}
               value={subheadingText}
@@ -105,7 +98,7 @@
 <style>
   @keyframes slideStripes {
     from { background-position: 0 0; }
-    to { background-position: 32px 32px; }
+    to { background-position: 40px 40px; }
   }
 
   .relative:hover > div:first-child {
