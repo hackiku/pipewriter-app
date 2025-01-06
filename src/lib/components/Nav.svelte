@@ -84,7 +84,7 @@
           {/each}
         </div>
         
-        <div class="hidden md:flex items-center gap-6">
+        <div class="hidden md:flex items-center gap-4">
           <Button
             on:click={toggleMode}
             variant="outline"

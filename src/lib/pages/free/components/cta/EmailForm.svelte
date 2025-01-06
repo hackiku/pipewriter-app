@@ -6,6 +6,8 @@
   import { contentStore } from '../../stores/contentStore';
   import { exportStore } from '../../stores/exportStore';
 
+	import Settings from './Settings.svelte'
+
   export let buttonText = "Send My Template";
   export let size: "sm" | "default" = "default";
   export let wrap = false;
@@ -125,7 +127,7 @@
     </div>
 
     <div class={wrap ? "w-full" : "w-full sm:w-auto"}>
-      <button
+			<button
         type="submit"
         class={buttonClass}
         disabled={!email.trim() || isSubmitting}
@@ -139,6 +141,7 @@
         />
       </button>
     </div>
+		<Settings />
   </form>
 
   {#if errorMessage}
