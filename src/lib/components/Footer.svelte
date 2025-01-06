@@ -102,7 +102,7 @@
 
 			<!-- Newsletter - Spans full width on mobile, spans remaining space on larger screens -->
 			<div class="md:col-span-2 lg:col-span-4 lg:pl-4">
-				<h4 class="text-lg font-medium mb-4">UX-up your writerly inbox</h4>
+				<h4 class="text-lg font-medium mb-4">UX-up your inbox</h4>
 				<EmailForm size="sm" wrap={true} />
 			</div>
 		</div>
