@@ -29,7 +29,7 @@
             <Editable
               path={['cta', 'headline']}
               value={headlineText}
-              className="text-4xl md:text-5xl lg:text-6xl font-semibold tracking-tight leading-[1.1]"
+              className="text-4xl md:text-5xl lg:text-6xl font-medium tracking-tight leading-[1.1]"
             />
           </h2>
         </div>
@@ -60,7 +60,7 @@
               <Editable
                 path={['cta', 'note']}
                 value={noteText}
-                className="text-sm text-muted-foreground"
+                className="text-sm text-muted-foreground opacity-70"
               />
             </p>
           </Styles>

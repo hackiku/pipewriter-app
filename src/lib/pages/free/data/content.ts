@@ -130,22 +130,22 @@ export const initialContent: ContentStructure = {
 			elements: [
 				{
 					type: 'h2',
-					value: 'Beta Launch Special — $59 One-Time (Until Jan 10th)',
+					value: 'Try Writer-First Wireframing',
 					path: ['cta', 'headline']
 				},
 				{
 					type: 'text',
-					value: 'Join the first wave of writer-first wireframers for a one-off fee',
+					value: 'Get lifetime access to all Google Docs and scripts for $59 early bird.',
 					path: ['cta', 'subheading']
 				},
 				{
 					type: 'button',
-					value: 'Docs Bundle 40% OFF',
+					value: 'Free Export',
 					path: ['cta', 'buttonText']
 				},
 				{
 					type: 'label',
-					value: 'Old Template Users Get 50% OFF! Check your email',
+					value: 'Old template user? Check your email for 70% OFF!',
 					path: ['cta', 'note']
 				}
 			]
