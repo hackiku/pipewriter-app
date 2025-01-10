@@ -9,7 +9,7 @@
 	// content
 	import BeforeAfter from "./content/BeforeAfter.svelte";
 	import Process from "./content/Process.svelte";
-	import Products from "./content/Products.svelte";
+	import Products from "./components/products/Products.svelte";
 	import About from "./content/About.svelte";
 	// proof
 	import StackIcons from "./components/proof/StackIcons.svelte";
@@ -77,24 +77,29 @@
 			</div>
 		</section>
 
-		<section class="">
+		<section class="mb-36">
 			<Testimonials />
 		</section>
 
 
-		<!-- About Section -->
-		<section class="pb-24 relative border-t border-border/50 bg-black/30 dark:bg-white/[0.03]">
-			<div class="flex flex-col items-center gap-4">
-				<div class="w-12 h-12 rounded-full bg-muted/30 
-										flex items-center justify-center">
-					<span class="text-2xl font-serif italic">?</span>
-				</div>
-				<p class="text-sm text-muted-foreground">Wait, where's the space?</p>
-			</div>
+<!-- About Section -->
+<section class="relative border-t border-border/50 bg-black/30 dark:bg-white/[0.03]">
+  <!-- Tab protruding from section -->
+  <div class="absolute left-1/2 -translate-x-1/2 -translate-y-full">
+    <div class="flex flex-col items-center gap-4 px-8 pt-4 pb-6 
+                rounded-t-2xl border-t border-x border-border/50 
+                bg-black/30 dark:bg-white/[0.03]">
+      <div class="w-12 h-12 rounded-full bg-muted/30 
+                  flex items-center justify-center">
+        <span class="text-2xl font-serif italic">?</span>
+      </div>
+      <p class="text-sm text-muted-foreground">Wait, where's the space?</p>
+    </div>
+  </div>
 
-			<About />
-			<Products />
-		</section>
+  <About />
+  <Products />
+</section>
 
 		<!-- Pricing Section with Form -->
 		<section class="py-24 relative border-t">
@@ -109,9 +114,9 @@
 							<span class="text-sm font-medium">Pricing</span>
 						</div>
 
-						<h2 class="text-5xl font-normal">Get your Chute Repack'd</h2>
+						<h2 class="text-5xl font-normal">The Spice must flow</h2>
 						<p class="text-xl text-muted-foreground">
-							Simple pricing, custom redesign, much writer.
+							Your Landing 'Chute, Repack'd
 						</p>
 					</div>
 				</div>

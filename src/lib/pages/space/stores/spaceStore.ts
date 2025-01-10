@@ -4,12 +4,16 @@ import { writable } from 'svelte/store';
 interface SpaceState {
 	scrollY: number;
 	parallaxOffset: number;
+	activeProductIndex: number | null;
+	previousProductIndex: number | null;
 }
 
 function createSpaceStore() {
 	const { subscribe, set, update } = writable<SpaceState>({
 		scrollY: 0,
-		parallaxOffset: 0
+		parallaxOffset: 0,
+		activeProductIndex: null,
+		previousProductIndex: null
 	});
 
 	return {
@@ -19,7 +23,17 @@ function createSpaceStore() {
 			scrollY: y,
 			parallaxOffset: y * 0.1
 		})),
-		reset: () => set({ scrollY: 0, parallaxOffset: 0 })
+		setActiveProduct: (index: number | null) => update(state => ({
+			...state,
+			previousProductIndex: state.activeProductIndex,
+			activeProductIndex: index
+		})),
+		reset: () => set({
+			scrollY: 0,
+			parallaxOffset: 0,
+			activeProductIndex: null,
+			previousProductIndex: null
+		})
 	};
 }
 

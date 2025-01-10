@@ -1,5 +1,4 @@
-<!-- src/lib/pages/space/About.svelte -->
-
+<!-- src/lib/pages/space/content/About.svelte -->
 <script lang="ts">
   import { Rocket, Code, Send } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
@@ -7,14 +6,31 @@
   let showMore = false;
 </script>
 
-<div class="rounded-t-3xl">
-  <div class="container py-24">
+<div class="relative">
+  <!-- Tilted Images -->
+  <div class="absolute -left-24 -top-12 w-64 h-64 rotate-[-6deg] opacity-80">
+    <img
+      src="/api/placeholder/400/400"
+      alt="Space coding setup"
+      class="w-full h-full object-cover rounded-lg shadow-xl bg-blue-300/5"
+    />
+  </div>
+  
+  <div class="absolute -right-24 bottom-24 w-64 h-64 rotate-[8deg] opacity-80">
+    <img
+      src="/api/placeholder/400/400"
+      alt="Mission control desk"
+      class="w-full h-full object-cover rounded-lg shadow-xl bg-blue-300/5"
+    />
+  </div>
+
+  <div class="container pt-24 pb-32 relative">
     <div class="max-w-3xl mx-auto space-y-8">
       <!-- TLDR Version -->
       <p class="text-2xl text-balance leading-relaxed">
         I'm Ivan 👋 copywriter turned dev. 
-				I love building techy products like Pipewriter here,
-				and a bunch of side projects and flight training.
+        I love building techy products like Pipewriter here,
+        and a bunch of side projects and flight training.
       </p>
 
       <!-- Expanded Story -->
@@ -43,11 +59,5 @@
         {showMore ? 'Show Less' : 'Read More'}
       </Button>
     </div>
-  </div>
-
-  <!-- Products Intro -->
-  <div class="container pb-12">
-    <h3 class="text-center text-2xl font-semibold mb-8">Building for the Space Age</h3>
-    <!-- Products component goes here -->
   </div>
 </div>

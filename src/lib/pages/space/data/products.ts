@@ -1,8 +1,8 @@
 // src/lib/pages/space/data/products.ts
 import type { Product } from '../types';
-import { Plane, Stars, Code } from 'lucide-svelte'
+import { Plane, Stars, Code } from 'lucide-svelte';
 
-export const products = [
+export const products: Product[] = [
 	{
 		title: "6Pack",
 		description: "Open-source portable flight instrument suite for pilots and their cats. Arduino + React Native magic.",
@@ -25,6 +25,6 @@ export const products = [
 		icon: Code,
 		status: "In Development",
 		link: "#",
-		image: "/api/placeholder/800/400" // Keeping placeholder for now
+		image: "/api/placeholder/800/400"
 	}
 ];

@@ -3,7 +3,7 @@
   import { Plane, Stars, Code, ExternalLink } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
   import { fade, slide } from 'svelte/transition';
-	import { products } from '../data/products'
+  import { products } from '../data/products';
 
   let selectedIndex: number | null = null;
 
@@ -12,8 +12,8 @@
   }
 </script>
 
-<div class="container max-w-4xl mx-auto"> 
-  <div class="space-y-4">
+<div class="container max-w-4xl mx-auto">
+  <div class="relative space-y-4">
     {#each products as product, i}
       <div 
         class="relative {selectedIndex !== null && selectedIndex !== i ? '-translate-y-8 opacity-50' : ''} 
@@ -43,7 +43,7 @@
             <div class="p-8">
               <div class="flex items-start justify-between gap-4 mb-4">
                 <div class="w-12 h-12 rounded-lg bg-primary/10 
-                            flex items-center justify-center shrink-0">
+                           flex items-center justify-center shrink-0">
                   <svelte:component 
                     this={product.icon} 
                     class="w-6 h-6 text-primary" 
@@ -51,7 +51,7 @@
                 </div>
                 
                 <span class="inline-block px-2 py-1 text-xs rounded-full 
-                             bg-muted text-muted-foreground">
+                           bg-muted text-muted-foreground">
                   {product.status}
                 </span>
               </div>
