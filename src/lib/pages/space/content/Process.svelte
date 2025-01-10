@@ -42,7 +42,7 @@
   });
 </script>
 
-<div class="container grid grid-cols-12 gap-8 lg:gap-16" bind:this={containerRef}>
+<div class="container md:px-20 grid grid-cols-12 gap-8 lg:gap-16" bind:this={containerRef}>
   <!-- Left: Process Steps -->
   <div class="col-span-12 lg:col-span-5 space-y-44">
     {#if visible}

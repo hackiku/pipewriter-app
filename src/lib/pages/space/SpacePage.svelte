@@ -42,7 +42,7 @@
 
 		<section class="py-24 relative">
 			<div class="container">
-				<Problem />
+				<!-- <Problem /> -->
 			</div>
 		</section>
 
@@ -81,31 +81,17 @@
 			<Testimonials />
 		</section>
 
-		<!-- Proof Section -->
-		<section class="py-24 relative border-t border-border/50">
-			<div class="container">
-				<div class="flex justify-start mb-16">
-					<div class="w-3/5 space-y-4">
-						<div
-							class="inline-flex items-center gap-1.5 px-3 py-1
-                        rounded-full bg-primary/10 text-primary border border-primary/20"
-						>
-							<Rocket class="w-4 h-4" />
-							<span class="text-sm font-medium">Why Space?</span>
-						</div>
-
-						<h2 class="text-5xl font-normal">UX for the space race</h2>
-						<p class="text-xl text-muted-foreground">
-							Building tools for the next generation of space exploration.
-							Here's what we're working on:
-						</p>
-					</div>
-				</div>
-			</div>
-		</section>
 
 		<!-- About Section -->
-		<section class="py-2 relative border-t border-border/50">
+		<section class="pb-24 relative border-t border-border/50 bg-black/30 dark:bg-white/[0.03]">
+			<div class="flex flex-col items-center gap-4">
+				<div class="w-12 h-12 rounded-full bg-muted/30 
+										flex items-center justify-center">
+					<span class="text-2xl font-serif italic">?</span>
+				</div>
+				<p class="text-sm text-muted-foreground">Wait, where's the space?</p>
+			</div>
+
 			<About />
 			<Products />
 		</section>
@@ -134,11 +120,6 @@
 					<!-- Left: Form -->
 					<div class="space-y-8">
 						<div>
-							<!-- <h2 class="text-4xl font-bold mb-4">Get a Chute Repack</h2>
-							<p class="text-xl text-muted-foreground">
-								Tell us about your project and we'll get back to you within 24
-								hours.
-							</p> -->
 						</div>
 
 						<SpaceForm />

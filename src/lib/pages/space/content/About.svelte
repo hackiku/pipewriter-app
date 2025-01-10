@@ -2,54 +2,52 @@
 
 <script lang="ts">
   import { Rocket, Code, Send } from "lucide-svelte";
+  import { Button } from "$lib/components/ui/button";
+  
+  let showMore = false;
 </script>
 
-<div class="container">
-  <div class="grid lg:grid-cols-2 gap-16 items-center">
-    <!-- Content -->
-    <div class="space-y-6">
-      <h3 class="text-2xl font-semibold">Hi, I'm Ivan 👋</h3>
-      
-      <div class="space-y-4 text-muted-foreground">
-        <p class="text-lg">
-          After years in SaaS and technical writing, I found my true calling in aerospace UX. 
-          Now I'm building tools that help space companies communicate their technical excellence.
-        </p>
-      </div>
+<div class="rounded-t-3xl">
+  <div class="container py-24">
+    <div class="max-w-3xl mx-auto space-y-8">
+      <!-- TLDR Version -->
+      <p class="text-2xl text-balance leading-relaxed">
+        I'm Ivan 👋 copywriter turned dev. 
+				I love building techy products like Pipewriter here,
+				and a bunch of side projects and flight training.
+      </p>
 
-      <div class="grid grid-cols-2 gap-4">
-        <div class="space-y-2">
-          <div class="flex items-center gap-2 text-primary">
-            <Code class="w-5 h-5" />
-            <span class="font-medium">Clean Code</span>
-          </div>
-          <p class="text-sm text-muted-foreground">
-            Pure, semantic code in your stack of choice
+      <!-- Expanded Story -->
+      {#if showMore}
+        <div class="space-y-6 text-muted-foreground">
+          <p>
+            My journey started in SaaS copywriting, where I helped technical founders 
+            communicate complex products. This evolved into UX writing and eventually 
+            full-stack development as I built Pipewriter to solve common content workflow problems.
+          </p>
+          
+          <p>
+            On the side, I'm pursuing my PPL(A) and an aerospace engineering master's, 
+            channeling my lifelong fascination with flight into practical knowledge. 
+            This intersection of technical writing, software, and aerospace led me to build 
+            tools that make space tech more accessible.
           </p>
         </div>
-        
-        <div class="space-y-2">
-          <div class="flex items-center gap-2 text-primary">
-            <Rocket class="w-5 h-5" />
-            <span class="font-medium">Space Focus</span>
-          </div>
-          <p class="text-sm text-muted-foreground">
-            Deep understanding of aerospace tech
-          </p>
-        </div>
-      </div>
-    </div>
+      {/if}
 
-    <!-- Image -->
-    <div class="relative">
-      <div class="absolute inset-0 bg-muted/30 rounded-2xl rotate-3" />
-      <div class="relative -rotate-3">
-        <img 
-          src="/images/space-desk.jpg" 
-          alt="Workspace with space memorabilia"
-          class="w-full aspect-[4/3] object-cover rounded-2xl"
-        />
-      </div>
+      <Button 
+        variant="ghost" 
+        on:click={() => showMore = !showMore}
+        class="text-primary"
+      >
+        {showMore ? 'Show Less' : 'Read More'}
+      </Button>
     </div>
+  </div>
+
+  <!-- Products Intro -->
+  <div class="container pb-12">
+    <h3 class="text-center text-2xl font-semibold mb-8">Building for the Space Age</h3>
+    <!-- Products component goes here -->
   </div>
 </div>

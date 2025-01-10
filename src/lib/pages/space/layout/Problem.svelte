@@ -74,7 +74,8 @@
     <div class="sticky top-1/3 max-w-xl mx-auto text-center z-10">
         <h2 class="text-4xl font-medium leading-snug">
             Your rockets are cutting-edge.
-            Your website is from 1969.
+            Your website is from 1969. Let's fix that with the
+						Power of UX.
         </h2>
     </div>
 </div>

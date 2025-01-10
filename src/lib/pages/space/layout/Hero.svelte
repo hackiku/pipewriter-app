@@ -30,14 +30,13 @@
 			<!-- Left Content -->
 			<div class="col-span-12 lg:col-span-6 lg:col-start-2">
 				<h1
-					class="text-4xl sm:text-5xl md:text-7xl font-regular leading-tight mb-6"
+					class="text-5xl sm:text-5xl md:text-7xl font-regular leading-tight mb-6"
 				>
-					Landing Pages for the Space Age
+					Space Age Landing Pages
 				</h1>
 
-				<p class="text-2xl text-muted-foreground mb-8 leading-relaxed">
-					Full redesign for your aerospace/space startup website. In your code
-					stack.
+				<p class="text-2xl md:text-3xl text-muted-foreground mb-8 leading-relaxed">
+					Website redesigns for space startups. Your code stack, full-throttle UX.
 				</p>
 
 				<SpaceDrawer>
