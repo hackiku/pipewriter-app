@@ -12,46 +12,50 @@
   let showModal = false;
   
   $: isActive = $spaceStore.activeProductIndex === index;
-  $: isInactive = $spaceStore.activeProductIndex !== null && !isActive;
+  $: isNext = index === $spaceStore.activeProductIndex + 1;
+  $: isPrev = index < $spaceStore.activeProductIndex;
   
   function handleClick() {
+    if (!isActive && !isPrev) {
+      spaceStore.setActiveProduct(index);
+    } else if (isActive) {
+      showModal = true;
+    }
+  }
+
+  function handleContentClick() {
     if (isActive) {
       showModal = true;
-    } else {
-      spaceStore.setActiveProduct(index);
     }
   }
 </script>
 
 <div 
-  class="relative transition-all duration-500 ease-out"
-  class:transform-inactive="{isInactive}"
-  class:transform-deeper="{index > ($spaceStore.activeProductIndex ?? -1) + 1}"
-  style="z-index: {50 - index}; margin-top: {index === 0 ? '0' : '-12rem'}"
+  class="relative transition-all duration-500 ease-out cursor-pointer"
+  class:transform-small={isPrev}
+  class:transform-medium={isNext}
+  style="z-index: {50 - Math.abs(index - $spaceStore.activeProductIndex)}; 
+         margin-top: {index === 0 ? '0' : '-12rem'}"
+  on:click={handleClick}
 >
-  <button
-    on:click={handleClick}
-    class="w-full text-left focus:outline-none 
-           focus-visible:ring-2 focus-visible:ring-primary"
+  <div 
+    class="group relative rounded-xl border overflow-hidden shadow-lg
+           {isActive ? 'bg-card' : 'bg-card/80'}
+           hover:shadow-xl transition-all duration-300
+           {isActive ? 'scale-100' : 'hover:scale-[1.02]'}"
   >
-    <div 
-      class="group relative rounded-xl border bg-card overflow-hidden 
-             shadow-lg hover:shadow-xl transition-all duration-300"
-      class:scale-102={isActive}
-    >
-      <!-- Image -->
-      <div class="aspect-[21/9] overflow-hidden">
-        <img 
-          src={product.image} 
-          alt={product.title}
-          class="w-full h-full object-cover transition-transform duration-300
-                 group-hover:scale-105"
-        />
-      </div>
-      
-      <CardContent {product} {index} onClick={handleClick} />
+    <!-- Laptop Aspect Ratio Container -->
+    <div class="aspect-[16/10] w-full relative overflow-hidden">
+      <img 
+        src={product.image} 
+        alt={product.title}
+        class="absolute inset-0 w-full h-full object-cover 
+               transition-transform duration-300
+               group-hover:scale-105"
+      />
+      <CardContent {product} {index} onClick={handleContentClick} />
     </div>
-  </button>
+  </div>
 </div>
 
 {#if showModal}
@@ -62,17 +66,13 @@
 {/if}
 
 <style>
-  .scale-102 {
-    transform: scale(1.02);
-  }
-  
-  .transform-inactive {
-    transform: translateY(-1.5rem) scale(0.95);
-    opacity: 0.75;
-  }
-  
-  .transform-deeper {
-    transform: translateY(-3rem) scale(0.9);
+  .transform-small {
+    transform: translateY(-2rem) scale(0.85);
     opacity: 0.5;
+  }
+  
+  .transform-medium {
+    transform: translateY(-1rem) scale(0.92);
+    opacity: 0.7;
   }
 </style>

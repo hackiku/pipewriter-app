@@ -12,8 +12,9 @@ export interface Testimonial {
 export interface Product {
 	title: string;
 	description: string;
-	icon: typeof LucideIcon;
+	longDescription: string;
 	status: "Early Alpha" | "Coming Soon" | "In Development" | "Beta" | "Live";
 	link: string;
 	image: string;
+	tech: string[];
 }

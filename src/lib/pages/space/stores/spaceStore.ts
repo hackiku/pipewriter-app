@@ -4,7 +4,7 @@ import { writable } from 'svelte/store';
 interface SpaceState {
 	scrollY: number;
 	parallaxOffset: number;
-	activeProductIndex: number | null;
+	activeProductIndex: number;  // Changed to be 0 by default
 	previousProductIndex: number | null;
 }
 
@@ -12,7 +12,7 @@ function createSpaceStore() {
 	const { subscribe, set, update } = writable<SpaceState>({
 		scrollY: 0,
 		parallaxOffset: 0,
-		activeProductIndex: null,
+		activeProductIndex: 0,  // First card active by default
 		previousProductIndex: null
 	});
 
@@ -23,7 +23,7 @@ function createSpaceStore() {
 			scrollY: y,
 			parallaxOffset: y * 0.1
 		})),
-		setActiveProduct: (index: number | null) => update(state => ({
+		setActiveProduct: (index: number) => update(state => ({
 			...state,
 			previousProductIndex: state.activeProductIndex,
 			activeProductIndex: index
@@ -31,7 +31,7 @@ function createSpaceStore() {
 		reset: () => set({
 			scrollY: 0,
 			parallaxOffset: 0,
-			activeProductIndex: null,
+			activeProductIndex: 0,
 			previousProductIndex: null
 		})
 	};
