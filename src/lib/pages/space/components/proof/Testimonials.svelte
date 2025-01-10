@@ -16,25 +16,25 @@
         style="transform: rotate({-1 + Math.random() * 2}deg)"
       >
         <div class="space-y-4">
-          <div class="flex gap-4 items-center">
-            <div class="w-12 h-12 rounded-full bg-muted overflow-hidden">
-              <img 
-                src={card.imgSrc} 
-                alt={card.author}
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div>
-              <div class="font-semibold">{card.author}</div>
-              <div class="text-sm text-muted-foreground">
-                {card.role}, {card.company}
-              </div>
-            </div>
-          </div>
-          
-          <blockquote class="text-muted-foreground">
-            "{card.quote}"
+					
+					<blockquote class="text-muted-foreground">
+						"{card.quote}"
           </blockquote>
+					<div class="flex gap-4 items-center">
+						<div class="w-12 h-12 rounded-full bg-muted overflow-hidden">
+							<img 
+								src={card.imgSrc} 
+								alt={card.author}
+								class="w-full h-full object-cover"
+							/>
+						</div>
+						<div>
+							<div class="font-semibold">{card.author}</div>
+							<div class="text-sm text-muted-foreground">
+								{card.role}, {card.company}
+							</div>
+						</div>
+					</div>
         </div>
       </div>
     {/each}

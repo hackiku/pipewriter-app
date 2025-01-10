@@ -18,6 +18,9 @@ Just finished building something that changes how writers create websites: insta
 
 Our wireframes use headings for styling and consistency. These structural elements aren't just for organization - they're the blueprint for your final website. With our conversion script, each heading becomes a perfectly styled component in your live site.
 
+https://www.webascender.com/blog/how-to-build-a-website-wireframe-using-google-docs/
+
+
 ## Smart AI Conversion
 
 The magic happens through a specialized prompt that understands document structure and design intent. Add comments to guide the styling, paste your content, and watch as it transforms into clean, production-ready HTML with Tailwind CSS classes.

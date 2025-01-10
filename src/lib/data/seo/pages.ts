@@ -20,7 +20,7 @@ export const pageSEO: Record<string, SEOData | ((data: any) => SEOData)> = {
 	},
 	'/space': {
 		title: "Chute Repack — Aerospace Website Redesign & Dev",
-		description: "Custom landing page redesigns for space and aerospace companies. Get your technical content translated into clean, semantic code with expert UX writing. 72-hour turnaround.",
+		description: "Orbitally-converting landing pages for space & aerospace industry. SaaS grade UX writing and design, on-brand, delivered in your code stack.",
 		type: "website",
 		image: "/og-space.png",
 		structuredData: {

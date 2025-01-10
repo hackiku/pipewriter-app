@@ -103,7 +103,7 @@ export const initialContent: ContentStructure = {
 					elements: [
 						{
 							type: 'quote',
-							value: "I've never seen a tool like this that works natively in Docs...",
+							value: "I've never seen a tool like this that works natively in Docs. I've been building wireframes by hand using tables, even for five - figure contracts. This changes everything for us UX writers",
 							path: ['testimonials', 'cards', 0, 'quote']
 						},
 						{
@@ -122,7 +122,57 @@ export const initialContent: ContentStructure = {
 							path: ['testimonials', 'cards', 0, 'role']
 						}
 					]
-				}
+				},
+				{
+					id: 'testimonial-2',
+					elements: [
+						{
+							type: 'quote',
+							value: "Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask. Plus, for me it's easier bcs I don't have to write long copies just to impress them.",
+							path: ['testimonials', 'cards', 1, 'quote']
+						},
+						{
+							type: 'text',
+							value: 'Warren',
+							path: ['testimonials', 'cards', 1, 'firstName']
+						},
+						{
+							type: 'text',
+							value: 'West',
+							path: ['testimonials', 'cards', 1, 'lastName']
+						},
+						{
+							type: 'label',
+							value: 'Copywriter, AppSumo',
+							path: ['testimonials', 'cards', 1, 'role']
+						}
+					]
+				},
+				{
+					id: 'testimonial-1',
+					elements: [
+						{
+							type: 'quote',
+							value: "Thanks Ivan! this looks super cool and is probably 1000x better than the wireframing I've been doing in Gdocs",
+							path: ['testimonials', 'cards', 2, 'quote']
+						},
+						{
+							type: 'text',
+							value: 'Warren',
+							path: ['testimonials', 'cards', 2, 'firstName']
+						},
+						{
+							type: 'text',
+							value: 'West',
+							path: ['testimonials', 'cards', 2, 'lastName']
+						},
+						{
+							type: 'label',
+							value: 'Copywriter, AppSumo',
+							path: ['testimonials', 'cards', 2, 'role']
+						}
+					]
+				},
 			]
 		},
 		{

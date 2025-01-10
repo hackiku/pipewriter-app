@@ -18,7 +18,7 @@
       case 'html':
         return { 
           start: `<${element.type}>`, 
-          end: `</${element.type}>`
+          end: `</${element.type}>` 
         };
       case 'tailwind':
         return { 

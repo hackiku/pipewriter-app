@@ -11,7 +11,7 @@ import {
 } from 'lucide-svelte';
 
 // Default visible sections on page load
-export const defaultVisibleSections = ['hero', 'features', 'video', 'cta'];
+export const defaultVisibleSections = ['hero', 'features', 'video', 'testimonials' ,'cta'];
 
 // Available section configurations
 export const elementConfig: ElementConfig[] = [

@@ -1,4 +1,5 @@
 <!-- BeforeAfter.svelte -->
+<!-- https://www.site-shot.com/?utm_source=chatgpt.com -->
 <script lang="ts">
   import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
