@@ -1,2 +1,2 @@
-// src/lib/pages/space/repacks/firefly/data/index.ts
+// src/lib/(space)/space/repacks/firefly/data/index.ts
 

@@ -18,11 +18,11 @@
 
 </script>
 
-<div class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b">
+<!-- <div class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b">
   <div class="container py-4">
     <Breadcrumbs items={breadcrumbs} />
   </div>
-</div>
+</div> -->
 
 <!-- Add padding to account for fixed header -->
 <div class="pt-16">

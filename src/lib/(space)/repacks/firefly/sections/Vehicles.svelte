@@ -12,7 +12,7 @@
             ALPHA & MLV
           </h2>
           <h3 class="text-4xl font-light text-white">
-            Launch Vehicles
+            Launch Vehicles - responsive space
           </h3>
         </div>
 

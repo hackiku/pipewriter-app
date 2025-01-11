@@ -1,0 +1,1981 @@
+Planning and executing a rocket launch is normally 
+a slow process. An astronomically expensive and  
+
+challenging logistical operation. However, last 
+year the industry took a major leap forward. 
+
+With only 24 hours notice from the United 
+States Space Force, Firefly managed to  
+
+integrate a payload to its Alpha rocket, plan its 
+launch profile, get their rocket positioned and  
+
+fueled on the launch pad, and finally launched. 
+Shattering the previous 21 day record. [REF] 
+
+All in an effort to carve out a niche for itself 
+in the highly competitive space launch market,  
+
+which is currently dominated by SpaceX.
+SpaceX is launching more into space than any  
+
+other company, thanks to reusable rockets driving 
+down the price of launch, but that doesn’t mean  
+
+there isn’t space for others in the market.
+Being able to launch at a moment's notice is  
+
+a really attractive capability. For a commercial 
+company, say you have a satellite ready to launch  
+
+that will generate a million dollars in 
+revenue every month when it's in orbit, 
+
+but the next available launch for a 
+rideshare with SpaceX is 12 months away.  
+
+That’s 12 million dollars of lost revenue.
+That’s vastly more expensive than the cost  
+
+of launch for most small to medium 
+sized satellites. In a case like that,  
+
+waiting for the cheaper launch price doesn’t make 
+sense. The cost of opportunity is just too high. 
+
+Then of course, there are the military 
+applications, which is why the United States  
+
+Space Force contracted Firefly for the Victus 
+Nox mission. We don’t know what was on board  
+
+that mission, but we do know why militaries are 
+interested in getting things into space quickly. 
+
+If an enemy destroys a satellite critical 
+to your military operations, you want to  
+
+replace it quickly. If a foreign military places 
+a satellite or even a weapon into orbit, and you  
+
+don’t know what it is, you want to be able to send 
+something up to take a closer look, or if world  
+
+war 3 has broken out, potentially destroy it.
+Firefly has focused the engineering efforts  
+
+of their Alpha Launch Vehicle with this valuable 
+niche in mind, and have come up with some unique  
+
+designs to put them ahead of the competition. To 
+learn more I spoke with Alpha’s Chief Engineering,  
+
+Jordi Garcia.
+Brian 
+
+One of the mission requirements was responsiveness 
+and it's what we're talking about today is how  
+
+you've designed the rocket around kind of things 
+like the Victus Nox mission of just being able to  
+
+launch within 24 hours. What engineering designs 
+can you talk about that help towards that mission.
+
+Jordi Garcia
+Yeah, so when we  
+
+conceived Alpha from the beginning, 
+we're already targeting to go quick  
+
+and be able to actually load the 
+tank and fly as fast as possible.
+
+So for example, some of the requirements 
+is that you want to make sure that you can  
+
+load your vehicle fast and detank 
+your vehicle fast if you need to.
+
+Let's say you have to scrub and go the next day, 
+you want to make sure it doesn't take you 12,  
+
+16 hours. So there's a lot of design decisions 
+that you need to make from the beginning,  
+
+making sure that your quick disconnect 
+lines, your fill lines are sized,  
+
+your vent lines in a way that you 
+can fill. My target is 30 minutes.
+
+When I started, it's like engineers, in 30 
+minutes, I want a vehicle ready to go, right.
+
+Unlike loaded, right.
+
+Brian
+And are there any difficulties  
+
+around pump rates and volumes. Is 
+there any hard limit you hit that,  
+
+or is it you can just size 
+the pump as big as you want.
+
+Jordi Garcia
+No, you can't because  
+
+at the end what you want to 
+get is the most mass to orbit.
+
+So The problem is the bigger I make the lines 
+and the quick disconnects and the valves,  
+
+the heavier it gets. So it's a challenge. If 
+I could load it in 18 hours, I could go very  
+
+slowly and fill it up. Things would be lighter. 
+But then you gotta make that trade.It's like,  
+
+okay, I'm having lines and valves and 
+components that I can take to orbit and  
+
+not do too much performance, but still at the 
+same time be able to fill and detank quickly.
+
+It sounds silly, but one of the requirements that  
+
+we have is like operators cannot 
+work more than 12 hours a day.
+
+So if we want to load, detank, go to sleep and 
+then go again next day because you have a scrub  
+
+when you've got to change something, we need 
+to be able to squeeze all that timeline and  
+
+make it in less than 12 hours to be able to 
+get crew rest and then go again the next day.
+
+Right, so it's something that, and 
+still now we're still polishing,  
+
+the more we load and detank and fly, 
+we learn there's things we can improve.
+
+So we have a lot of design changes coming up to,  
+
+maybe not a lot, but we have some design 
+changes to try to improve our timing.
+
+Brian
+And the  
+
+temperatures of your fuel and 
+oxygen are different, right.
+
+Jordi Garcia
+Correct. Yes,  
+
+yes, yes. It's roughly minus 200 
+and 90, minus 300F. That's one  
+
+big difference that we have from SpaceX, 
+for example, that we are not super cool.
+
+We don't actually chill the liquid oxygen to get 
+it even colder to get more performance, right.
+
+We just get it up to the vehicle and we let it 
+vent to a saturation and at those temperatures,  
+
+well, at those pressures, you achieve 
+the temperature that you want.
+
+Brian
+What are the pros and cons of that?
+
+Jordi Garcia
+The pros of that is that,  
+
+let's say, if we want to hold 
+and wait, you can hold and wait.
+
+If you're super cool because you have 
+to go through a liquid nitrogen system,  
+
+you can load and then you have more 
+performance. You can't remember how  
+
+much. You've got an extra density 
+from that, but you've got to go.
+
+If you wait 30 minutes, 45 minutes, don't 
+know exact timings, but something like that,  
+
+then you have to detank and you have to scrub for 
+the day. For us, as we wanted to make sure that if  
+
+you had, I don't know, a ship or a delay for any 
+reason, that you could still go in an hour or so.
+
+We're taking that performance hit,  
+
+but you're getting some more 
+launch availability from that time.
+
+So Firefly is balancing performance 
+and launch availability. They have  
+
+larger fuel and oxygen lines to allow 
+them to fill their tanks quicker,  
+
+but that means they carry more 
+weight and lose some performance.
+
+This compromise was also made when choosing 
+propellant temperatures. SpaceX uses supercooled  
+
+propellants to gain extra performance 
+through increased density. SpaceX needs  
+
+to save some fuel to land the first stage, 
+so every bit of extra performance is vital.
+
+Firefly has chosen to skip the super cooling 
+step. This brings up an interesting logistic  
+
+problem with the space industry. There 
+are many reasons a launch may be scrubbed.
+
+It’s not uncommon for a fishing vessel 
+to stray into the exclusion zone while  
+
+a rocket is being loaded with propellant. 
+When this happens the launch has to be held  
+
+until the boat is cleared, but time is very 
+much of the essence, especially for SpaceX.
+
+Their super cooled propellant 
+can’t stay super cooled forever,  
+
+so they start loading propellants 35 
+minutes before liftoff. They call this  
+
+a load and go. A delay, like a boat entering 
+the exclusion zone, can be mission critical.
+
+As the propellants begin to 
+warm and lose performance,  
+
+eventually enough performance is lost 
+that they can no longer satisfy mission  
+
+requirements and they need to drain the tanks 
+and wait for another launch opportunity.
+
+This delicate timing became an issue when they won 
+the contract to launch the Crew Dragon to the ISS.  
+
+This load and go method had never been done for 
+a crewed launch before. The Space Shuttle loaded  
+
+its propellant 7 hours before launch, which 
+gave NASA plenty of time to find issues before  
+
+the astronauts got onboard and they had concerns 
+about SpaceX’s load and go method for crew safety.
+
+In 2016, a Falcon 9 carrying a 2 billion 
+dollar Facebook satellite blew up on the  
+
+launch pad during propellant load. 
+The metallic liner of the composite  
+
+overwrapped pressure vessel had buckled, which 
+led to the explosion. Had this been a crewed  
+
+launch something much more valuable than 
+a Facebook satellite would have been lost,  
+
+but NASA eventually approved the load and 
+go method after an extensive safety review.
+
+While Firefly isn’t willingly waiting for 7 
+hours, their warmer propellants can be continually  
+
+topped off as they evaporate without losing any 
+performance. This elongates their launch window.
+
+We saw this in action with the first noise of 
+summer launch attempt on July 1st. When ground  
+
+equipment failed, the launch was aborted, 
+but they simply reset the countdown timer  
+
+and tried a second time shortly after, while 
+topping up the propellants. Unfortunately  
+
+they did not find a solution for the ground 
+equipment before the launch window closed,  
+
+but another opportunity was 
+available the very next day. [REF]
+
+There are other ways to minimize 
+the chances of a scrub too,  
+
+by reducing the complexity of the 
+rocket and increasing reliability.  
+
+The launch of Boeing’s Starliner on the Atlas 
+5 rocket was scrubbed due to faulty valves.
+
+These are natural issues to have, but 
+being able to prototype and test new engine  
+
+components quickly gives you a massive advantage 
+in developing a simpler and more reliable rocket.
+
+This is one of Firefly’s greatest advantages. 
+It’s rare for space companies to have test  
+
+stands close to not only their engineers, 
+but their manufacturing facilities too.
+
+SpaceX’s primary test site is here, in 
+McGregor, Texas. While the majority of  
+
+SpaceX’s engineering staff working on the 
+Falcon 9 and Falcon Heavy are located in  
+
+California. Blue Origin tests their engines 
+at NASA’s Marshall Space Flight Center in  
+
+Huntsville Alabama, while their engineering 
+and manufacturing facilities are in Seattle,  
+
+Washington. Having engineering, manufacturing 
+and testing separated slows down development,  
+
+and makes it harder for engineers to 
+truly get a holistic view of their job.
+
+Firefly’s Headquarters, Manufacturing 
+and Testing Facilities are all  
+
+located just north of Austin, Texas.
+If you are interested in working with them,  
+
+we have just updated our jobs board with 
+all of their open positions. From HR,  
+
+to machinists to launch engineers. You can 
+see all their roles on startpropeller.com 
+
+Firefly’s VP on Engineering had 11 different 
+addresses over 9 years working at other new  
+
+space companies. At Firefly she needs 1.
+I joined her at one of their test stands
+
+Brigette Oakes:
+So my name is Brigette Oakes. I'm the  
+
+vice president of engineering here. I've been with 
+Firefly for five years. So we're actually on our  
+
+test stand one site here. So we have six different 
+test stands that test anything from components  
+
+to full vehicle stages as well as composite 
+structures. So this specific test stand is for  
+
+our, is an engine test stand. So we've tested 
+Reavers here, Lightnings here, Miranda's here,
+
+and what I mean by those engines on 
+the alpha vehicle the first stage is  
+
+powered by four reaver engines this is a 
+reaver engine and then the second stage  
+
+is powered by a lightning engine a single 
+lightning engine which we also test on this.
+
+Brian:
+And you're testing the  
+
+engine here today. What are you testing, like 
+what sort of results are you looking out for.
+
+Bridget Oaks:
+So this specifically is  
+
+one of our development engines so we're probably 
+we're testing every day whether it's this stand or  
+
+another one this actually hot-fired yesterday 
+and we swapped some components around. this  
+
+development campaign. Two things we're looking for 
+here is improved performance on the Reaver engine.  
+
+So what we look for there is different designs 
+on the injector to increase that mixing and that  
+
+c-star efficiency. And then another thing that 
+we're also looking at is improving our reliability  
+
+on the main valves. So there's some unique 
+differences to the LOX main valve on this engine.
+
+Brian:
+
+To get into specifics, the video that we're 
+making is about the Victus NOx mission and  
+
+how a big part of your focus here at Firefly 
+is responsiveness, like quick turn over time.  
+
+Is there any specific designs with your engines 
+that are designed to help with responsiveness?
+
+Bridget Oaks:
+Yeah, absolutely. So  
+
+I think our Alpha vehicle is actually very well 
+suited to responsive space and that market.Most  
+
+of that I think that we pride ourselves on is 
+this tap-off engine cycle technology. So Firefly  
+
+is the first company that's actually flown this 
+engine cycle to orbit and successfully. So what I  
+
+mean by tap-off engine cycle, there are a couple 
+different open cycles that companies will use.
+
+So GG or gas generator cycle is fairly common 
+so that's what Merlin runs on. But and then  
+
+there's also open expander and some other 
+ones. Tap off specifically is unique when  
+
+we compare it to the GG cycle because we 
+don't actually have a separate combustor.
+
+So GG cycle has its own gas generator that 
+operates at a different mixture ratio to  
+
+drive the turbine, so which drives the 
+turbomachinery and the turbo pump that  
+
+takes low pressure propellants to high 
+pressure to combust in the chamber.
+
+We don't have that second combustor. So 
+what we actually do is we siphon off a  
+
+portion of the gas inside the main chamber and 
+that's what actually drives our turbo pump.
+
+And why that's exciting is a GG could be, 
+you know, on a scale of an engine this size,  
+
+maybe an additional component here, uhm 
+that's highly complex, has additional mass,  
+
+we've essentially replaced that with this one and 
+a half inch line down here. So this time, I mean,  
+
+you can see that that's probably, 
+you know, a couple pounds, maybe  
+
+a foot long, and that replaces an entire 
+separate combustor. So it pulls off the  
+
+gas from this chamber up here and then 
+drives that turbine right over here.
+
+So it's more reliable. It's a tube and less 
+mass. So that really helps us put us in a  
+
+good spot for Responsive Space types of missions 
+where they really care about that reliability.
+
+Brian:
+That must  
+
+be difficult. It is so much simpler than 
+having like the pre-burners and everything  
+
+and having those additional parts.There's 
+obviously engineering challenges that  
+
+come with that or else everyone would be 
+doing it or limitations. What are they?
+
+Bridget Oaks:
+
+So I think there's probably two that come to 
+mind. One is it is a bootstrapped engine. What  
+
+I mean by that is we have to get some amount 
+of combustion going in the main chamber to then  
+
+drive the turbine and get that going. So on the 
+ground, we can do that differently than in flight.
+
+And that startup sequence is pretty sensitive. So 
+trying to figure that out. We were able to iterate  
+
+on that pretty quickly to tune that in. But also, 
+the thermal environment in the chamber, it's hot.
+
+And so that, if you were to 
+take that temperature gas  
+
+its maximum in that chamber to drive the turbine.
+
+The inconel and the materials that 
+your machinery is inside of there,  
+
+they melt. They don't, they're not 
+sustainable. So we have to figure  
+
+out a way to either cool that gas that comes 
+out or find a cooler portion in that chamber  
+
+to siphon off from. What some people 
+have tried to do is let's inject fuel.
+
+Usually when you inject fuel you can 
+bring the temperature down a little bit,  
+
+but that fuels and not combusted, so you're 
+losing performance. We don't want to do that.
+
+So we actually have a pintle injector design here.
+
+Bridgette was on an absolute roll 
+there, but I am going to pause to  
+
+explain some things she mentioned in 
+more detail, since not everyone in the  
+
+audience are rocket experts. Namely 
+around engine cycles and injectors.
+
+As Bridgette explained, Firefly is the first  
+
+company to successfully fly a 
+tap off engine cycle to orbit.
+
+A rocket's engine cycle is simply how 
+it gets propellants from the fuel and  
+
+oxidizer tank into the combustion chamber. At 
+its simplest, this could be just pressure fed,  
+
+where the fuels and oxidizer 
+are held at high pressure,  
+
+which forces them into the combustion 
+chamber when valves are opened.
+
+But this limits performance, we 
+need to feed fuel and oxidizer at  
+
+higher volumes and pressures to 
+increase thrust and efficiency.
+
+The gas generator cycle of SpaceX’s merlin engine 
+partially burns the propellants in a separate  
+
+combustor and feeds the exhaust gasses into a 
+turbine, which spins and pumps the propellants.
+
+However, this is wasteful as the 
+products of that combustor are  
+
+simply dumped overboard. Something SpaceX 
+is fixing with Starship’s Raptor engine,  
+
+which is a full-flow staged 
+combustion engine cycle.
+
+The Raptor engine runs ALL of its 
+fuel and oxidizer through pre-burners. 
+
+With the fuel turbopump running a fuel rich 
+mixture and the liquid oxygen turbopump running  
+
+an oxygen rich mixture. The excess fuel and 
+oxygen from either side then combine in the  
+
+combustion chamber in their gaseous 
+state where combustion is completed.
+
+This is a revolutionary 
+engine. The first of its kind,  
+
+but look at all the parts required 
+to make that happen. Two sets of pre  
+
+burners and turbo-pumps and all 
+the plumbing that connects them
+
+Firefly’s Reaver engine simply takes 
+hot expanding gas directly from the  
+
+combustion chamber and feeds it into 
+a turbine to power the turbopump.
+
+Bridgette explained that they found a cool spot 
+in the combustion chamber to extract this gas  
+
+from so the gas doesn’t melt the turbine, 
+but she didn’t tell us where. However,  
+
+we can make an educated guess based on 
+what we know about pintle injectors.
+
+Injectors are the part of a rocket 
+engine that introduces and mixes  
+
+the fuel and oxidizer in the combustion chamber
+It’s not as simple as just spraying the fuel  
+
+and oxidizer into the chamber and hoping for 
+the best. We want to distribute the fuel and  
+
+oxidizer steadily and evenly to maximize 
+fuel efficiency and to avoid combustion  
+
+instabilities. We also want to atomize the 
+fuel into the tiniest droplets possible,  
+
+to maximize surface area for combustion to occur.
+
+Pintle injectors are much simpler and cheaper 
+than the injectors used during the Saturn  
+
+V program. The injector of the Saturn 
+V was massive and it needed 2832 holes  
+
+precisely machined into its face. 1428 
+for the oxidizer and 1404 for the fuel,  
+
+with each of them forming jets of oxidizer and 
+fuel that collided to mix and atomize them.  
+
+This was an expensive and complicated injector 
+that was plagued by combustion instabilities.
+
+Combustion instabilities in 
+rocket engines are basically  
+
+oscillations that increase in magnitude when heat  
+
+released from combustion amplifies pressure 
+waves and structural vibrations. Basically,  
+
+the engine hits a harmonic and vibrates. This 
+can affect performance, or destroy the engine  
+
+completely, which happened to th e Saturn V’s 
+F-1 engine during development multiple times.
+
+These wedges on the injector plate were 
+actually introduced to break up these  
+
+waves and prevent the resonant pressure waves 
+from building up and sustaining themselves.
+
+This plate was heavy and expensive to manufacture. 
+Now compare that to the pintle injector, used  
+
+by Space X’s Merlin and Firefly’s Reaver engine, 
+both need just one injector for the entire engine.
+
+Pintle injectors have two concentric tubes that 
+run the length of the injector. Generally the  
+
+central tube contains the fuel and the outer tube 
+contains the oxidiser. When the fuel reaches the  
+
+end of the injector it meets the pintle, which is 
+shaped to redirect the fuel 90 degrees outwards,  
+
+where it collides with the oxidiser 
+flowing perpendicular downwards. [REF]
+
+This is a much simpler design, reducing 
+complexity and cost of manufacturing,  
+
+but the pintle injector has some added 
+benefits for Firefly’s tap off engine cycle.
+
+The pintle injectors geometry creates two zones 
+of recirculation within the combustion chamber.  
+
+A central propellant-rich zone that helps 
+mix unburned fuel that would otherwise be  
+
+spat straight out the nozzle throat and not 
+contribute to thrust, and an outer propellant  
+
+rich zone that can helps form a cooling 
+filmaround the combustion chamber walls.
+
+It’s here that Firefly taps off the combustion 
+chamber gasses to run the turbopump.
+
+A cooler region within the engine 
+that won’t melt the turbine blades.  
+
+This is an ingenious design that 
+no other company has successfully  
+
+flown to orbit. It removes an 
+entire part from their engine.
+
+This is an engineer's dream. Removing an 
+entire component reduces weight, reduces cost,  
+
+reduces manufacturing complexity, and one 
+less part is one less part that can break.
+
+However this is obviously easier 
+said than done. Taking the gas  
+
+to drive your turbopump directly from your 
+combustion chamber comes with some issues.
+
+Brian:
+Yeah.  
+
+I was going to ask of like taking the 
+exhaust straight out of the combustion  
+
+chamber if there's any issues with combustion 
+instability of things moving around But you.
+
+So yeah, combustion instabilities isn't 
+something that we actually see on this.  
+
+But that brings up a good point that, another 
+issue that some people may have is because our  
+
+fuel, RP-1 is actually a hydrocarbon. The 
+byproduct of a fuel rich mixture ratio can  
+
+lead to sooting or cooking, and because this 
+line goes directly to that turbine wheel,  
+
+you get deposits on there, which then degrades, 
+which reduces the size of the orifices in there.
+
+And degrade your actual performance during flight. 
+So you may be at 45,000 pounds of thrust when you  
+
+launch, but the longer you're flying, the more 
+soot you're building up on that turbine inlet,  
+
+which reduces your performance and, so 
+there's also some really interesting  
+
+proprietary technologies that we've 
+developed and also patented that help us,  
+
+not have that issue.
+Brian: 
+
+I know, I think I know the answer to this, but are 
+you able to talk about the details of that at all?
+
+Dr. Brigette Oakes
+Not really. No.
+
+Not being able to talk about things in detail 
+is a pretty common issue on these shoots,  
+
+but Firefly did take us on a 
+tour of their tank manufacturing,  
+
+and when I walked into their 
+composite manufacturing facility,  
+
+where they build the composite pressure 
+vessels, I noticed something immediately.
+
+They don’t use a metallic liner in their 
+tank. You know the same kind of liner that  
+
+buckled on that Falcon 9 and caused that 
+2 billion dollar satellite to explode.
+
+Firefly’s Alpha rocket is actually the largest all 
+composite liquid oxygen rocket tank in the world
+
+Now, I studied composites in my master’s thesis  
+
+and I knew several people working 
+on PhDs on exactly this subject.
+
+Removing the liner has been 
+the holy grail of composite  
+
+overwrapped pressure vessels for 
+quite some time. [REF] Linerless  
+
+composite tanks weigh 20 percent less 
+than traditional metal tanks. [REF]
+
+However, while linerless liquid kerosene tanks 
+are relatively easy, cryogenic tanks are much more  
+
+difficult. Jordi took me on a tour of Firefly’s 
+composite manufacturing facility to explain why.
+
+Jordi
+The liquid oxygen,  
+
+that's when it became the real challenge. Why? 
+And the reason is because when you go that cold,  
+
+let's say roughly minus 300 Fahrenheit, it's 
+very important that when you manufacture the  
+
+carbon between the carbon and the resin, you 
+don't have moisture getting into the system.
+
+If you have moisture, you have 
+cracks. When you go cryogenic,  
+
+you're actually gonna actually have ingress 
+of liquid nitrogen, for example, inside,  
+
+or liquid oxygen inside, but then when it warms up 
+by either external heat, or like actually, you're  
+
+accelerating and getting heat, you actually have 
+gasification, you go gas, and it will explode.
+
+Like, that's where you crack. And to be honest,  
+
+that was our biggest 
+challenge for the first years. 
+
+It's like, how the hell do we make the biggest 
+liquid oxygen tank in the world that flies.
+
+Right, and that's the one that 
+we made. And to be honest,  
+
+we broke a lot of tanks at the beginning 
+and it took a lot of fine tuning. And I  
+
+think now we have kind of a secret sauce on 
+process, on control, on moisture, on humidity.
+
+And then mostly, I think, is we have a very strong 
+acceptance test plan and capabilities.In house,  
+
+we take every single tank after we build 
+it, and we think we have it now figured out,  
+
+because we've flown already four, 
+and we've built many of those.
+
+We take it to the stand, we fill it with 
+liquid nitrogen, and actually we load it with,  
+
+first, the pressure, and second, the 
+compressive load that it will see.
+
+So when we fly, every time we fly, we know 
+that every tank is good for those levels,  
+
+because we have tested it at least 10% above 
+the total structure load that it will see,  
+
+as well as at the maximum and 
+minimum pressures that it will see.
+
+So that's how we like screen 
+every single component.
+
+And we wanna make sure that when 
+we fly, there's no risk, right,  
+
+that you make sure you've tested that unit to 
+the levels that you will see while it flies.
+
+Brian:
+Is there some danger of crack propagation  
+
+from testing it the first time and then like the 
+second time you actually see the failure happen.
+
+Jordi:
+So what  
+
+we've seen usually is like when you 
+break it, you break it the first time.
+
+Brian:
+Okay.
+
+Jordi:
+
+Right, so if you test it, and again, 
+because we tested at higher levels  
+
+that it will see in its life.
+So this thing, when it finishes,  
+
+it's wrap up, That's for not this next 
+flight, it's for one of the upcoming ones.
+
+If it were to fail, it 
+would fail here. After that,  
+
+the pressures and loads that we'll see are lower. 
+
+So we've seen that we have margin. As 
+well as all these things are qualified,  
+
+meaning that we took them to very aggressive 
+levels at the beginning of the program.
+
+And we proved that they would survive 
+excess of those limits. So I think that's  
+
+why we think it's beefy enough. And if you 
+screen it and you ensure there's no cracks,  
+
+there's no errors on that build, 
+you should be with the fly.
+
+Brian:
+
+You talked a bit about like your secret sauce 
+too, and it's obviously secret for a reason, but  
+
+are you able to talk about any of the process of 
+actually making a composite structure this large.
+
+And obviously behind us is an even larger one.
+
+Yeah, like how do you actually make a 
+structure like this out of composites.
+
+Jordi:
+
+Well, first a lot of analysis and a lot  
+
+of testing. And I think that's 
+why Firefly we started small.
+
+We started with alpha, just a ton vehicle. 
+and then we're going out to a 13 ton.
+
+I can't talk specifics 'cause we have also 
+competitive vehicles that are trying to do  
+
+the same thing, but it took a lot of time, a lot 
+of analysis, and a lot of testing on exactly,  
+
+there's like dozens and dozens of layers 
+of different angles that you have to have.
+
+So we had to correlate our analysis with 
+like literally like how you lay it out,  
+
+like you're seeing the carbon fiber 
+here, there's different angles,  
+
+different orientations, the way we do this, and 
+then what things we put inside of it as well.
+
+So to maintain not only pressurized 
+and compression, but also shear load,  
+
+that's one that's very tricky when 
+you get bigger. That's why you can  
+
+start small on composites, when 
+you get bigger, it's a challenge.
+
+That's why there's other launch 
+vehicles that also use composites,  
+
+but we're the only ones that we have this size 
+right now for cryogenic tanks. And pressurized  
+
+structures is a little bit easier 'cause you're 
+not literally in contact with liquid nitrogen.
+
+You don't get it to minus 300, right. And that's 
+when on some conditions you get it, it's tough. 
+
+And another one also, when you fly, you 
+get hot, right. We get a lot of like,  
+
+so that's why we also had to do a lot 
+of analysis on like, okay, what's the  
+
+maximum transition temperature that you have 
+on your resin that you're gonna melt it, right.
+
+'Cause metal is much easier, you can take 
+it much hotter, but composite you can't.
+
+Brian:
+
+Are you able to talk about 
+what resin you're using.
+
+Jordi:
+I cannot talk  
+
+about the resin I'm using specifically, 
+but I can tell you that for example,  
+
+many rockets like us, we need to use 
+cork to provide thermal insulation.
+
+Quick interruption here. We will get back to 
+Jordi talking about the cork insulation shortly,  
+
+but since he couldn’t tell me what resin they are 
+using I want to hazard a guess for myself, because  
+
+I love material science and getting to deep dive 
+into material specifications is something I miss.
+
+In the space industry phenolic resins 
+are pretty common for high temperature  
+
+applications. The heat shield of the 
+Perseverance rover was phenolic resin  
+
+reinforced with carbon fiber. Phenolic has 
+high temperature performance and it also  
+
+ablates to carry excess heat away. Making 
+it perfect for heat shields. This is too  
+
+obvious an answer though, I don’t think Firefly 
+would be secretive about using phenolic.[REF]
+
+One interesting resin I found during my 
+research, which I hadn’t come across before,  
+
+was cyanate ester. It has a really high glass 
+transition temperature of 300 degrees, which  
+
+is better than phenolic, but what caught my 
+attention was one key characteristic. It has lower  
+
+moisture absorption tendancies than other resins. 
+This is absolutely critical for a cryogenic tank,  
+
+because as Jordi explained, if you have moisture, 
+you have cracks, if you have cracks you have boom  
+
+booms. Okay, I just thought that was interesting 
+and wanted to interject, back to Jordi. [REF]
+
+Jordi: 
+
+I cannot talk about the resin I'm using 
+specifically, but I can tell you that  
+
+for example, many rockets like us, we need 
+to use cork to provide thermal insulation.
+
+And one thing that we do every time we fly, 
+we actually have thermal couples here. We  
+
+have thermal couples on our cork. We have 
+thermal couples on different locations 'cause  
+
+the more we fly, we try to understand 
+how does the carbon behave when we fly.
+
+And we always wanna make sure 
+we have a certain margin.
+
+- Okay.
+
+Brian:
+Are we able to show the cork.
+
+Jordi:
+- Yeah.
+
+Brian:
+
+We can cut and-
+
+Beep - Intermission
+
+This pause in programming is brought to you by 
+International Trafficking of Arms regulations.
+
+Jordi:
+This is a very thin layer, but we  
+
+have a thin layer of cork that we apply and that's 
+mostly what we call TPS, thermal protection.
+
+And we want to make sure that your carbon, again,  
+
+this is an in-process work, but you don't want 
+to get it too hot. And it's very thin, right.
+
+But like this very simple cork, the same 
+way that most rockets put on fairings,  
+
+we also put on the primary structure 
+to ensure that the composite survives.
+
+My dream as a chief engineer is I want to get rid 
+of all the cork. It takes a long time and it's  
+
+heavy. I have like 700 pounds of like glue and 
+cork and paint. I'd love to fly a naked rocket.
+
+Brian:
+Is cork  
+
+a typical material to use in this application.
+
+Jordi:
+Yes, that most rocket companies use  
+
+cork. It's the one that's very cheap and easy to 
+implement and it provides your thermal insulation.
+
+Brian:
+Is it ablative of or is it literally just.
+
+Jordi:
+No, it provides  
+
+your thermal gradient between your external 
+temperature and your internal temperature. So,  
+
+I can know here's my carbon and the resin 
+that has a maximum temperature of X,  
+
+can’t tell you what, because then 
+you're going to know which one it is.
+
+But then you have that specific thickness of 
+cork, and it gives me a decrease of like 100F,  
+
+for example, right, depending on 
+the thickness. So we have a lot  
+
+of analysis on that and that's why the 
+first flight is always scary, right.
+
+Because we have a lot of analysis that 
+way. That's my temperature. That's my  
+
+temperature. And then you fly, and then you 
+have different temperatures on stage 2 Lox,  
+
+stage 1, and then mostly the fairing.
+
+The fairing is the one that gets hit 
+the most. That's why the thickness  
+
+of the cork is very thick, but 
+on the tanks it's much thinner.
+
+Brian:
+And that's just aerodynamic heating on there.
+
+Jordi:
+Yes, aerodynamic  
+
+heating that you have at different altitudes.
+
+Brian:
+Is the cork  
+
+difficult to source? Isn't there like a cork 
+shortage? Is this natural cork or is it synthetic?
+
+Jordi:
+Yeah, no, it's not so it's very easy  
+
+to source like you can buy them like in sheets. 
+It's really typical. Yeah, that's that's the thing  
+
+is like if you want to be a startup and still keep 
+it affordable. That's a very easy way to keep it  
+
+like that. We're not reentering and reusing this 
+right. You just want to make sure you have it.
+
+Brian: 
+
+I love that you're using like basically bark 
+from a tree to. Isn't that what cork is?
+
+Jordi:
+Yes, that's it. That's it. That's from a tree.  
+
+You get it. So kids use it for putting this stuff.
+I just make sure the rocket doesn't burn.
+
+Brian:
+I was under the impression that  
+
+there was a cork, like a natural cork shortage 
+at the moment, but that's why I was asking.
+
+Jordi:
+It might, I'm not too familiar with it. I know  
+
+that thrusting this is pretty straightforward. You 
+can buy different thicknesses and it's cheap. The  
+
+thing is, it's annoying to install, like it takes 
+time. And if you want to increase production,  
+
+that's one that we're trying to find ways to 
+actually speed up the process. You know, you want  
+
+to go to like six, twelve, twenty-four 
+rockets, right. Laying this takes time.
+
+So that leads into another interesting 
+factor in the logistics of space flight,  
+
+that Firefly are working to improve. 
+How quickly they can build rockets.
+
+The first generation of Alphas 
+that Firefly built were hand  
+
+made with the composite layups being 
+placed manually. This is slow work. 
+
+Firefly’s massive custom made automated filament 
+winding machine builds their tanks by placing a  
+
+continuously wound fiber around the diameter of 
+their mandrel. Because the fiber is never broken,  
+
+unlike the pre impregnated sheets used in 
+hand lay up, the strength of the fiber is  
+
+never broken. Allowing less material to 
+be laid down, and it does it quicker.
+
+Manufacturing optimization is going to be a 
+key part of Firefly’s future. Being quick to  
+
+integrate a payload and load fuel isn’t much use 
+if you don't have any rockets available to launch.  
+
+A huge part of the commercial interest in Firefly 
+has been the notion of having rockets available at  
+
+all times, but that’s easier said than done. There 
+are thousands of little battles along the way.
+
+Brian:
+
+And to get to that point of actually having 
+multiple rockets ready to go and being able  
+
+to be responsive for a customer, obviously 
+supply chain is going to be a big part of  
+
+that and building rockets quickly. Part of 
+that is vertical integration. How do you  
+
+decide what to build yourself versus what 
+you could just buy from another company.
+
+Jordi Garcia:
+That's a very good one. And I'd say  
+
+this also came up from the inception of Firefly.
+When we started, we looked at the complexity  
+
+of a rocket and a vehicle and we saw, okay, 
+components are very hard and they are really  
+
+custom and like the soul of the vehicle.
+And that's where we saw structures and  
+
+engines. I know there's people that buy 
+them from each other, but it's difficult.  
+
+When you've got to put it together, there's always 
+differences. That interface between the structure,  
+
+the fluids, and the engine. So that's why 
+we said, okay, let's bring that in-house.
+
+And we focused on the first years at Firefly to 
+actually develop that engine, that tap off engine  
+
+that we are very proud of. The structures, that's 
+the composite structure. It was also one that we  
+
+wanted to get together and develop, because it's 
+also like the primary structure of the vehicle.
+
+But then there are also a lot of sub-components 
+in there that you can't buy from the industry.
+
+Maybe I won't go into specific components, 
+but there's avionics components that are very  
+
+good that you can buy from vendors, but they 
+are very expensive. And then you think, OK,  
+
+do I spend $2 million developing it to save 
+50K per flight. Or do I buy the first ones.
+
+And then there's like stage separation 
+mechanisms. Do I develop my own. Or do  
+
+I lower the risk buying one that's a 
+little pricey. So I think the strategy  
+
+that Firefly took was at the beginning 
+is like, look at the complexity of the  
+
+systems and which ones are off the shelf 
+that you can buy that you can trust.
+
+And that's where at the beginning,  
+
+your first rocket's a little bit 
+more expensive that you'd like.
+
+But then the goal was to get to orbit,  
+
+demonstrate the capability and start flying 
+a little pricier than you like, per unit.
+
+But then when you actually have 
+an RE, non-recorder engineering,  
+
+you get some money invested, and you 
+say, OK, I'm going to tackle this one.
+
+I'm going to tackle this one. 
+I'm going to bring it in house.
+
+What we have seen over the years is that 
+it's hard to rely on vendors. Because again,  
+
+we are not Boeing or Airbus that buys 
+hundreds of thousands of components.
+
+You buy little. And sometimes you have a failure. 
+And then going there, I say, hey, why did that  
+
+fail. It's like, oh, you're buying me 20 rockets. 
+It's like, I don't have time to give you support.
+
+And we don't know the design, so it's hard for us 
+to understand. It's like, OK, why did that fail.
+
+And what we've realized over the 
+years that critical components that  
+
+are a little more likely to fail, it's 
+better for us to bring them in-house.
+
+Because then when something fails,  
+
+we have the engineers that know literally 
+the printed boards that we designed. Why  
+
+did that fail. We can actually go mess 
+with it, learn it, like, oh, that's it.
+
+Then we test it. We rebuild it in 48 hours. We fix 
+it and put it on the rocket, and you can go again.
+
+Brian:
+Do you have  
+
+any examples of that happening 
+that you could talk about.
+
+Jordi Garcia
+
+Yes, so we had some components, I won't 
+say specifically which vendor and what,  
+
+but we had a specific component, 
+actually that was for Victus Knox,  
+
+that we had it on the vehicle, and 
+it was a commercial off the shelf.
+
+It had a flight heritage, 
+and we had been using it,  
+
+but we had an anomaly on the ground, and it 
+failed. And then we tried to troubleshoot it,  
+
+and we reached out to the vendor and said, 
+hey, what's going on. Why did this fail?
+
+What electronics. What's the 
+problem? Oh, send it back,  
+
+we will look into it. And then they said, oh, 
+you just need to buy a new one. It's like,  
+
+I can't. It's inside the rocket. It's like, 
+I need to fix it. And it's like, oh, so yeah,  
+
+OK, let's send it and we can put it in an 
+engineer. It's like, no, you don't understand.
+
+This is very important. We have a timeline. We 
+need to go. And again, that was not the day off. 
+
+It was like two months before. But 
+then we were at the point is like,  
+
+OK, we just can't depend on these 
+guys to actually fix our problems.
+
+We need to succeed on this mission. 
+Right. So that's where we said, OK,  
+
+enough. We had Blue Ghost, our 
+lunar land that was on the site,  
+
+developing its own internal 
+component. It was pretty similar.
+
+So we were like, OK, that's it. I put together 
+a team. We were at the end, 91 people that took  
+
+that specific component and we worked every day, 
+every night for, no joke, 41 days, 91 people.
+
+And what we did is like we actually took 
+that blue ghost half design and we said,  
+
+"This is flying in two months.”
+
+And the response is, "Sorry, what. " 
+Like I was supposed to have six months.
+
+I said, "Ah, ah, two months and you're 
+going and you're primary for this mission.”
+
+So then we put a team together, we got 
+a lot of engineers and I love to get  
+
+a bunch of like young engineers that 
+you're in charge of like the design,  
+
+you're in charge of the testing and we 
+had to not just slap it on and fly it.
+
+That is like you have to qualify, test it, build 
+several units, take it to thermo cycling, shake  
+
+it, vibe it, shock it, right. And it's 
+like make sure that this is not gonna fail.
+
+So that's why we did that, and because in-house 
+we can first make parts, we can make boxes,  
+
+we have engineers to actually design boards. So 
+we had the guys actually making the board, and  
+
+we had a failure in the middle of the development 
+that the thing, Christ, I was like a weekend off.
+
+I took a weekend off with my family and driving 
+up is like, it failed, "You kidding me." Redesign,  
+
+right. And it was like, redesign on a Sunday, 
+and Monday we actually had another one.
+
+We got a new board, put it on, and did 
+again the whole process. Like, when we  
+
+told the space force that this failed, they were 
+like, "Oh, my God, that's a eight-month delay.
+
+" It's like, "Ah, hold my beer. " And it's 
+like, "No, no, we're gonna do it. " So actually,  
+
+we went crazy, we did it, and again, like, that 
+was very exciting because the team took ownership.
+
+And I think that's how Firefly was able 
+to succeed. It's like, these guys knew  
+
+that without them and without taking, like, 
+ownership, they would not succeed, right.
+
+And that's where, like, I honestly had, like, 
+24-year-old guy is going at 5 am on Saturday,  
+
+and it's like what are you doing, “can I go 
+inside the rocket to check something out:
+
+And I looked at it. It's like okay. Go for it 
+right and they were testing things out and coming  
+
+up with ideas. And then we brought that design and 
+actually we qualified that design and we flew that  
+
+design for For flight three right for our Victus 
+Nox mission and then that was now it's what we fly  
+
+for for now on for all the missions But that 
+was a success story that like sometimes it's  
+
+hard to depend on customers on on partners 
+and it's better if you own it because then  
+
+you can you can't fight your own battles.And 
+to me, at the end, it's on your own destiny.
+
+If something fails, you can make 
+more. You can have it. You can fix it.
+
+And you understand it. If you 
+don't know what the box is made of,  
+
+what the connection is, it's hard to troubleshoot.
+
+This story again just highlights how important it 
+is for Firefly to have all their facilities and  
+
+staff working in close proximity to each other. 
+It really allows them to quickly iterate and  
+
+solve problems. This is a huge part of what helped 
+Firefly break that 24 hour record. But, everything  
+
+we have spoken about up to this point barely 
+touches on what went on during those 24 hours.
+
+When Firefly got their notice from 
+the Space Force several things  
+
+needed to happen. Just think about how 
+complicated this is. They received the  
+
+information on what orbit they were 
+targeting with only 24 hours notice.
+
+The guidance and navigation team needed 
+to figure out the trajectory and test it  
+
+using simulations on the ground. These 
+simulations are actually run on the  
+
+rocket. So all the relevant parts actually 
+actuate, there just isn’t any propellant,  
+
+the rocket is just being made to 
+believe it’s flying by the computer.
+
+Firefly had predicted the most 
+likely orbits that the Space Force  
+
+would want and had pre-run the simulations 
+so that they could be prepared when the call  
+
+came in. When the call came in they loaded this 
+data and performed one of these dry run tests.
+
+Firefly also needed to deal with all the 
+bureaucracy associated with a launch. They  
+
+needed to fill out paperwork for the FAA. 
+Exclusion zones for the launch needed to  
+
+be established and communicated to the 
+relevant authorities. None of this could  
+
+have been done without cooperation 
+with the Space Force and the FAA.
+
+This is just one step, but integrating 
+the payload to the fairing and mating it  
+
+to the rocket with only 24 hours was 
+a whole other logistical challenge. 
+
+Brian
+And you spoke about payload integration too,  
+
+that you've come up with some designs to make 
+that quicker. Can you talk about that too?
+
+Jordi Garcia
+Yes, when we  
+
+won that contract for Victus Nox and we 
+engineering team got that, It's like,  
+
+you're crazy. Like, we can't do 
+that. Right. It's like 24 hours.
+
+Like, we've got to-- and the goal 
+was we had to-- we've got to call.
+
+And then we had 24 hours to put the payload on the 
+fairing, encapsulate the fAiring. And then-- and  
+
+that's in a clean environment in a room. And then 
+roll it out and mate it with the vehicle, lift it,  
+
+and launch it in 24 hours. And the key was that 
+we had a window of like three minutes, I think,  
+
+that we had to hit. Because the idea was like, 
+you had to end up in a specific place in space.
+
+So it had to be depending on what time of the 
+day we had. So for example, design decisions  
+
+is when we first got it, we said we can't do 
+it. So we had to design hardware around it.
+
+So we had to design what we call ground support 
+equipment that actually held the fairing,  
+
+helped the path, and allowed us to first 
+load and then rotate, do the final checkouts,  
+
+and actually hold the fairings, put 
+them on and mate on that configuration.
+
+And then once we had what we call the 
+payload-based assembly and the two  
+
+fairings closed out, we to then create also 
+what we call an environmental control system.
+
+You need to make sure that your satellite 
+is always first absolutely clean. You don't  
+
+want to have optics that get dirty 
+with dust or you don't have moisture.
+
+Let's say you have cameras on your 
+system or star trackers.If you have  
+
+moisture on a system above 60%, you're 
+down for the day. You can't launch.
+
+So we had to develop ground-side systems 
+that could actually go and pump heat and  
+
+cold depending on the day and then control 
+moisture, which in Vandenberg to be honest  
+
+was a challenge because we had not done that. 
+And again, like, developed that from scratch.
+
+Like, we had the engineers going crazy on it. 
+So we did that, and we did lots of testing. 
+
+And then we had to go and mate. And the thing 
+is, we had never mated before on the pad.
+
+We usually, like others do, you actually 
+mate on your horizontal integration  
+
+facility. That's how we did flight one 
+and flight two. So you had to just go,  
+
+put the payload on, mate, and 
+then go out, and then launch.
+
+But when you install your vehicle and you do the 
+whole static fire, meaning we fully loaded them,  
+
+we simulated everything, it's good, you have 
+to take it out again and install the payload  
+
+and go back in, you waste two weeks because 
+there's 30 or so fluid connections that you  
+
+need to reconnect and check and it's not 
+just, you know, ambient helium, right.
+
+You're talking of cryogenic helium, cryogenic 
+liquid oxygen for stage one and stage two,  
+
+so all of that needs to be rechecked.
+
+So we have to develop a system to outside,  
+
+even in rainy day and windy day, that we 
+had a way to actually go in there and mate.
+
+And to be honest, it was a challenge.
+
+We had to, we made it here six times before and 
+we were like literally timing, counting bolts.
+
+We got to the point that we had to slightly 
+chamfer the bolts to help us go faster on  
+
+entering because you have like 120 
+bolts that you need to go in, right.
+
+And then, and people had like, 
+you had 20 minutes, right.
+
+And the technician's like, 
+"Are you kidding me." Right.
+
+So they were all like, "Go in.
+
+" It's like, "No." So, adjusted, then 
+you, like, it's still a big rocket.
+
+So you have to like adjust the going in and 
+make sure that all of those were lined up.
+
+And then you got to go carefully 
+putting the fasteners as well,  
+
+because you're going to a composite structure. 
+So we don't have like inserts inside.
+
+So like, you got to be careful because if you go 
+too fast, you break them and you pop them out,  
+
+right. And then we also had to make calculations 
+of how many bolts could we miss in case like  
+
+some were actually losing the threads or even 
+failing because you can't go correct for that.
+
+So we had to do a lot of analysis on 
+that and prove what was good. But yeah,  
+
+that was a real challenge 
+and the teams did amazing.
+
+Brian
+
+Almost sounds like you'd need to consult 
+with like an F1 pit crew team to find out.
+
+Jordi Garcia
+Yeah, no joke, but  
+
+we have some F1 guys here. Yeah, from Europe and 
+from here because it's that sort of level. F20,  
+
+I consulted for Ferrari many years ago in Italy. 
+Yeah, and it's kind of the same mindset. Ferrari,  
+
+every 10 milliseconds of savings 
+for a lap, you got to go implement.
+
+We had the same thing. Every five, 
+15 minutes you could do in safe time,  
+
+you could go implement. And what we did good, 
+I think, is we worked with technicians and  
+
+the integration engineers and the design 
+engineers, OK, where can you save time.
+
+So we would do one attempt, and everybody 
+would take no. Hey, I can save five minutes.
+
+I can save 15 doing this.If you change that, we 
+can actually do it. We spent like five months or  
+
+so trying things out on how to save time. The 
+beauty now is that after we've done it once,  
+
+we realized that we can do better. The fun thing 
+is that we did it and for us, damn, we made it.
+
+To be honest, it was crazy. We didn't think the 
+previous record was 21 days. This is the time 24  
+
+was crazy. I'm sure the space was also 
+crazy, but the challenge was there.
+
+Once we hit it, I go down, "Congratulations 
+everybody." I say, "Great job, guys.Great  
+
+job.It was awesome. " Then the tech is 
+like, "Man, I think we can shave two hours."
+
+Stop it, you know, but they're also 
+excited and that's actually for every  
+
+flight flight for we didn't prove mental And it  
+
+is to shave it right because there's 
+a lot of customers and governments.
+
+They're asking for that Hey, can 
+you respond quickly and go up there.
+
+Firefly has achieved a lot, but still has a lot to  
+
+prove. Since filming these interviews 
+they successfully launched to orbit a  
+
+second time with the Noise of Summer. They 
+are also working on their lunar lander for  
+
+an upcoming moon landing attempt with 
+the Blue Ghost mission later this year.
+
+The Alpha rocket is a small rocket capable of 
+carrying 1030 kilograms to low earth orbit.  
+
+For firefly to gain more market share in the 
+highly competitive space launch market they  
+
+need to develop heavier lift rockets. They are 
+currently developing a medium lift rocket in  
+
+partnership with Northrop Grumman, which is 
+being designed to carry 16,300 kilograms to  
+
+low earth orbit. A major step up from Alpha, 
+but still using that tap off engine cycle for  
+
+their larger Miranda engines. The first flight 
+of this medium launch vehicle is slated for 2025.
+
+The space industry is so competitive, when 
+placing my bets on which companies will be  
+
+successful I usually look first to the talent in 
+their engineering departments. I was incredibly  
+
+impressed by both Brigette Oakes and Jordi 
+Garcia, and I wished I could have included  
+
+more of their interviews in this video. It 
+always feels wasteful to leave the knowledge  
+
+they share on the cutting room floor, so 
+I have uploaded their full interviews on  
+
+Nebula for everyone interested to hear 
+it. Combined, their extended interviews  
+
+are nearly 2 hours long and are a master class 
+in small rocket design for any aspiring rocket  
+
+engineers or just rocket enthusiasts that 
+want to learn more about the space industry.
+
+Before I go into an entire spiel about how 
+great Nebula is. I know many of you are sick  
+
+of signing up for yet another subscription 
+service. So, if you simply want to support  
+
+our channel and get lifelong access to all of 
+Nebula’s exclusive programming, we are offering  
+
+lifetime memberships for a limited time for 300 
+hundred dollars. Unlike other subscriptions,  
+
+you can buy once and never pay again.
+This helps us fund Original programming  
+
+like our 5 part Battle of Britain series where 
+we recreated the central command room of the  
+
+Battle of Britain to show in intricate detail 
+how Britain won their most impactful victory.  
+
+We show you how incoming raids were plotted on 
+the huge central map with color coded tiles and  
+
+how the commander kept track of what squadrons 
+were available using a light up board mounted  
+
+on the walls. We spent over a month recreating 
+this room using archived footage and photos,  
+
+an investment of time for a single animation 
+asset that we simply can’t afford on YouTube. 
+
+For less than the price of a cup of 
+coffee per month, you can get access  
+
+to all of Nebula’s Originals, along with our 
+entire catalog without any ads. You can also  
+
+easily download videos to watch on the go.
+This channel depends on the funding Nebula  
+
+provides us. If you have been subscribed 
+to this channel for more than 3 years,  
+
+you have seen the huge increases in production 
+quality that Nebula has facilitated. Growing  
+
+from 2D animations that myself and Mike taught 
+ourselves how to do, to having a full team of  
+
+incredibly talented 3D artists that rival any TV 
+production. This is expensive work and we would  
+
+love to grow our team even more, something 
+we can only do with your support as YouTube  
+
+ad revenue simply does not cover the bulls. Last 
+year we made a financial loss for 3 months in a  
+
+row. YouTube is simply a volatile platform where 
+we depend on the whims of advertisers. Nebula is  
+
+our life raft in a volatile sea of social media.
+This is a common theme across YouTube creators.  
+
+Nebula’s goal is to enable and level up our 
+entire roster of creators. To remove the financial  
+
+uncertainty that forces us to rush projects. To 
+remove the algorithms that force us to analyze  
+
+data points instead of what really matters, 
+the audience on the other side of the screen.
+
+So if you want to check out all of the 
+fascinating exclusive content on Nebula,  
+
+go to nebula.tv/realengineering or click the  
+
+link in the description to get 40% 
+off our yearly subscription today
+
+
