@@ -16,7 +16,7 @@
 </script>
 
 <!-- Root layout with black background -->
-<div class="relative min-h-screen bg-black text-white">
+<div class="relative min-h-screen bg-black text-white overflow-x-clip">
   <Nav />
   
   <!-- Main Content -->
