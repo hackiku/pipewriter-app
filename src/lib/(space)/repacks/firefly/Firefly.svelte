@@ -7,7 +7,7 @@
   import Vehicles from "./sections/Vehicles.svelte";
   import News from "./sections/News.svelte";
   import Careers from "./sections/Careers.svelte";
-  import MusicPlayer from "./sections/Careers.svelte";
+  import MusicPlayer from "./components/music/MusicPlayer.svelte";
 
   const breadcrumbs = [
     { label: "Space", href: "/space" },
