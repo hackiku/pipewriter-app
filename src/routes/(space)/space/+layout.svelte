@@ -1,17 +1,17 @@
 <!-- src/routes/(space)/space/+layout.svelte -->
 <script lang="ts">
   import { dev } from '$app/environment';
-  
-  // Core stuff
   import "../../../app.css";
+  
+	// Core
   import { ModeWatcher } from "mode-watcher";
   import { injectAnalytics } from '@vercel/analytics/sveltekit';
   
-  // Space Components
-  import SpaceNav from "$lib/(space)/components/SpaceNav.svelte";
+	// Space components
+  // import SpaceNav from "$lib/(space)/components/SpaceNav.svelte";
   import SpaceDrawer from "$lib/(space)/components/cta/SpaceDrawer.svelte";
   
-  // Website Components (still needed)
+  // Pipewriter Website Components (still needed)
   import SEO from "$lib/components/SEO.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
@@ -39,7 +39,7 @@
 </EarlyAccessDrawer>
 
 <!-- Space-specific Navigation & Drawer -->
-<SpaceNav />
+<!-- <SpaceNav /> -->
 <SpaceDrawer>
   <div slot="trigger" />
 </SpaceDrawer>

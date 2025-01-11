@@ -2,9 +2,8 @@
 <script lang="ts">
 	import { Rocket, Stars, Plane } from "lucide-svelte";
 	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
-	// layout
-	import SpaceNav from "./components/SpaceNav.svelte";
 	// content
+	import SpaceNav from "./components/SpaceNav.svelte";
 	import Hero from "./content/Hero.svelte";
 	import Repack from "./components/chute/Repack.svelte";
 	import Problem from "./content/Problem.svelte";

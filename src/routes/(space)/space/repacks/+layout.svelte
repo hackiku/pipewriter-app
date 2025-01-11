@@ -1,24 +1,21 @@
 <!-- src/routes/(space)/space/repacks/+layout.svelte -->
 <script lang="ts">
   import Breadcrumbs from "$lib/(space)/components/Breadcrumbs.svelte";
-  
-  // Base breadcrumbs for all repack pages
+	import { page } from '$app/stores'
+  // import { onMount } from 'svelte';
+	// Base breadcrumbs for all repack pages
   const baseBreadcrumbs = [
     { label: "Space", href: "/space" },
     { label: "Repacks", href: "/space/repacks" }
   ];
 
-  // Get the current path to determine if we're in a specific repack
-  let path = '';
   
   // We'll update this in onMount because we need access to window
-  import { onMount } from 'svelte';
-  import { page } from '$app/stores';
   
-  $: breadcrumbs = [...baseBreadcrumbs];
-  $: if ($page.url.pathname.includes('/firefly')) {
-    breadcrumbs = [...baseBreadcrumbs, { label: "Firefly Aerospace" }];
-  }
+  $: breadcrumbs = $page.url.pathname.includes('/firefly')
+    ? [...baseBreadcrumbs, { label: "Firefly Aerospace" }]
+    : [...baseBreadcrumbs];
+
 </script>
 
 <div class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-sm border-b">

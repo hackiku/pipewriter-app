@@ -33,7 +33,7 @@
         </p>
 
         <SpaceDrawer>
-          <div slot="trigger">
+          <div slot="trigger" class="flex align-middle">
             <SpaceButton size="lg" />
           </div>
         </SpaceDrawer>

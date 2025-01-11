@@ -44,7 +44,53 @@ export const pageSEO: Record<string, SEOData | ((data: any) => SEOData)> = {
 			"category": "Aerospace Web Development",
 		}
 	},
-	// Dynamic route example (blog posts)
+
+	'/space/repacks': {
+		title: "Launch Site — Chute Repack Showcase",
+		description: "Launch-ready website designs for space startups. Browse our collection of aerospace landing pages and website redesigns.",
+		type: "website",
+		image: "/og-repacks.png",
+		structuredData: {
+			"@context": "https://schema.org",
+			"@type": "CollectionPage",
+			"name": "Aerospace Website Showcase",
+			"description": "Portfolio of custom website designs for space and aerospace companies",
+			"provider": {
+				"@type": "Organization",
+				"name": "Pipewriter",
+				"url": "https://pipewriter.io"
+			},
+			"about": {
+				"@type": "Thing",
+				"name": "Aerospace Web Development"
+			}
+		}
+	},
+
+	'/space/repacks/firefly': {
+		title: "Firefly Aerospace — Website Redesign Case Study",
+		description: "Explore how we transformed Firefly Aerospace's digital presence with a launch-ready website redesign, optimized for conversions and brand storytelling.",
+		type: "website",
+		image: "/og-firefly-repack.png",
+		structuredData: {
+			"@context": "https://schema.org",
+			"@type": "CaseStudy",
+			"headline": "Firefly Aerospace Website Redesign",
+			"description": "A detailed look at the website redesign process for Firefly Aerospace",
+			"publisher": {
+				"@type": "Organization",
+				"name": "Pipewriter",
+				"url": "https://pipewriter.io"
+			},
+			"about": {
+				"@type": "Organization",
+				"name": "Firefly Aerospace",
+				"url": "https://fireflyspace.com"
+			},
+			"industry": "Aerospace",
+			"serviceUsed": "Chute Repack"
+		}
+	},
 	'blog/[slug]': (post: any): SEOData => ({
 		title: `${post.title} — Pipewriter Blog`,
 		description: post.excerpt || post.description,
