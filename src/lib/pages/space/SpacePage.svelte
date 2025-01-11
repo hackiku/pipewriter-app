@@ -1,4 +1,4 @@
-<!-- $lib/pages/space/SpacePage.svelte -->
+<!-- src/lib/pages/space/SpacePage.svelte -->
 <script lang="ts">
 	import { Rocket, Stars, Plane } from "lucide-svelte";
 	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
@@ -34,8 +34,8 @@
 	<div class="relative">
 		<!-- Hero Section -->
 		<Hero />
-asd
-		<ChuteRepack />asd
+
+		<!-- <ChuteRepack /> -->
 		<!-- Before/After Gallery -->
 		<section class="relative -mt-6 pb-24">
 			<div class="container">
