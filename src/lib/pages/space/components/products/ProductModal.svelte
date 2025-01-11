@@ -233,4 +233,38 @@
   iframe::-webkit-scrollbar {
     display: none;
   }
+
+  /* Custom scrollbar styles */
+  :global(.modal-content) {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139, 92, 246, 0.3) transparent;  /* Light purple track */
+  }
+
+  /* Chrome/Safari/Edge */
+  :global(.modal-content::-webkit-scrollbar) {
+    width: 6px;
+  }
+
+  :global(.modal-content::-webkit-scrollbar-track) {
+    background: transparent;
+  }
+
+  :global(.modal-content::-webkit-scrollbar-thumb) {
+    background: rgba(139, 92, 246, 0.3);
+    border-radius: 3px;
+    transition: background 0.2s ease;
+  }
+
+  :global(.modal-content::-webkit-scrollbar-thumb:hover) {
+    background: rgba(139, 92, 246, 0.5);
+  }
+
+  /* For dark mode */
+  :global(.dark .modal-content::-webkit-scrollbar-thumb) {
+    background: rgba(139, 92, 246, 0.2);
+  }
+
+  :global(.dark .modal-content::-webkit-scrollbar-thumb:hover) {
+    background: rgba(139, 92, 246, 0.4);
+  }
 </style>

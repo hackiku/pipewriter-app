@@ -4,13 +4,15 @@
 	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
 	// layout
 	import SpaceNav from "./components/SpaceNav.svelte";
-	import Hero from "./layout/Hero.svelte";
-	import Problem from "./layout/Problem.svelte";
 	// content
+	import Hero from "./content/Hero.svelte";
+	import ChuteRepack from "./content/ChuteRepack.svelte";
+
 	import BeforeAfter from "./content/BeforeAfter.svelte";
+	import Problem from "./content/Problem.svelte";
 	import Process from "./content/Process.svelte";
-	import Products from "./components/products/Products.svelte";
 	import About from "./content/About.svelte";
+	import Products from "./components/products/Products.svelte";
 	// proof
 	import StackIcons from "./components/proof/StackIcons.svelte";
 	import Testimonials from "./components/proof/Testimonials.svelte";
@@ -25,14 +27,15 @@
 <main class="bg-background text-foreground relative overflow-x-hidden">
 	<!-- Fixed Background Pattern -->
 	<div class="fixed inset-0 pointer-events-none">
-		<BackgroundPattern size="lg" opacity="high" gradient={true} />
+		<BackgroundPattern size="md" opacity="high" gradient={true} />
 	</div>
 
 	<!-- Content -->
 	<div class="relative">
 		<!-- Hero Section -->
 		<Hero />
-
+asd
+		<ChuteRepack />asd
 		<!-- Before/After Gallery -->
 		<section class="relative -mt-6 pb-24">
 			<div class="container">
@@ -42,7 +45,7 @@
 
 		<section class="py-24 relative">
 			<div class="container">
-				<!-- <Problem /> -->
+				<Problem />
 			</div>
 		</section>
 
@@ -100,6 +103,7 @@
   <About />
   <Products />
 </section>
+
 
 		<!-- Pricing Section with Form -->
 		<section class="py-24 relative border-t">

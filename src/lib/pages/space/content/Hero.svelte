@@ -1,8 +1,8 @@
-<!-- src/lib/components/space/layout/Hero.svelte -->
+<!-- src/lib/components/space/content/Hero.svelte -->
 <script lang="ts">
 	import { Send } from "lucide-svelte";
-	import SpaceButton from "../cta/SpaceButton.svelte";
-	import SpaceDrawer from "../cta/SpaceDrawer.svelte";
+	import SpaceButton from "../components/cta/SpaceButton.svelte";
+	import SpaceDrawer from "../components/cta/SpaceDrawer.svelte";
 
 	let containerRef: HTMLElement;
 	let animationRef: HTMLElement;
@@ -10,7 +10,7 @@
 
 <section
 	bind:this={containerRef}
-	class="relative min-h-[90vh] flex items-start pt-32 overflow-hidden"
+	class="relative min-h-[60vh] flex items-start pt-40 overflow-hidden"
 >
 	<!-- Editorial Grid Background -->
 	<div class="absolute inset-0 pointer-events-none">

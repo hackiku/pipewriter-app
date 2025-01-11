@@ -3,7 +3,7 @@
   import { Button } from "$lib/components/ui/button";
   import { Sun, Moon, PenTool } from "lucide-svelte";
   import { toggleMode } from "mode-watcher";
-  import SpaceButton from "../cta/SpaceButton.svelte";
+  import SpaceButton from "../components/cta/SpaceButton.svelte";
   import { onMount } from "svelte";
   import { spaceStore } from '../stores/spaceStore';
 
