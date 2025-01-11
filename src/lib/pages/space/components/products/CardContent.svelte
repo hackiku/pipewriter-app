@@ -3,31 +3,43 @@
   import type { Product } from '../../types';
   import { Plus, ExternalLink } from "lucide-svelte";
   import { spaceStore } from '../../stores/spaceStore';
+  import { createEventDispatcher } from 'svelte';
   
   export let product: Product;
   export let index: number;
-  export let onClick: () => void;
+  export let showModal: boolean;
+  
+  const dispatch = createEventDispatcher();
   
   $: isActive = $spaceStore.activeProductIndex === index;
 
   // Split title and description for styling
   const [title, ...descParts] = product.description.split(':');
   const description = descParts.join(':').trim();
+
+  function handlePlusClick(e: MouseEvent) {
+    e.stopPropagation();
+    dispatch('openModal');
+  }
+
+  function handleLinkClick(e: MouseEvent) {
+    e.stopPropagation();
+  }
 </script>
 
 <div class="absolute inset-0">
-  <!-- Gradient Overlay -->
+  <!-- Gradient Overlay - Bottom 40% with higher start -->
   <div 
-    class="absolute inset-0 bg-gradient-to-t 
-           from-card via-card/95 to-transparent
+    class="absolute inset-x-0 bottom-0 h-2/5
+           bg-gradient-to-t from-card via-card/95 to-transparent
            pointer-events-none"
   />
   
   <!-- Pulsating Plus Button - Only on active card -->
-  {#if isActive}
+  {#if isActive && !showModal}
     <div class="absolute inset-0 flex items-center justify-center">
       <button
-        on:click={onClick}
+        on:click={handlePlusClick}
         class="group relative w-16 h-16 rounded-full 
                bg-primary/5 hover:bg-primary/10
                transition-all duration-300"
@@ -66,8 +78,8 @@
       </span>
     </div>
 
-    <!-- Bottom Content -->
-    <div class="flex justify-between items-center mt-6 pt-4 border-t border-border/50">
+    <!-- Tech Stack & Visit Link -->
+    <div class="flex justify-between items-center mt-4">
       <!-- Tech Stack -->
       <div class="flex gap-1.5">
         {#each product.tech.slice(0, 4) as tech}
@@ -85,6 +97,7 @@
           href={product.link}
           target="_blank"
           rel="noopener noreferrer"
+          on:click={handleLinkClick}
           class="flex items-center gap-1.5 text-primary hover:text-primary/80
                  transition-colors duration-300 text-sm"
         >

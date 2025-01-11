@@ -11,9 +11,9 @@
 </script>
 
 <div class="container max-w-4xl mx-auto">
-  <div class="relative mt-24">
+  <div class="relative mt-24 flex flex-col items-center">
     {#each products as product, i}
-      <div class="{i !== 0 ? '-mt-20' : ''}">
+      <div class="w-full relative {i !== 0 ? '-mt-[8rem] sm:-mt-[18rem]' : ''}">
         <ProductCard {product} index={i} />
       </div>
     {/each}
