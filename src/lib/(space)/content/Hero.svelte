@@ -1,8 +1,7 @@
 <!-- src/lib/pages/space/content/Hero.svelte -->
 <script lang="ts">
-  import { Send } from "lucide-svelte";
+  import { Send, ArrowRight } from "lucide-svelte";
   import SpaceButton from "../components/cta/SpaceButton.svelte";
-  import SpaceDrawer from "../components/cta/SpaceDrawer.svelte";
   import ChuteMath from "../components/chute/ChuteMath.svelte";
 </script>
 
@@ -32,11 +31,34 @@
           Website redesigns for space startups. Your code stack, full-throttle UX.
         </p>
 
-        <SpaceDrawer>
-          <div slot="trigger" class="flex align-middle">
-            <SpaceButton size="lg" />
-          </div>
-        </SpaceDrawer>
+        <div class="flex items-center gap-8">
+          <SpaceButton size="lg" />
+          
+          <a 
+            href="/space/repacks" 
+            class="inline-flex items-center gap-2 text-lg
+                   text-muted-foreground hover:text-white transition-all
+                   group relative"
+          >
+            <span class="relative z-10">
+              Repacks
+              <span class="inline-block transition-transform group-hover:translate-x-1">
+                <ArrowRight class="w-5 h-5 inline" />
+              </span>
+            </span>
+            
+            <!-- Gradient glow on hover -->
+            <div class="absolute inset-0 opacity-0 group-hover:opacity-100
+                        bg-gradient-to-r from-indigo-600/20 to-purple-600/20 
+                        blur-lg transition-opacity -z-10" />
+            
+            <!-- Hover underline with gradient -->
+            <div class="absolute bottom-0 left-0 right-0 h-px 
+                        bg-gradient-to-r from-indigo-600 to-purple-600
+                        transform scale-x-0 group-hover:scale-x-100
+                        transition-transform origin-left" />
+          </a>
+        </div>
       </div>
 
       <!-- Right Animation -->

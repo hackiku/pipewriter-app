@@ -47,7 +47,7 @@
       "
     />
     
-    <div class="bg-background/70 backdrop-blur-md border border-border/5 shadow-sm rounded-full px-1 md:px-4">
+    <div class="bg-white dark:bg-zinc-900/70 backdrop-blur-md border border-border/5 shadow-sm rounded-full px-1 md:px-4">
       <div class="container mx-auto px-4 py-4 flex justify-between items-center">
         <a href="/" class="flex items-center gap-1.5">
           <PenTool class="h-5 -rotate-90"/>

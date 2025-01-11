@@ -1,50 +1,42 @@
-<!-- src/lib/pages/space/components/cta/PricingCard.svelte -->
-
-<!-- src/lib/pages/space/PricingCard.svelte -->
- 
+<!-- src/lib/(space)/components/cta/PricingCard.svelte -->
 <script lang="ts">
   import { Rocket } from "lucide-svelte";
-	import SpaceButton from "./SpaceButton.svelte";
-
   
   const features = [
-    "72-hour delivery guarantee",
-    "Full redesign in your stack",
-    "Performance optimization",
-    "Technical SEO included"
+    "7-day redesign",
+    "On-brand ",
+    "Production-ready code",
+    "Conversion-focused UX"
   ];
 </script>
 
-<div class="p-8 rounded-xl border bg-card backdrop-blur-sm">
-  <div class="space-y-8">
+<div class="rounded-xl border bg-card text-card-foreground">
+  <!-- Header "Tab" -->
+  <div class="bg-black/40 border-b rounded-t-xl px-6 py-4">
+    <div class="flex items-center gap-2.5">
+      <img src="pages/space/icons/parachute.svg" class="w-4 h-4 filter invert opacity-80" alt="" />
+      <span class="text-sm font-medium tracking-wide uppercase text-muted-foreground">
+        Chute Repack
+      </span>
+    </div>
+  </div>
+  
+  <!-- Content -->
+  <div class="p-6 space-y-8">
     <!-- Price -->
-    <div>
-      <div class="flex items-baseline gap-2">
-        <span class="text-6xl font-bold tracking-tight">$2,000</span>
-        <span class="text-xl text-muted-foreground">/page</span>
-      </div>
-      <p class="mt-2 text-muted-foreground">
-        From wireframe to production code
-      </p>
+    <div class="flex items-baseline gap-2">
+      <span class="text-5xl font-light tracking-tight">$2,000</span>
+      <span class="text-lg text-muted-foreground">/page</span>
     </div>
 
     <!-- Features -->
     <ul class="space-y-4">
       {#each features as feature}
         <li class="flex items-start gap-3">
-          <Rocket class="w-5 h-5 text-primary mt-1" />
-          <span class="text-lg">{feature}</span>
+          <Rocket class="w-4 h-4 text-primary mt-1 opacity-80" />
+          <span class="text-base text-muted-foreground">{feature}</span>
         </li>
       {/each}
     </ul>
-
-		<SpaceButton size="lg" />
-
-    <!-- Added Value -->
-    <div class="pt-4 border-t">
-      <p class="text-sm text-muted-foreground">
-        Includes <span class="text-primary">unlimited revisions</span> during the development phase
-      </p>
-    </div>
   </div>
 </div>

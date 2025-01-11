@@ -1,6 +1,5 @@
-<!-- src/lib/pages/space/components/cta/SpaceButton.svelte -->
+<!-- src/lib/(space)/components/cta/SpaceButton.svelte -->
 
-<!-- src/lib/components/cta/SpaceButton.svelte -->
 <script lang="ts">
   import { Rocket } from "lucide-svelte";
   import { cn } from '$lib/utils';

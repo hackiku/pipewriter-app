@@ -15,13 +15,15 @@
 	import Testimonials from "./components/proof/Testimonials.svelte";
 	// cta
 	import SpaceButton from "./components/cta/SpaceButton.svelte";
-	import SpaceForm from "./components/cta/SpaceForm.svelte";
-	import PricingCard from "./components/cta/PricingCard.svelte";
+	import CTA from "./components/cta/CTA.svelte"
+	// import SpaceForm from "./components/cta/SpaceForm.svelte";
+	// import PricingCard from "./components/cta/PricingCard.svelte";
 </script>
 
 <SpaceNav />
 
-<main class="bg-background text-foreground relative overflow-x-hidden">
+<!-- <main class="bg-background text-foreground relative overflow-x-hidden"> -->
+<main class="bg-zinc-3s00/30 dark:bg-zinc-950 text-foreground relative overflow-x-hidden">
 	<!-- Fixed Background Pattern -->
 	<div class="fixed inset-0 pointer-events-none">
 		<BackgroundPattern size="md" opacity="high" gradient={true} />
@@ -33,7 +35,7 @@
 		<Hero />
 
 		<!-- Before/After slider -->
-		<section class="relative -mt-24 mb-24"> <!-- Pulls it up into hero space -->
+		<section class="relative -mt-24 mb-24">
 			<Repack />
 		</section>
 
@@ -80,12 +82,12 @@
 
 
 <!-- About Section -->
-<section class="relative border-t border-border/50 bg-black/30 dark:bg-white/[0.03]">
+<section class="relative border-t border-border/50 bg-zinc-950/[0.05] dark:bg-white/[0.03]">
   <!-- Tab protruding from section -->
   <div class="absolute left-1/2 -translate-x-1/2 -translate-y-full">
     <div class="flex flex-col items-center gap-4 px-8 pt-4 pb-6 
-                rounded-t-2xl border-t border-x border-border/50 
-                bg-black/30 dark:bg-white/[0.03]">
+                rounded-t-2xl border-t border-x border-border/50 border-b border-b-red-200
+                bg-zinc-950/[0.05] dark:bg-white/[0.03]">
       <div class="w-12 h-12 rounded-full bg-muted/30 
                   flex items-center justify-center">
         <span class="text-2xl font-serif italic">?</span>
@@ -118,23 +120,9 @@
 						</p>
 					</div>
 				</div>
-
-				<div class="grid lg:grid-cols-2 gap-16 items-start">
-					<!-- Left: Form -->
-					<div class="space-y-8">
-						<div>
-						</div>
-
-						<SpaceForm />
-					</div>
-
-					<!-- Right: Pricing -->
-					<div class="lg:sticky lg:top-8">
-						<PricingCard />
-					</div>
-				</div>
-			</div>
-		</section>
+				
+				<CTA />
+			</section>
 
 	</div>
 </main>
