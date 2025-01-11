@@ -24,11 +24,11 @@
 
 <!-- <main class="bg-background text-foreground relative overflow-x-hidden"> -->
 <main
-	class="bg-zinc-3s00/30 dark:bg-zinc-950 text-foreground relative overflow-x-hidden"
+	class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden"
 >
 	<!-- Fixed Background Pattern -->
 	<div class="fixed inset-0 pointer-events-none">
-		<BackgroundPattern size="md" opacity="high" gradient={true} />
+		<BackgroundPattern size="sm" opacity="high" gradient={true} />
 	</div>
 
 	<!-- Content -->
@@ -37,7 +37,7 @@
 		<Hero />
 
 		<!-- Before/After slider -->
-		<section class="relative -mt-24 mb-24">
+		<section class="relative -mt-20 mb-24">
 			<Repack />
 		</section>
 

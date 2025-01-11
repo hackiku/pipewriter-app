@@ -5,7 +5,7 @@
   import ChuteMath from "../components/chute/ChuteMath.svelte";
 </script>
 
-<section class="relative min-h-[80vh] flex items-start pt-40 overflow-hidden">
+<section class="relative min-h-[80vh] flex items-start pt-28 md:pt-32 overflow-hidden">
   <!-- Editorial Grid Background -->
   <div class="absolute inset-0 pointer-events-none">
     <div
@@ -24,11 +24,11 @@
       <!-- Left Content -->
       <div class="col-span-12 lg:col-span-6 lg:col-start-2">
         <h1 class="text-5xl sm:text-5xl md:text-7xl font-regular leading-tight mb-6">
-          Space Age Landing Pages
+          Space Age <br/>Landing Pages
         </h1>
 
         <p class="text-2xl md:text-3xl text-muted-foreground mb-8 leading-relaxed">
-          Website redesigns for space startups. Your code stack, full-throttle UX.
+          Website redesigns for space startups. Full-throttle UX.
         </p>
 
         <div class="flex items-center gap-8">
