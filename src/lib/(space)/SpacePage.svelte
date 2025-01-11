@@ -62,9 +62,10 @@
 						</div>
 
 						<p class="text-3xl font-regular leading-snug text-balance">
-							Every space startup deserves a proper landing. Chute Repack is a
-							7-day redesign sprint that rebuilds your website in
-							production-ready code. Clean, semantic, and engineered to convert.
+							Your rockets rock, but your website looks like 1969? Time for a refresh.
+							<span class="opacity-50">Chute Repack is a</span> 7-day <span class="opacity-50">
+							coding sprint to a landing page that gets customers and investors.</span>
+							<span></span>
 						</p>
 					</div>
 				</div>
