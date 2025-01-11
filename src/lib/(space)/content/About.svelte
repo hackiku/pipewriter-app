@@ -24,7 +24,7 @@
     />
   </div>
 
-  <div class="container pt-24 pb-32 relative">
+  <div class="container pt-24 pb-12 relative">
     <div class="max-w-3xl mx-auto space-y-8">
       <!-- TLDR Version -->
       <p class="text-2xl text-balance leading-relaxed">
