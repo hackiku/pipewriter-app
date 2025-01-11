@@ -1,38 +1,40 @@
 <!-- src/lib/(space)/repacks/firefly/sections/Vehicles.svelte -->
 <script lang="ts">
-  import PrimaryButton from "../components/cta/PrimaryButton.svelte";
+  import { vehicles } from '../data/vehicles';
+  import ProductCard from '../components/products/ProductCard.svelte';
+  import ProductModal from '../components/products/ProductModal.svelte';
+  import SecondaryButton from '../components/cta/SecondaryButton.svelte';
+  import { fireflyStore } from '../stores/fireflyStore';
+  import { ArrowUpDown } from 'lucide-svelte';
 </script>
 
-<section class="py-24 bg-zinc-950">
+<section class="py-24 bg-black relative">
   <div class="container">
-    <div class="grid lg:grid-cols-2 gap-16 items-center">
-      <div class="space-y-8">
-        <div class="space-y-2">
-          <h2 class="text-lg text-[#F5FF00] font-medium tracking-wide">
-            ALPHA & MLV
-          </h2>
-          <h3 class="text-4xl font-light text-white">
-            Launch Vehicles - responsive space
-          </h3>
-        </div>
-
-        <p class="text-lg text-zinc-300 leading-relaxed">
-          From small-lift Alpha to our medium launch vehicle collaboration 
-          with Northrop Grumman, Firefly delivers reliable, responsive, 
-          and affordable access to space.
-        </p>
-
-        <div class="flex gap-4">
-          <PrimaryButton href="/launch/alpha">
-            About Alpha
-          </PrimaryButton>
-          <PrimaryButton href="/launch/mlv">
-            About MLV
-          </PrimaryButton>
-        </div>
+    <!-- Header -->
+    <div class="flex justify-between items-start mb-16">
+      <div class="space-y-2">
+        <h2 class="text-lg text-[#F5FF00] font-medium tracking-wider">
+          VEHICLES
+        </h2>
+        <h3 class="text-4xl font-light text-white">
+          Launch Solutions
+        </h3>
       </div>
 
-      <div class="aspect-square rounded-lg bg-zinc-900" />
+      <SecondaryButton>
+        <span>Compare</span>
+        <ArrowUpDown class="ml-2 h-4 w-4" />
+      </SecondaryButton>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid md:grid-cols-2 gap-8">
+      {#each vehicles as vehicle (vehicle.id)}
+        <ProductCard {vehicle} />
+      {/each}
     </div>
   </div>
+
+  <!-- Modal -->
+  <ProductModal />
 </section>
