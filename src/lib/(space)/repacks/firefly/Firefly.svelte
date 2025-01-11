@@ -31,9 +31,11 @@
   <main>
     <Hero />
     <Vehicles />
-    <News />
+
+		<Music />
+
+		<News />
     <!-- <Careers /> -->
-    <Music />
 
   </main>
 </main>

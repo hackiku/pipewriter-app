@@ -7,22 +7,21 @@
   let currentNote = "G5";
   let frequency = 783.99;
   
-  // This would be hooked up to real audio analysis
   function onFrequencyChange(event: CustomEvent<{note: string, freq: number}>) {
     currentNote = event.detail.note;
     frequency = event.detail.freq;
   }
 </script>
 
-<section class="py-24 bg-black">
-  <div class="container">
+<section class="bg-black">
+  <div class="container max-w-7xl">
     <!-- Section Header -->
-    <div class="space-y-8 mb-16">
+    <div class="space-y-6 md:space-y-8 mb-8 md:mb-16 px-4 md:px-0">
       <div class="space-y-2">
-        <h2 class="text-lg text-[#F5FF00] font-medium tracking-wider">
+        <!-- <h2 class="text-lg text-[#F5FF00] font-medium tracking-wider">
           RESONANT FREQUENCIES
-        </h2>
-        <h3 class="text-4xl font-light text-white">
+        </h2> -->
+        <h3 class="text-5xl md:text-5xl font-light text-white">
           The Sound of Rocket Science
         </h3>
       </div>
@@ -33,17 +32,24 @@
       </p>
     </div>
     
-    <!-- Player Grid -->
-    <div class="grid grid-cols-4 gap-8">
-      <!-- Main Player -->
-      <div class="col-span-3">
+    <!-- Player Grid - Reflows to vertical on mobile -->
+    <div class="flex flex-col lg:grid lg:grid-cols-4 gap-6 md:gap-8">
+      <!-- Main Player - Full width on mobile -->
+      <div class="lg:col-span-3 px-4 md:px-0">
         <MusicPlayer />
       </div>
       
-      <!-- Side Panel -->
-      <div class="space-y-8">
-        <FrequencyDisplay {currentNote} {frequency} />
-        <Piano on:frequencyChange={onFrequencyChange} />
+      <!-- Side Panel - Horizontal scroll on mobile -->
+      <div class="lg:space-y-8 px-4 md:px-0">
+        <!-- On mobile, put frequency display and piano side by side -->
+        <div class="flex lg:flex-col gap-4 overflow-x-auto lg:overflow-visible snap-x snap-mandatory lg:snap-none">
+          <div class="flex-shrink-0 w-4/5 md:w-2/3 lg:w-full snap-center">
+            <FrequencyDisplay {currentNote} {frequency} />
+          </div>
+          <div class="flex-shrink-0 w-4/5 md:w-2/3 lg:w-full snap-center">
+            <Piano on:frequencyChange={onFrequencyChange} />
+          </div>
+        </div>
       </div>
     </div>
   </div>
