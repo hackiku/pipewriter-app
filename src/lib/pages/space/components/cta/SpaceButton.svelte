@@ -1,3 +1,5 @@
+<!-- src/lib/pages/space/components/cta/SpaceButton.svelte -->
+
 <!-- src/lib/components/cta/SpaceButton.svelte -->
 <script lang="ts">
   import { Rocket } from "lucide-svelte";
@@ -39,7 +41,8 @@
   
   <div class="relative z-10 flex items-center justify-center text-white w-full">
     <div class="relative flex items-center justify-center w-full gap-0 group-hover:gap-3 transition-all duration-300">
-      <span class="transition-all duration-300 translate-x-2 group-hover:-translate-x-2">
+      <img src="pages/space/icons/parachute.svg" class="w-4 filter invert">
+			<span class="transition-all duration-300 translate-x-2 group-hover:-translate-x-2">
 				{text}
       </span>
       <Rocket 

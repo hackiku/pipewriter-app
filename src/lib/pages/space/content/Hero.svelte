@@ -1,3 +1,5 @@
+<!-- src/lib/pages/space/content/Hero.svelte -->
+
 <!-- src/lib/components/space/content/Hero.svelte -->
 <script lang="ts">
 	import { Send } from "lucide-svelte";

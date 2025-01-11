@@ -1,3 +1,5 @@
+<!-- src/lib/pages/space/content/ChuteRepack.svelte -->
+
 <!-- BeforeAfter.svelte -->
 <!-- https://www.site-shot.com/?utm_source=chatgpt.com -->
 <script lang="ts">

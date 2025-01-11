@@ -1,3 +1,5 @@
+<!-- src/lib/pages/space/components/cta/PricingCard.svelte -->
+
 <!-- src/lib/pages/space/PricingCard.svelte -->
  
 <script lang="ts">

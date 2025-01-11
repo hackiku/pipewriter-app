@@ -1,3 +1,5 @@
+// src/lib/pages/space/stores/spaceStore.ts
+
 // src / lib / pages / space / stores / spaceStore.ts-- >
 import { writable } from 'svelte/store';
 

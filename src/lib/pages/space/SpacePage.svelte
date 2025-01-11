@@ -6,7 +6,7 @@
 	import SpaceNav from "./components/SpaceNav.svelte";
 	// content
 	import Hero from "./content/Hero.svelte";
-	import ChuteRepack from "./content/ChuteRepack.svelte";
+	import Repack from "./components/repack/Repack.svelte";
 
 	import BeforeAfter from "./content/BeforeAfter.svelte";
 	import Problem from "./content/Problem.svelte";
@@ -35,19 +35,16 @@
 		<!-- Hero Section -->
 		<Hero />
 
-		<!-- <ChuteRepack /> -->
-		<!-- Before/After Gallery -->
-		<section class="relative -mt-6 pb-24">
-			<div class="container">
-				<BeforeAfter />
-			</div>
+		<!-- Before/After slider -->
+		<section class="relative container">
+			<Repack />
 		</section>
 
-		<section class="py-24 relative">
+		<!-- <section class="py-24 relative">
 			<div class="container">
 				<Problem />
 			</div>
-		</section>
+		</section> -->
 
 		<!-- Process Section -->
 		<section class="py-24 relative">

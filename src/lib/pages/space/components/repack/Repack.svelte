@@ -1,28 +1,35 @@
-<!-- src/lib/pages/space/content/BeforeAfter.svelte -->
-
-<!-- BeforeAfter.svelte -->
-<!-- https://www.site-shot.com/?utm_source=chatgpt.com -->
+<!-- src/lib/pages/space/components/repack/Repack.svelte -->
 <script lang="ts">
+  import { onMount } from 'svelte';
   import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-svelte';
   import { Button } from "$lib/components/ui/button";
-  import { redesignsStore } from '$lib/stores/chuteStore';
+  import RepackLabel from './RepackLabel.svelte';
+  import { repackStore } from '../../stores/repackStore';
   
   let sliderPosition = 50;
   let isDragging = false;
   let containerRef: HTMLDivElement;
+  let dynamicComponent: any;
   
-  $: currentExample = $redesignsStore.examples[$redesignsStore.currentIndex];
+  $: currentExample = $repackStore.examples[$repackStore.currentIndex];
+  
+  onMount(async () => {
+    if (currentExample.component) {
+      const module = await import(`../../${currentExample.component}`);
+      dynamicComponent = module.default;
+    }
+  });
   
   function nextExample() {
-    const nextIndex = ($redesignsStore.currentIndex + 1) % $redesignsStore.examples.length;
-    redesignsStore.setExample(nextIndex);
+    const nextIndex = ($repackStore.currentIndex + 1) % $repackStore.examples.length;
+    repackStore.setExample(nextIndex);
   }
 
   function prevExample() {
-    const prevIndex = $redesignsStore.currentIndex === 0 
-      ? $redesignsStore.examples.length - 1 
-      : $redesignsStore.currentIndex - 1;
-    redesignsStore.setExample(prevIndex);
+    const prevIndex = $repackStore.currentIndex === 0 
+      ? $repackStore.examples.length - 1 
+      : $repackStore.currentIndex - 1;
+    repackStore.setExample(prevIndex);
   }
 
   function handleMouseDown(e: MouseEvent) {
@@ -51,13 +58,19 @@
       bind:this={containerRef}
       class="relative aspect-[16/9] rounded-xl overflow-hidden border bg-card group"
     >
+      <!-- Labels -->
+      <RepackLabel type="before" />
+      <RepackLabel type="after" />
+
       <!-- Before -->
       <div class="absolute inset-0">
-        <iframe 
-          src={currentExample.beforeUrl}
-          title={`${currentExample.company} original site`}
-          class="w-full h-full pointer-events-none"
-        />
+        {#if currentExample.beforeUrl}
+          <img 
+            src={currentExample.beforeUrl}
+            alt="Original {currentExample.company} website"
+            class="w-full h-full object-cover"
+          />
+        {/if}
       </div>
 
       <!-- After -->
@@ -65,11 +78,15 @@
         class="absolute inset-0"
         style:clip-path="inset(0 {100 - sliderPosition}% 0 0)"
       >
-        <iframe 
-          src={currentExample.afterUrl}
-          title={`${currentExample.company} redesigned site`}
-          class="w-full h-full pointer-events-none"
-        />
+        {#if currentExample.afterUrl}
+          <img
+            src={currentExample.afterUrl}
+            alt="Redesigned {currentExample.company} website"
+            class="w-full h-full object-cover"
+          />
+        {:else if dynamicComponent}
+          <svelte:component this={dynamicComponent} />
+        {/if}
       </div>
 
       <!-- Slider Handle -->
@@ -99,10 +116,12 @@
           <div class="text-center">
             <h3 class="text-xl font-semibold mb-1">{currentExample.company}</h3>
             <p class="text-sm text-white/80">{currentExample.description}</p>
-            <Button variant="ghost" size="sm" class="mt-2 gap-2 hover:bg-white/20">
-              <Maximize2 class="w-4 h-4" />
-              View Full Comparison
-            </Button>
+            {#if currentExample.meta?.originalUrl}
+              <Button variant="ghost" size="sm" class="mt-2 gap-2 hover:bg-white/20">
+                <Maximize2 class="w-4 h-4" />
+                View Original Site
+              </Button>
+            {/if}
           </div>
 
           <Button variant="ghost" size="icon" class="text-white hover:bg-white/20" on:click={nextExample}>

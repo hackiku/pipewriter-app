@@ -1,3 +1,5 @@
+<!-- src/lib/pages/space/components/SpaceNav.svelte -->
+
 <!-- src/lib/pages/space/layout/SpaceNav.svelte -->
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";

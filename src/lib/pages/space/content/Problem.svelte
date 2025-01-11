@@ -1,3 +1,5 @@
+<!-- src/lib/pages/space/content/Problem.svelte -->
+
 <!-- $lib/pages/layout/Problem.svelte -->
 <script lang="ts">
     import { onMount } from 'svelte';
