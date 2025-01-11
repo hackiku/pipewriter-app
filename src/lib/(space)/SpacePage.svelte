@@ -48,7 +48,7 @@
 		</section> -->
 
 		<!-- Process Section -->
-		<section class="py-24 relative">
+		<section class="py-12 relative">
 			<div class="container">
 				<!-- Editorial Header: Right-aligned for visual interest -->
 				<div class="flex justify-end mb-24">
@@ -78,43 +78,45 @@
 			</div>
 		</section>
 
-		<section class="mb-20">
+		<section class="mb-20 max-h-[80vh] overflow-clip">
 			<Testimonials />
 		</section>
 
-<section class="relative bg-zinc-950/[0.05] dark:bg-white/[0.03]">
-  <!-- Top border with centered triangle -->
-  <div class="absolute inset-x-0 top-0 flex justify-center">
-    <!-- Left border -->
-    <div class="flex-1 border-t border-border/50" />
-    
-    <!-- Center triangle container -->
-    <div class="w-32 -translate-y-6">
-      <!-- Triangle shape -->
-      <div 
-        class="relative h-16 -translate-y-10 bg-zinc-950/[0.05] dark:bg-white/[0.03] border-t border-x border-border/50 rounded-t-full overflow-hidden"
-      >
-        <!-- Question mark circle -->
-      </div>
-			<div class="absolute top-6 z-10 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-muted/30 flex items-center justify-center">
-				<span class="text-lg font-serif italic">?</span>
-			</div>
-      <!-- Text below triangle -->
-      <p class="text-sm text-muted-foreground text-center mt-2">
-        Wait, where's the space?
-      </p>
-    </div>
-    
-    <!-- Right border -->
-    <div class="flex-1 border-t border-border/50" />
-  </div>
+		<section class="relative bg-zinc-950/[0.05] dark:bg-white/[0.03]">
+			<!-- Top border with centered triangle -->
+			<div class="absolute inset-x-0 top-0 flex justify-center">
+				<!-- Left border -->
+				<div class="flex-1 border-t border-border/50" />
 
-  <!-- Section content container -->
-  <div class="pt-24">
-    <About />
-    <Products />
-  </div>
-</section>
+				<!-- Center triangle container -->
+				<div class="w-32 -translate-y-6">
+					<!-- Triangle shape -->
+					<div
+						class="relative h-16 -translate-y-10 bg-zinc-950/[0.05] dark:bg-white/[0.03] border-t border-x border-border/50 rounded-t-full overflow-hidden"
+					>
+						<!-- Question mark circle -->
+					</div>
+					<div
+						class="absolute top-6 z-10 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-muted/30 flex items-center justify-center"
+					>
+						<span class="text-lg font-serif italic">?</span>
+					</div>
+					<!-- Text below triangle -->
+					<p class="text-sm text-muted-foreground text-center mt-2">
+						Wait, where's the space?
+					</p>
+				</div>
+
+				<!-- Right border -->
+				<div class="flex-1 border-t border-border/50" />
+			</div>
+
+			<!-- Section content container -->
+			<div class="pt-24">
+				<About />
+				<Products />
+			</div>
+		</section>
 
 		<!-- Pricing Section with Form -->
 		<section class="py-24 relative border-t">
