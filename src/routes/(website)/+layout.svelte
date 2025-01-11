@@ -1,5 +1,6 @@
 <!-- src/routes/+layout.svelte -->
 <script lang="ts">
+  import { getContext } from 'svelte';
 	import { dev } from '$app/environment';
   import "../../app.css";
   import BackgroundPattern from '$lib/components/BackgroundPattern.svelte';
@@ -25,6 +26,8 @@
   onMount(() => {
     isIframe = window?.location?.pathname?.startsWith('/iframe') || false;
   });
+
+  const overrideNav = getContext('override-nav') || false;
 </script>
 
 <SEO />
@@ -39,15 +42,18 @@
 
 <ModeWatcher />
 
-{#if !isIframe}
+{#if !isIframe && !overrideNav}
   <Nav />
 {/if}
 
 <div class="flex min-h-screen flex-col relative">
   <!-- Background Pattern - Fixed position for main content area -->
-  <div class="fixed inset-0 pointer-events-none">
-    <BackgroundPattern />
-  </div>
+  
+	{#if !isIframe && !overrideNav}
+		<div class="fixed inset-0 pointer-events-none">
+    	<BackgroundPattern />
+  	</div>
+	{/if}
 
   <!-- Main content with transparent background -->
   <main class="flex-grow relative">
