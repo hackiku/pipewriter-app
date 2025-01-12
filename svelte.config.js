@@ -6,13 +6,21 @@ const mdsvexConfig = defineMDSveXConfig({
 	extensions: ['.md'],
 	layout: {
 		_: './src/routes/(website)/blog/[slug]/+layout.svelte'
+	},
+  smartypants: true,
+	highlight: {
+		highlighter: async (code, lang = 'html') => {
+			if (lang) {
+				// You could use prism, shiki, or other highlighters
+				return `<pre class="language-${lang}"><code>${code}</code></pre>`;
+			}
+			return '';
+		}
 	}
 });
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
-	// Consult https://kit.svelte.dev/docs/integrations#preprocessors
-	// for more information about preprocessors
 	preprocess: [
 		vitePreprocess(),
 		mdsvex(mdsvexConfig)

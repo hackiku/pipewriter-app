@@ -8,7 +8,7 @@
   export let post;
 </script>
 
-<main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden">
+<main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden pt-12">
   <!-- Background Pattern -->
   <div class="fixed inset-0 pointer-events-none">
     <BackgroundPattern size="sm" opacity="high" gradient={true} />
