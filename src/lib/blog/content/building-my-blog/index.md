@@ -2,7 +2,7 @@
 title: "Building My Blog: A Story of Discovering MDSvex"
 date: "January 12, 2025"
 category: "Building in Public"
-excerpt: "Sometimes the best discoveries come from rebuilding things. A story about over-engineering, finding MDSvex, and why technical documentation should be fun to write."
+excerpt: "When I realized I organize website components code with a copywriter's mind."
 ---
 
 <script>

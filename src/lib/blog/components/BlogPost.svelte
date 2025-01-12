@@ -8,7 +8,7 @@
 </script>
 
 <main class="bg-background text-foreground">
-  <article class="container max-w-4xl mx-auto py-24 px-4">
+  <article class="container md:max-w-3xl smx-auto mt-32">
     <!-- Header section stays the same -->
     <header class="space-y-8 mb-16">
       <div class="space-y-2">
@@ -30,7 +30,7 @@
           {/if}
         </div>
 
-        <h1 class="text-4xl sm:text-5xl font-bold leading-tight">
+        <h1 class="text-4xl sm:text-5xl font-medium leading-tight">
           {post.title}
         </h1>
 
@@ -43,7 +43,7 @@
     </header>
 
     <!-- Content section with minimal prose styling -->
-    <div class="prose dark:prose-invert prose-zinc max-w-none">
+    <div class="prose prose-zinc dark:prose-invert max-w-none">
       <svelte:component this={post.content} />
     </div>
 
@@ -51,37 +51,3 @@
   </article>
 </main>
 
-<style>
-  :global(.prose) {
-    line-height: 1.75;
-  }
-  
-  :global(.prose h1, .prose h2, .prose h3, .prose h4) {
-    margin-top: 2em;
-    margin-bottom: 1em;
-    font-weight: 600;
-  }
-  
-  :global(.prose p) {
-    margin-top: 1.25em;
-    margin-bottom: 1.25em;
-  }
-  
-  :global(.prose pre) {
-    background-color: hsl(var(--muted));
-    padding: 1rem;
-    border-radius: 0.5rem;
-    overflow-x: auto;
-  }
-  
-  :global(.prose code) {
-    color: hsl(var(--primary));
-    background-color: hsl(var(--muted));
-    padding: 0.2em 0.4em;
-    border-radius: 0.25rem;
-  }
-  
-  :global(.dark .prose code) {
-    background-color: hsl(var(--muted));
-  }
-</style>
