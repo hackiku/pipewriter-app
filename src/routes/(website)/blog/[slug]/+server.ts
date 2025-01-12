@@ -14,6 +14,7 @@ export const GET = async ({ params, request, locals }) => {
 			? resolve(process.cwd(), 'src/lib/blog/content')
 			: resolve(process.cwd(), 'build/client/blog/content');
 
+
 		const fullPath = join(contentDir, params.slug, assetPath);
 
 		// Security check - ensure path is within content directory

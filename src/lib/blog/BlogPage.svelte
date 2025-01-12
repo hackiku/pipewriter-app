@@ -1,71 +1,60 @@
 <!-- src/lib/blog/BlogPage.svelte -->
 <script lang="ts">
   import { Stars } from "lucide-svelte";
-  import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
   import ArticleCard from "./components/blocks/ArticleCard.svelte";
   import EmailOptin from "./components/cta/EmailOptin.svelte";
+  import EmailForm from "$lib/components/cta/EmailForm.svelte";
+  import Turtles from "./components/ui/Turtles.svelte";
+  import Title from "./components/ui/Title.svelte";
   import type { BlogPost } from './types';
+  
   export let posts: BlogPost[];
-
-  // Get featured post (most recent)
-  $: featuredPost = posts[0];
-  $: regularPosts = posts.slice(1);
+  $: regularPosts = posts;
 </script>
 
-<main class=" text-foreground relative overflow-x-hidden">
-  <!-- Background Pattern -->
-<!-- <div class="fixed inset-0 pointer-events-none">
-	<BackgroundPattern size="lg" opacity="high" gradient={false} />
-</div> -->
-
-  <!-- Hero Section -->
-  <section class="relative XXXmin-h-[80vh] flex items-start pt-28 md:pt-32 overflow-hidden">
+<main class="text-foreground relative overflow-x-hidden">
+  <!-- <section class="relative flex items-start py-pt-20 md:pt-28 pb-12 overflow-hidden"> -->
+  <section class="relative flex items-start py-32 md:py-32 md:px-16 lg:px-20 xl:px-44 overflow-hidden">
     <div class="container relative z-10">
-      <div class="grid grid-cols-12 gap-8">
-        <!-- Blog Intro -->
-        <div class="col-span-12 lg:col-span-6 lg:col-start-2">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 
-                      rounded-full bg-primary/10 text-primary border border-primary/20 mb-8">
-            <Stars class="w-4 h-4" />
-            <span class="text-sm font-medium">Blog</span>
-          </div>
-
-          <h1 class="text-5xl sm:text-5xl md:text-7xl font-regular leading-tight mb-6">
-            writing on writing
-          </h1>
-          <h1 class="pl-12 -mt-12 text-4xl sm:text-5xl md:text-6xl font-regular leading-tight mb-6 opacity-30">
-            on writing on writing
-          </h1>
-
-          <p class="text-2xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            It's turtles all the way down.
-          </p>
+      <div class="max-w-3xl relative">
+        <!-- Category badge -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 
+                    rounded-full bg-primary/10 text-primary border border-primary/20 mb-2">
+          <!-- <Stars class="w-4 h-4" /> -->
+          <span class="text-sm font-medium">Blog</span>
         </div>
 
-        <!-- Featured Post -->
-        {#if featuredPost}
-          <div class="col-span-12 lg:col-span-4 lg:col-start-8 relative">
-            <!-- Decorative turtles -->
-            <div class="absolute -top-24 -left-24 w-48 h-48 opacity-20 pointer-events-none">
-              <svg viewBox="0 0 100 100" class="w-full h-full rotate-180">
-                <path 
-                  d="M50 90 C70 90, 90 70, 90 50 C90 30, 70 10, 50 10 C30 10, 10 30, 10 50 C10 70, 30 90, 50 90" 
-                  fill="none" 
-                  stroke="currentColor" 
-                  stroke-width="1"
-                />
-              </svg>
-            </div>
-            
-            <ArticleCard post={featuredPost} />
+        <!-- Echoing title -->
+        <Title 
+          text="writing on writing"
+          className="mb-8"
+          echoes={2}
+        />
+
+        <div class="space-y-8">
+          <p class="text-2xl md:text-2xl text-muted-foreground leading-relaxed">
+            It's turtles all the way down.
+          </p>
+
+          <!-- Email form below subhead -->
+          <div class="max-w-sm">
+            <EmailForm size="sm" wrap={false} />
           </div>
-        {/if}
+        </div>
+
+        <!-- Decorative turtles -->
+        <Turtles 
+          position="bottom-right"
+          size="lg"
+          opacity={0.15}
+          echoes={3}
+        />
       </div>
     </div>
   </section>
 
   <!-- Articles Grid -->
-  <section class="container py-24">
+  <section class="container pb-24">
     <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
       {#each regularPosts as post}
         <ArticleCard post={post} />
