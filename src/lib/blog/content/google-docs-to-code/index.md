@@ -18,9 +18,9 @@ author: {
 Remember that moment in a project when you hand over your carefully crafted wireframe to developers, and then wait weeks to see it come alive? Yeah, let's fix that. Today we're launching a feature that turns your Google Docs wireframes into working code – instantly.
 
 <BlogImage 
-  src="$lib/blog/content/google-docs-to-code/assets/github.svg"
-  alt="Github logo for testing"
-  caption="Lets see if it loads"
+  src="assets/screenshot.png"
+  alt="Random screenshot"
+  caption="Pls work"
 />
 
 ## The Writer's Secret Weapon

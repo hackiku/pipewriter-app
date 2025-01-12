@@ -8,6 +8,8 @@
 		ShoppingBag,
 	} from "lucide-svelte";
 	import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
+  import SocialLink from "./cta/SocialLink.svelte";
+
 	// import ContactModal from "./ContactModal.svelte";
 	import { contactModalStore } from "$lib/stores/contactModalStore";
   import { socialLinks, footerSections } from '$lib/data/navigation';
@@ -31,6 +33,21 @@
 		>
 			<!-- Brand & Social - Spans full width on mobile, half on medium, 5 cols on large -->
 			<div class="md:col-span-1 lg:col-span-5 flex flex-col justify-between">
+				
+				  <div class="flex gap-4">
+    <SocialLink 
+      href="https://github.com/hackiku"
+      icon={GithubIcon}
+      label="View projects on GitHub"
+    />
+    <SocialLink 
+      href="https://linkedin.com/in/ivankaraman"
+      icon={LinkedinIcon}
+      label="Connect on LinkedIn"
+    />
+  </div>
+
+				
 				<!-- Logo & Description -->
 				<div class="space-y-4">
 					<div class="flex items-center gap-1">

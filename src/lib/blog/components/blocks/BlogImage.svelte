@@ -1,15 +1,23 @@
 <!-- lib/blog/components/blocks/BlogImage.svelte -->
 <script lang="ts">
   import { cn } from '$lib/utils';
+  import { page } from '$app/stores';
+  import { dev } from '$app/environment';
 
   export let src: string;
   export let alt: string = "";
   export let caption: string = "";
   export let className: string = "";
   
-  // Handle both local and remote images
-  const isRemote = src.startsWith('http');
-  const localSrc = isRemote ? src : `/blog/${src}`;
+  // Get the current post slug
+  $: slug = $page.params.slug;
+  
+  // In dev, use Vite's dev server. In prod, use the server endpoint
+  $: resolvedSrc = src.startsWith('http') 
+    ? src 
+    : dev 
+      ? `/src/lib/blog/content/${slug}/${src}`
+      : `/blog/${slug}/${src}`;
 </script>
 
 <figure class="not-prose my-8">
@@ -20,9 +28,14 @@
   )}>
     <img
       {alt}
-      src={localSrc}
+      src={resolvedSrc}
       class="w-full h-auto object-cover"
       loading="lazy"
+      on:error={(e) => {
+        console.error(`Failed to load image: ${resolvedSrc}`);
+        console.error(`Original src: ${src}`);
+        console.error(`Slug: ${slug}`);
+      }}
     />
   </div>
   {#if caption}
