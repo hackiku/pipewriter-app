@@ -1,62 +1,91 @@
 <!-- lib/blog/components/ui/Title.svelte -->
 <script lang="ts">
-  export let text: string = "writing on writing";
+  export let text = "writing on writing";
   export let className = '';
-  export let repeatedText = "on writing on writing on writing";
+  export let repeatedText = "on writing";
 </script>
 
-<style>
-  .title-container {
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .title-row {
-    position: relative;
-    display: flex;
-    white-space: nowrap;
-    margin-bottom: -0.25em;
-  }
-
-  .infinite-text {
-    animation: floatGently var(--duration) ease-in-out infinite;
-    margin-left: -0.25em;
-  }
-
-  .repeated-row {
-    opacity: var(--opacity);
-    transform: translateY(var(--offset));
-  }
-
-  @keyframes floatGently {
-    0%, 100% { 
-      transform: translate(0, 0);
-    }
-    50% { 
-      transform: translate(var(--float-x), var(--float-y));
-    }
-  }
-</style>
-
-<div class="title-container {className}">
-  <!-- Main row with solid white text -->
-  <div class="title-row">
-    <h1 class="text-5xl sm:text-5xl md:text-7xl font-regular leading-tight">
-      {text}
-    </h1>
-    <h1 class="infinite-text pl-10 text-5xl sm:text-5xl md:text-7xl font-regular leading-tight text-foreground/20"
-        style="--duration: 3s; --float-x: -4px; --float-y: 2px;">
-      {repeatedText} {repeatedText} {repeatedText}
-    </h1>
+<div class="relative {className}">
+  <!-- Main content that dictates the height -->
+  <div class="container md:px-20 lg:px-20 xl:px-44">
+    <!-- Main content row -->
+    <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
+      <!-- Blog badge - width fit-content for mobile -->
+      <div class="w-fit px-6 py-2 rounded-full bg-primary/10 text-primary 
+                  border border-primary/20 text-xl font-medium hover:scale-105 
+                  transition-transform h-[calc(theme(fontSize.6xl)*0.6)] 
+                  md:h-[calc(theme(fontSize.7xl)*0.6)] inline-flex items-center">
+        Blog
+      </div>
+      
+      <!-- Main title -->
+      <h1 class="text-6xl md:text-7xl font-normal leading-[1.1] md:leading-none">
+        {text}
+      </h1>
+    </div>
   </div>
 
-  <!-- Second row with all gray text -->
-  <div class="title-row repeated-row ml-12"
-       style="--opacity: 0.65; --offset: -0.4em">
-    <h1 class="text-5xl sm:text-5xl md:text-7xl font-regular leading-tight text-foreground/20"
-			style="--duration: 3s; --float-x: 12px; --float-y: 2px;">
-      {repeatedText} {repeatedText} {repeatedText}
-    </h1>
+  <!-- Animated background text with more vertical freedom -->
+  <div class="absolute top-[60%] w-screen left-[calc(50%-50vw)] h-[50vh]">
+    <!-- First floating line -->
+    <div class="whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
+                text-foreground/10 animate-float-1">
+      <div class="inline-block">
+        {#each Array(10) as _}
+          <span class="inline-block">{repeatedText}&nbsp;</span>
+        {/each}
+      </div>
+    </div>
+
+    <!-- Second floating line -->
+    <div class="whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
+                text-foreground/5 mt-2 animate-float-2">
+      <div class="inline-block">
+        {#each Array(10) as _}
+          <span class="inline-block">{repeatedText}&nbsp;</span>
+        {/each}
+      </div>
+    </div>
   </div>
 </div>
+
+<style>
+  @keyframes float1 {
+    0% { transform: translate(0, 0) rotate(0deg); }
+    100% { transform: translate(-100%, 0) rotate(1deg); }
+  }
+
+  @keyframes float2 {
+    0% { transform: translate(-100%, 0) rotate(-1deg); }
+    100% { transform: translate(0, 0) rotate(0deg); }
+  }
+
+  .animate-float-1 {
+    animation: float1 30s linear infinite;
+  }
+
+  .animate-float-2 {
+    animation: float2 30s linear infinite;
+  }
+
+  /* Add a subtle wave effect on top of the scrolling */
+  .animate-float-1 {
+    animation: float1 2s linear infinite,
+               wave1 5s ease-in-out infinite;
+  }
+
+  .animate-float-2 {
+    animation: float2 12s linear infinite,
+               wave2 8s ease-in-out infinite;
+  }
+
+  @keyframes wave1 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(0, -1rem) rotate(3deg); }
+  }
+
+  @keyframes wave2 {
+    0%, 100% { transform: translate(0, 0) rotate(0deg); }
+    50% { transform: translate(0, 1rem, 12rem) rotate(-3deg); }
+  }
+</style>

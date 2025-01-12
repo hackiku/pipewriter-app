@@ -12,23 +12,13 @@
 </script>
 
 <main class="text-foreground relative overflow-x-hidden">
-  <section class="relative flex items-start pt-32 md:pt-36 md:px-16 lg:px-20 xl:px-44 overflow-hidden">
-    <div class="container relative z-10">
-      <div class="max-w-3xl relative">
-        <!-- Category badge -->
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 
-                    rounded-full bg-primary/10 text-primary border border-primary/20 mb-2">
-          <span class="text-sm font-medium">Blog</span>
-        </div>
+  <section class="relative pt-32 md:pt-36">
+    <div class="relative z-10">
+      <Title className="mb-6" />
 
-        <!-- Echoing title -->
-        <Title 
-          text="writing on writing"
-          className="mb-8"
-        />
-
-        <div class="space-y-8">
-          <p class="-mt-4 text-2xl md:text-2xl text-muted-foreground leading-relaxed">
+      <div class="container md:px-20 lg:px-20 xl:px-44">
+        <div class="space-y-6">
+          <p class="text-xl md:text-2xl text-muted-foreground/80 font-normal">
             It's turtles all the way down.
           </p>
 
@@ -40,23 +30,22 @@
             className="max-w-sm"
           />
         </div>
-
       </div>
-			<!-- <Turtles 
-				position="bottom-right"
-				size="lg"
-				opacity={0.05}
-				echoes={3}
-			/> -->
+
+      <Turtles 
+        position="bottom-right"
+        size="lg"
+        opacity={0.05}
+        echoes={3}
+      />
     </div>
   </section>
 
-  <!-- Articles Grid with column selector -->
-	 <section class="container py-12 md:px-20 lg:px-20 xl:px-44 overflow-hidden">
+  <section class="container md:px-20 lg:px-20 xl:px-44 py-12 overflow-hidden">
     <ArticleGrid posts={regularPosts} />
   </section>
   
-  <section class="container">
+  <section class="container md:px-20 lg:px-20 xl:px-44">
     <EmailOptin />
   </section>
 </main>
