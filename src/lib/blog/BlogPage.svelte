@@ -3,6 +3,7 @@
   import { Stars } from "lucide-svelte";
   import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
   import ArticleCard from "./components/ArticleCard.svelte";
+  import EmailOptin from "./components/cta/EmailOptin.svelte";
   
   export let posts: Array<any>;
 </script>
@@ -25,15 +26,25 @@
           </div>
 
           <h1 class="text-5xl sm:text-5xl md:text-7xl font-regular leading-tight mb-6">
-            Writing for the Future
+            Writing on Writing
           </h1>
+          <h1 class="pl-12 text-4xl sm:text-5xl md:text-6xl font-regular leading-tight mb-6 opacity-30">
+            on Writing on Writing
+          </h1>
+
+					
 
           <p class="text-2xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
             Exploring the intersection of writing, technology, and product development.
           </p>
         </div>
+
+				<!-- <div>turtles all the way down line art to the right. 3 stacked turtle outlines</div> -->
       </div>
     </div>
+
+		<!-- featured article bottom-right, the turtles emerge from its top with z index -->
+
   </section>
 
   <!-- Articles Grid -->
@@ -43,5 +54,9 @@
         <ArticleCard {...post} />
       {/each}
     </div>
+  </section>
+  
+	<section class="container">
+   <EmailOptin />
   </section>
 </main>

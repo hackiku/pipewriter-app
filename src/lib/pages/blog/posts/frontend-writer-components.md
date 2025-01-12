@@ -2,7 +2,7 @@
 title: "Copywriting Components: A Writer's Take on Frontend Architecture"
 date: "January 11, 2025"
 category: "Building in Public"
-excerpt: "Sometimes the best insights come from noticing what you're doing wrong. Or in this case, what you're doing differently without realizing it. A story about component organization, rocket launches, and why writers might be the architects we need."
+excerpt: "approach to component organization (organizing by purpose rather than type) reveals a writer's perspective on technical architecture Sometimes the best insights come from noticing what you're doing wrong. Or in this case, what you're doing differently without realizing it. A story about component organization, rocket launches, and why writers might be the architects we need."
 readingTime: "6 min read"
 heroImage: "/images/blog/component-architecture.webp"
 ---
