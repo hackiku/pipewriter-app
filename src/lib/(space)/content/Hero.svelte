@@ -24,11 +24,12 @@
       <!-- Left Content -->
       <div class="col-span-12 lg:col-span-6 lg:col-start-2">
         <h1 class="text-5xl sm:text-5xl md:text-7xl font-regular leading-tight mb-6">
-          Space Age <br/>Landing Pages
+          Landing Pages for the
+					Space Age
         </h1>
 
-        <p class="text-2xl md:text-3xl text-muted-foreground mb-8 leading-relaxed">
-          Website redesigns for space startups. Full-throttle UX.
+        <p class="text-2xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
+          Full-airspeed Website redesigns for space startups. Full-throttle UX.
         </p>
 
         <div class="flex items-center gap-8">

@@ -16,6 +16,7 @@
 	// cta
 	import SpaceButton from "./components/cta/SpaceButton.svelte";
 	import CTA from "./components/cta/CTA.svelte";
+	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
 	// import SpaceForm from "./components/cta/SpaceForm.svelte";
 	// import PricingCard from "./components/cta/PricingCard.svelte";
 </script>
@@ -123,7 +124,7 @@
 		<section class="py-24 relative border-t">
 			<div class="container">
 				<div class="flex text-center justify-center mb-16">
-					<div class="w-3/5 space-y-4">
+					<div class="md:w-3/5 space-y-4">
 						<div
 							class="inline-flex items-center gap-1.5 px-3 py-1
                         rounded-full bg-primary/10 text-primary border border-primary/20"
@@ -132,7 +133,7 @@
 							<span class="text-sm font-medium">Pricing</span>
 						</div>
 
-						<h2 class="text-5xl font-normal">The Spice must flow</h2>
+						<h2 class="text-5xl font-normal">Let the Spice Flow</h2>
 						<p class="text-xl text-muted-foreground">
 							Your Landing 'Chute, Repack'd
 						</p>
@@ -141,6 +142,7 @@
 
 				<CTA />
 			</div>
+			<LogosMarquee />
 		</section>
 	</div>
 </main>

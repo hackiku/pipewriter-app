@@ -6,6 +6,7 @@
   import News from "./sections/News.svelte";
   import Music from "./sections/Music.svelte";
   import BookModal from "./components/cta/BookModal.svelte";
+  import FireflyLights from "./components/FireflyLights.svelte";
   import { bookModalStore } from "./stores/bookModalStore";
 
   // If we need to clean up the store on unmount
@@ -16,8 +17,11 @@
 </script>
 
 <!-- Root layout with black background -->
-<div class="relative min-h-screen bg-black text-white overflow-x-clip">
-  <Nav />
+<div class="relative min-h-screen bg-sblack text-white overflow-x-clip">
+  <!-- Ambient Lights -->
+  <FireflyLights count={75} />
+  
+  <!-- <Nav /> -->
   
   <!-- Main Content -->
   <main>

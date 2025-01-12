@@ -1,6 +1,6 @@
 <!-- routes/(website)/blog/[slug]/+page.svelte -->
 <script lang="ts">
-  import EmailForm from "$lib/components/EmailForm.svelte";
+  import EmailForm from "$lib/components/cta/EmailForm.svelte";
   
   export let data;
   const post = data.post;
