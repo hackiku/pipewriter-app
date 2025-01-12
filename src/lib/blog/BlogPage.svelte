@@ -14,7 +14,7 @@
 </script>
 
 <div class="fixed inset-0 pointer-events-none">
-	<BackgroundPattern size="lg" opacity="high" gradient={true} />
+	<BackgroundPattern size="lg" opacity="high" gradient={false} />
 </div>
 <main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden">
   <!-- Background Pattern -->

@@ -26,7 +26,7 @@
   ];
 </script>
 
-<main class="bg-background text-foreground">
+<main class="bg-backgrounsd text-foreground">
   <section class="relative min-h-[50vh] flex items-center">
     <div class="container relative z-10 pt-20">
       <div class="max-w-3xl mx-auto text-center my-12">
