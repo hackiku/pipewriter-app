@@ -7,9 +7,12 @@ excerpt: "When I realized I organize website components code with a copywriter's
 
 <script>
   import CodeDemo from '../../components/blocks/CodeDemo.svelte';
+  import Disclaimer from '../../components/blocks/Disclaimer.svelte';
 </script>
 
 I just spent three hours trying to build a custom markdown renderer when I could have just used MDSvex. But you know what? Sometimes you need to build the wrong thing to appreciate the right one.
+
+<Disclaimer />
 
 ## The Setup
 

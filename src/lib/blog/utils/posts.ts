@@ -15,7 +15,7 @@ export const loadPosts = async (): Promise<BlogPost[]> => {
 				...metadata
 			} as BlogPost;
 		})
-		.filter(post => post.slug === 'google-docs-to-code')
+		// .filter(post => post.slug === 'google-docs-to-code')
 		.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 };
 

@@ -52,7 +52,7 @@
   </section>
 
   <!-- Articles Grid with column selector -->
-	 <section class="container py-12 md:px-16 lg:px-20 xl:px-44 overflow-hidden">
+	 <section class="container py-12 md:px-20 lg:px-20 xl:px-44 overflow-hidden">
     <ArticleGrid posts={regularPosts} />
   </section>
   
