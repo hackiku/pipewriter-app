@@ -1,8 +1,7 @@
-// routes/(website)/blog/+page.ts
-import { posts } from '$lib/pages/blog/posts/_posts';
+// src/routes/(website)/blog/+page.ts
+import { loadPosts } from '$lib/blog/utils/posts';
 
-export const load = () => {
-	return {
-		posts
-	};
+export const load = async () => {
+	const posts = await loadPosts();
+	return { posts };
 };
