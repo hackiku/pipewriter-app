@@ -5,7 +5,6 @@
   import ArticleCard from "./components/blocks/ArticleCard.svelte";
   import EmailOptin from "./components/cta/EmailOptin.svelte";
   import type { BlogPost } from './types';
-  
   export let posts: BlogPost[];
 
   // Get featured post (most recent)
@@ -28,18 +27,18 @@
           <div class="inline-flex items-center gap-1.5 px-3 py-1 
                       rounded-full bg-primary/10 text-primary border border-primary/20 mb-8">
             <Stars class="w-4 h-4" />
-            <span class="text-sm font-medium">Writer's Blog</span>
+            <span class="text-sm font-medium">Blog</span>
           </div>
 
           <h1 class="text-5xl sm:text-5xl md:text-7xl font-regular leading-tight mb-6">
-            Writing on Writing
+            writing on writing
           </h1>
-          <h1 class="pl-12 text-4xl sm:text-5xl md:text-6xl font-regular leading-tight mb-6 opacity-30">
-            on Writing on Writing
+          <h1 class="pl-12 -mt-12 text-4xl sm:text-5xl md:text-6xl font-regular leading-tight mb-6 opacity-30">
+            on writing on writing
           </h1>
 
           <p class="text-2xl md:text-2xl text-muted-foreground mb-8 leading-relaxed">
-            Exploring the intersection of writing, technology, and product development.
+            It's turtles all the way down.
           </p>
         </div>
 
