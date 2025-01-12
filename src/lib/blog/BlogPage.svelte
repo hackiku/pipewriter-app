@@ -3,7 +3,8 @@
   import { Stars } from "lucide-svelte";
   import ArticleCard from "./components/blocks/ArticleCard.svelte";
   import EmailOptin from "./components/cta/EmailOptin.svelte";
-  import EmailForm from "$lib/components/cta/EmailForm.svelte";
+  // import EmailForm from "$lib/components/cta/EmailForm.svelte";
+  import EmailForm from "$lib/components/cta/email/EmailForm.svelte";
   import Turtles from "./components/ui/Turtles.svelte";
   import Title from "./components/ui/Title.svelte";
   import type { BlogPost } from './types';
@@ -37,9 +38,15 @@
           </p>
 
           <!-- Email form below subhead -->
-          <div class="max-w-sm">
-            <EmailForm size="sm" wrap={false} />
-          </div>
+          <!-- <div class="max-w-sm"> -->
+					<EmailForm 
+						buttonText="Subscribe"
+						size="sm"
+						wrap={false}
+						source="Blog Post"
+						className="max-w-md"
+					/>
+          <!-- </div> -->
         </div>
 
         <!-- Decorative turtles -->

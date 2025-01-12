@@ -1,6 +1,7 @@
 <!-- $lib/components/Footer.svelte -->
 <script lang="ts">
-	import EmailForm from "$lib/components/EmailForm.svelte";
+	// import EmailForm from "$lib/components/cta/EmailForm.svelte";
+	import EmailForm from "$lib/components/cta/email/EmailForm.svelte";
 	import {
 		GithubIcon,
 		LinkedinIcon,
