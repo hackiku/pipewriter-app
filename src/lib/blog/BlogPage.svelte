@@ -42,7 +42,7 @@
     </div>
   </section>
 
-  <section class="container md:px-20 lg:px-20 xl:px-44 py-12 overflow-hidden">
+  <section class="container z-50 md:px-20 lg:px-20 xl:px-44 py-12 overflow-hidden">
     <ArticleGrid posts={regularPosts} />
   </section>
   
