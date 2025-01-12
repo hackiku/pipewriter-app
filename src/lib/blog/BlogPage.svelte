@@ -13,11 +13,11 @@
   $: regularPosts = posts.slice(1);
 </script>
 
-<div class="fixed inset-0 pointer-events-none">
-	<BackgroundPattern size="lg" opacity="high" gradient={false} />
-</div>
-<main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden">
+<main class=" text-foreground relative overflow-x-hidden">
   <!-- Background Pattern -->
+<!-- <div class="fixed inset-0 pointer-events-none">
+	<BackgroundPattern size="lg" opacity="high" gradient={false} />
+</div> -->
 
   <!-- Hero Section -->
   <section class="relative XXXmin-h-[80vh] flex items-start pt-28 md:pt-32 overflow-hidden">

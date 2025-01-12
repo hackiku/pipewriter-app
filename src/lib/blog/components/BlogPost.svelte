@@ -1,7 +1,6 @@
 <!-- lib/blog/components/BlogPost.svelte -->
 <script lang="ts">
   import { Stars } from "lucide-svelte";
-  import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
   import EmailOptin from "./cta/EmailOptin.svelte";
   import TableOfContents from "./blocks/TableOfContents.svelte";
   
@@ -9,10 +8,6 @@
 </script>
 
 <main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden pt-12">
-  <!-- Background Pattern -->
-  <div class="fixed inset-0 pointer-events-none">
-    <BackgroundPattern size="md" opacity="high" gradient={true} />
-  </div>
 
   <article class="container max-w-4xl mx-auto py-24 px-4 relative z-10">
     <header class="space-y-8 mb-16">

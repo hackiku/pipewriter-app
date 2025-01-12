@@ -7,16 +7,17 @@ const mdsvexConfig = defineMDSveXConfig({
 	layout: {
 		_: './src/routes/(website)/blog/[slug]/+layout.svelte'
 	},
-  smartypants: true,
-	highlight: {
-		highlighter: async (code, lang = 'html') => {
-			if (lang) {
-				// You could use prism, shiki, or other highlighters
-				return `<pre class="language-${lang}"><code>${code}</code></pre>`;
-			}
-			return '';
-		}
-	}
+  // smartypants: true,
+	// markdownOptions: {
+	// 	headerIds: true,
+	// 	html: true,
+	// 	typographer: true
+	// },
+	// highlight: {
+	// 	highlighter: async (code, lang = 'text') => {
+	// 		return `<pre class="not-prose relative"><code class="language-${lang}">${code}</code></pre>`;
+	// 	}
+	// },
 });
 
 /** @type {import('@sveltejs/kit').Config} */

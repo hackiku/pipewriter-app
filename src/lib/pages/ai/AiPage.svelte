@@ -5,7 +5,6 @@
   import CartButton from "$lib/components/cta/CartButton.svelte";
   import GumroadCartButton from "$lib/components/cta/GumroadCartButton.svelte";
   import GumroadExternalButton from "$lib/components/cta/GumroadExternalButton.svelte";
-	
 
   import Process from "./Process.svelte";
   import VideoDemo from "./VideoDemo.svelte";
