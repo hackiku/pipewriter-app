@@ -15,9 +15,9 @@
                     transition-transform inline-flex items-center">
           Blog
         </div>
-        <h1 class="text-6xl font-normal leading-[1.1]">writing</h1>
+        <h1 class="text-6xl font-normal leading-[0.75]">writing</h1>
       </div>
-      <h1 class="text-6xl font-normal leading-[1.1] pl-[calc(theme(spacing.6)+theme(spacing.12))]">
+      <h1 class="text-6xl font-normal leading-[0.75] md:pl-[calc(theme(spacing.6)+theme(spacing.12))]">
         on writing
       </h1>
     </div>
@@ -36,9 +36,9 @@
   </div>
 
   <!-- Animated background text -->
-  <div class="absolute top-[60%] w-screen left-[calc(50%-50vw)] h-[50vh] overflow-hidden">
+  <div class="absolute top-[100%] w-screen left-[calc(50%-50vw)] h-[50vh] overflow-hidden">
     <!-- First line with rightward motion -->
-    <div class="whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
+    <div class="-ml-[40%] whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
                 text-foreground/10 animate-float-right">
       <div class="inline-block">
         {#each Array(10) as _}
@@ -48,7 +48,7 @@
     </div>
 
     <!-- Second line with leftward motion -->
-    <div class="whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
+    <div class="-ml-[50%] whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
                 text-foreground/5 mt-2 animate-float-left">
       <div class="inline-block">
         {#each Array(10) as _}
@@ -66,25 +66,25 @@
       transform: translate(-20rem, 0) rotate(-3deg); 
     }
     50% { 
-      transform: translate(12rem, -1rem) rotate(4deg); 
+      transform: translate(20rem, -1rem) rotate(4deg); 
     }
   }
 
   /* Animation for left-moving text */
   @keyframes floatLeft {
     0%, 100% { 
-      transform: translate(20rem, 0) rotate(5deg); 
+      transform: translate(20rem, -2rem) rotate(3deg); 
     }
     50% { 
-      transform: translate(-20rem, 1rem) rotate(-5deg); 
+      transform: translate(-20rem, 1rem) rotate(-4deg); 
     }
   }
 
   .animate-float-right {
-    animation: floatRight 15s ease-in-out infinite;
+    animation: floatRight 10s linear infinite;
   }
 
   .animate-float-left {
-    animation: floatLeft 15s ease-in-out infinite;
+    animation: floatLeft 10s linear infinite;
   }
 </style>

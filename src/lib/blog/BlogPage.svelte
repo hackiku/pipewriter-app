@@ -12,7 +12,7 @@
 </script>
 
 <main class="text-foreground relative overflow-x-hidden">
-  <section class="relative pt-32 md:pt-36">
+  <section class="relative pt-28 md:pt-36">
     <div class="relative z-10">
       <Title className="mb-6" />
 
@@ -37,6 +37,7 @@
         size="lg"
         opacity={0.05}
         echoes={3}
+				className=""
       />
     </div>
   </section>
