@@ -6,30 +6,40 @@
 </script>
 
 <div class="relative {className}">
-  <!-- Main content that dictates the height -->
   <div class="container md:px-20 lg:px-20 xl:px-44">
-    <!-- Main content row -->
-    <div class="flex flex-col md:flex-row md:items-center gap-4 md:gap-6">
-      <!-- Blog badge - width fit-content for mobile -->
-      <div class="w-fit px-6 py-2 rounded-full bg-primary/10 text-primary 
+    <!-- Mobile Layout: Blog badge aligned with first line -->
+    <div class="flex flex-col md:hidden gap-4">
+      <div class="flex items-center gap-4">
+        <div class="px-6 py-2 rounded-full bg-primary/10 text-primary 
+                    border border-primary/20 text-xl font-medium hover:scale-105 
+                    transition-transform inline-flex items-center">
+          Blog
+        </div>
+        <h1 class="text-6xl font-normal leading-[1.1]">writing</h1>
+      </div>
+      <h1 class="text-6xl font-normal leading-[1.1] pl-[calc(theme(spacing.6)+theme(spacing.12))]">
+        on writing
+      </h1>
+    </div>
+
+    <!-- Desktop Layout: Blog badge to the left -->
+    <div class="hidden md:flex md:items-center gap-6">
+      <div class="px-6 py-2 rounded-full bg-primary/10 text-primary 
                   border border-primary/20 text-xl font-medium hover:scale-105 
-                  transition-transform h-[calc(theme(fontSize.6xl)*0.6)] 
-                  md:h-[calc(theme(fontSize.7xl)*0.6)] inline-flex items-center">
+                  transition-transform h-[calc(theme(fontSize.7xl)*0.6)] inline-flex items-center">
         Blog
       </div>
-      
-      <!-- Main title -->
-      <h1 class="text-6xl md:text-7xl font-normal leading-[1.1] md:leading-none">
+      <h1 class="text-7xl font-normal leading-none">
         {text}
       </h1>
     </div>
   </div>
 
-  <!-- Animated background text with more vertical freedom -->
-  <div class="absolute top-[60%] w-screen left-[calc(50%-50vw)] h-[50vh]">
-    <!-- First floating line -->
+  <!-- Animated background text -->
+  <div class="absolute top-[60%] w-screen left-[calc(50%-50vw)] h-[50vh] overflow-hidden">
+    <!-- First line with rightward motion -->
     <div class="whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
-                text-foreground/10 animate-float-1">
+                text-foreground/10 animate-float-right">
       <div class="inline-block">
         {#each Array(10) as _}
           <span class="inline-block">{repeatedText}&nbsp;</span>
@@ -37,9 +47,9 @@
       </div>
     </div>
 
-    <!-- Second floating line -->
+    <!-- Second line with leftward motion -->
     <div class="whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
-                text-foreground/5 mt-2 animate-float-2">
+                text-foreground/5 mt-2 animate-float-left">
       <div class="inline-block">
         {#each Array(10) as _}
           <span class="inline-block">{repeatedText}&nbsp;</span>
@@ -50,42 +60,31 @@
 </div>
 
 <style>
-  @keyframes float1 {
-    0% { transform: translate(0, 0) rotate(0deg); }
-    100% { transform: translate(-100%, 0) rotate(1deg); }
+  /* Animation for right-moving text */
+  @keyframes floatRight {
+    0%, 100% { 
+      transform: translate(-20rem, 0) rotate(-3deg); 
+    }
+    50% { 
+      transform: translate(12rem, -1rem) rotate(4deg); 
+    }
   }
 
-  @keyframes float2 {
-    0% { transform: translate(-100%, 0) rotate(-1deg); }
-    100% { transform: translate(0, 0) rotate(0deg); }
+  /* Animation for left-moving text */
+  @keyframes floatLeft {
+    0%, 100% { 
+      transform: translate(20rem, 0) rotate(5deg); 
+    }
+    50% { 
+      transform: translate(-20rem, 1rem) rotate(-5deg); 
+    }
   }
 
-  .animate-float-1 {
-    animation: float1 30s linear infinite;
+  .animate-float-right {
+    animation: floatRight 15s ease-in-out infinite;
   }
 
-  .animate-float-2 {
-    animation: float2 30s linear infinite;
-  }
-
-  /* Add a subtle wave effect on top of the scrolling */
-  .animate-float-1 {
-    animation: float1 2s linear infinite,
-               wave1 5s ease-in-out infinite;
-  }
-
-  .animate-float-2 {
-    animation: float2 12s linear infinite,
-               wave2 8s ease-in-out infinite;
-  }
-
-  @keyframes wave1 {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(0, -1rem) rotate(3deg); }
-  }
-
-  @keyframes wave2 {
-    0%, 100% { transform: translate(0, 0) rotate(0deg); }
-    50% { transform: translate(0, 1rem, 12rem) rotate(-3deg); }
+  .animate-float-left {
+    animation: floatLeft 15s ease-in-out infinite;
   }
 </style>

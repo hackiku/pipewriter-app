@@ -12,9 +12,11 @@ author: {
 
 <script>
   import CodeDemo from '$lib/blog/components/blocks/CodeDemo.svelte';
+	import Disclaimer from '../../components/blocks/Disclaimer.svelte';
 </script>
 
 Hey writers! Remember how we're using Google Docs for wireframes? We just made it a lot more fun. Your wireframes can now turn into actual working prototypes with some proper design flair.
+<Disclaimer />
 
 ## The New Stuff
 

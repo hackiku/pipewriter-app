@@ -2,7 +2,7 @@
 title: "Copywriting Components: A Writer's Take on Frontend Architecture"
 date: "January 11, 2025"
 category: "Building in Public"
-excerpt: "Sometimes the best insights come from noticing what you're doing wrong. Or in this case, what you're doing differently without realizing it. A story about component organization, rocket launches, and why writers might be the architects we need."
+excerpt: "A story about component organization, rocket launches, and why writers might be the architects we need."
 readingTime: "6 min read"
 author: {
   name: "J.Z.",
@@ -13,9 +13,11 @@ author: {
 <script>
   import CodeDemo from '$lib/blog/components/blocks/CodeDemo.svelte';
   import Hero from '$lib/(space)/content/Hero.svelte';
+	import Disclaimer from '../../components/blocks/Disclaimer.svelte';
 </script>
 
 I caught myself doing something weird while rebuilding Firefly Aerospace's website. They're launching to the moon in 5 days, so naturally, I'm reorganizing component folders at 3 AM.
+<Disclaimer />
 
 ## Origin Story
 

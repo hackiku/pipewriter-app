@@ -9,9 +9,13 @@ excerpt: "Quick notes on how I built this blog. Spoiler alert: It's all Svelte c
   import Timer from '$lib/components/cta/Timer.svelte';
   import GumroadUpsell from '$lib/blog/components/cta/GumroadUpsell.svelte';
   import SvelteRenderer from '$lib/blog/components/blocks/SvelteRenderer.svelte';
+	import Disclaimer from '../../components/blocks/Disclaimer.svelte';
 </script>
 
 Just rebuilt the blog with MDSveX. The goal? Write in markdown but keep all the interactive goodies from my component library.
+
+<Disclaimer />
+
 
 ## Why This Stack
 

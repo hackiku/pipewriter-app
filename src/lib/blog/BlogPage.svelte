@@ -19,7 +19,7 @@
       <div class="container md:px-20 lg:px-20 xl:px-44">
         <div class="space-y-6">
           <p class="text-xl md:text-2xl text-muted-foreground/80 font-normal">
-            It's turtles all the way down.
+            Turtles all the way down.
           </p>
 
           <EmailForm 
