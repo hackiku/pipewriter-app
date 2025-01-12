@@ -28,7 +28,7 @@
         />
 
         <div class="space-y-8">
-          <p class="text-2xl md:text-2xl text-muted-foreground leading-relaxed">
+          <p class="-mt-4 text-2xl md:text-2xl text-muted-foreground leading-relaxed">
             It's turtles all the way down.
           </p>
 
@@ -37,22 +37,22 @@
             size="sm"
             wrap={false}
             source="Blog Post"
-            className="max-w-md"
+            className="max-w-sm"
           />
         </div>
 
-        <Turtles 
-          position="bottom-right"
-          size="lg"
-          opacity={0.15}
-          echoes={3}
-        />
       </div>
+			<!-- <Turtles 
+				position="bottom-right"
+				size="lg"
+				opacity={0.05}
+				echoes={3}
+			/> -->
     </div>
   </section>
 
   <!-- Articles Grid with column selector -->
-  <section class="container py-6">
+	 <section class="container py-12 md:px-16 lg:px-20 xl:px-44 overflow-hidden">
     <ArticleGrid posts={regularPosts} />
   </section>
   

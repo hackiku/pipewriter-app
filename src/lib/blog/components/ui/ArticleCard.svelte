@@ -1,70 +1,81 @@
-<!-- lib/blog/components/blocks/ArticleCard.svelte -->
+<!-- lib/blog/components/ui/ArticleCard.svelte -->
 <script lang="ts">
-  import { ArrowRight } from "lucide-svelte";
+  import { ArrowRight, User } from "lucide-svelte";
   import type { BlogPost } from '../../types';
 
   export let post: BlogPost;
+
+  // Format date to "12 Jan"
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-US', {
+      day: 'numeric',
+      month: 'short'
+    });
+  };
 </script>
+
+<style>
+  @keyframes wiggle {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(3px); }
+    75% { transform: translateX(-2px); }
+  }
+  
+  .wiggle-on-hover:hover {
+    animation: wiggle 0.5s ease-in-out;
+  }
+</style>
 
 {#if post}
   <a 
     href="/blog/{post.slug}" 
-    class="group relative block overflow-hidden rounded-xl bg-card transition-all 
-           duration-300 hover:shadow-xl hover:shadow-primary/10"
+    class="group relative block overflow-hidden rounded-xl border bg-card p-6
+           -rotate-[0.5deg] odd:rotate-[0.5deg] transition-all duration-300 
+           hover:shadow-xl hover:shadow-primary/10"
   >
-    <!-- Card Content -->
-    <div class="relative space-y-6 p-8">
-      <!-- Category & Meta -->
-      <div class="flex flex-wrap items-center gap-4">
+    <div class="relative space-y-6">
+      <!-- Top Row: Category and Meta with space-between -->
+      <div class="flex items-center justify-between">
         {#if post.category}
-          <span class="rounded-full bg-primary/10 px-4 py-1 text-sm font-medium text-primary">
+          <span class="rounded-full bg-primary/10 px-4 py-1 text-sm font-medium text-primary border border-primary/20">
             {post.category}
           </span>
         {/if}
-        <div class="flex items-center gap-3 text-sm text-muted-foreground">
-          <span>{post.date}</span>
-          {#if post.readingTime}
-            <span>·</span>
-            <span>{post.readingTime}</span>
-          {/if}
+        
+        <!-- Date -->
+        <div class="text-sm text-muted-foreground">
+          {formatDate(post.date)}
         </div>
       </div>
 
       <!-- Title -->
-      <h3 class="text-2xl font-semibold leading-tight group-hover:text-primary transition-colors">
+      <h3 class="text-3xl font-regular leading-tight group-hover:text-primary transition-colors">
         {post.title}
       </h3>
 
       <!-- Excerpt -->
       {#if post.excerpt}
-        <p class="text-muted-foreground text-lg leading-relaxed">
-          {post.excerpt}
-        </p>
-      {/if}
-
-      <!-- Author -->
-      {#if post.author}
-        <div class="flex items-center gap-3 pt-4 border-t border-border">
-          {#if post.author.avatar}
-            <img 
-              src={post.author.avatar} 
-              alt={post.author.name}
-              class="w-8 h-8 rounded-full"
-            />
-          {/if}
-          <span class="text-muted-foreground">{post.author.name}</span>
+        <div class="space-y-4">
+          <p class="text-muted-foreground text-lg leading-relaxed">
+            {post.excerpt}
+          </p>
+          
+          <div class="flex items-center justify-between">
+            {#if post.author}
+              <div class="flex items-center gap-2">
+                <div class="w-6 h-6 rounded-full border border-border/50 flex items-center justify-center">
+                  <User class="w-4 h-4 text-muted-foreground/50" />
+                </div>
+                <span class="text-sm text-muted-foreground">{post.author.name}</span>
+              </div>
+            {/if}
+            {#if post.readingTime}
+              <span class="text-sm text-muted-foreground">{post.readingTime}</span>
+            {/if}
+          </div>
         </div>
       {/if}
-
-      <!-- Read More -->
-      <div class="flex items-center font-medium text-primary">
-        Read article
-        <ArrowRight class="ml-2 h-5 w-5 transition-transform group-hover:translate-x-1" />
-      </div>
     </div>
-
-    <!-- Background Gradient Effect -->
-    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-primary/5 to-secondary/5 opacity-0 
-                transition-opacity duration-300 group-hover:opacity-100" />
   </a>
 {/if}
