@@ -2,7 +2,7 @@
 <script lang="ts">
   import { Stars } from "lucide-svelte";
   import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
-  import ArticleCard from "./components/ArticleCard.svelte";
+  import ArticleCard from "./components/blocks/ArticleCard.svelte";
   import EmailOptin from "./components/cta/EmailOptin.svelte";
   
   export let posts: Array<any>;

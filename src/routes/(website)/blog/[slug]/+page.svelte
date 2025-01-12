@@ -1,7 +1,6 @@
 <!-- routes/(website)/blog/[slug]/+page.svelte -->
 <script lang="ts">
   import BlogPost from "$lib/blog/components/BlogPost.svelte";
-  
   export let data;
 </script>
 

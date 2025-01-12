@@ -2,8 +2,8 @@
 <script lang="ts">
   import { Stars } from "lucide-svelte";
   import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
-  import EmailOptin from "./EmailOptin.svelte";
-  import TableOfContents from "./TableOfContents.svelte";
+  import EmailOptin from "./cta/EmailOptin.svelte";
+  import TableOfContents from "./blocks/TableOfContents.svelte";
   
   export let post;
 </script>
