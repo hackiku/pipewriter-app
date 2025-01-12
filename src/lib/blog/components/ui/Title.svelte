@@ -36,9 +36,9 @@
   </div>
 
   <!-- Animated background text -->
-  <div class="absolute top-[100%] w-screen left-[calc(50%-50vw)] overflow-none">
+  <div class="absolute XXXopacity-80 top-20 md:top-8 rotate-2 w-screen left-[calc(50%-50vw)] overflow-none">
     <!-- First line with rightward motion -->
-    <div class="-ml-[40%] whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
+    <div class="-ml-[50%] whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
                 text-foreground/10 animate-float-right">
       <div class="inline-block">
         {#each Array(10) as _}
@@ -49,7 +49,7 @@
 
     <!-- Second line with leftward motion -->
     <div class="-ml-[50%] whitespace-nowrap text-6xl md:text-7xl font-normal leading-none 
-                text-foreground/5 mt-1 animate-float-left">
+                text-foreground/5 mt-4 animate-float-left">
       <div class="inline-block">
         {#each Array(10) as _}
           <span class="inline-block">{repeatedText}&nbsp;</span>
@@ -63,20 +63,20 @@
   /* Animation for right-moving text */
   @keyframes floatRight {
     0%, 100% { 
-      transform: translate(-20rem, 0) rotate(-2deg); 
+      transform: translate(-12rem, 0) rotate(-0deg); 
     }
     50% { 
-      transform: translate(20rem, -1rem) rotate(4deg); 
+      transform: translate(12rem, 2rem) rotate(0deg); 
     }
   }
 
   /* Animation for left-moving text */
   @keyframes floatLeft {
     0%, 100% { 
-      transform: translate(20rem, -2rem) rotate(4deg); 
+      transform: translate(24rem, -2rem) rotate(0deg); 
     }
     50% { 
-      transform: translate(-20rem, 1rem) rotate(-3deg); 
+      transform: translate(-24rem, 0rem) rotate(0deg); 
     }
   }
 

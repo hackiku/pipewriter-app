@@ -65,21 +65,21 @@
     on:submit={handleSubmit} 
     class={styles.form({ wrap, size, className })}
   >
-    <div class="sm:flex-1 relative">
+    <div class="sm:flex-1 items-center relative">
       <input
         type="email"
         bind:value={email}
         class={styles.input(size)}
         required
       />
-      <div class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
+      <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
         <Icon.Mail 
-          class="text-gray-400 dark:text-gray-500" 
+          class="text-gray-300 dark:text-gray-700" 
           size={size === "default" ? 20 : 18}
         />
       </div>
       {#if !email}
-        <div class="absolute left-11 top-1/2 -translate-y-1/2 pointer-events-none overflow-hidden">
+        <div class="absolute left-12 top-1/2 -translate-y-1/2 pointer-events-none overflow-hidden">
           <WriterPlaceholder />
         </div>
       {/if}

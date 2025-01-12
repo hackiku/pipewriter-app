@@ -21,7 +21,7 @@ export const defaultProps = {
 export const styles: StyleConfig = {
 	form: ({ wrap, size, className = '' }) => cn(
 		"w-full flex",
-		wrap ? "flex-col" : "flex-col sm:flex-row",
+		wrap ? "flex-col" : "flex-col items-center sm:flex-row",
 		"gap-3",
 		size === "default" ? "max-w-2xl" : "max-w-xl",
 		className
@@ -34,10 +34,10 @@ export const styles: StyleConfig = {
 		"focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
 		"placeholder:text-gray-400 dark:placeholder:text-gray-600",
 		"transition-shadow duration-200",
-		size === "default" || size === "md" ? "pr-6 py-3 text-lg" :
-			size === "xs" ? "pr-3 py-1.5 text-sm" :
-				size === "sm" ? "pr-4 py-2 text-base" :
-					size === "lg" ? "pr-7 py-3.5 text-xl" :
+		size === "default" || size === "md" ? "pr-6 py-3.5 text-lg" :
+			size === "xs" ? "pr-3 py-2 text-sm" :
+				size === "sm" ? "pr-4 py-2.5 text-base" :
+					size === "lg" ? "pr-8 py-4 text-xl" :
 						"pr-8 py-4 text-2xl"  // xl
 	),
 
