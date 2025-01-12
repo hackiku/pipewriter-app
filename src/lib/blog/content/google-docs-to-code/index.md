@@ -1,5 +1,5 @@
 ---
-title: "From Google Docs to Code: Turning Writer Wireframes into Working Websites"
+title: "Wireframe to Code: Turning Writer Wireframes into Working Websites"
 date: "January 7, 2025"
 category: "Product Updates"
 excerpt: "New feature alert: Convert your Google Docs wireframes into production-ready code with AI-powered design systems. Now writers can prototype faster than ever, without leaving their familiar environment."
@@ -12,9 +12,16 @@ author: {
 
 <script>
   import CodeDemo from '$lib/blog/components/blocks/CodeDemo.svelte';
+  import BlogImage from '$lib/blog/components/blocks/BlogImage.svelte';
 </script>
 
 Remember that moment in a project when you hand over your carefully crafted wireframe to developers, and then wait weeks to see it come alive? Yeah, let's fix that. Today we're launching a feature that turns your Google Docs wireframes into working code – instantly.
+
+<BlogImage 
+  src="$lib/blog/content/google-docs-to-code/assets/github.svg"
+  alt="Github logo for testing"
+  caption="Lets see if it loads"
+/>
 
 ## The Writer's Secret Weapon
 
