@@ -7,7 +7,7 @@
   export let post;
 </script>
 
-<main class="bg-background text-foreground">
+<main class="text-foreground">
   <article class="container md:max-w-3xl smx-auto mt-32">
     <!-- Header section stays the same -->
     <header class="space-y-8 mb-16">
