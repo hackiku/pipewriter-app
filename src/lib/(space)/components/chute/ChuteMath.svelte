@@ -1,159 +1,138 @@
 <!-- src/lib/pages/space/components/chute/ChuteMath.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { tweened } from 'svelte/motion';
-  import { cubicOut } from 'svelte/easing';
   import { RotateCcw } from 'lucide-svelte';
+  import { PHYSICS, CLOUD_CONFIG, HELI_CONFIG, calculateState } from './physics';
+  import { fly } from 'svelte/transition';
   
-  // Configuration
-  const CONFIG = {
-    INITIAL_ALTITUDE: 95935.8, // X-15 record
-    FINAL_ALTITUDE: 300,
-    INITIAL_VELOCITY: 0,
-    FINAL_VELOCITY: 12,
-    BRAND_FILTER: true,
-    INGENUITY_DELAY: 5000,
-    CLOUD_INTERVAL: 1000, // Time between cloud spawns
-  };
-
   // Animation states
   let isVisible = false;
   let showIngenuity = false;
-  
-  // Stats animation
-  const altitude = tweened(CONFIG.INITIAL_ALTITUDE, {
-    duration: CONFIG.ANIMATION_DURATION,
-    easing: cubicOut
-  });
-  
-  const velocity = tweened(CONFIG.INITIAL_VELOCITY, {
-    duration: CONFIG.ANIMATION_DURATION,
-    easing: cubicOut
-  });
-  
-  // Cloud generation
   let clouds: { id: number; x: number; y: number; scale: number; opacity: number; }[] = [];
-  let cloudInterval: number;
   let animationStartTime: number;
+  let animationFrame: number;
   
   function addCloud() {
     const id = Date.now();
-    const y = Math.random() * 80 + 10; // Keep away from very top and bottom
-    const scale = 0.5 + Math.random() * 1.5;
-    const opacity = 0.1 + Math.random() * 0.2;
-    clouds = [...clouds, { id, x: 120, y, scale, opacity }];
+    const x = Math.random() * 20 + 80;  // 80-100% of width
+    const y = Math.random() * 80 + 10;  // 10-90% of height
+    const scale = CLOUD_CONFIG.MIN_SCALE + 
+      Math.random() * (CLOUD_CONFIG.MAX_SCALE - CLOUD_CONFIG.MIN_SCALE);
+    const opacity = CLOUD_CONFIG.MIN_OPACITY + 
+      Math.random() * (CLOUD_CONFIG.MAX_OPACITY - CLOUD_CONFIG.MIN_OPACITY);
     
-    // Remove cloud when it exits viewport
+    clouds = [...clouds, { id, x, y, scale, opacity }];
+    
+    // Remove cloud after animation
     setTimeout(() => {
       clouds = clouds.filter(cloud => cloud.id !== id);
-    }, 3000);
+    }, CLOUD_CONFIG.TRAVEL_DURATION);
   }
-  
-  // Wiggle animation
-  let wiggleOffset = 0;
-  let wiggleInterval: number;
+
+  function updateAnimation() {
+    const elapsed = Date.now() - animationStartTime;
+    const state = calculateState(elapsed);
+    
+    // Update stats
+    altitude = state.altitude;
+    velocity = state.velocity;
+    
+    // Continue animation if not complete
+    if (state.progress < 1) {
+      animationFrame = requestAnimationFrame(updateAnimation);
+    }
+  }
 
   function startAnimation() {
+    // Reset states
+    clouds = [];
+    showIngenuity = false;
     animationStartTime = Date.now();
     isVisible = true;
-    
-    // Continuous stats animation
-    function updateStats() {
-      const elapsed = (Date.now() - animationStartTime) / 1000; // seconds
-      const currentAltitude = CONFIG.INITIAL_ALTITUDE * Math.exp(-elapsed/30) + CONFIG.FINAL_ALTITUDE;
-      const currentVelocity = 20 * (1 - Math.exp(-elapsed/10));
-      
-      altitude.set(currentAltitude, { duration: 0 });
-      velocity.set(currentVelocity, { duration: 0 });
-      
-      if (currentAltitude > CONFIG.FINAL_ALTITUDE) {
-        requestAnimationFrame(updateStats);
-      }
-    }
-    
-    updateStats();
-    
-    // Cloud animation
-    if (cloudInterval) clearInterval(cloudInterval);
-    cloudInterval = setInterval(addCloud, CONFIG.CLOUD_INTERVAL);
-    
-    // Subtle wiggle
-    if (wiggleInterval) clearInterval(wiggleInterval);
-    wiggleInterval = setInterval(() => {
-      wiggleOffset = Math.sin(Date.now() / 1000) * 3;
-    }, 50);
 
+    // Start main animation loop
+    updateAnimation();
+    
+    // Start cloud spawning
+    cloudInterval = setInterval(addCloud, CLOUD_CONFIG.SPAWN_INTERVAL);
+    
     // Show Ingenuity after delay
     setTimeout(() => {
       showIngenuity = true;
-    }, CONFIG.INGENUITY_DELAY);
+    }, HELI_CONFIG.APPEAR_AFTER);
   }
 
   function reset() {
-    clouds = [];
-    showIngenuity = false;
+    if (animationFrame) cancelAnimationFrame(animationFrame);
+    if (cloudInterval) clearInterval(cloudInterval);
     startAnimation();
   }
+  
+  let altitude = PHYSICS.INITIAL_ALTITUDE;
+  let velocity = 0;
+  let cloudInterval: number;
 
   onMount(() => {
     startAnimation();
     return () => {
-      clearInterval(cloudInterval);
-      clearInterval(wiggleInterval);
+      if (animationFrame) cancelAnimationFrame(animationFrame);
+      if (cloudInterval) clearInterval(cloudInterval);
     };
   });
-
-  $: brandFilter = CONFIG.BRAND_FILTER ? 'hue-rotate(220deg) saturate(1.5)' : 'none';
 </script>
 
-<div class="relative w-full h-full p-4 bg-black/5">
+<div 
+  class="relative w-full h-full 
+         lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/3
+         -z-10 lg:z-0"
+>
   <!-- Main Container -->
   <div 
-    class="relative w-full h-full"
+    class="relative w-full h-full min-h-[400px] lg:min-h-0"
     style:opacity={isVisible ? 1 : 0}
     style:transition="opacity 1s ease-out"
   >
-    <!-- Paraglider with brand filter -->
+    <!-- Paraglider -->
     <div 
-      class="absolute w-1/2 h-1/2 left-1/2 top-1/4 -translate-x-1/2"
-      style:transform="translate(-50%, {wiggleOffset}px) rotate({wiggleOffset/2}deg)"
+      class="absolute w-1/2 h-1/2 left-1/2 top-1/4 -translate-x-1/2
+             transition-transform duration-1000 animate-float"
     >
       <img 
         src="/space/assets/paraglider.svg" 
         alt="Paraglider"
         class="w-full h-full object-contain"
-        style:filter={brandFilter}
       />
     </div>
     
     <!-- Animated Clouds -->
     {#each clouds as cloud (cloud.id)}
       <div
-        class="absolute transition-transform duration-3000 ease-linear"
-        style:transform="translate({cloud.x}%, {cloud.y}%) scale({cloud.scale})"
-        style:left="-20%"
+        class="absolute w-16 h-16"
+        in:fly={{ y: 200, duration: CLOUD_CONFIG.TRAVEL_DURATION }}
+        style:left="{cloud.x}%"
+        style:top="{cloud.y}%"
+        style:transform="scale({cloud.scale})"
         style:opacity={cloud.opacity}
-        animate:fade
       >
         <img 
           src="/space/assets/cloud.svg" 
           alt="Cloud"
-          class="w-16 h-16 object-contain"
+          class="w-full h-full object-contain"
         />
       </div>
     {/each}
 
-    <!-- Ingenuity Helicopter Easter Egg -->
+    <!-- Ingenuity Helicopter -->
     {#if showIngenuity}
       <div
-        class="absolute right-8 top-1/4 w-12 h-12"
-        in:fade
+        class="absolute right-8 w-12 h-12
+               animate-hover"
+        in:fly={{ x: 100, y: -50, duration: 1000 }}
       >
         <img 
           src="/space/assets/ingenuity.svg" 
           alt="Ingenuity Helicopter"
-          class="w-full h-full object-contain"
-          style:filter={brandFilter}
+          class="w-full h-full object-contain animate-rotor"
         />
       </div>
     {/if}
@@ -162,11 +141,11 @@
     <div class="absolute inset-x-4 bottom-8 space-y-2 font-mono text-xs">
       <div class="flex items-center justify-between text-muted-foreground">
         <span>alt(t) =</span>
-        <span>{$altitude.toFixed(1)}m</span>
+        <span>{altitude.toFixed(1)}m</span>
       </div>
       <div class="flex items-center justify-between text-muted-foreground">
         <span>v(t) =</span>
-        <span>{$velocity.toFixed(1)}m/s</span>
+        <span>{velocity.toFixed(1)}m/s</span>
       </div>
     </div>
 
@@ -182,12 +161,34 @@
 </div>
 
 <style>
-  .duration-3000 {
-    transition-duration: 3000ms;
+  @keyframes float {
+    0%, 100% { transform: translate(-50%, 0); }
+    50% { transform: translate(-50%, -10px); }
   }
-
-  @keyframes fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  
+  .animate-float {
+    animation: float 4s ease-in-out infinite;
+  }
+  
+  @keyframes hover {
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(-5px, -5px); }
+  }
+  
+  @keyframes rotor {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  
+  .animate-hover {
+    animation: hover 4s ease-in-out infinite;
+  }
+  
+  .animate-rotor {
+    animation: rotor 0.5s linear infinite;
+  }
+  
+  :global(.dark) .cloud-gradient {
+    filter: brightness(0.8) saturate(1.2);
   }
 </style>
