@@ -10,7 +10,7 @@
 </script>
 
 <div 
-  class="absolute -top-12 z-50 
+  class="absolute -top-2 z-50 
          {type === 'before' ? 'left-8' : 'right-8'}"
 >
   <!-- Arrow -->

@@ -3,8 +3,12 @@
   import { Rocket, Stars } from "lucide-svelte";
   import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
   import SpaceNav from "./components/SpaceNav.svelte";
-  import Hero from "./content/Hero.svelte";
-  import Repack from "./components/chute/Repack.svelte";
+  
+	import Hero from "./content/Hero.svelte";
+  import ChuteCanvas from "./components/chute/ChuteCanvas.svelte";
+  import BeforeAfter from "./components/chute/BeforeAfter.svelte";
+
+	import Repack from "./components/chute/Repack.svelte";
   import Process from "./content/Process.svelte";
   import About from "./content/About.svelte";
   import Products from "./components/products/Products.svelte";
@@ -18,52 +22,47 @@
 <SpaceNav />
 
 <main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden">
-  <!-- Fixed Background Pattern -->
   <div class="fixed inset-0 pointer-events-none">
     <BackgroundPattern size="sm" opacity="high" gradient={true} />
   </div>
 
-  <!-- Content -->
   <div class="relative">
-    <!-- Hero + Repack Combined Section -->
-    <div class="relative min-h-[120vh]">
-      <!-- Hero Section - Takes up full viewport initially -->
-      <div class="min-h-[90vh]">
-        <Hero />
+    <!-- Hero Section -->
+    <section class="relative min-h-[90vh]">
+      <!-- Canvas Overlay - Positioned absolutely within hero -->
+			<!-- w-full md:w-1/2 lg:w-1/3 -->
+      <div class="absolute right-0 md:right-[10%] top-[calc(15+23vw)] 
+			            
+                  pointer-events-none z-0">
+        <ChuteCanvas />
       </div>
+      
+      <Hero />
+    </section>
 
-      <!-- Repack Section - Overlaps with hero and extends below -->
-      <div class="relative -mt-[30vh]">
-        <Repack />
-      </div>
-    </div>
-
-    <!-- Process Section -->
-    <section class="py-12 relative">
-      <div class="container">
-        <!-- Editorial Header -->
-        <div class="flex justify-end mb-24">
-          <div class="w-3/5">
-            <div class="inline-flex items-center gap-1.5 px-3 py-1
-                        rounded-full bg-primary/10 text-primary border border-primary/20 mb-8">
-              <Stars class="w-4 h-4" />
-              <span class="text-sm font-medium">The Process</span>
-            </div>
-
-            <p class="text-3xl font-regular leading-snug text-balance">
-              Your rockets rock, but your website looks like 1969? Time for a refresh.
-              <span class="opacity-50">Chute Repack is a</span> 7-day 
-              <span class="opacity-50">coding sprint to a landing page that gets customers and investors.</span>
-            </p>
+    <!-- Before/After Section -->
+    <section class="relative py-">
+      <div class="container max-w-6xl mx-auto px-4">
+        <BeforeAfter
+          company="Firefly Aerospace"
+          description="Full-throttle redesign with mission-ready UX"
+        >
+          <div slot="before">
+            <img 
+              src="/space/examples/firefly-before.jpg"
+              alt="Original Firefly Aerospace website"
+              class="w-full h-full object-cover"
+            />
           </div>
-        </div>
-
-        <Process />
-
-        <div class="flex flex-col items-center mt-24">
-          <StackIcons />
-          <SpaceButton text="Get Repack'd — $2k" />
-        </div>
+          
+          <div slot="after">
+            <img
+              src="/space/examples/firefly-after.jpg"
+              alt="Redesigned Firefly Aerospace website"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </BeforeAfter>
       </div>
     </section>
 

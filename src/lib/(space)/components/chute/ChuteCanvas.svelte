@@ -35,58 +35,98 @@
     });
   }
   
-  function draw(timestamp: number) {
-    if (!ctx || !images.paraglider) return;
+  function drawParachutist(ctx: CanvasRenderingContext2D, elapsed: number) {
+    if (!images.paraglider) return;
     
-    // Clear canvas
-    ctx.clearRect(0, 0, width, height);
-    
-    // Calculate state
-    const elapsed = timestamp - startTime;
-    const { altitude, velocity, progress } = calculateState(elapsed);
-    
-    // Draw paraglider
     const x = width / 2;
-    const y = height * 0.3 + Math.sin(elapsed / 1000) * 5;
+    const y = height * 0.3 + Math.sin(elapsed / 1000) * 5; // Gentle float
     const scale = 0.5;
     
     ctx.save();
     ctx.translate(x, y);
     ctx.scale(scale, scale);
-    ctx.rotate(Math.sin(elapsed / 1000) * 0.1);
+    ctx.rotate(Math.sin(elapsed / 2000) * 0.05); // Slower, gentler rotation
     ctx.drawImage(
-      images.paraglider, 
-      -images.paraglider.width / 2, 
+      images.paraglider,
+      -images.paraglider.width / 2,
       -images.paraglider.height / 2
     );
     ctx.restore();
+  }
+
+  function drawClouds(ctx: CanvasRenderingContext2D, elapsed: number) {
+    if (!images.cloud) return;
     
-    // Draw clouds (add your cloud drawing logic here)
-    // Draw ingenuity (add helicopter drawing logic here)
-    
-    // Draw stats
-    ctx.font = '12px monospace';
+    // Calculate cloud positions based on time
+    const cloudPositions = Array.from({ length: 3 }, (_, i) => {
+      const offset = (elapsed + i * 2000) % 6000;
+      const x = width - (offset / 6000) * width;
+      const y = height * (0.2 + i * 0.2);
+      const scale = 0.3 + i * 0.2;
+      const opacity = 0.2 + (i * 0.1);
+      return { x, y, scale, opacity };
+    });
+
+    cloudPositions.forEach(({ x, y, scale, opacity }) => {
+      ctx.save();
+      ctx.globalAlpha = opacity;
+      ctx.translate(x, y);
+      ctx.scale(scale, scale);
+      ctx.drawImage(
+        images.cloud,
+        -images.cloud.width / 2,
+        -images.cloud.height / 2
+      );
+      ctx.restore();
+    });
+  }
+
+  function drawStats(ctx: CanvasRenderingContext2D, altitude: number, velocity: number) {
+    ctx.font = '14px monospace';
     ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
     ctx.textAlign = 'right';
-    ctx.fillText(`alt(t) = ${altitude.toFixed(1)}m`, width - 20, height - 40);
-    ctx.fillText(`v(t) = ${velocity.toFixed(1)}m/s`, width - 20, height - 20);
     
-    // Continue animation
-    if (progress < 1) {
-      animationFrame = requestAnimationFrame(draw);
-    }
+    // Add a subtle background for better readability
+    const padding = 8;
+    const lineHeight = 20;
+    const statsX = width - padding;
+    const statsY = height - (2 * lineHeight + padding);
+    
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+    ctx.roundRect(
+      width - 150,
+      statsY - padding,
+      150 - padding,
+      2 * lineHeight + 2 * padding,
+      4
+    );
+    ctx.fill();
+    
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.6)';
+    ctx.fillText(`alt(t) = ${altitude.toFixed(1)}m`, statsX, statsY + lineHeight);
+    ctx.fillText(`v(t) = ${velocity.toFixed(1)}m/s`, statsX, statsY + 2 * lineHeight);
   }
-  
-  function startAnimation() {
-    if (animationFrame) cancelAnimationFrame(animationFrame);
-    startTime = performance.now();
+
+  function draw(timestamp: number) {
+    if (!ctx) return;
+    
+    ctx.clearRect(0, 0, width, height);
+    
+    const elapsed = timestamp - startTime;
+    const { altitude, velocity } = calculateState(elapsed);
+    
+    drawClouds(ctx, elapsed);
+    drawParachutist(ctx, elapsed);
+    drawStats(ctx, altitude, velocity);
+    
     animationFrame = requestAnimationFrame(draw);
   }
   
   onMount(async () => {
     ctx = canvas.getContext('2d')!;
     await loadImages();
-    startAnimation();
+    startTime = performance.now();
+    animationFrame = requestAnimationFrame(draw);
   });
   
   onDestroy(() => {
@@ -94,11 +134,11 @@
   });
 </script>
 
-<canvas
-  bind:this={canvas}
-  {width}
-  {height}
-  class="w-full h-full object-contain"
-  style:width="{width}px"
-  style:height="{height}px"
-/>
+<div class="relative w-full h-full flex items-center justify-center">
+  <canvas
+    bind:this={canvas}
+    {width}
+    {height}
+    class="w-full h-full object-contain"
+  />
+</div>

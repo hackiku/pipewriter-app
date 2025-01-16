@@ -13,36 +13,39 @@
     afterUrl: "/space/examples/firefly-after.jpg"
   };
   
-  let canvasWidth: number;
-  let canvasHeight: number;
   let container: HTMLElement;
+  let canvasContainer: HTMLElement;
   
   onMount(() => {
-    // Handle canvas sizing
     const resizeObserver = new ResizeObserver(entries => {
       for (const entry of entries) {
-        canvasWidth = entry.contentRect.width;
-        canvasHeight = entry.contentRect.height;
+        if (canvasContainer) {
+          const rect = entry.contentRect;
+          const width = rect.width;
+          const height = Math.max(rect.height * 0.6, 400); // Minimum height
+          canvasContainer.style.height = `${height}px`;
+        }
       }
     });
     
-    resizeObserver.observe(container);
+    if (container) resizeObserver.observe(container);
     return () => resizeObserver.disconnect();
   });
 </script>
 
-<!-- Main Container -->
-<div class="relative max-w-7xl mx-auto px-4" bind:this={container}>
-  <!-- Canvas Container - Positioned to overlap with content -->
+<div class="relative w-full" bind:this={container}>
+  <!-- Canvas Overlay Container -->
   <div 
-    class="absolute -top-[30vh] right-0 w-full md:w-1/3 h-[50vh]
-           pointer-events-none z-10"
+    bind:this={canvasContainer}
+    class="absolute -top-[20vh] md:-top-[30vh] right-0 md:right-[10%] 
+           w-full md:w-1/2 lg:w-1/3 
+           pointer-events-none z-0"
   >
-    <ChuteCanvas width={canvasWidth} height={canvasHeight} />
+    <ChuteCanvas />
   </div>
   
-  <!-- Before/After Slider -->
-  <div class="relative pt-[20vh] md:pt-[10vh]">
+  <!-- Before/After Container -->
+  <div class="relative pt-[15vh] md:pt-[20vh] max-w-6xl mx-auto px-4">
     <BeforeAfter
       company={currentExample.company}
       description={currentExample.description}
@@ -70,7 +73,7 @@
         variant="outline" 
         size="lg"
         class="group"
-        onClick={() => window.open('/space/repacks/firefly', '_blank')}
+        on:click={() => window.open('/space/repacks/firefly', '_blank')}
       >
         <span class="mr-2">View Full Redesign</span>
         <ArrowRight 
