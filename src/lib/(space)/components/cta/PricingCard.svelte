@@ -25,7 +25,7 @@
   <div class="p-6 space-y-8">
     <!-- Price -->
     <div class="flex items-baseline gap-2">
-      <span class="text-5xl font-light tracking-tight">$2,000</span>
+      <span class="text-5xl font-light tracking-tight">$3,000</span>
       <span class="text-lg text-muted-foreground">/page</span>
     </div>
 

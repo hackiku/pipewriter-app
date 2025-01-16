@@ -38,7 +38,7 @@
 		<Hero />
 
 		<!-- Before/After slider -->
-		<section class="relative -mt-20 mb-24">
+		<section class="relative -mt-12 mb-24">
 			<Repack />
 		</section>
 
