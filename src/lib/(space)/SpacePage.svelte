@@ -21,19 +21,19 @@
 
 <SpaceNav />
 
+
 <main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden">
   <div class="fixed inset-0 pointer-events-none">
     <BackgroundPattern size="sm" opacity="high" gradient={true} />
   </div>
 
   <div class="relative">
-    <!-- Hero Section -->
-    <section class="relative min-h-[90vh]">
+		<!-- Hero Section -->
+		<section class="relative min-h-[90vh]">
       <!-- Canvas Overlay - Positioned absolutely within hero -->
 			<!-- w-full md:w-1/2 lg:w-1/3 -->
-      <div class="absolute right-0 md:right-[10%] top-[calc(15+23vw)] 
-			            
-                  pointer-events-none z-0">
+      <div class="absolute right-0 md:right-[10%] top-[calc(0.15*100vw)] 
+                  pointer-events-none z-0"> <!-- TODO: lower top- on mobile -->
         <ChuteCanvas />
       </div>
       
@@ -41,7 +41,7 @@
     </section>
 
     <!-- Before/After Section -->
-    <section class="relative py-">
+    <section class="relative py-12">
       <div class="container max-w-6xl mx-auto px-4">
         <BeforeAfter
           company="Firefly Aerospace"
