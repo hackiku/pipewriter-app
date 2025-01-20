@@ -8,7 +8,7 @@
 
   export let startAnimation: () => void;
   
-  let isOpen = true;
+  let isOpen = false;
   let viewportWidth: number;
 
   onMount(() => {

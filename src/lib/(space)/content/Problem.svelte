@@ -1,83 +1,118 @@
-<!-- src/lib/pages/space/content/Problem.svelte -->
-
-<!-- $lib/pages/layout/Problem.svelte -->
+<!-- src/lib/(space)/content/Problem.svelte -->
 <script lang="ts">
-    import { onMount } from 'svelte';
-    import { XCircle, CheckCircle } from 'lucide-svelte';
+  import { onMount } from 'svelte';
+  import { fly } from 'svelte/transition';
+  import UXExample from '../components/proof/UXExample.svelte';
+  import { spaceStore } from '../stores/spaceStore';
+  
+  const examples = [
+    {
+      x: '5%',
+      y: '10%',
+      size: 'lg' as const,
+      points: [
+        { label: '5s load time', isGood: false },
+        { label: 'Generic template', isGood: false }
+      ]
+    },
+    {
+      x: '60%',
+      y: '5%',
+      size: 'md' as const,
+      points: [
+        { label: 'Poor mobile UX', isGood: false },
+        { label: 'SEO unfriendly', isGood: false }
+      ]
+    },
+    {
+      x: '25%',
+      y: '45%',
+      size: 'lg' as const,
+      points: [
+        { label: 'Blazing fast', isGood: true },
+        { label: 'Space-ready design', isGood: true }
+      ]
+    },
+    {
+      x: '70%',
+      y: '35%',
+      size: 'md' as const,
+      points: [
+        { label: 'Mission-ready UX', isGood: true },
+        { label: 'Optimized flow', isGood: true }
+      ]
+    }
+  ];
 
-    const images = [
-        { 
-            x: '10%', y: '10%', size: 'lg',
-            issues: ['5s load time', 'Generic template'],
-            wins: []
-        },
-        { 
-            x: '60%', y: '5%', size: 'sm',
-            issues: ['Poor mobile UX'],
-            wins: ['Clean code']
-        },
-        { 
-            x: '80%', y: '30%', size: 'md',
-            issues: [],
-            wins: ['3x conversions', 'Modern stack']
-        },
-        // Add more as needed
-    ];
+  let visible = false;
+  let container: HTMLElement;
+  let viewportHeight: number;
+  let scrollProgress = 0;
+  
+  $: containerRect = container?.getBoundingClientRect();
+  
+  // Subscribe to scroll position and track visibility
+  spaceStore.subscribe(state => {
+    if (container && typeof window !== 'undefined') {
+      const rect = containerRect;
+      viewportHeight = window.innerHeight;
+      
+      if (rect.top < viewportHeight && rect.bottom > 0) {
+        // Calculate progress (0 when entering viewport, 1 when 75% scrolled)
+        scrollProgress = Math.min(Math.max(
+          (viewportHeight - rect.top) / (viewportHeight * 0.75),
+          0
+        ), 1);
+        
+        if (!visible && scrollProgress > 0) visible = true;
+      }
+    }
+  });
 
-    let scrollY = 0;
-    let container: HTMLElement;
-
-    onMount(() => {
-        window.addEventListener('scroll', () => {
-            if (container) {
-                const rect = container.getBoundingClientRect();
-                if (rect.top < window.innerHeight && rect.bottom > 0) {
-                    scrollY = window.scrollY;
-                }
-            }
-        });
-    });
+  // Calculate position and animation for each example
+  function getExampleStyles(example: typeof examples[0], index: number) {
+    if (!visible) return '';
+    
+    const baseDelay = index * 0.2; // Stagger initial appearance
+    const yOffset = scrollProgress * 30; // Move up as we scroll
+    const xOffset = scrollProgress * (index % 2 ? 10 : -10); // Spread horizontally
+    
+    return `
+      left: ${example.x};
+      top: ${example.y};
+      transform: translate3d(${xOffset}vw, ${yOffset}vh, 0);
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
+      opacity: ${1 - (scrollProgress * 0.8)};
+    `;
+  }
 </script>
 
-<div class="min-h-[120vh] relative" bind:this={container}>
-    <!-- Floating Images -->
-    {#each images as img}
-        <div class="absolute" 
-             style="left: {img.x}; top: {img.y}; 
-                    transform: translateY({scrollY * 0.1}px)">
-            <!-- Image Placeholder -->
-            <div class="relative rounded-xl bg-muted overflow-hidden
-                        {img.size === 'lg' ? 'w-96 h-64' : 
-                         img.size === 'md' ? 'w-72 h-48' : 'w-48 h-32'}">
-                <!-- Pills Container -->
-                <div class="absolute bottom-4 left-4 flex flex-wrap gap-2">
-                    {#each img.issues as issue}
-                        <span class="px-2 py-1 rounded-full text-xs
-                                   bg-destructive/10 text-destructive 
-                                   flex items-center gap-1">
-                            <XCircle class="w-3 h-3" />
-                            {issue}
-                        </span>
-                    {/each}
-                    {#each img.wins as win}
-                        <span class="px-2 py-1 rounded-full text-xs
-                                   bg-primary/10 text-primary
-                                   flex items-center gap-1">
-                            <CheckCircle class="w-3 h-3" />
-                            {win}
-                        </span>
-                    {/each}
-                </div>
-            </div>
-        </div>
-    {/each}
+<div class="min-h-[80vh] relative overflow-hidden border border-dashed border-red-800/50" 
+     bind:this={container}>
+  <!-- Centered Text -->
+  <div class="sticky top-1/3 z-10 text-center">
+    <p class="text-2xl md:text-3xl max-w-3xl mx-auto px-4 md:px-16 leading-relaxed">
+      Your rockets rock hard but your website feels like 1969?
+      <span class="text-muted-foreground">You could use a repack. Modern space companies 
+      need a web presence that matches their technical innovation.</span>
+    </p>
+  </div>
 
-    <!-- Fixed Text in Center -->
-    <div class="sticky top-1/3 max-w-xl mx-auto text-center z-10">
-        <h2 class="text-4xl font-medium leading-snug">
-            Your rockets are cutting-edge.
-            Your website is from 1969. Let's fix that with the
-						Power of UX.
-        </h2>
-    </div>
+  <!-- Floating UX Examples -->
+  <div class="absolute inset-0 pointer-events-none">
+    {#each examples as example, i}
+      <div class="absolute transition-all"
+           style={getExampleStyles(example, i)}>
+        {#if visible}
+          <div in:fly={{ y: 50, duration: 800, delay: i * 200 }}>
+            <UXExample 
+              size={example.size}
+              points={example.points}
+              className="shadow-xl"
+            />
+          </div>
+        {/if}
+      </div>
+    {/each}
+  </div>
 </div>
