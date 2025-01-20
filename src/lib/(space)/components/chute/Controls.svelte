@@ -4,52 +4,64 @@
   import { chuteStore } from '../../stores/chuteStore';
 
   export let startAnimation: () => void;
+
+  // Planet-specific icons/emojis (simplified for now)
+  const PLANETS = {
+    earth: {
+      icon: '/space/assets/earth.svg',
+      emoji: '🌍',
+      gravity: 9.81
+    },
+    mars: {
+      icon: '/space/assets/mars.svg',
+      emoji: '🟠',
+      gravity: 3.72
+    }
+  };
 </script>
 
-<div class="backdrop-blur-[2px] bg-black/10 
-            rounded-lg border border-white/10
-            px-4 py-3">
-  <!-- Stats Row -->
-  <div class="flex items-center gap-4 font-mono text-sm text-white/60 mb-3">
-    <div>alt(t) = {$chuteStore.altitude.toFixed(1)}m</div>
-    <div>v(t) = {$chuteStore.velocity.toFixed(1)}m/s</div>
-  </div>
+<div class="p-3 font-mono text-sm text-white/60 space-y-1.5">
+  <!-- Stats - One per line -->
+  <div>h = {$chuteStore.altitude.toFixed(0)}m</div>
+  <div>v = {$chuteStore.velocity.toFixed(1)}m/s</div>
 
-  <!-- Controls Row -->
-  <div class="flex items-center justify-between border-t border-white/10 pt-3">
+  <!-- Controls Row - Planet selection, gravity, reset -->
+  <div class="flex items-center gap-2 pt-1 border-t border-white/10">
     <!-- Planet Selector -->
-    <div class="flex items-center gap-3">
-      <button 
-        class="p-2 rounded-full transition-all hover:bg-white/10"
-        class:opacity-50={$chuteStore.planet !== 'earth'}
-        on:click={() => chuteStore.setPlanet('earth')}
-      >
-        {#if $chuteStore.planet === 'earth'}
-          <img src="/space/assets/earth.svg" alt="Earth" class="w-6 h-6" />
-        {:else}
-          <span class="text-xl">🌍</span>
-        {/if}
-      </button>
-      <button 
-        class="p-2 rounded-full transition-all hover:bg-white/10"
-        class:opacity-50={$chuteStore.planet !== 'mars'}
-        on:click={() => chuteStore.setPlanet('mars')}
-      >
-        {#if $chuteStore.planet === 'mars'}
-          <img src="/space/assets/mars.svg" alt="Mars" class="w-6 h-6" />
-        {:else}
-          <span class="text-xl">🟠</span>
-        {/if}
-      </button>
+    <div class="flex gap-1">
+      {#each Object.entries(PLANETS) as [planet, config]}
+        <button 
+          class="p-1.5 rounded-lg transition-all
+                 hover:bg-white/10 hover:scale-110
+                 {$chuteStore.planet === planet ? 'bg-white/5' : 'opacity-50'}"
+          on:click={() => chuteStore.setPlanet(planet)}
+        >
+          {#if $chuteStore.planet === planet}
+            <img 
+              src={config.icon} 
+              alt={planet}
+              class="w-5 h-5" 
+            />
+          {:else}
+            <span class="text-lg">{config.emoji}</span>
+          {/if}
+        </button>
+      {/each}
+    </div>
+
+    <!-- Gravity Display -->
+    <div class="text-xs">
+      g = {PLANETS[$chuteStore.planet].gravity.toFixed(1)}
     </div>
 
     <!-- Reset Button -->
     <button
-      class="p-2 rounded-full text-white/60 hover:text-white/90 
-             hover:bg-white/10 transition-all"
+      class="p-1.5 rounded-lg text-white/60
+             hover:text-white/90 hover:bg-white/10 
+             hover:scale-110 transition-all ml-auto"
       on:click={startAnimation}
     >
-      <RotateCcw class="w-5 h-5" />
+      <RotateCcw class="w-4 h-4" />
     </button>
   </div>
 </div>

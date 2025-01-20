@@ -36,7 +36,7 @@
 			<!-- w-full md:w-1/2 lg:w-1/3 -->
 			<div class="absolute right-0 md:right-[10%] top-[calc(0.15*100vw)] 
 									w-[calc(100%-2rem)] md:w-[45%] lg:w-[35%]
-									pointer-svents-none z-0">
+									z-0">
 				<div class="relative aspect-[2/3]">
 					<ChuteScene />
 				</div>
