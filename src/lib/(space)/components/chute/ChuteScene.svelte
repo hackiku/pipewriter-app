@@ -2,16 +2,45 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
+  import { chuteStore } from '../../stores/chuteStore';
+  import { PHYSICS } from './physics';
   import FlyingObjects from './FlyingObjects.svelte';
   
   export let startAnimation: () => void;
   let parachutist: HTMLImageElement;
   let ticker: gsap.core.Tween;
+  
+  let currentState = {
+    time: 0,
+    velocity: 0,
+    altitude: PHYSICS.INITIAL_ALTITUDE
+  };
 
-  function startSwing() {
+  function updatePhysics() {
+    currentState.time = (currentState.time + 0.1) % 1;
+    const state = PHYSICS.calculateState(
+      currentState.time * PHYSICS.ANIMATION_DURATION, 
+      $chuteStore.planet
+    );
+    
+    currentState.velocity = state.velocity;
+    currentState.altitude = state.altitude;
+    
+    chuteStore.updateStats(state.altitude, state.velocity);
+  }
+
+  function startPhysics() {
     if (ticker) ticker.kill();
     
-    ticker = gsap.to(parachutist, {
+    // Physics update ticker
+    ticker = gsap.to({}, {
+      duration: 0.1,
+      repeat: -1,
+      onRepeat: updatePhysics
+    });
+
+    // Gentle parachute sway
+    gsap.to(parachutist, {
       rotation: 2,
       duration: 2,
       ease: 'power1.inOut',
@@ -21,8 +50,8 @@
   }
 
   onMount(() => {
-    startAnimation = startSwing;
-    startSwing();
+    startAnimation = startPhysics;
+    startPhysics();
   });
 
   onDestroy(() => {
@@ -33,7 +62,7 @@
 <div class="relative h-screen w-full overflow-hidden">
   <!-- Background with Flying Objects -->
   <div class="absolute inset-0">
-    <FlyingObjects />
+    <FlyingObjects velocity={currentState.velocity} />
   </div>
 
   <!-- Centered Parachute -->
