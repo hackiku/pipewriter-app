@@ -4,69 +4,55 @@
   import { gsap } from 'gsap';
   import { fade } from 'svelte/transition';
   import { chuteStore } from '../../stores/chuteStore';
-
-  // Types for our flying objects
-  type ObjectType = 'cloud' | 'ingenuity' | 'investor' | 'starman';
   
-  interface FlyingObject {
-    type: ObjectType;
-    x: number;
-    y: number;
-    scale: number;
-    speed: number;
-    delay: number;
-    opacity: number;
-  }
-
-  // Configuration for different object types
+  // Increased base opacities and adjusted scales
   const OBJECT_CONFIGS = {
     cloud: { 
       path: '/space/assets/cloud.svg',
-      minScale: 0.5,
-      maxScale: 2,
+      minScale: 0.8,
+      maxScale: 2.5,
       count: 6,
-      baseOpacity: 0.4
+      baseOpacity: 0.6  // Increased from 0.4
     },
     ingenuity: {
       path: '/space/assets/ingenuity.svg',
-      minScale: 0.3,
-      maxScale: 0.6,
+      minScale: 0.4,
+      maxScale: 0.8,
       count: 2,
-      baseOpacity: 0.8
+      baseOpacity: 0.9  // Increased from 0.8
     },
     investor: {
       path: '/space/assets/investor.svg',
-      minScale: 0.4,
-      maxScale: 0.7,
+      minScale: 0.5,
+      maxScale: 0.9,
       count: 1,
-      baseOpacity: 0.6
+      baseOpacity: 0.8  // Increased from 0.6
     },
     starman: {
       path: '/space/assets/starman.svg',
-      minScale: 0.3,
-      maxScale: 0.5,
+      minScale: 0.4,
+      maxScale: 0.7,
       count: 2,
-      baseOpacity: 0.7
+      baseOpacity: 0.85  // Increased from 0.7
     }
   };
 
-  // Generate random objects with better distribution
   function generateObjects(): FlyingObject[] {
     const objects: FlyingObject[] = [];
     
     Object.entries(OBJECT_CONFIGS).forEach(([type, config]) => {
       for (let i = 0; i < config.count; i++) {
-        // Distribute X positions more evenly across viewport
-        const segment = 100 / config.count;
-        const x = (segment * i) + (Math.random() * segment * 0.8);
+        // Better distribution with offset
+        const segment = 100 / (config.count + 1);
+        const x = (segment * (i + 1)) + (Math.random() * segment * 0.5 - segment * 0.25);
         
         objects.push({
           type: type as ObjectType,
           x,
-          y: 120 + Math.random() * 30, // Start below viewport
+          y: 120 + Math.random() * 30,
           scale: config.minScale + Math.random() * (config.maxScale - config.minScale),
-          speed: 15 + Math.random() * 10, // Seconds to cross viewport
-          delay: Math.random() * 5,
+          speed: 20 + Math.random() * 15, // Increased speed range
+          delay: Math.random() * 3, // Reduced initial delay
           opacity: config.baseOpacity
         });
       }
@@ -79,7 +65,6 @@
   let objectRefs: HTMLImageElement[] = [];
 
   function animateObject(element: HTMLImageElement, object: FlyingObject) {
-    // Reset position if animation stopped
     gsap.set(element, {
       yPercent: 120,
       opacity: 0,
@@ -87,7 +72,7 @@
       rotation: -5 + Math.random() * 10
     });
 
-    // Main animation
+    // Smoother animation with better easing
     gsap.to(element, {
       yPercent: -120,
       duration: object.speed,
@@ -95,33 +80,31 @@
       repeat: -1,
       ease: 'none',
       onRepeat: () => {
-        // Randomize X position on repeat
         gsap.set(element, { 
           xPercent: -20 + Math.random() * 40,
-          rotation: -5 + Math.random() * 10
+          rotation: -5 + Math.random() * 10,
+          scale: object.scale * (0.9 + Math.random() * 0.2) // Slight scale variation
         });
       }
     });
 
-    // Independent opacity animation for smooth fade in/out
+    // Enhanced opacity animation
     gsap.to(element, {
       opacity: object.opacity,
-      duration: object.speed * 0.2,
+      duration: object.speed * 0.15, // Faster fade
       delay: object.delay,
       repeat: -1,
       yoyo: true,
-      repeatDelay: object.speed * 0.6,
-      ease: 'power1.inOut'
+      repeatDelay: object.speed * 0.7,
+      ease: 'power2.inOut'
     });
   }
 
   onMount(() => {
-    // Initialize all animations
     objectRefs.forEach((el, i) => {
       if (el) animateObject(el, objects[i]);
     });
 
-    // Restart animations on planet change
     return chuteStore.subscribe(() => {
       objectRefs.forEach((el, i) => {
         if (el) animateObject(el, objects[i]);
@@ -130,31 +113,21 @@
   });
 </script>
 
-<!-- Main container with expanded boundaries -->
-<div class="fixed inset-0 overflow-hidden pointer-events-none">
-  <!-- Gradient overlays for smooth edges -->
-  <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background to-transparent z-10" />
-  <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background to-transparent z-10" />
+<div class="fixed inset-0 overflow-hidden pointer-events-none z-10">
+  <!-- Gradient overlays adjusted for better visibility -->
+  <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
+  <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-10" />
   
-  <!-- Flying objects container -->
   <div class="relative w-full h-full">
     {#each objects as object, i}
       <img
         bind:this={objectRefs[i]}
         src={OBJECT_CONFIGS[object.type].path}
         alt={`Flying ${object.type}`}
-        class="absolute w-24 opacity-0"
-        style="left: {object.x}%;"
+        class="absolute w-24 md:w-32 opacity-0 drop-shadow-lg"
+        style="left: {object.x}%; filter: brightness(1.2);"
         transition:fade={{ duration: 1000 }}
       />
     {/each}
   </div>
 </div>
-
-<style>
-  img {
-    backface-visibility: hidden;
-    transform-style: preserve-3d;
-    will-change: transform, opacity;
-  }
-</style>

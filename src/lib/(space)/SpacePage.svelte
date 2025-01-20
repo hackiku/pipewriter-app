@@ -6,6 +6,7 @@
 
 	import Hero from "./content/Hero.svelte";
 	import Scene from "./components/chute/Scene.svelte";
+	import Controls from "./components/chute/Controls.svelte";
 	// import ChuteCanvas from "./components/chute/ChuteCanvas.svelte";
 	// import ChuteScene from "./components/chute/ChuteScene.svelte";
 	// import PlanetGrid from "./components/chute/PlanetGrid.svelte";
@@ -19,6 +20,9 @@
 	import SpaceButton from "./components/cta/SpaceButton.svelte";
 	import CTA from "./components/cta/CTA.svelte";
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
+
+  let startAnimation: () => void;
+
 </script>
 
 <SpaceNav />
@@ -27,17 +31,20 @@
 	<BackgroundPattern size="sm" opacity="high" gradient={true} />
 </div> -->
 
-	<main class="relative min-h-screen overflow-x-hidden 
+<main class="relative min-h-screen overflow-x-hidden 
              bg-zinc-300/40 dark:bg-zinc-950 text-foreground">
+             
+  <!-- Controls now at page level -->
+  <Controls {startAnimation} />
+  
+  <!-- Scene without controls -->
+  <Scene bind:startAnimation />
 
-  <!-- Scene (planet grid, animations, etc) -->
-  <Scene />
-
-  <!-- Scrollable content -->
-  <div class="relative z-40">
+  <!-- Scrollable content with higher z-index -->
+  <div class="relative z-30">
     <!-- Initial Viewport -->
     <section class="relative h-[100vh]">
-      <!-- Top hero area (roughly top 60% of viewport) -->
+      <!-- Top hero area -->
       <div class="h-[60vh] grid lg:grid-cols-2 items-start">
         <!-- Hero content - left side -->
         <div class="relative z-10 h-full
@@ -45,12 +52,9 @@
                     pl-4 sm:pl-6 md:pl-16 lg:pl-24 xl:pl-44">
           <Hero />
         </div>
-
-        <!-- Spacer for chute animation - right side -->
-        <!-- <div class="relative h-full" /> -->
       </div>
 
-      <!-- Before/After preview (peeks into bottom ~40% of viewport) -->
+      <!-- Before/After preview -->
       <div class="absolute bottom-0 inset-x-0 h-[45vh]
                   transform translate-y-[45%]">
         <div class="container max-w-6xl mx-auto px-4">
@@ -77,6 +81,7 @@
         </div>
       </div>
     </section>
+
 
 
 	<!-- Testimonials -->
