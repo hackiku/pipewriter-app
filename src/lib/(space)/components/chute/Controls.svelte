@@ -1,4 +1,4 @@
-<!-- src/lib/pages/space/components/chute/Controls.svelte -->
+<!-- src/lib/(space)/components/chute/Controls.svelte -->
 <script lang="ts">
   import { RotateCcw } from 'lucide-svelte';
   import { chuteStore } from '../../stores/chuteStore';
