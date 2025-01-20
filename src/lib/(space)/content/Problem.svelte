@@ -4,49 +4,10 @@
   import { fly } from 'svelte/transition';
   import UXExample from '../components/proof/UXExample.svelte';
   import { spaceStore } from '../stores/spaceStore';
+  import { uxExamples } from '../data/examples';
   
-  const examples = [
-    {
-      x: '5%',
-      y: '10%',
-      size: 'lg' as const,
-      points: [
-        { label: '5s load time', isGood: false },
-        { label: 'Generic template', isGood: false }
-      ]
-    },
-    {
-      x: '60%',
-      y: '5%',
-      size: 'md' as const,
-      points: [
-        { label: 'Poor mobile UX', isGood: false },
-        { label: 'SEO unfriendly', isGood: false }
-      ]
-    },
-    {
-      x: '25%',
-      y: '45%',
-      size: 'lg' as const,
-      points: [
-        { label: 'Blazing fast', isGood: true },
-        { label: 'Space-ready design', isGood: true }
-      ]
-    },
-    {
-      x: '70%',
-      y: '35%',
-      size: 'md' as const,
-      points: [
-        { label: 'Mission-ready UX', isGood: true },
-        { label: 'Optimized flow', isGood: true }
-      ]
-    }
-  ];
-
   let visible = false;
   let container: HTMLElement;
-  let viewportHeight: number;
   let scrollProgress = 0;
   
   $: containerRect = container?.getBoundingClientRect();
@@ -55,12 +16,12 @@
   spaceStore.subscribe(state => {
     if (container && typeof window !== 'undefined') {
       const rect = containerRect;
-      viewportHeight = window.innerHeight;
+      const viewportHeight = window.innerHeight;
       
       if (rect.top < viewportHeight && rect.bottom > 0) {
-        // Calculate progress (0 when entering viewport, 1 when 75% scrolled)
+        // Smoother progress calculation
         scrollProgress = Math.min(Math.max(
-          (viewportHeight - rect.top) / (viewportHeight * 0.75),
+          (viewportHeight - rect.top) / (viewportHeight * 1.5),
           0
         ), 1);
         
@@ -69,25 +30,24 @@
     }
   });
 
-  // Calculate position and animation for each example
-  function getExampleStyles(example: typeof examples[0], index: number) {
+  // Calculate position and parallax for each example pair
+  function getExampleStyles(example: typeof uxExamples[0], index: number) {
     if (!visible) return '';
     
-    const baseDelay = index * 0.2; // Stagger initial appearance
-    const yOffset = scrollProgress * 30; // Move up as we scroll
-    const xOffset = scrollProgress * (index % 2 ? 10 : -10); // Spread horizontally
+    // More pronounced parallax effect
+    const parallaxY = scrollProgress * (index % 2 ? 15 : 25);
+    const parallaxX = scrollProgress * (index % 2 ? 5 : -5);
     
     return `
-      left: ${example.x};
-      top: ${example.y};
-      transform: translate3d(${xOffset}vw, ${yOffset}vh, 0);
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease;
-      opacity: ${1 - (scrollProgress * 0.8)};
+      left: ${example.position.x};
+      top: ${example.position.y};
+      transform: translate3d(${parallaxX}vw, ${parallaxY}vh, 0);
+      transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
     `;
   }
 </script>
 
-<div class="min-h-[80vh] relative overflow-hidden border border-dashed border-red-800/50" 
+<div class="min-h-[100vh] relative overflow-hidden border border-dashed border-red-800/50" 
      bind:this={container}>
   <!-- Centered Text -->
   <div class="sticky top-1/3 z-10 text-center">
@@ -100,14 +60,16 @@
 
   <!-- Floating UX Examples -->
   <div class="absolute inset-0 pointer-events-none">
-    {#each examples as example, i}
+    {#each uxExamples as example, i}
       <div class="absolute transition-all"
            style={getExampleStyles(example, i)}>
         {#if visible}
           <div in:fly={{ y: 50, duration: 800, delay: i * 200 }}>
             <UXExample 
               size={example.size}
-              points={example.points}
+              bad={example.bad}
+              good={example.good}
+              yOffset={example.yOffset}
               className="shadow-xl"
             />
           </div>
