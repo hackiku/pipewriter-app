@@ -4,10 +4,12 @@
   import SpaceButton from "../components/cta/SpaceButton.svelte";
 </script>
 
-<div class="h-full flex flex-col justify-start">
+<div class="h-full flex flex-col justify-start
+						w-full sm:w-[55vw] md:w-[45vw] lg:w-[50vw]"
+						>
   <h1 class="text-[6vh] md:text-[7vh] lg:text-[10vh] 
              font-regular leading-[1.1] tracking-tight mb-[2vh]
-             w-full lg:w-[140%]">
+             ">
     Landing Pages for the 
     <span class="whitespace-nowrap">Space Age</span>
   </h1>

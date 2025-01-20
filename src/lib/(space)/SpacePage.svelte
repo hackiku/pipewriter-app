@@ -44,7 +44,7 @@
       <div class="h-[60vh] grid lg:grid-cols-2 items-start">
         <!-- Hero content - left side -->
         <div class="relative z-10 h-full
-                    pt-[20vh] 
+                    pt-36
                     pl-4 sm:pl-6 md:pl-16 lg:pl-24 xl:pl-44">
           <Hero />
         </div>
