@@ -5,7 +5,8 @@
   import SpaceNav from "./components/SpaceNav.svelte";
   
 	import Hero from "./content/Hero.svelte";
-  import ChuteCanvas from "./components/chute/ChuteCanvas.svelte";
+  // import ChuteCanvas from "./components/chute/ChuteCanvas.svelte";
+  import ChuteScene from "./components/chute/ChuteScene.svelte";
   import BeforeAfter from "./components/chute/BeforeAfter.svelte";
 
 	import Repack from "./components/chute/Repack.svelte";
@@ -23,21 +24,21 @@
 
 <!-- <ChuteCanvas /> -->
 
-<main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden">
+<main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden min-h-screen">
   <div class="fixed inset-0 pointer-events-none">
     <BackgroundPattern size="sm" opacity="high" gradient={true} />
   </div>
 
-  <div class="relative">
+  <!-- <div class="relative"> -->
 		<!-- Hero Section -->
-		<section class="relative min-h-[90vh]">
+		<section class="relative min-h-[80vh]">
       <!-- Canvas Overlay - Positioned absolutely within hero -->
 			<!-- w-full md:w-1/2 lg:w-1/3 -->
 			<div class="absolute right-0 md:right-[10%] top-[calc(0.15*100vw)] 
 									w-[calc(100%-2rem)] md:w-[45%] lg:w-[35%]
-									pointer-events-none z-0">
+									pointer-svents-none z-0">
 				<div class="relative aspect-[2/3]">
-					<ChuteCanvas />
+					<ChuteScene />
 				</div>
 			</div>      
       <Hero />
@@ -125,7 +126,7 @@
       </div>
       <LogosMarquee />
     </section>
-  </div>
+  <!-- </div> -->
 </main>
 
 <style>
