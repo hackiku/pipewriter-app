@@ -1,50 +1,43 @@
 <!-- src/lib/(space)/components/chute/ChuteScene.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
   import { chuteStore } from '../../stores/chuteStore';
   import { PHYSICS } from './physics';
+  import FlyingObjects from './FlyingObjects.svelte';
 
   export let startAnimation: () => void;
 
   let container: HTMLDivElement;
   let parachutist: HTMLImageElement;
   let viewportWidth: number;
-  let backgroundY = 0;
+  let ticker: gsap.core.Tween;
   
-  onMount(() => {
-    viewportWidth = window.innerWidth;
-    const handleResize = () => viewportWidth = window.innerWidth;
-    window.addEventListener('resize', handleResize);
-    
-    startAnimation = animateParachutist;
-    animateParachutist();
-    
-    return () => window.removeEventListener('resize', handleResize);
-  });
+  let currentState = {
+    time: 0,
+    velocity: 0,
+    altitude: PHYSICS.INITIAL_ALTITUDE
+  };
 
   function updatePhysics() {
-    const progress = Date.now() % PHYSICS.ANIMATION_DURATION / PHYSICS.ANIMATION_DURATION;
-    const altitude = PHYSICS.INITIAL_ALTITUDE + 
-      (PHYSICS.FINAL_ALTITUDE - PHYSICS.INITIAL_ALTITUDE) * 
-      (1 - Math.pow(1 - progress, 3));
+    currentState.time = (currentState.time + 0.1) % 1;
+    const state = PHYSICS.calculateState(currentState.time * PHYSICS.ANIMATION_DURATION, $chuteStore.planet);
     
-    const velocity = 20 * Math.sin(progress * Math.PI);
-    chuteStore.updateStats(altitude, velocity);
+    currentState.velocity = state.velocity;
+    currentState.altitude = state.altitude;
     
-    // Update background position based on velocity
-    backgroundY += velocity * 0.1;
-    if (container) {
-      container.style.setProperty('--bg-y', `${backgroundY}px`);
-    }
+    chuteStore.updateStats(state.altitude, state.velocity);
   }
 
-  function animateParachutist() {
-    if (!parachutist) return;
+  function startPhysics() {
+    if (ticker) ticker.kill();
+    
+    ticker = gsap.to({}, {
+      duration: 0.1,
+      repeat: -1,
+      onRepeat: updatePhysics
+    });
 
-    gsap.killTweensOf(parachutist);
-
-    // Gentle swaying only
     gsap.to(parachutist, {
       rotation: 2,
       duration: 2,
@@ -52,14 +45,22 @@
       yoyo: true,
       repeat: -1
     });
-
-    // More frequent physics updates
-    gsap.to({}, {
-      duration: 0.05,
-      repeat: -1,
-      onRepeat: updatePhysics
-    });
   }
+
+  onMount(() => {
+    viewportWidth = window.innerWidth;
+    const handleResize = () => viewportWidth = window.innerWidth;
+    window.addEventListener('resize', handleResize);
+    
+    startAnimation = startPhysics;
+    startPhysics();
+    
+    return () => window.removeEventListener('resize', handleResize);
+  });
+
+  onDestroy(() => {
+    if (ticker) ticker.kill();
+  });
   
   $: isSmallViewport = viewportWidth < 768;
   $: chuteSize = isSmallViewport ? 'w-24 md:w-32' : 'w-32 md:w-40 lg:w-48';
@@ -67,23 +68,15 @@
 
 <div 
   bind:this={container} 
-  class="relative h-full overflow-hidden"
+  class="relative h-full overflow-hidden scene-layer"
 >
-  <!-- Parallax Background -->
-  <div 
-    class="absolute inset-0 transition-colors duration-500"
-    style="
-      background: repeating-linear-gradient(
-        0deg,
-        {$chuteStore.planet === 'earth' ? '#4299E1' : '#ED8936'}10 0px,
-        transparent 100px
-      );
-      transform: translateY(var(--bg-y, 0));
-    "
-  />
+  <!-- Background with Flying Objects -->
+  <div class="absolute inset-0 overflow-hidden">
+    <FlyingObjects velocity={currentState.velocity} />
+  </div>
 
-  <!-- Fixed Parachutist -->
-  <div class="absolute inset-0 flex items-center justify-center">
+  <!-- Centered Parachute -->
+  <div class="absolute inset-0 flex items-center justify-center z-20">
     <img
       bind:this={parachutist}
       src="/space/assets/paraglider.svg"
@@ -92,23 +85,18 @@
              transition-all duration-300 drop-shadow-xl"
     />
   </div>
-
-  <!-- Enhanced Edge Gradients -->
-  <div class="absolute inset-x-0 top-0 h-32 
-              bg-gradient-to-b from-background to-transparent" />
-  <div class="absolute inset-x-0 bottom-0 h-32
-              bg-gradient-to-t from-background to-transparent" />
-  <div class="absolute inset-y-0 left-0 w-32
-              bg-gradient-to-r from-background to-transparent" />
-  <div class="absolute inset-y-0 right-0 w-32
-              bg-gradient-to-l from-background to-transparent" />
 </div>
 
 <style>
+  /* Establish proper 3D context */
+  div {
+    transform-style: preserve-3d;
+    backface-visibility: hidden;
+  }
+  
   img {
     backface-visibility: hidden;
     transform-style: preserve-3d;
     will-change: transform;
-    filter: brightness(1.1);
   }
 </style>

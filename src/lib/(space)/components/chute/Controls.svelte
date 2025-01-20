@@ -3,7 +3,8 @@
   import { onMount } from 'svelte';
   import { RotateCcw, ChevronUp } from 'lucide-svelte';
   import { chuteStore } from '../../stores/chuteStore';
-  import { fade, slide } from 'svelte/transition';
+  import { PHYSICS, PLANETS } from './physics';
+  import { slide } from 'svelte/transition';
 
   export let startAnimation: () => void;
   
@@ -17,23 +18,9 @@
     return () => window.removeEventListener('resize', handleResize);
   });
 
-  const PLANETS = {
-    earth: {
-      icon: '/space/assets/earth.svg',
-      emoji: '🌍',
-      gravity: 9.81
-    },
-    mars: {
-      icon: '/space/assets/mars.svg',
-      emoji: '🟠',
-      gravity: 3.72
-    }
-  };
-
   $: isMobile = viewportWidth < 768;
 </script>
 
-<!-- Fixed container for controls -->
 <div 
   class="fixed right-4 lg:right-8 z-50 
          {isMobile ? 'bottom-4' : 'top-1/2 -translate-y-1/2'}
@@ -41,8 +28,8 @@
 >
   <!-- Pull tab -->
   <button
-    class="absolute left-1/2 -translate-x-1/2 cursor-pointer
-           {isMobile ? '-top-3' : '-left-3 top-1/2 -translate-y-1/2'}
+    class="absolute -translate-x-1/2 cursor-pointer
+           {isMobile ? 'left-1/2 -top-3' : '-left-3 top-1/2 -translate-y-1/2'}
            {isOpen ? 'rotate-0' : 'rotate-180'}"
     on:click={() => isOpen = !isOpen}
   >
@@ -64,49 +51,53 @@
     <div 
       transition:slide={{ duration: 200 }}
       class="backdrop-blur-[2px] bg-black/20 
-             rounded-lg border border-white/10
+             rounded-xl border border-white/10
              shadow-lg overflow-hidden"
     >
-      <div class="p-3 font-mono text-sm text-white/60 space-y-1.5">
+      <div class="p-4 font-mono text-sm text-white/60 space-y-2">
         <!-- Stats -->
         <div>h = {$chuteStore.altitude.toFixed(0)}m</div>
         <div>v = {$chuteStore.velocity.toFixed(1)}m/s</div>
+        <div>g = {PLANETS[$chuteStore.planet].gravity}m/s²</div>
 
-        <!-- Controls Row -->
-        <div class="flex items-center gap-2 pt-1 border-t border-white/10">
-          <div class="flex gap-1">
-            {#each Object.entries(PLANETS) as [planet, config]}
+        <!-- Planet Selection & Reset -->
+        <div class="flex items-center gap-3 pt-2 border-t border-white/10">
+          <!-- Planet Buttons -->
+          <div class="flex gap-2">
+            {#each ['earth', 'mars'] as planet}
               <button 
-                class="p-1.5 rounded-lg transition-all cursor-pointer
-                       hover:bg-white/10 hover:scale-110 active:scale-95
-                       {$chuteStore.planet === planet ? 'bg-white/5' : 'opacity-50'}"
+                class="group p-2.5 rounded-lg transition-all
+                       relative overflow-hidden
+                       {$chuteStore.planet === planet ? 
+                         'bg-white/10 ring-2 ring-white/20' : 
+                         'hover:bg-white/5'}"
                 on:click={() => chuteStore.setPlanet(planet)}
               >
-                {#if $chuteStore.planet === planet}
-                  <img 
-                    src={config.icon} 
-                    alt={planet}
-                    class="w-5 h-5 pointer-events-none" 
-                  />
-                {:else}
-                  <span class="text-lg pointer-events-none">{config.emoji}</span>
-                {/if}
+                <img 
+                  src={`/space/assets/${planet}.svg`}
+                  alt={planet}
+                  class="w-6 h-6 relative z-10 
+                         transition-transform duration-300
+                         group-hover:scale-110" 
+                />
+                <div class="absolute inset-0 opacity-0 
+                           group-hover:opacity-100
+                           bg-gradient-to-t
+                           from-white/5 to-transparent
+                           transition-opacity duration-300" />
               </button>
             {/each}
           </div>
 
-          <div class="text-xs">
-            g = {PLANETS[$chuteStore.planet].gravity.toFixed(1)}
-          </div>
-
+          <!-- Reset Button -->
           <button
-            class="p-1.5 rounded-lg text-white/60 cursor-pointer
+            class="p-2 rounded-lg text-white/60
                    hover:text-white/90 hover:bg-white/10 
                    hover:scale-110 active:scale-95 
                    transition-all ml-auto"
             on:click={startAnimation}
           >
-            <RotateCcw class="w-4 h-4 pointer-events-none" />
+            <RotateCcw class="w-5 h-5" />
           </button>
         </div>
       </div>
