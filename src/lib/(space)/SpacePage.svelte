@@ -21,6 +21,7 @@
 
 <SpaceNav />
 
+<!-- <ChuteCanvas /> -->
 
 <main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden">
   <div class="fixed inset-0 pointer-events-none">
@@ -32,11 +33,13 @@
 		<section class="relative min-h-[90vh]">
       <!-- Canvas Overlay - Positioned absolutely within hero -->
 			<!-- w-full md:w-1/2 lg:w-1/3 -->
-      <div class="absolute right-0 md:right-[10%] top-[calc(0.15*100vw)] 
-                  pointer-events-none z-0"> <!-- TODO: lower top- on mobile -->
-        <ChuteCanvas />
-      </div>
-      
+			<div class="absolute right-0 md:right-[10%] top-[calc(0.15*100vw)] 
+									w-[calc(100%-2rem)] md:w-[45%] lg:w-[35%]
+									pointer-events-none z-0">
+				<div class="relative aspect-[2/3]">
+					<ChuteCanvas />
+				</div>
+			</div>      
       <Hero />
     </section>
 
