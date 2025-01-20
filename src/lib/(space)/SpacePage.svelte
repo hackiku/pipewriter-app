@@ -24,53 +24,60 @@
 
 <SpaceNav />
 
-<main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden min-h-screen">
-  <!-- Background pattern -->
+
+
+	<main class="relative min-h-screen overflow-x-hidden 
+             bg-zinc-300/40 dark:bg-zinc-950 text-foreground">
+  <!-- Fixed background elements -->
   <div class="fixed inset-0 pointer-events-none">
     <BackgroundPattern size="sm" opacity="high" gradient={true} />
   </div>
 
-  <!-- Master scene (handles animations & backgrounds) -->
+  <!-- Scene (planet grid, animations, etc) -->
   <Scene />
 
-  <!-- Content layers -->
+  <!-- Scrollable content -->
   <div class="relative z-40">
-    <!-- Hero Section -->
-    <section class="relative min-h-[85vh] pt-20 md:pt-24">
-      <div class="grid lg:grid-cols-2 items-start">
-        <!-- Hero Content -->
-        <div class="relative z-10 pt-8 pl-4 sm:pl-6 md:pl-16 lg:pl-24 xl:pl-44">
+    <!-- Initial Viewport -->
+    <section class="relative h-[100vh]">
+      <!-- Top hero area (roughly top 60% of viewport) -->
+      <div class="h-[60vh] grid lg:grid-cols-2 items-start">
+        <!-- Hero content - left side -->
+        <div class="relative z-10 h-full
+                    pt-[20vh] 
+                    pl-4 sm:pl-6 md:pl-16 lg:pl-24 xl:pl-44">
           <Hero />
         </div>
-        
-        <!-- Spacer for chute animation area -->
-        <div class="relative h-[40vh] lg:h-[50vh] mt-8 lg:mt-16" />
-      </div>
-    </section>
 
-    <!-- Before/After Preview -->
-    <section class="relative -mt-16 lg:-mt-24">
-      <div class="container max-w-6xl mx-auto px-4">
-        <BeforeAfter
-          company="Firefly Aerospace"
-          description="Full-throttle redesign with mission-ready UX"
-        >
-          <div slot="before">
-            <img 
-              src="/space/examples/firefly-before.jpg"
-              alt="Original Firefly Aerospace website"
-              class="w-full h-full object-cover"
-            />
-          </div>
-          
-          <div slot="after">
-            <img
-              src="/space/examples/firefly-after.jpg"
-              alt="Redesigned Firefly Aerospace website"
-              class="w-full h-full object-cover"
-            />
-          </div>
-        </BeforeAfter>
+        <!-- Spacer for chute animation - right side -->
+        <!-- <div class="relative h-full" /> -->
+      </div>
+
+      <!-- Before/After preview (peeks into bottom ~40% of viewport) -->
+      <div class="absolute bottom-0 inset-x-0 h-[45vh]
+                  transform translate-y-[45%]">
+        <div class="container max-w-6xl mx-auto px-4">
+          <BeforeAfter
+            company="Firefly Aerospace"
+            description="Full-throttle redesign with mission-ready UX"
+          >
+            <div slot="before">
+              <img 
+                src="/space/examples/firefly-before.jpg"
+                alt="Original Firefly Aerospace website"
+                class="w-full h-full object-cover"
+              />
+            </div>
+            
+            <div slot="after">
+              <img
+                src="/space/examples/firefly-after.jpg"
+                alt="Redesigned Firefly Aerospace website"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </BeforeAfter>
+        </div>
       </div>
     </section>
 
@@ -141,7 +148,7 @@
 
 <style>
 	/* Optional: Smooth scroll behavior */
-	:global(html) {
+	/* html {
 		scroll-behavior: smooth;
-	}
+	} */
 </style>

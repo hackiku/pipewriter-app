@@ -1,4 +1,4 @@
-<!-- src/lib/pages/space/components/chute/RepackLabel.svelte -->
+<!-- src/lib/pages/(space)/components/chute/RepackLabel.svelte -->
 <script lang="ts">
   export let type: 'before' | 'after';
   export let text = type === 'before' ? 'Before' : 'After';
