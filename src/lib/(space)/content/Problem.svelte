@@ -39,7 +39,7 @@
     });
 </script>
 
-<div class="min-h-[150vh] relative" bind:this={container}>
+<div class="min-h-[120vh] relative" bind:this={container}>
     <!-- Floating Images -->
     {#each images as img}
         <div class="absolute" 

@@ -7,11 +7,9 @@
 	import Hero from "./content/Hero.svelte";
 	import Scene from "./components/chute/Scene.svelte";
 	import Controls from "./components/chute/Controls.svelte";
-	// import ChuteCanvas from "./components/chute/ChuteCanvas.svelte";
-	// import ChuteScene from "./components/chute/ChuteScene.svelte";
-	// import PlanetGrid from "./components/chute/PlanetGrid.svelte";
 	import BeforeAfter from "./components/repack/BeforeAfter.svelte";
 
+	import Problem from "./content/Problem.svelte";
 	import Process from "./content/Process.svelte";
 	import About from "./content/About.svelte";
 	import Products from "./components/products/Products.svelte";
@@ -52,7 +50,7 @@
 
       <!-- Before/After Preview -->
       <div class="absolute bottom-0 inset-x-0 h-[45vh]
-                  translate-y-[65%]">
+                  translate-y-[55%]">
         <div class="container max-w-6xl mx-auto px-4">
           <BeforeAfter
             company="Firefly Aerospace"
@@ -65,9 +63,19 @@
     <!-- Content Sections with Proper Spacing -->
     <div class="mt-[60vh] relative z-30"> <!-- Space for Before/After overlap -->
       <!-- Testimonials -->
-      <section class="py-32">
-        <Testimonials />
+      
+			<section class="XXpy-32">
+				<Problem />
       </section>
+			
+			<section class="XXpy-32">
+				<Process />
+      </section>
+			
+			
+			<section class="py-32">
+				<Testimonials />
+			</section>
 
       <!-- About & Products -->
       <section class="relative bg-zinc-950/[0.05] dark:bg-white/[0.03]">
@@ -107,10 +115,10 @@
                 <Rocket class="w-4 h-4" />
                 <span class="text-sm font-medium">Pricing</span>
               </div>
-              <h2 class="text-5xl font-normal">Let the Spice Flow</h2>
-              <p class="text-xl text-muted-foreground">
-                Your Landing 'Chute, Repack'd
-              </p>
+              <h2 class="text-5xl font-normal">Book a 'Chute Repack</h2>
+              <!-- <p class="text-xl text-muted-foreground">
+                Let the Spice Flow
+              </p> -->
             </div>
           </div>
           <CTA />

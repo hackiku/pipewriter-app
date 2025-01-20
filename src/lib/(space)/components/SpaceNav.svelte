@@ -61,7 +61,7 @@
             <span class="sr-only">Toggle theme</span>
           </Button>
 
-          <SpaceButton size="sm" />
+          <SpaceButton size="sm" text="Book Repack"/>
         </div>
 
         <!-- Mobile Menu Button -->
