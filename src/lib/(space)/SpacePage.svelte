@@ -24,14 +24,12 @@
 
 <SpaceNav />
 
-
+<!-- <div class="fixed inset-0 pointer-events-none">
+	<BackgroundPattern size="sm" opacity="high" gradient={true} />
+</div> -->
 
 	<main class="relative min-h-screen overflow-x-hidden 
              bg-zinc-300/40 dark:bg-zinc-950 text-foreground">
-  <!-- Fixed background elements -->
-  <div class="fixed inset-0 pointer-events-none">
-    <BackgroundPattern size="sm" opacity="high" gradient={true} />
-  </div>
 
   <!-- Scene (planet grid, animations, etc) -->
   <Scene />

@@ -4,6 +4,7 @@
   import ChuteScene from './ChuteScene.svelte';
   import PlanetGrid from './PlanetGrid.svelte';
   import FlyingObjects from './FlyingObjects.svelte';
+  import Controls from './Controls.svelte';
   import { chuteStore } from '../../stores/chuteStore';
   
   let mounted = false;
@@ -12,7 +13,6 @@
   // Update scene based on scroll
   function updateProgress(scrollY: number) {
     const vh = window.innerHeight;
-    // Start transforming as soon as we start scrolling
     progress = Math.max(0, Math.min(1, scrollY / (vh * 0.8)));
   }
   
@@ -20,10 +20,15 @@
     mounted = true;
     const handleScroll = () => updateProgress(window.scrollY);
     window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll(); // Initial call
+    handleScroll();
     
     return () => window.removeEventListener('scroll', handleScroll);
   });
+
+  // Animation control
+  function startAnimation() {
+    // We'll pass this down to ChuteScene
+  }
 
   // Reactive values for animations
   $: planetScale = mounted ? 1 + progress * 0.3 : 1;
@@ -32,14 +37,16 @@
 </script>
 
 <!-- Master scene container -->
-<div class="fixed inset-0 pointer-events-none">
+<div class="fixed inset-0 XXXpointer-events-none">
   <!-- Background elements -->
   <div class="absolute inset-0 z-0">
-    <!-- Flying objects -->
-    <FlyingObjects />
+    <!-- Flying objects with more height -->
+    <div class="absolute inset-0 h-[200vh]">
+      <FlyingObjects />
+    </div>
   </div>
 
-  <!-- Planet Grid - now properly anchored to bottom -->
+  <!-- Planet Grid - anchored to bottom -->
   <div 
     class="absolute inset-x-0 bottom-0 z-10
            transition-transform duration-300 ease-out"
@@ -52,11 +59,9 @@
   </div>
 
   <!-- Chute Scene Container -->
-	<!-- w-full lg:w-[75vw] xl:w-[40vw] -->
   <div 
     class="absolute z-20 transition-all duration-300
-           w-[65vw]
-					 h-[50vh] lg:h-[60vh]
+           w-[65vw] h-[50vh] lg:h-[60vh]
            right-12 lg:right-[5vw]"
     style="
       top: {20 - progress * 15}vh;
@@ -67,13 +72,26 @@
       );
     "
   >
+    <!-- Controls Panel - Now at Scene level -->
+    <div 
+      class="absolute right-4 lg:right-8 top-[45%] z-50
+             pointer-events-auto" 
+    > <!-- why auto??? -->
+		
+      <div class="backdrop-blur-[2px] bg-black/10 
+                  rounded-lg border border-white/10
+                  shadow-lg">
+        <Controls {startAnimation} />
+      </div>
+    </div>
+
     <!-- Nav-aligned padding for chute -->
     <div class="h-full px-4 sm:px-6 md:px-16 lg:px-24">
-      <ChuteScene />
+      <ChuteScene {startAnimation} />
     </div>
   </div>
 
-  <!-- Smooth gradient overlays -->
+  <!-- Gradient overlays -->
   <div class="absolute inset-x-0 top-0 h-32 z-30
               bg-gradient-to-b from-background to-transparent" />
   <div class="absolute inset-x-0 bottom-0 h-32 z-30
@@ -83,7 +101,6 @@
 </div>
 
 <style>
-  /* Performance optimizations */
   div {
     backface-visibility: hidden;
     transform-style: preserve-3d;
