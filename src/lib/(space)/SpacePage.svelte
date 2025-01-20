@@ -9,9 +9,8 @@
 	// import ChuteCanvas from "./components/chute/ChuteCanvas.svelte";
 	// import ChuteScene from "./components/chute/ChuteScene.svelte";
 	// import PlanetGrid from "./components/chute/PlanetGrid.svelte";
-	import BeforeAfter from "./components/chute/BeforeAfter.svelte";
+	import BeforeAfter from "./components/repack/BeforeAfter.svelte";
 
-	import Repack from "./components/chute/Repack.svelte";
 	import Process from "./content/Process.svelte";
 	import About from "./content/About.svelte";
 	import Products from "./components/products/Products.svelte";
