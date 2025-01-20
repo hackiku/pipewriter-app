@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   import ChuteScene from './ChuteScene.svelte';
   import PlanetGrid from './PlanetGrid.svelte';
-  import { chuteStore } from '../../stores/chuteStore';
   
   export let startAnimation: () => void;
   
@@ -34,44 +33,21 @@
   });
 
   $: isDesktop = viewportWidth >= 1024;
-  $: centeringProgress = mounted ? Math.max(0, (1024 - viewportWidth) / 1024) : 0;
-  $: horizontalOffset = isDesktop ? 0 : centeringProgress * 40;
-  $: translateY = `${progress * 10}vh`;
 </script>
 
-<div class="fixed inset-0 isolate">
-  <!-- Planet Grid (Background Layer) -->
+<div class="fixed inset-0">
+  <!-- Planet Grid Background -->
   <div class="absolute inset-0 z-0">
     <PlanetGrid {progress} />
   </div>
 
-  <!-- Scene Content Container (establishes stacking context) -->
+  <!-- Scene Layer with Chute -->
   <div class="absolute inset-0 z-10">
-    <!-- Chute Container with proper positioning -->
-    <div 
-      class="absolute transition-all duration-300
-             w-full lg:w-[65vw] h-[50vh] lg:h-[60vh]"
-      style="
-        top: {20 - progress * 10}vh;
-        right: {isDesktop ? '5vw' : '0'};
-        transform: translate(
-          {horizontalOffset ? `-${horizontalOffset}%` : '0'},
-          {translateY}
-        );
-      "
+    <div class="w-full lg:w-[65vw] h-screen ml-auto
+                transition-transform duration-300"
+      style="transform: translateY({progress * -10}vh)"
     >
-      <div class="relative h-full px-4 sm:px-6 md:px-16 lg:px-24">
-        <ChuteScene {startAnimation} />
-      </div>
+      <ChuteScene {startAnimation} />
     </div>
   </div>
 </div>
-
-<style>
-  /* Ensure proper stacking context */
-  :global(.scene-layer) {
-    transform-style: preserve-3d;
-    backface-visibility: hidden;
-    will-change: transform;
-  }
-</style>

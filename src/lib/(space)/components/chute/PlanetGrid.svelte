@@ -1,120 +1,81 @@
 <!-- src/lib/(space)/components/chute/PlanetGrid.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { chuteStore } from '../../stores/chuteStore';
 
-  let container: HTMLDivElement;
-  let progress = 0;
-  let viewportWidth: number;
-
-  function updateProgress(scrollY: number) {
-    const start = window.innerHeight * 0.2;
-    const end = window.innerHeight * 0.8;
-    progress = Math.max(0, Math.min(1, (scrollY - start) / (end - start)));
-  }
-
-  onMount(() => {
-    viewportWidth = window.innerWidth;
-    const handleScroll = () => updateProgress(window.scrollY);
-    const handleResize = () => viewportWidth = window.innerWidth;
-    
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('resize', handleResize, { passive: true });
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('resize', handleResize);
-    };
-  });
-
-  $: gridColor = $chuteStore.planet === 'earth' ? '#4299E1' : '#ED8936';
-  $: isDesktop = viewportWidth >= 1024;
+  export let progress = 0;
   
-  // Calculate dynamic grid properties based on progress
-  $: planetScale = 1 + progress * 1.5;  // Grows 2.5x
-  $: curvature = 75 - progress * 65;    // From 75° to 10°
-  $: translateY = progress * -15;        // Move up as we descend
-  $: initialWidth = isDesktop ? 65 : 90; // Match chute scene width
-  $: width = initialWidth + (progress * (100 - initialWidth)); // Expand to full width
+  $: gridColor = $chuteStore.planet === 'earth' ? '#4299E1' : '#ED8936';
+  
+  // Grid properties
+  $: size = 140 + progress * 60;       // Base size grows with progress
+  $: opacity = 0.5 - progress * 0.2;   // Slight fade as we progress
+  $: lines = 12;                       // Number of grid lines
 </script>
 
 <div 
-  bind:this={container}
-  class="fixed bottom-0 overflow-hidden pointer-events-none"
+  class="fixed left-1/2 pointer-events-none"
   style="
-    left: {50 - width/2}%;
-    width: {width}%;
-    height: 100vh;
-    transform: perspective(1000px) 
-               rotateX({curvature}deg)
-               translateY({translateY}vh)
-               scale({planetScale});
+    width: {size}vh;
+    height: {size/2}vh;
+    bottom: -{size * 0.1}vh;
+    transform: translateX(-50%)
+               perspective(1400px)
+               rotateX(75deg);
   "
 >
-  <!-- Curved Grid Container -->
+  <!-- Grid Container -->
   <div 
-    class="absolute inset-0 transition-colors duration-500 rounded-t-full"
-    style="background: radial-gradient(
-      ellipse at 50% 100%,
-      {gridColor}20 0%,
-      {gridColor}10 50%,
-      transparent 100%
-    )"
+    class="absolute inset-0 overflow-hidden"
+    style="border-radius: {size}vh {size}vh 0 0;"
   >
-    <!-- Horizontal Arc Lines -->
-    {#each Array(20) as _, i}
+    <!-- Horizontal curved lines -->
+    {#each Array(lines) as _, i}
       <div
-        class="absolute w-full h-px origin-bottom"
+        class="absolute w-full h-px transform-gpu"
         style="
-          bottom: {i * 5}%;
-          transform: perspective(1000px) rotateX({i * 2}deg);
+          top: {(i + 1) * (100 / (lines + 1))}%;
+          opacity: {opacity * (1 - i/lines * 0.5)};
           background: linear-gradient(
             90deg,
             transparent,
-            {gridColor}40 20%,
-            {gridColor}40 80%,
+            {gridColor}60 20%,
+            {gridColor}60 80%,
             transparent
           );
-          opacity: {1 - i * 0.04};
+          transform: scale(${1 - (i/lines) * 0.3}, 1)
+                    translateY(-${(i/lines) * 50}%);
         "
       />
     {/each}
 
-    <!-- Vertical Lines (curved) -->
-    {#each Array(20) as _, i}
+    <!-- Vertical curved lines -->
+    {#each Array(lines) as _, i}
       <div
-        class="absolute bottom-0 w-px origin-bottom"
+        class="absolute top-0 bottom-0 w-px transform-gpu"
         style="
-          left: {(i + 1) * 5}%;
-          height: 100%;
-          transform: perspective(1000px) rotateY({-45 + i * 4.5}deg);
+          left: {(i + 1) * (100 / (lines + 1))}%;
+          opacity: {opacity * (1 - Math.abs(lines/2 - i)/(lines/2) * 0.5)};
           background: linear-gradient(
             0deg,
-            {gridColor}40,
-            {gridColor}20 50%,
+            {gridColor}60,
+            {gridColor}30 50%,
             transparent
           );
-          opacity: {1 - Math.abs(10 - i) * 0.08};
+          transform: rotateY(${-30 + i * (60/lines)}deg);
         "
       />
     {/each}
-  </div>
 
-  <!-- Enhanced Gradient Overlays -->
-  <div 
-    class="absolute inset-0 bg-gradient-to-b 
-           from-background via-transparent to-transparent"
-  />
-  <div 
-    class="absolute inset-0 bg-gradient-to-t 
-           from-background via-transparent to-transparent 
-           opacity-50"
-  />
-  <div 
-    class="absolute inset-y-0 left-0 w-32
-           bg-gradient-to-r from-background to-transparent"
-  />
-  <div 
-    class="absolute inset-y-0 right-0 w-32
-           bg-gradient-to-l from-background to-transparent"
-  />
+    <!-- Surface glow -->
+    <div
+      class="absolute inset-0"
+      style="
+        background: radial-gradient(
+          circle at 50% 0%,
+          {gridColor}20 0%,
+          transparent 70%
+        );
+      "
+    />
+  </div>
 </div>

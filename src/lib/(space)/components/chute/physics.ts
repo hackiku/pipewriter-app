@@ -5,7 +5,7 @@ export const PLANETS = {
 		airDensity: 1.225,
 		name: 'Earth',
 		color: '#4299E1',
-		atmosphereHeight: 100000  // meters
+		atmosphereHeight: 100000
 	},
 	mars: {
 		gravity: 3.72,
@@ -19,30 +19,33 @@ export const PLANETS = {
 export const PHYSICS = {
 	INITIAL_ALTITUDE: 95935.8,  // X-15 record (m)
 	FINAL_ALTITUDE: 300,        // Landing altitude (m)
-	ANIMATION_DURATION: 30000,  // 30 seconds for full descent
+	ANIMATION_DURATION: 120000, // 120 seconds for full descent
 	MAX_CURVATURE: 75,         // Max planet curve in degrees
 	MIN_CURVATURE: 10,         // Min planet curve in degrees
 
 	calculateState(elapsed: number, planet: keyof typeof PLANETS) {
 		const progress = Math.min(elapsed / this.ANIMATION_DURATION, 1);
 
-		// Altitude with cubic easing
+		// Smoother altitude curve using custom easing
+		const easeOutQuart = (x: number) => 1 - Math.pow(1 - x, 4);
+		const altitudeProgress = easeOutQuart(progress);
+
 		const altitude = this.INITIAL_ALTITUDE +
-			(this.FINAL_ALTITUDE - this.INITIAL_ALTITUDE) *
-			(1 - Math.pow(1 - progress, 3));
+			(this.FINAL_ALTITUDE - this.INITIAL_ALTITUDE) * altitudeProgress;
 
-		// Velocity calculation
-		const velocity = 20 * Math.sin(progress * Math.PI);
+		// More natural velocity curve
+		// Peaks in the middle of descent, slower at start and end
+		const velocityProgress = Math.sin(progress * Math.PI);
+		const maxVelocity = planet === 'earth' ? 25 : 15;
+		const velocity = maxVelocity * velocityProgress;
 
-		// Planet curvature - more curved at high altitude
-		const altitudeProgress = (altitude - this.FINAL_ALTITUDE) /
-			(this.INITIAL_ALTITUDE - this.FINAL_ALTITUDE);
+		// Smoother curvature transition
 		const curvature = this.MIN_CURVATURE +
 			(this.MAX_CURVATURE - this.MIN_CURVATURE) *
-			altitudeProgress;
+			(1 - easeOutQuart(progress));
 
-		// Planet scale - bigger as we get closer
-		const scale = 1 + (1 - altitudeProgress) * 1.5;
+		// Scale increases more dramatically near the end
+		const scale = 1 + Math.pow(altitudeProgress, 2) * 1.5;
 
 		return {
 			altitude,

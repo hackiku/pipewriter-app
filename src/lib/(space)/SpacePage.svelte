@@ -31,7 +31,7 @@
 	<BackgroundPattern size="sm" opacity="high" gradient={true} />
 </div> -->
 
-<main class="relative min-h-screen overflow-x-hidden 
+<main class="relative min-h-sscreen overflow-x-hidden 
              bg-zinc-300/40 dark:bg-zinc-950 text-foreground">
              
   <!-- Controls & Scene -->
