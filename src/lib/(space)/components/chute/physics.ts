@@ -1,92 +1,55 @@
 // src/lib/(space)/components/chute/physics.ts
-
-// Planet-specific constants
 export const PLANETS = {
 	earth: {
-		gravity: 9.81,        // m/s²
-		airDensity: 1.225,    // kg/m³ at sea level
+		gravity: 9.81,
+		airDensity: 1.225,
 		name: 'Earth',
-		color: '#4299E1'      // blue-500
+		color: '#4299E1',
+		atmosphereHeight: 100000  // meters
 	},
 	mars: {
-		gravity: 3.72,        // m/s²
-		airDensity: 0.020,    // kg/m³ at surface
+		gravity: 3.72,
+		airDensity: 0.020,
 		name: 'Mars',
-		color: '#ED8936'      // orange-500
+		color: '#ED8936',
+		atmosphereHeight: 50000
 	}
 } as const;
 
-// Parachute system constants
 export const PHYSICS = {
 	INITIAL_ALTITUDE: 95935.8,  // X-15 record (m)
 	FINAL_ALTITUDE: 300,        // Landing altitude (m)
-	CHUTE_AREA: 40,            // m²
-	MASS: 80,                  // kg (person + equipment)
-	DRAG_COEFFICIENT: 1.75,    // Typical for round parachute
 	ANIMATION_DURATION: 30000,  // 30 seconds for full descent
+	MAX_CURVATURE: 75,         // Max planet curve in degrees
+	MIN_CURVATURE: 10,         // Min planet curve in degrees
 
-	// Terminal velocity calculation
-	calculateTerminalVelocity(planet: keyof typeof PLANETS) {
-		const { gravity, airDensity } = PLANETS[planet];
-		return Math.sqrt(
-			(2 * this.MASS * gravity) /
-			(airDensity * this.CHUTE_AREA * this.DRAG_COEFFICIENT)
-		);
-	},
+	calculateState(elapsed: number, planet: keyof typeof PLANETS) {
+		const progress = Math.min(elapsed / this.ANIMATION_DURATION, 1);
 
-	// Air density at given altitude (simplified exponential model)
-	getAirDensity(altitude: number, planet: keyof typeof PLANETS) {
-		const { airDensity } = PLANETS[planet];
-		const scaleHeight = planet === 'earth' ? 7400 : 11000; // m
-		return airDensity * Math.exp(-altitude / scaleHeight);
-	}
-};
+		// Altitude with cubic easing
+		const altitude = this.INITIAL_ALTITUDE +
+			(this.FINAL_ALTITUDE - this.INITIAL_ALTITUDE) *
+			(1 - Math.pow(1 - progress, 3));
 
-// Calculate state based on elapsed time and planet
-export function calculateState(elapsed: number, planet: keyof typeof PLANETS) {
-	const progress = Math.min(elapsed / PHYSICS.ANIMATION_DURATION, 1);
-	const { gravity } = PLANETS[planet];
+		// Velocity calculation
+		const velocity = 20 * Math.sin(progress * Math.PI);
 
-	// Altitude calculation with smooth easing
-	const altitude = PHYSICS.INITIAL_ALTITUDE +
-		(PHYSICS.FINAL_ALTITUDE - PHYSICS.INITIAL_ALTITUDE) *
-		(1 - Math.pow(1 - progress, 3)); // Cubic easing
+		// Planet curvature - more curved at high altitude
+		const altitudeProgress = (altitude - this.FINAL_ALTITUDE) /
+			(this.INITIAL_ALTITUDE - this.FINAL_ALTITUDE);
+		const curvature = this.MIN_CURVATURE +
+			(this.MAX_CURVATURE - this.MIN_CURVATURE) *
+			altitudeProgress;
 
-	// Current air density
-	const currentAirDensity = PHYSICS.getAirDensity(altitude, planet);
+		// Planet scale - bigger as we get closer
+		const scale = 1 + (1 - altitudeProgress) * 1.5;
 
-	// Terminal velocity at current altitude
-	const terminalVelocity = Math.sqrt(
-		(2 * PHYSICS.MASS * gravity) /
-		(currentAirDensity * PHYSICS.CHUTE_AREA * PHYSICS.DRAG_COEFFICIENT)
-	);
-
-	// Velocity calculation with smooth transition to terminal velocity
-	const velocityProgress = Math.pow(Math.sin(progress * Math.PI / 2), 2);
-	const velocity = terminalVelocity * velocityProgress;
-
-	return {
-		altitude,
-		velocity,
-		progress,
-		terminalVelocity
-	};
-}
-
-// Animation configuration
-export const ANIMATION_CONFIG = {
-	PARACHUTIST: {
-		ROTATION_RANGE: 5,     // degrees
-		SWAY_PERIOD: 2,        // seconds
-		DESCENT_SPEED: 1       // relative speed
-	},
-	OBJECTS: {
-		MIN_SCALE: 0.3,
-		MAX_SCALE: 2.0,
-		MIN_OPACITY: 0.1,
-		MAX_OPACITY: 0.3,
-		SPAWN_INTERVAL: 800,   // ms
-		MIN_SPEED: 15000,      // ms to cross screen
-		MAX_SPEED: 25000      // ms to cross screen
+		return {
+			altitude,
+			velocity,
+			curvature,
+			scale,
+			progress
+		};
 	}
 };

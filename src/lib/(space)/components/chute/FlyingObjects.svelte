@@ -113,21 +113,43 @@
   });
 </script>
 
-<div class="fixed inset-0 overflow-hidden pointer-events-none z-10">
-  <!-- Gradient overlays adjusted for better visibility -->
-  <div class="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-background via-background/80 to-transparent z-10" />
-  <div class="absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t from-background via-background/80 to-transparent z-10" />
+<div class="fixed inset-0 overflow-hidden pointer-events-none">
+  <!-- Enhanced gradient overlays -->
+  <div class="absolute inset-x-0 top-0 h-48 
+              bg-gradient-to-b from-background via-background/90 to-transparent z-10" />
+  <div class="absolute inset-x-0 bottom-0 h-48 
+              bg-gradient-to-t from-background via-background/90 to-transparent z-10" />
+              
+  <!-- Side gradients - confine objects to chute width -->
+  <div class="absolute inset-y-0 left-0 w-48
+              bg-gradient-to-r from-background via-background/90 to-transparent z-10" />
+  <div class="absolute inset-y-0 right-0 w-48
+              bg-gradient-to-l from-background via-background/90 to-transparent z-10" />
   
-  <div class="relative w-full h-full">
+  <!-- Flying objects container -->
+  <div class="relative w-full h-[200vh] -translate-y-[100vh]">
     {#each objects as object, i}
       <img
         bind:this={objectRefs[i]}
         src={OBJECT_CONFIGS[object.type].path}
         alt={`Flying ${object.type}`}
-        class="absolute w-24 md:w-32 opacity-0 drop-shadow-lg"
-        style="left: {object.x}%; filter: brightness(1.2);"
+        class="absolute w-24 md:w-32 lg:w-40 opacity-0 
+               drop-shadow-2xl brightness-125"
+        style="
+          left: {object.x}%;
+          filter: contrast(1.2) brightness(1.3);
+          transform-origin: center center;
+        "
         transition:fade={{ duration: 1000 }}
       />
     {/each}
   </div>
 </div>
+
+<style>
+  img {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+  }
+</style>

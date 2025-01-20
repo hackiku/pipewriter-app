@@ -10,6 +10,7 @@
   let container: HTMLDivElement;
   let parachutist: HTMLImageElement;
   let viewportWidth: number;
+  let backgroundY = 0;
   
   onMount(() => {
     viewportWidth = window.innerWidth;
@@ -28,19 +29,13 @@
       (PHYSICS.FINAL_ALTITUDE - PHYSICS.INITIAL_ALTITUDE) * 
       (1 - Math.pow(1 - progress, 3));
     
-    // Velocity affects animation speed
     const velocity = 20 * Math.sin(progress * Math.PI);
     chuteStore.updateStats(altitude, velocity);
     
-    // Update parachutist animation based on velocity
-    if (parachutist) {
-      gsap.to(parachutist, {
-        y: '+=10',
-        duration: 2 / (Math.abs(velocity) / 10 + 0.5), // Speed varies with velocity
-        ease: 'power1.inOut',
-        yoyo: true,
-        repeat: -1
-      });
+    // Update background position based on velocity
+    backgroundY += velocity * 0.1;
+    if (container) {
+      container.style.setProperty('--bg-y', `${backgroundY}px`);
     }
   }
 
@@ -49,7 +44,7 @@
 
     gsap.killTweensOf(parachutist);
 
-    // Enhanced swaying motion
+    // Gentle swaying only
     gsap.to(parachutist, {
       rotation: 2,
       duration: 2,
@@ -66,7 +61,6 @@
     });
   }
   
-  // Responsive sizing
   $: isSmallViewport = viewportWidth < 768;
   $: chuteSize = isSmallViewport ? 'w-24 md:w-32' : 'w-32 md:w-40 lg:w-48';
 </script>
@@ -75,18 +69,21 @@
   bind:this={container} 
   class="relative h-full overflow-hidden"
 >
-  <!-- Enhanced background gradient -->
+  <!-- Parallax Background -->
   <div 
-    class="absolute inset-0 opacity-20 transition-colors duration-500"
-    style="background: radial-gradient(circle at 50% 150%, 
-           {$chuteStore.planet === 'earth' ? '#4299E1' : '#ED8936'} 0%, 
-           transparent 80%)"
+    class="absolute inset-0 transition-colors duration-500"
+    style="
+      background: repeating-linear-gradient(
+        0deg,
+        {$chuteStore.planet === 'earth' ? '#4299E1' : '#ED8936'}10 0px,
+        transparent 100px
+      );
+      transform: translateY(var(--bg-y, 0));
+    "
   />
 
-  <!-- Parachutist with dynamic positioning -->
-  <div class="relative w-full h-full flex items-center justify-center
-              {isSmallViewport ? '-translate-y-12' : 'translate-y-0'}
-              transition-transform duration-300">
+  <!-- Fixed Parachutist -->
+  <div class="absolute inset-0 flex items-center justify-center">
     <img
       bind:this={parachutist}
       src="/space/assets/paraglider.svg"
@@ -95,13 +92,23 @@
              transition-all duration-300 drop-shadow-xl"
     />
   </div>
+
+  <!-- Enhanced Edge Gradients -->
+  <div class="absolute inset-x-0 top-0 h-32 
+              bg-gradient-to-b from-background to-transparent" />
+  <div class="absolute inset-x-0 bottom-0 h-32
+              bg-gradient-to-t from-background to-transparent" />
+  <div class="absolute inset-y-0 left-0 w-32
+              bg-gradient-to-r from-background to-transparent" />
+  <div class="absolute inset-y-0 right-0 w-32
+              bg-gradient-to-l from-background to-transparent" />
 </div>
 
 <style>
   img {
     backface-visibility: hidden;
     transform-style: preserve-3d;
-    will-change: transform, opacity;
+    will-change: transform;
     filter: brightness(1.1);
   }
 </style>
