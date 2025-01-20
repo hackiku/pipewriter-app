@@ -26,7 +26,6 @@
   }
 
   function animateParachutist() {
-    // Visual floating animation
     gsap.to(parachutist, {
       y: '+=10',
       rotation: 2,
@@ -50,12 +49,12 @@
       
       gsap.fromTo(cloud,
         { 
-          y: '120%', // Start below viewport
+          y: '120%',
           opacity: 0.15,
           scale: 0.2 + (i * 0.1)
         },
         {
-          y: '-50%', // End above viewport
+          y: '-50%',
           opacity: 0,
           duration: 8,
           delay: i * 2,
@@ -79,7 +78,8 @@
 
 <div 
   bind:this={container} 
-  class="relative w-full h-full overflow-hidden"
+  class="relative h-full overflow-hidden
+         lg:absolute lg:right-0 lg:w-1/2 xl:w-2/5"
 >
   <!-- Planet-specific background -->
   <div 
@@ -101,18 +101,17 @@
   {/each}
 
   <!-- Parachutist -->
-  <img
-    bind:this={parachutist}
-    src="/space/assets/paraglider.svg"
-    alt="Paraglider"
-    class="absolute 
-           left-1/2 top-1/3 -translate-x-1/2 
-           w-32 md:w-40 lg:w-48
-           pointer-events-none"
-  />
+  <div class="relative w-full h-full flex items-center justify-center">
+    <img
+      bind:this={parachutist}
+      src="/space/assets/paraglider.svg"
+      alt="Paraglider"
+      class="w-32 md:w-40 lg:w-48 pointer-events-none transform-gpu"
+    />
+  </div>
 
   <!-- Controls -->
-  <div class="absolute right-8 top-[45%] z-10">
+  <div class="absolute right-4 lg:right-8 top-[45%] z-10">
     <div class="backdrop-blur-[2px] bg-black/10 
                 rounded-lg border border-white/10
                 shadow-lg">
