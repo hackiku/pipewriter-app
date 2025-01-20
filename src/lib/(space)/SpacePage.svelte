@@ -22,6 +22,12 @@
 
 <SpaceNav />
 
+
+<div class="h-screen">
+	
+	<ChuteScene />
+</div>
+
 <!-- <ChuteCanvas /> -->
 
 <main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden min-h-screen">
