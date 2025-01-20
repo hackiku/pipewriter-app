@@ -19,7 +19,8 @@
 
 <!-- Slider Container -->
 <div class="relative aspect-[16/9] rounded-xl overflow-hidden border bg-card shadow-xl">
-  <Resizable.PaneGroup
+  
+	<Resizable.PaneGroup
     direction="horizontal"
     class="h-full lg:flex"
   >

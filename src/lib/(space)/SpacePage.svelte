@@ -5,9 +5,10 @@
 	import SpaceNav from "./components/SpaceNav.svelte";
 
 	import Hero from "./content/Hero.svelte";
+	import Scene from "./components/chute/Scene.svelte";
 	// import ChuteCanvas from "./components/chute/ChuteCanvas.svelte";
-	import ChuteScene from "./components/chute/ChuteScene.svelte";
-	import PlanetGrid from "./components/chute/PlanetGrid.svelte";
+	// import ChuteScene from "./components/chute/ChuteScene.svelte";
+	// import PlanetGrid from "./components/chute/PlanetGrid.svelte";
 	import BeforeAfter from "./components/chute/BeforeAfter.svelte";
 
 	import Repack from "./components/chute/Repack.svelte";
@@ -23,85 +24,56 @@
 
 <SpaceNav />
 
-<main
-	class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden min-h-screen"
->
-	<div class="fixed inset-0 pointer-events-none">
-		<BackgroundPattern size="sm" opacity="high" gradient={true} />
-	</div>
-
-	<PlanetGrid />
-
-	<!-- Hero Section -->
-<!-- Hero Section in SpacePage.svelte -->
-<section class="relative min-h-[85vh] pt-20 md:pt-24">
-  <div class="container">
-    <!-- Two Column Layout -->
-    <div class="grid lg:grid-cols-2 gap-8 items-start">
-      <!-- Hero Content -->
-      <div class="relative z-10 pt-8">
-        <Hero />
-      </div>
-
-      <!-- Chute Scene -->
-      <div class="relative h-[40vh] lg:h-[50vh] mt-8 lg:mt-16">
-        <ChuteScene />
-      </div>
-    </div>
+<main class="bg-zinc-300/40 dark:bg-zinc-950 text-foreground relative overflow-x-hidden min-h-screen">
+  <!-- Background pattern -->
+  <div class="fixed inset-0 pointer-events-none">
+    <BackgroundPattern size="sm" opacity="high" gradient={true} />
   </div>
-</section>
 
-<!-- Before/After Preview (closer to hero) -->
-<section class="relative -mt-16 lg:-mt-24">
-  <div class="container max-w-6xl mx-auto px-4">
-    <BeforeAfter
-      company="Firefly Aerospace"
-      description="Full-throttle redesign with mission-ready UX"
-    >
-      <div slot="before">
-        <img 
-          src="/space/examples/firefly-before.jpg"
-          alt="Original Firefly Aerospace website"
-          class="w-full h-full object-cover"
-        />
+  <!-- Master scene (handles animations & backgrounds) -->
+  <Scene />
+
+  <!-- Content layers -->
+  <div class="relative z-40">
+    <!-- Hero Section -->
+    <section class="relative min-h-[85vh] pt-20 md:pt-24">
+      <div class="grid lg:grid-cols-2 items-start">
+        <!-- Hero Content -->
+        <div class="relative z-10 pt-8 pl-4 sm:pl-6 md:pl-16 lg:pl-24 xl:pl-44">
+          <Hero />
+        </div>
+        
+        <!-- Spacer for chute animation area -->
+        <div class="relative h-[40vh] lg:h-[50vh] mt-8 lg:mt-16" />
       </div>
-      
-      <div slot="after">
-        <img
-          src="/space/examples/firefly-after.jpg"
-          alt="Redesigned Firefly Aerospace website"
-          class="w-full h-full object-cover"
-        />
+    </section>
+
+    <!-- Before/After Preview -->
+    <section class="relative -mt-16 lg:-mt-24">
+      <div class="container max-w-6xl mx-auto px-4">
+        <BeforeAfter
+          company="Firefly Aerospace"
+          description="Full-throttle redesign with mission-ready UX"
+        >
+          <div slot="before">
+            <img 
+              src="/space/examples/firefly-before.jpg"
+              alt="Original Firefly Aerospace website"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          
+          <div slot="after">
+            <img
+              src="/space/examples/firefly-after.jpg"
+              alt="Redesigned Firefly Aerospace website"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </BeforeAfter>
       </div>
-    </BeforeAfter>
-  </div>
-</section>
+    </section>
 
-	<!-- Before/After Section -->
-	<section class="relative py-12">
-		<div class="container max-w-6xl mx-auto px-4">
-			<BeforeAfter
-				company="Firefly Aerospace"
-				description="Full-throttle redesign with mission-ready UX"
-			>
-				<div slot="before">
-					<img
-						src="/space/examples/firefly-before.jpg"
-						alt="Original Firefly Aerospace website"
-						class="w-full h-full object-cover"
-					/>
-				</div>
-
-				<div slot="after">
-					<img
-						src="/space/examples/firefly-after.jpg"
-						alt="Redesigned Firefly Aerospace website"
-						class="w-full h-full object-cover"
-					/>
-				</div>
-			</BeforeAfter>
-		</div>
-	</section>
 
 	<!-- Testimonials -->
 	<section class="mb-20 max-h-[80vh] overflow-clip">

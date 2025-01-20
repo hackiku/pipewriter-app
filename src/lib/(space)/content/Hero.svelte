@@ -5,16 +5,8 @@
 </script>
 
 <div class="flex flex-col">
-  <!-- Chute Repack Pill -->
-  <div class="inline-flex items-center gap-1.5 px-3 py-1 w-fit
-              rounded-full bg-primary/10 text-primary border border-primary/20 mb-4">
-    <Send class="w-4 h-4" />
-    <span class="text-xl font-medium">Space Edition</span>
-  </div>
-
   <h1 class="text-5xl md:text-6xl lg:text-7xl font-regular leading-[1.1] tracking-tight mb-6">
-    Landing Pages<br/>
-    for the<br/>
+    Landing Pages for the 
     Space Age
   </h1>
 
@@ -24,6 +16,6 @@
 
   <!-- Button Container -->
   <div class="w-full md:w-fit">
-    <SpaceButton size="lg" label="Get a Repack" />
+    <SpaceButton size="md" text="Book Chute Repack" />
   </div>
 </div>
