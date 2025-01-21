@@ -4,6 +4,7 @@
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
   import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
   import EarlyAccessDrawer from "$lib/components/cta/EarlyAccessDrawer.svelte";
+  import Hero from "./components/Hero.svelte";
   import Navigation from "./products/Navigation.svelte";
   import VideoDemo from "../ai/VideoDemo.svelte";
 </script>
@@ -18,36 +19,12 @@
     </div>
 
     <div class="container relative z-10 py-20">
-      <div class="max-w-3xl mx-auto text-center">
-        <!-- Beta Badge -->
-        <div class="inline-flex items-center gap-1.5 px-3 py-1 mb-8 
-                    rounded-full bg-primary/10 text-primary border border-primary/20">
-          <Sparkles class="w-4 h-4" />
-          <span class="text-sm font-medium">Beta Launch Special</span>
-        </div>
 
-        <!-- Hero Text -->
-        <h1 class="text-4xl sm:text-5xl md:text-7xl font-semibold mb-6">
-          Write Docs that <br />Look Like Figma
-        </h1>
-        <p class="text-xl sm:text-2xl text-muted-foreground mb-8">
-          Writer-first wireframing tools for copywriters and UX writers. <br class="hidden sm:block" />
-          Design without leaving Google Docs.
-        </p>
+			
+			<div class="max-w-3xl mx-auto text-center">
+				
+				<Hero />
 
-        <!-- Hero CTA -->
-        <div class="flex justify-center items-center gap-4">
-          <EarlyAccessDrawer>
-            <div slot="trigger">
-              <EarlyAccessButton
-                size="lg"
-                fullWidth={true}
-                source="hero"
-              />
-            </div>
-            <EarlyAccess />
-          </EarlyAccessDrawer>
-        </div>
       </div>
     </div>
   </section>
@@ -56,7 +33,7 @@
   <Navigation />
 
   <!-- Video Demo -->
-  <VideoDemo />
+  <!-- <VideoDemo /> -->
   
   <!-- Bottom CTA Section -->
   <section class="py-32 bg-background border-t relative">
