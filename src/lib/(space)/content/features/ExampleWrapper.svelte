@@ -1,8 +1,8 @@
 <!-- src/lib/(space)/content/features/ExampleWrapper.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { fly } from 'svelte/transition';
-  import ExampleCard from './ExampleCard.svelte';
+  import { fade } from 'svelte/transition';
+  import ExampleGroup from './ExampleGroup.svelte';
   import { uxExamples } from '../../data/examples';
   
   export let mode: 'floating' | 'fixed' = 'floating';
@@ -12,26 +12,30 @@
   let visible = false;
   let scrollProgress = 0;
 
-  // Track visibility and scroll progress
+  // Just use two examples for problem section
+  const problemExamples = uxExamples.slice(0, 2);
+  // Use first example for process section
+  const processExample = uxExamples[0];
+
   onMount(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         const entry = entries[0];
-        if (entry.isIntersecting && !visible) {
-          visible = true;
-        }
-        
         if (entry.isIntersecting) {
+          if (!visible) {
+            visible = true;
+          }
+          
+          // Simplified scroll progress - just for subtle movement
           const rect = entry.boundingClientRect;
           const viewportHeight = window.innerHeight;
-          
-          scrollProgress = Math.min(Math.max(
-            (viewportHeight - rect.top) / (viewportHeight * 0.75),
-            0
-          ), 1);
+          scrollProgress = Math.min(
+            (viewportHeight - rect.top) / viewportHeight,
+            1
+          );
         }
       },
-      { threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1] }
+      { threshold: [0, 0.5, 1] }
     );
 
     if (container) {
@@ -40,31 +44,6 @@
 
     return () => observer.disconnect();
   });
-
-  // Calculate example positions based on mode
-  function getExampleStyles(example: typeof uxExamples[0], index: number) {
-    if (mode === 'floating') {
-      const parallaxY = scrollProgress * (index % 2 ? 15 : 25);
-      const parallaxX = scrollProgress * (index % 2 ? 5 : -5);
-      
-      return `
-        position: absolute;
-        left: ${example.position.x};
-        top: ${example.position.y};
-        transform: translate3d(${parallaxX}vw, ${parallaxY}vh, 0);
-        transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-      `;
-    } else {
-      const baseTransform = index === 0 ? 
-        'translate3d(0, -10%, 0)' : 
-        'translate3d(0, 10%, 0)';
-      
-      return `
-        transform: ${baseTransform};
-        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-      `;
-    }
-  }
 </script>
 
 <div 
@@ -72,39 +51,36 @@
   bind:this={container}
 >
   {#if mode === 'floating'}
-    <!-- Floating Examples for Problem Section -->
-    {#each uxExamples as example, i}
-      <div class="absolute transition-all" style={getExampleStyles(example, i)}>
+    <!-- Problem Section Examples -->
+    {#each problemExamples as example, i}
+      <div 
+        class="absolute transition-transform duration-1000"
+        style="
+          left: {i === 0 ? '10%' : '60%'};
+          top: {i === 0 ? '20%' : '50%'};
+          transform: translate3d(
+            {scrollProgress * (i === 0 ? -5 : 5)}vw,
+            {scrollProgress * (i === 0 ? -10 : 10)}vh,
+            0
+          );
+        "
+      >
         {#if visible}
-          <div in:fly={{ y: 50, duration: 800, delay: i * 200 }}>
-            <ExampleCard 
-              {example}
-              size={example.size}
-              yOffset={example.yOffset}
-            />
+          <div in:fade|local={{ duration: 800, delay: i * 400 }}>
+            <ExampleGroup {example} />
           </div>
         {/if}
       </div>
     {/each}
   {:else}
-    <!-- Fixed Examples for Process Section -->
+    <!-- Process Section Example -->
     <div class="sticky top-32 h-[70vh]">
-      <div class="relative h-full">
-        <div class="absolute inset-0 flex flex-col gap-8 justify-center items-end">
-          {#each uxExamples as example, i}
-            <div 
-              in:fly|local={{ x: i === 0 ? 50 : -50, duration: 600 }}
-              class="w-full flex justify-end transform hover:z-10"
-              style={getExampleStyles(example, i)}
-            >
-              <ExampleCard 
-                {example}
-                size={example.size}
-                yOffset={example.yOffset}
-                highlighted={activeStep === i}
-              />
-            </div>
-          {/each}
+      <div class="relative h-full flex justify-center items-center">
+        <div in:fade={{ duration: 400 }}>
+          <ExampleGroup
+            example={processExample}
+            highlighted={true}
+          />
         </div>
       </div>
     </div>

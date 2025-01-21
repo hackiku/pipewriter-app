@@ -1,4 +1,4 @@
-<!-- src/lib/pages/space/components/proof/StackIcons.svelte -->
+<!-- src/lib/(space)/components/proof/StackIcons.svelte -->
 
 <!-- src/lib/pages/space/proof/StackIcons.svelte -->
 <script lang="ts">

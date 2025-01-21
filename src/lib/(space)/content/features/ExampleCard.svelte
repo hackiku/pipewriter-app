@@ -1,11 +1,13 @@
 <!-- src/lib/(space)/content/features/ExampleCard.svelte -->
 <script lang="ts">
   import { XCircle, CheckCircle } from 'lucide-svelte';
-  import type { UXExample } from '../../types';
   
-  export let example: UXExample;
+  export let example: {
+    title: string;
+    points: { label: string }[];
+  };
+  export let type: 'good' | 'bad' = 'good';
   export let size: 'sm' | 'md' | 'lg' = 'md';
-  export let yOffset = 0;
   export let highlighted = false;
   
   const sizeClasses = {
@@ -20,38 +22,27 @@
     ${sizeClasses[size]}
     ${highlighted ? 'ring-2 ring-primary/50 shadow-lg shadow-primary/20' : ''}
   `;
+
+  $: pointClass = type === 'good' ? 
+    'bg-primary/10 text-primary' : 
+    'bg-destructive/10 text-destructive';
+
+  $: Icon = type === 'good' ? CheckCircle : XCircle;
 </script>
 
-<!-- Bad Example -->
-<div class="relative">
-  <div class={containerClass} style="transform: translateY({yOffset}px)">
-    <div class="absolute inset-0 bg-gradient-to-br from-muted/50 to-muted/30" />
-    
-    <div class="absolute bottom-4 left-4 flex flex-wrap gap-2 max-w-[90%]">
-      {#each example.bad.points as point}
-        <span class="px-2 py-1 rounded-full text-xs
-                    bg-destructive/10 text-destructive
-                    flex items-center gap-1 backdrop-blur-sm">
-          <XCircle class="w-3 h-3" />
-          {point.label}
-        </span>
-      {/each}
-    </div>
-  </div>
-
-  <!-- Good Example -->
-  <div class="{containerClass} mt-4">
-    <div class="absolute inset-0 bg-gradient-to-br from-muted/50 to-muted/30" />
-    
-    <div class="absolute bottom-4 left-4 flex flex-wrap gap-2 max-w-[90%]">
-      {#each example.good.points as point}
-        <span class="px-2 py-1 rounded-full text-xs
-                    bg-primary/10 text-primary
-                    flex items-center gap-1 backdrop-blur-sm">
-          <CheckCircle class="w-3 h-3" />
-          {point.label}
-        </span>
-      {/each}
-    </div>
+<div class={containerClass}>
+  <!-- Gradient Background -->
+  <div class="absolute inset-0 bg-gradient-to-br from-muted/50 to-muted/30" />
+  
+  <!-- Points -->
+  <div class="absolute bottom-4 left-4 flex flex-wrap gap-2 max-w-[90%]">
+    {#each example.points as point}
+      <span class="px-2 py-1 rounded-full text-xs
+                  {pointClass}
+                  flex items-center gap-1 backdrop-blur-sm">
+        <Icon class="w-3 h-3" />
+        {point.label}
+      </span>
+    {/each}
   </div>
 </div>

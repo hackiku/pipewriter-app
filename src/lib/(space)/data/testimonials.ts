@@ -3,6 +3,13 @@ import type { Testimonial } from '../types';
 
 export const testimonials: Testimonial[] = [
 	{
+		quote: "We grew revenue to $960k from $200k average thanks to Ivan's flash sale landing page and ad creative.",
+		author: "Tommy Joiner",
+		role: "Co-Founder",
+		company: "WordAgents",
+		imgSrc: 'people/clients/tommy-joiner.jpg'
+	},
+	{
 		quote: "Ivan is probably the smartest copywriter and direct response guy. He mixes right brain and left brain so that he pairs an analytical take with a high Emotional IQ delivery.",
 		author: "Dr Jameson Day",
 		role: "Investor",
