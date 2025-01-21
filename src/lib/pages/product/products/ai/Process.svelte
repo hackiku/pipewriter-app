@@ -1,4 +1,5 @@
-<!-- src/lib/pages/ai/Process.svelte -->
+<!-- /Users/jzro/gPipe/webapp/src/lib/pages/ai/Process.svelte -->
+ 
 <script lang="ts">
   import {
     Dialog,

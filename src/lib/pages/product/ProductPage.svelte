@@ -4,7 +4,7 @@
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
   import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
   import EarlyAccessDrawer from "$lib/components/cta/EarlyAccessDrawer.svelte";
-  import Process from "./Process.svelte";
+  import Navigation from "./products/Navigation.svelte";
   import VideoDemo from "../ai/VideoDemo.svelte";
 </script>
 
@@ -53,7 +53,7 @@
   </section>
 
   <!-- Process Section -->
-  <Process />
+  <Navigation />
 
   <!-- Video Demo -->
   <VideoDemo />

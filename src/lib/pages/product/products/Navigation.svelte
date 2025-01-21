@@ -1,4 +1,4 @@
-<!-- src/lib/pages/product/Process.svelte -->
+<!-- src/lib/pages/product/Navigation.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
