@@ -1,19 +1,21 @@
-<!-- src/lib/pages/space/components/cta/Calendar.svelte -->
-
-<!-- src/lib/components/Calendar.svelte -->
+<!-- src/lib/(space)/components/cta/Calendar.svelte -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-
+  import { spaceFormStore } from '../../stores/spaceFormStore';
+  
   declare global {
     interface Window {
       Cal?: any;
     }
   }
 
-  export let calLink = "pipewriter/writer";
+  export let calLink = "pipewriter/space";
   let calElement: HTMLDivElement;
   
-  onMount(() => {
+  // Subscribe to form store for prefilling
+  $: formData = $spaceFormStore.data;
+  
+  function initializeCalendar() {
     if (typeof window === 'undefined') return;
 
     (function (C, A, L) {
@@ -49,23 +51,43 @@
       };
     })(window, "https://app.cal.com/embed/embed.js", "init");
 
-    // Initialize Cal with a namespace
-    window.Cal("init", "aerospace", {
-      origin: "https://cal.com"
+    // Initialize with space namespace
+    window.Cal("init", "space", {
+      origin: "https://cal.com",
+      prefill: {
+        email: formData.email,
+        notes: `Website: ${formData.website}\nAdditional Info: ${formData.comment}`
+      }
     });
 
-    // Set up the inline embed with the namespace
-    setTimeout(() => {
-      window.Cal.ns.aerospace("inline", {
-        elementOrSelector: "#cal-booking",
-        calLink,
-        config: {
-          layout: "month_view",
-          hideEventTypeDetails: false,
-          theme: "light"
+    // Set up the inline embed
+    window.Cal.ns.space("inline", {
+      elementOrSelector: "#space-calendar",
+      calLink,
+      config: {
+        layout: "week_view",
+        hideEventTypeDetails: false,
+        theme: "dark",
+        styles: {
+          branding: {
+            brandColor: "#4f46e5"
+          }
         }
-      });
-    }, 200);
+      }
+    });
+
+    // Customize UI
+    window.Cal.ns.space("ui", {
+      styles: {
+        branding: { brandColor: "#4f46e5" },
+        enabledDateButton: { background: "#4f46e5" },
+        selectedDateButton: { background: "#4338ca" }
+      }
+    });
+  }
+
+  onMount(() => {
+    initializeCalendar();
   });
 
   onDestroy(() => {
@@ -80,7 +102,7 @@
 </script>
 
 <div 
-  id="cal-booking"
+  id="space-calendar"
   bind:this={calElement}
-  class="w-full h-full overflow-auto rounded-lg border bg-white"
+  class="w-full h-full overflow-auto rounded-lg border bg-white/5"
 />

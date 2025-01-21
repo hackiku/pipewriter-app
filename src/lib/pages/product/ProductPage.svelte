@@ -12,11 +12,6 @@
 <main class="bg-background text-foreground">
   <!-- Hero Section -->
   <section class="relative min-h-[80vh] flex items-center justify-center">
-    <!-- Background Grid -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />
-      <div class="absolute inset-0 bg-gradient-to-b from-transparent via-background/50 to-background" />
-    </div>
 
     <div class="container relative z-10 py-20">
 

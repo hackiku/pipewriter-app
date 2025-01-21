@@ -1,10 +1,10 @@
-<!-- src/lib/(space)/content/Problem.svelte -->
+<!-- src/lib/(space)/content/features/Problem.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fly } from 'svelte/transition';
-  import UXExample from '../components/proof/UXExample.svelte';
-  import { spaceStore } from '../stores/spaceStore';
-  import { uxExamples } from '../data/examples';
+  import ExampleCard from './ExampleCard.svelte';
+  import { spaceStore } from '../../stores/spaceStore';
+  import { uxExamples } from '../../data/examples';
   
   let visible = false;
   let container: HTMLElement;
@@ -65,7 +65,7 @@
            style={getExampleStyles(example, i)}>
         {#if visible}
           <div in:fly={{ y: 50, duration: 800, delay: i * 200 }}>
-            <UXExample 
+            <ExampleCard 
               size={example.size}
               bad={example.bad}
               good={example.good}

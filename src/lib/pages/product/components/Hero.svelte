@@ -38,7 +38,7 @@
                  border border-primary/20"
         >
           <Sparkles class="w-4 h-4" />
-          <span class="text-sm font-medium">Pipewriter Product Suite</span>
+          <span class="text-sm font-medium">Product Suite</span>
         </div>
 
 

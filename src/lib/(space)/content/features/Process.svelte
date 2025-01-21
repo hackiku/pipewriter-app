@@ -1,13 +1,13 @@
-<!-- src/lib/(space)/content/Process.svelte -->
+<!-- src/lib/(space)/content/features/Process.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import { fly } from 'svelte/transition';
   import { fade } from 'svelte/transition';
   import { Edit, Rocket, Code } from 'lucide-svelte';
-  import UXExample from '../components/proof/UXExample.svelte';
-  import StackIcons from '../components/proof/StackIcons.svelte';
-  import SpaceButton from '../components/cta/SpaceButton.svelte';
-  import { spaceStore } from '../stores/spaceStore';
+  import ExampleCard from './ExampleCard.svelte';
+  import StackIcons from '../../components/proof/StackIcons.svelte';
+  import SpaceButton from '../../components/cta/SpaceButton.svelte';
+  import { spaceStore } from '../../stores/spaceStore';
 
   const steps = [
     {

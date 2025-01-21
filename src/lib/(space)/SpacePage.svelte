@@ -4,15 +4,16 @@
 	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
 	import SpaceNav from "./components/SpaceNav.svelte";
 
-	import Hero from "./content/Hero.svelte";
+	// chute
 	import Scene from "./components/chute/Scene.svelte";
 	import Controls from "./components/chute/Controls.svelte";
 	import BeforeAfter from "./components/repack/BeforeAfter.svelte";
-
-	import Problem from "./content/Problem.svelte";
-	import Process from "./content/Process.svelte";
-	import About from "./content/About.svelte";
-	import Products from "./components/products/Products.svelte";
+	
+	// ./content/
+	import Hero from "./content/Hero.svelte";
+	import Features from "./content/features/Features.svelte";
+	import About from "./content/about/About.svelte";
+	import Products from "./content/products/Products.svelte";
 	import StackIcons from "./components/proof/StackIcons.svelte";
 	import Testimonials from "./components/proof/Testimonials.svelte";
 	import SpaceButton from "./components/cta/SpaceButton.svelte";
@@ -69,12 +70,12 @@
 		<!-- Testimonials -->
 
 		<section class="mt-[45vh] md:mt-[90vh] XXpy-32">
-			<Problem />
+			<Features />
 		</section>
 
-		<section class="XXpy-32">
+		<!-- <section class="XXpy-32">
 			<Process />
-		</section>
+		</section> -->
 
 		<section class="py-32">
 			<Testimonials />
