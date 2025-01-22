@@ -96,8 +96,8 @@
       <div class="ml-auto w-full max-w-xl pr-8 md:pr-16 space-y-6">
         <!-- Brief -->
         <p class="text-xl md:text-2xl lg:text-3xl font-light leading-loose tracking-wide">
-					Hi! I'm Ivan 👋 writer turned developer & pilot.
-          I love building techy products with viral usability potential.
+					Hi! I'm Ivan 👋 tech copywriter turned developer.
+          I love building products that make the techy accessible and viral, for users and for myself.
         </p>
 
         <!-- Expanded Story -->

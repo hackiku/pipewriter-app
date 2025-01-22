@@ -98,10 +98,10 @@
 	</section>
 
 	<!-- CTA Section -->
-	<section class="py-32 relative border-t">
+	<section class="relative border-t">
 		<div class="container">
 			<div class="flex text-center justify-center mb-16">
-				<div class="md:w-3/5 space-y-4">
+				<div class="md:w-4/5 space-y-4">
 					<div
 						class="inline-flex items-center gap-1.5 px-3 py-1
                           rounded-full bg-primary/10 text-primary
@@ -111,8 +111,8 @@
 						<span class="text-sm font-medium">Pricing</span>
 					</div>
 					<h2 class="text-5xl font-normal">Let the Spice Flow</h2>
-					<p class="text-xl text-muted-foreground">
-						Book a 'Chute Repack free discovery call.
+					<p class="text-2xl text-muted-foreground">
+						Book a free discovery call.
 					</p>
 				</div>
 			</div>

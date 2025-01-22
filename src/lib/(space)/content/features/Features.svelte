@@ -15,8 +15,8 @@
 				class="text-2xl md:text-3xl text-center leading-relaxed max-w-xl mx-auto"
 			>
 				Your rockets rock hard but your website feels like 1969?
-				<span class="text-muted-foreground"
-					>You need a Chute Repack. Redesign sprint in your code stack to wow users & investors.</span
+				<span class="text-muted-foreground">
+					You need a Chute Repack: hardcore redesign sprint to 10x your web without waiting for FAA permits. Users & investors are ready to notice.</span
 				>
 		</h3>
 		</div>

@@ -1,4 +1,4 @@
-// src/lib/pages/space/data/testimonials.ts
+// src/lib/pages/(space)/data/testimonials.ts
 import type { Testimonial } from '../types';
 
 export const testimonials: Testimonial[] = [

@@ -1,24 +1,25 @@
 <!-- src/lib/(space)/components/cta/CTA.svelte -->
 <script lang="ts">
-  // import SpaceForm from './SpaceForm.svelte';
-  import PricingCard from './PricingCard.svelte';
   import Calendar from './Calendar.svelte';
+  import PricingCard from './PricingCard.svelte';
+  import BookingTestimonial from '../proof/BookingTestimonial.svelte';
 </script>
 
-<div class="w-full bg-black/30">
-  <div class="grid lg:grid-cols-2">
-    <!-- Left: Pricing Card -->
-    <div class="lg:border-r border-border/50 p-8 lg:p-16">
-			<Calendar />
+<div class="w-full bg-black/30 rounded-xl border border-border/50 overflow-hidden">
+  <div class="grid xl:grid-cols-[2fr_1fr] gap-0">
+    <!-- Left: Calendar -->
+    <div class="xl:border-r border-border/50 p-4 sm:p-6 xl:p-8">
+      <div class="aspect-video xl:aspect-[3/2]">
+        <Calendar />
+      </div>
     </div>
-		
-    <!-- Right: Form -->
-    <div class="flex flex-col gap-6 p-8 lg:p-16">
-			<PricingCard />
-			<!-- <div class="lg:border-r border-border/50 p-8 lg:p-16"> -->
-				BookingTestimonial
-			<!-- </div > -->
-      <!-- <SpaceForm showHeader={false} /> -->
+    
+    <!-- Right: Pricing & Testimonial -->
+    <div class="flex flex-col gap-6 p-4 sm:p-6 xl:p-8 max-w-lg xl:max-w-none mx-auto w-full">
+      <PricingCard />
+      <div class="mt-auto border-t pt-6">
+        <BookingTestimonial />
+      </div>
     </div>
   </div>
 </div>
