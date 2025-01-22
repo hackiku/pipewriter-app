@@ -41,10 +41,10 @@
           </div>
           <div>
             <p class="text-2xl leading-relaxed">
-              Conversion copywriting <span class="text-muted-foreground">that turns visitors into mission partners</span>
+              Conversion boost <span class="text-muted-foreground">with writing, UX design that speaks to users</span>
             </p>
             <ul class="mt-4 space-y-2 text-muted-foreground">
-              <li>• Clear value propositions that resonate with space industry</li>
+              <li>• Copywriting</li>
               <li>• Technical accuracy meets marketing impact</li>
             </ul>
           </div>
@@ -65,9 +65,9 @@
                       transform -translate-x-1/2" />
           </div>
           <div>
-            <p class="text-2xl leading-relaxed">
+            <h4 class="text-2xl leading-relaxed">
               On-brand design <span class="text-muted-foreground">that feels like mission control</span>
-            </p>
+            </h4>
             <ul class="mt-4 space-y-2 text-muted-foreground">
               <li>• Modern space aesthetic that builds trust</li>
               <li>• Responsive layouts for all device types</li>

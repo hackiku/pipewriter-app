@@ -34,8 +34,8 @@
 		<div
 			class="sticky p-4 top-[5vh] md:top-[20vh] z-30 backdrop-blur-sm
               w-full lg:w-[40%] h-[35vh] md:h-[60vh]
-              bg-yellow-700/10 z-10
-              border border-red-500/50
+              bg-yellow-800/5 z-10
+              border border-dashed border-red-500/20
               lg:ml-auto"
 		>
 			<ExampleGroup example={uxExamples[1]} />

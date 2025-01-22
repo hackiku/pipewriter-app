@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { Rocket, Stars } from "lucide-svelte";
 	// import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
-	import SpaceNav from "./components/SpaceNav.svelte";
+	import SpaceNav from "./components/nav/SpaceNav.svelte";
 
 	// chute
 	import Scene from "./components/chute/Scene.svelte";
