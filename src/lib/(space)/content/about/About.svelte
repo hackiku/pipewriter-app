@@ -50,7 +50,7 @@
   <div class="absolute inset-0">
     <!-- Astronaut -->
     <div 
-      class="absolute left-0 top-[0vh] w-[80vw] sm:w-[calc(60vw-5em)] max-w-2xl Xz-20"
+      class="absolute left-0 top-[0vh] w-[80vw] sm:w-[calc(60vw-5em)] max-w-2xl z-10"
       data-parallax={SPEEDS.astronaut}
       style="will-change: transform"
     >
@@ -63,8 +63,21 @@
 
     <!-- Profile Image -->
     <div
-      class="absolute right-8 top-[75vh] w-[45vw] sm:w-[30vw] max-w-md aspect-square
+      class="absolute right-8 top-[95vh] w-[45vw] sm:w-[30vw] max-w-md aspect-square
              transform rotate-6"
+      data-parallax={SPEEDS.missionControl}
+      style="will-change: transform"
+    >
+      <img
+        src="/api/placeholder/400/400"
+        alt="Mission control desk"
+        class="w-full h-full object-cover rounded-lg 
+               shadow-xl bg-blue-300/5"
+      />
+    </div>
+    <div
+      class="absolute right-[20%] top-[85vh] w-[35vw] sm:w-[25vw] max-w-sm aspect-square
+             transform -rotate-6"
       data-parallax={SPEEDS.missionControl}
       style="will-change: transform"
     >
@@ -78,22 +91,21 @@
   </div>
 
   <!-- Content Container -->
-  <div class="relative min-h-[120vh]  flex items-center">
+  <div class="relative min-h-[120vh] flex items-center">
     <div class="container">
-      <div class="ml-auto w-full max-w-xl pr-8 md:pr-16 space-y-12">
+      <div class="ml-auto w-full max-w-xl pr-8 md:pr-16 space-y-6">
         <!-- Brief -->
         <p class="text-xl md:text-2xl lg:text-3xl font-light leading-loose tracking-wide">
-          I'm Ivan 👋 copywriter turned dev.
-          I love building techy products like Pipewriter here,
-          and a bunch of side projects and flight training.
+					Hi! I'm Ivan 👋 writer turned developer & pilot.
+          I love building techy products with viral usability potential.
         </p>
 
         <!-- Expanded Story -->
         {#if showMore}
-          <div class="space-y-8 text-lg text-muted-foreground">
+          <div class="space-y-8 text-xl text-muted-foreground">
             <p>
-              My journey started in SaaS copywriting, where I helped technical founders 
-              communicate complex products. This evolved into UX writing and eventually 
+              Started out writing for SaaS startups, helping technical founders 
+              communicate complexity. This evolved into UX writing and eventually 
               full-stack development as I built Pipewriter to solve common content workflow problems.
             </p>
             

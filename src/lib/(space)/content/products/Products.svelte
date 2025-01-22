@@ -28,7 +28,7 @@
 
 <div class="mt-24">
 
-	<h2 class="text-3xl">And so on & so forth</h2>
+	<h2 class="text-xl">"Deploy in a weekend" they said</h2>
 </div>
 
 
