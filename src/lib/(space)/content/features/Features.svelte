@@ -1,85 +1,64 @@
 <!-- src/lib/(space)/content/features/Features.svelte -->
 <script lang="ts">
-  import Process from './Process.svelte';
-  import ExampleGroup from './ExampleGroup.svelte';
-  import TechStack from './TechStack.svelte';
-  import { spaceStore } from '../../stores/spaceStore';
-  import { uxExamples } from '../../data/examples';
-  
-  let featureSection: HTMLElement;
-  
-  // Simple scroll progress relative to section
-  $: scrollProgress = featureSection ? 
-    ($spaceStore.scrollY - featureSection.offsetTop) / window.innerHeight : 0;
-
-  // Statement scrolls slower than groups
-  $: statementY = -scrollProgress * 30;
-
-  // Group 1: Upper third, starts with statement
-  $: group1Style = `
-    opacity: ${Math.min(1, Math.max(0, 0.5 + scrollProgress))};
-    transform: translate3d(
-      ${Math.sin(scrollProgress * Math.PI) * 2}vw,
-      ${-scrollProgress * 45}vh,
-      0
-    );
-  `;
-
-  // Group 2: Bottom third to process target
-  $: group2Progress = Math.max(0, Math.min(1, (scrollProgress - 0.3) * 2));
-  $: group2Style = `
-    opacity: ${group2Progress};
-    transform: translate3d(
-      0,
-      ${Math.min(80, group2Progress * 60)}vh,
-      0
-    );
-  `;
+	import Process from "./Process.svelte";
+	import ExampleGroup from "./ExampleGroup.svelte";
+	import TechStack from "./TechStack.svelte";
+	import { uxExamples } from "../../data/examples";
 </script>
 
-<div 
-  class="relative min-h-[200vh]" 
-  bind:this={featureSection}
->
-  <!-- Fixed Layer -->
-  <div class="fixed inset-0 pointer-events-none">
-    <!-- Problem Statement -->
-    <div 
-      class="absolute w-full top-[35vh] transform-gpu transition-transform duration-500"
-      style="transform: translate3d(0, {statementY}vh, 0)"
-    >
-      <div class="container max-w-xl mx-auto">
-        <p class="text-2xl md:text-3xl text-center leading-relaxed">
-          Your rockets rock hard but your website feels like 1969?
-          <span class="text-muted-foreground">Modern space companies 
-          need a web presence that matches their technical innovation.</span>
-        </p>
-      </div>
-    </div>
+<div class="relative">
+	<!-- Opening Statement & Groups -->
+	<div class="container relative min-h-[100vh] bg-blue-800/10">
+		<!-- Problem Statement -->
+		<div class="absolute w-full top-1/2 -translate-y-1/2">
+			<h3
+				class="text-2xl md:text-3xl text-center leading-relaxed max-w-xl mx-auto"
+			>
+				Your rockets rock hard but your website feels like 1969?
+				<span class="text-muted-foreground"
+					>You need a Chute Repack. Redesign sprint in your code stack to wow users & investors.</span
+				>
+		</h3>
+		</div>
 
-    <!-- Group 1: Top left -->
-    <div 
-      class="absolute transition-all duration-500 ease-out
-             left-[5%] md:left-[10%] top-[20vh]"
-      style={group1Style}
-    >
-      <ExampleGroup example={uxExamples[0]} />
-    </div>
+		<!-- Example Groups -->
+		<div class="absolute left-[5%] md:left-[10%] top-[20vh]">
+			<ExampleGroup example={uxExamples[0]} />
+		</div>
 
-    <!-- Group 2: To process area -->
-    <div 
-      class="absolute transition-all duration-500 ease-out
-             right-[5%] md:right-[10%] top-[65vh]"
-      style={group2Style}
-    >
-      <ExampleGroup example={uxExamples[1]} />
-    </div>
-  </div>
+		<!-- <div class="absolute right-[5%] md:right-[10%] bottom-[20vh]">
+			<ExampleGroup example={uxExamples[1]} />
+		</div> -->
+	</div>
 
-  <!-- Scrollable Content -->
-  <div class="relative">
-    <div class="h-[150vh]" /> <!-- Space for problem section -->
-    <Process />
-    <TechStack />
-  </div>
+	<!-- Process Section -->
+	<div class="relative px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
+		<!-- Yellow Control Box -->
+		<div
+			class="sticky top-6 z-30 backdrop-blur-sm
+              w-full lg:w-[45%] h-[40vh] lg:h-[70vh]
+              bg-yellow-700/10 z-10
+              border border-red-500/50
+              lg:ml-auto"
+		>
+			<ExampleGroup example={uxExamples[1]} />
+		</div>
+
+		<!-- Process Content -->
+		<div class="container relative">
+			<div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-16">
+				<div class="lg:col-span-3 space-y-32 pt-32 lg:pt-0">
+					<Process />
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- Tech Stack Section -->
+	
+	<div
+		class="border border-border/50 bg-zinc-950/[0.05] dark:bg-white/[0.03]
+              relative rounded-[2.5rem] mx-[3vw]"
+	>
+		<TechStack />
+	</div>
 </div>

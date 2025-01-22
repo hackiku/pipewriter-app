@@ -1,7 +1,7 @@
 <!-- src/lib/(space)/SpacePage.svelte -->
 <script lang="ts">
 	import { Rocket, Stars } from "lucide-svelte";
-	import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
+	// import BackgroundPattern from "$lib/components/BackgroundPattern.svelte";
 	import SpaceNav from "./components/SpaceNav.svelte";
 
 	// chute
@@ -10,13 +10,14 @@
 	import BeforeAfter from "./components/repack/BeforeAfter.svelte";
 
 	// ./content/
-	import Hero from "./content/Hero.svelte";
+	import Hero from "./content/hero/Hero.svelte";
+  import Repack from './content/repack/Repack.svelte';
+
 	import Features from "./content/features/Features.svelte";
 	import About from "./content/about/About.svelte";
 	import Products from "./content/products/Products.svelte";
-	import StackIcons from "./components/proof/StackIcons.svelte";
 	import Testimonials from "./components/proof/Testimonials.svelte";
-	import SpaceButton from "./components/cta/SpaceButton.svelte";
+	// import SpaceButton from "./components/cta/SpaceButton.svelte";
 	import CTA from "./components/cta/CTA.svelte";
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
 
@@ -37,10 +38,8 @@
 	<Controls {startAnimation} />
 	<Scene bind:startAnimation />
 
-	<!-- Content Sections -->
-	<!-- <div class="relative"> -->
-	<!-- Hero Section - Full Height -->
-	<section class="relative min-h-screen">
+	<!-- Hero Section -->
+	<section class="relative h-[90vh]">
 		<!-- Top Hero Content -->
 		<div class="h-[65vh] grid lg:grid-cols-2 items-start">
 			<div
@@ -50,28 +49,23 @@
 				<Hero />
 			</div>
 		</div>
-
-		<!-- Before/After Preview -->
-		<div
-			class="absolute bottom-0 inset-x-0 h-full XXXh-[45vh]
-						translate-y-[75%]"
-		>
-			<div class="container max-w-6xl mx-auto px-4">
-				<BeforeAfter
-					company="Firefly Aerospace"
-					description="Full-throttle redesign with mission-ready UX"
-				/>
-			</div>
-		</div>
 	</section>
 
-	<section class="mt-[45vh] md:mt-[190vh] relative px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
+
+	<section class="relative -mt-[10vh]">
+		<Repack />
+	</section>
+
+
+	<section class="relatisve">
 		<Features />
 	</section>
 
 	<section class="py-32">
 		<Testimonials />
 	</section>
+
+	
 	<!-- About & Products -->
 	<section class="relative bg-zinc-950/[0.05] dark:bg-white/[0.03]">
 		<div class="absolute inset-x-0 top-0 flex justify-center">

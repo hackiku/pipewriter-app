@@ -1,7 +1,7 @@
-<!-- src/lib/(space)/content/Hero.svelte -->
+<!-- src/lib/(space)/content/hero/Hero.svelte -->
 <script lang="ts">
   import { Send } from "lucide-svelte";
-  import SpaceButton from "../components/cta/SpaceButton.svelte";
+  import SpaceButton from "../../components/cta/SpaceButton.svelte";
 </script>
 
 <div class="h-full flex flex-col justify-start
