@@ -2,59 +2,87 @@
 <script lang="ts">
   import { Rocket } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
-  import ProjectsMarquee from "../products/ProjectsMarquee.svelte";
   import Astronaut from "./Astronaut.svelte";
+  import { onMount } from 'svelte';
   
   let showMore = false;
+  let container: HTMLElement;
+  let parallaxElements: HTMLElement[];
+  let ticking = false;
+  
+  // Parallax speeds
+  const SPEEDS = {
+    astronaut: 2, // Much slower movement
+    missionControl: 4, // Much slower for car
+    text: 0.25 // Slightly faster than normal scroll
+  };
+  
+  onMount(() => {
+    parallaxElements = Array.from(document.querySelectorAll('[data-parallax]'));
+    
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const containerRect = container.getBoundingClientRect();
+          const scrollProgress = -containerRect.top / (containerRect.height - window.innerHeight);
+          
+          parallaxElements.forEach(element => {
+            const speed = Number(element.dataset.parallax);
+            // Increased multiplier for more dramatic movement
+            const yOffset = scrollProgress * 300 / speed;
+            element.style.transform = `translate3d(0, ${yOffset}px, 0)`;
+          });
+          
+          ticking = false;
+        });
+        
+        ticking = true;
+      }
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  });
 </script>
 
-<div class="relative min-h-[120vh] border border-red-800">
-  <!-- Fixed Background - creates depth -->
-  <div class="absolute inset-0 bg-gradient-to-b from-primary/5 to-transparent" />
-
-  <!-- Hero Container with Astronaut -->
-  <div class="sticky -top-12 h-[100vh] overflow-hidden">
-    <!-- Astronaut with Tailwind transforms -->
-    <div class="absolute -left-12 -top-12 w-[32rem] h-[32rem] 
-                transform -rotate-6 
-                motion-safe:animate-float 
-                translate-y-0 hover:translate-y-4 
-                transition-transform duration-1000">
-      <Astronaut />
-			<!-- Mission Control Image -->
+<div class="relative min-h-[150vh] _overflow-hidden" bind:this={container}>
+  <!-- Parallax Container -->
+  <div class="absolute inset-0">
+    <!-- Astronaut -->
+    <div 
+      class="absolute left-0 top-[0vh] w-[80vw] sm:w-[calc(60vw-5em)] max-w-2xl Xz-20"
+      data-parallax={SPEEDS.astronaut}
+      style="will-change: transform"
+    >
+      <div class="w-full pb-[100%] relative">
+        <div class="absolute inset-0">
+          <Astronaut />
+        </div>
+      </div>
     </div>
-		<div class="absolute -right-12 top-[80vh] w-64 h-64 
-								transform rotate-6
-								motion-safe:animate-float-delayed
-								translate-y-0 hover:translate-y-4
-								transition-transform duration-1000">
-			<img
-				src="/api/placeholder/400/400"
-				alt="Mission control desk"
-				class="w-full h-full object-cover rounded-lg shadow-xl bg-blue-300/5"
-			/>
-		</div>
+
+    <!-- Profile Image -->
+    <div
+      class="absolute right-8 top-[75vh] w-[45vw] sm:w-[30vw] max-w-md aspect-square
+             transform rotate-6"
+      data-parallax={SPEEDS.missionControl}
+      style="will-change: transform"
+    >
+      <img
+        src="/api/placeholder/400/400"
+        alt="Mission control desk"
+        class="w-full h-full object-cover rounded-lg 
+               shadow-xl bg-blue-300/5"
+      />
+    </div>
   </div>
 
-
-
   <!-- Content Container -->
-  <div class="relative z-10 -mt-[20vh]">
+  <div class="relative min-h-[120vh]  flex items-center">
     <div class="container">
-      <div class="max-w-xl mx-auto space-y-8">
-        <!-- Section Heading -->
-        <div class="flex flex-col items-center text-center gap-4 mb-12">
-          <div class="inline-flex items-center gap-1.5 px-3 py-1 
-                      rounded-full bg-primary/10 text-primary 
-                      border border-primary/20">
-            <Rocket class="w-4 h-4" />
-            <span class="text-sm font-medium">My Projects</span>
-          </div>
-          <h2 class="text-3xl">Building Tools for the Space Age</h2>
-        </div>
-
+      <div class="ml-auto w-full max-w-xl pr-8 md:pr-16 space-y-12">
         <!-- Brief -->
-        <p class="text-2xl text-balance leading-relaxed">
+        <p class="text-xl md:text-2xl lg:text-3xl font-light leading-loose tracking-wide">
           I'm Ivan 👋 copywriter turned dev.
           I love building techy products like Pipewriter here,
           and a bunch of side projects and flight training.
@@ -62,7 +90,7 @@
 
         <!-- Expanded Story -->
         {#if showMore}
-          <div class="space-y-6 text-muted-foreground">
+          <div class="space-y-8 text-lg text-muted-foreground">
             <p>
               My journey started in SaaS copywriting, where I helped technical founders 
               communicate complex products. This evolved into UX writing and eventually 
@@ -87,33 +115,9 @@
         </Button>
       </div>
     </div>
-
-
-
-    <!-- Projects Marquee -->
-    <div class="mt-24">
-      <ProjectsMarquee />
-    </div>
   </div>
 </div>
 
 <style>
-  @keyframes float {
-    0%, 100% { transform: translateY(0px) rotate(-6deg); }
-    50% { transform: translateY(-20px) rotate(-6deg); }
-  }
-
-  @keyframes float-delayed {
-    0%, 100% { transform: translateY(0px) rotate(8deg); }
-    50% { transform: translateY(-15px) rotate(8deg); }
-  }
-
-  :global(.animate-float) {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  :global(.animate-float-delayed) {
-    animation: float-delayed 8s ease-in-out infinite;
-    animation-delay: -2s;
-  }
+  /* Remove the float animations since we're using parallax */
 </style>

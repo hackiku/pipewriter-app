@@ -17,12 +17,15 @@
     disable-zoom
     interaction-prompt="none"
     camera-controls="true"
-    rotation-per-second="12deg"
+    rotation-per-second="5deg"
     min-camera-orbit="auto auto 105%"
     max-camera-orbit="auto auto 105%"
-    camera-orbit="-30deg 75deg 105%"
+    camera-orbit="0deg 75deg auto"
     field-of-view="30deg"
-    exposure="1"
+    auto-rotate-delay="0"
+    camera-target="0m 0m 0m"
+    interpolation-decay="200"
+    orbit-sensitivity="1"
     style="width: 100%; height: 100%; background: transparent;"
   >
     <div slot="progress-bar"></div>
