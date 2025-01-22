@@ -5,12 +5,8 @@ import {
 	Telescope,
 	Zap,
 	Target,
-	Laptop,
-	Code,
-	Hexagon,
 	ArrowRight,
-	Sparkles,
-	BadgeCheck
+	Sparkles
 } from 'lucide-svelte';
 
 export interface ProcessStep {
@@ -22,51 +18,35 @@ export interface ProcessStep {
 
 export const processSteps: ProcessStep[] = [
 	{
-		title: "Launch Sequence",
-		subtitle: "Mission planning & discovery",
+		title: "Crazy conversion booster",
+		subtitle: "with SaaS-level copywriting and experience design",
 		icon: Rocket,
 		tags: [
-			"Brand Analysis",
-			"UX Audit",
-			"Conversion Goals",
-			"User Journey Mapping",
-			"Technical Requirements"
+			"Copywriting",
+			"UX design",
+			"Interactions",
 		]
 	},
 	{
-		title: "Flight Path",
-		subtitle: "Strategic design direction",
-		icon: Telescope,
-		tags: [
-			"Information Architecture",
-			"Wireframes",
-			"Visual Direction",
-			"Content Strategy",
-			"Interactive Prototypes"
-		]
-	},
-	{
-		title: "Systems Check",
-		subtitle: "High-fidelity development",
+		title: "Orbitally fast delivery",
+		subtitle: "by staying on brand and skipping straight to code",
 		icon: Target,
 		tags: [
-			"Component Architecture",
-			"Responsive Layout",
-			"Animation Systems",
-			"Performance Optimization",
-			"Cross-browser Testing"
+			"7 days",
+			"no Figma",
+			"no Figma",
 		]
 	},
 	{
-		title: "Mission Control",
-		subtitle: "Launch preparation & QA",
-		icon: Laptop,
+		title: "In your code stack",
+		subtitle: "delivered ",
+		icon: Zap,
 		tags: [
-			"Code Review",
-			"Accessibility Testing",
-			"Documentation",
-			"Performance Metrics",
-			"Launch Checklist"
+			"Clean Components",
+			"Production Code",
+			"Performance Tuned",
+			"Launch Checklist",
+			"Documentation"
 		]
 	}
 ];

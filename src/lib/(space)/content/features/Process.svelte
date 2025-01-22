@@ -1,107 +1,60 @@
 <!-- src/lib/(space)/content/features/Process.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { fly } from 'svelte/transition';
-  import { Edit, Rocket, Code } from 'lucide-svelte';
-  
-  let containerRef: HTMLElement;
-  let visible = false;
-  
-  onMount(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (entries[0].isIntersecting) {
-          visible = true;
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
+  import { Badge } from "$lib/components/ui/badge";
+  import { processSteps } from "../../data/process";
 
-    observer.observe(containerRef);
-    return () => observer.disconnect();
-  });
+  let steps = processSteps;
 </script>
 
-<div class="relative bg-indigo-400/10" bind:this={containerRef}>
-  <div class="lg:col-span-3 space-y-[50vh]">
-    {#if visible}
-      <!-- Step 1 -->
-      <div in:fly={{ y: 20, duration: 400, delay: 0 }} class="relative">
-        <div class="flex gap-6">
-          <div class="relative">
-            <div class="w-12 h-12 rounded-full bg-primary/10 
-                       flex items-center justify-center shrink-0
-                       transition-all duration-300
-                       hover:scale-110 hover:rotate-12">
-              <Edit class="w-6 h-6 text-primary" />
-            </div>
-            <div class="absolute left-1/2 top-12 bottom-0 w-px bg-primary/20 
-                      transform -translate-x-1/2" />
-          </div>
-          <div>
-            <p class="text-2xl leading-relaxed">
-              Conversion boost <span class="text-muted-foreground">with writing, UX design that speaks to users</span>
-            </p>
-            <ul class="mt-4 space-y-2 text-muted-foreground">
-              <li>• Copywriting</li>
-              <li>• Technical accuracy meets marketing impact</li>
-            </ul>
-          </div>
+<div class="relative">
+  <!-- Connecting Line -->
+  <div class="absolute left-8 top-12 bottom-0 w-px bg-border/50" />
+  
+  <!-- Process Steps -->
+  <div class="space-y-[40vh] mb-6">
+    {#each steps as step, i}
+      <div class="relative grid grid-cols-[auto_1fr] gap-8 items-start">
+        <!-- Icon Circle -->
+        <div class="relative z-10 w-16 h-16 rounded-full 
+                    bg-muted/30 border border-border/50
+                    flex items-center justify-center
+                    transition-all duration-300
+                    hover:scale-105 hover:rotate-12">
+          <svelte:component this={step.icon} 
+            class="w-6 h-6 text-primary/80" />
         </div>
-      </div>
 
-      <!-- Step 2 -->
-      <div in:fly={{ y: 20, duration: 400, delay: 200 }} class="relative">
-        <div class="flex gap-6">
-          <div class="relative">
-            <div class="w-12 h-12 rounded-full bg-primary/10 
-                       flex items-center justify-center shrink-0
-                       transition-all duration-300
-                       hover:scale-110 hover:rotate-12">
-              <Rocket class="w-6 h-6 text-primary" />
-            </div>
-            <div class="absolute left-1/2 top-12 bottom-0 w-px bg-primary/20 
-                      transform -translate-x-1/2" />
-          </div>
-          <div>
-            <h4 class="text-2xl leading-relaxed">
-              On-brand design <span class="text-muted-foreground">that feels like mission control</span>
-            </h4>
-            <ul class="mt-4 space-y-2 text-muted-foreground">
-              <li>• Modern space aesthetic that builds trust</li>
-              <li>• Responsive layouts for all device types</li>
-            </ul>
-          </div>
-        </div>
-      </div>
+        <!-- Content -->
+        <div class="space-y-16 mt-3">
+          <!-- Title -->
+          <h4 class="text-2xl leading-relaxed">
+            {step.title} 
+            <span class="text-muted-foreground">{step.subtitle}</span>
+          </h4>
 
-      <!-- Step 3 with Tab -->
-      <div in:fly={{ y: 20, duration: 400, delay: 400 }} class="relative">
-        <div class="flex gap-6">
-          <div class="relative">
-            <div class="w-12 h-12 rounded-full bg-primary/10 
-                       flex items-center justify-center shrink-0
-                       transition-all duration-300
-                       hover:scale-110 hover:rotate-12">
-              <Code class="w-6 h-6 text-primary" />
-            </div>
-          </div>
-          <div class="relative">
-            <div class="absolute bottom-0 -mb-8 inset-x-0 h-32
+          <!-- Tags -->
+          <!-- <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {#each step.tags as tag}
+              <Badge 
+                variant="secondary"
+                class="justify-center py-1 text-foreground/40 text-center text-xs font-medium
+                       bg-background/70 dark:bg-muted/60 hover:bg-gradient-to-r hover:from-indigo-600/20 hover:to-purple-600/20
+                       hover:text-indigo-600 dark:hover:text-purple-400
+                       transition-all duration-300"
+              >
+                {tag}
+              </Badge>
+            {/each}
+          </div> -->
+
+          <!-- Tab Connection (only on last item) -->
+          {#if i === steps.length - 1}
+            <div class="absolute -bottom-6 inset-x-0 h-28
                        bg-zinc-950/[0.05] dark:bg-white/[0.03]
                        rounded-t-[2.5rem] border-t border-x border-border/50" />
-            <p class="text-2xl leading-relaxed relative">
-              Your code stack <span class="text-muted-foreground">with clean components your engineers will love</span>
-            </p>
-          </div>
+          {/if}
         </div>
       </div>
-    {/if}
+    {/each}
   </div>
 </div>
-<style>
-  .transition-all {
-    will-change: transform, opacity;
-  }
-</style>

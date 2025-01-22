@@ -34,15 +34,15 @@ export const uxExamples: UXExample[] = [
 		bad: {
 			title: 'Poor Experience',
 			points: [
-				{ label: 'Poor mobile UX' },
-				{ label: 'SEO unfriendly' }
+				{ label: 'Generic call to action' },
+				{ label: 'Bland visuals' }
 			]
 		},
 		good: {
 			title: 'Optimized UX',
 			points: [
-				{ label: 'Mission-ready UX' },
-				{ label: 'Full optimization' }
+				{ label: 'Sales copy' },
+				{ label: 'Thoughtful interaction' }
 			]
 		}
 	}

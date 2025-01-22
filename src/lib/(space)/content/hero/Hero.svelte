@@ -2,6 +2,7 @@
 <script lang="ts">
   import { Send } from "lucide-svelte";
   import SpaceButton from "../../components/cta/SpaceButton.svelte";
+  import ClientAvatars from "../../components/proof/ClientAvatars.svelte";
 </script>
 
 <div class="h-full flex flex-col justify-start
@@ -22,7 +23,13 @@
   </p>
 
   <!-- Button Container -->
-  <div class="w-full md:w-fit">
-    <SpaceButton size="md" text="Book Chute Repack" />
-  </div>
+  <!-- <div class="space-y-3"> -->
+    <div class="flex flex-col __md:flex-row items-center w-fit gap-7">
+      <SpaceButton size="md" text="Book Chute Repack" />
+			<ClientAvatars />
+    </div>
+    
+  <!-- </div> -->
+
+
 </div>
