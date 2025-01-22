@@ -8,9 +8,9 @@
 
 <div class="relative">
 	<!-- Opening Statement & Groups -->
-	<div class="container relative min-h-[100vh] bg-blue-800/10">
+	<div class="container relative h-[100vh] bg-blue-800/10">
 		<!-- Problem Statement -->
-		<div class="absolute w-full top-1/2 -translate-y-1/2">
+		<div class="absolute w-full top-1/3 -translate-y-1/3">
 			<h3
 				class="text-2xl md:text-3xl text-center leading-relaxed max-w-xl mx-auto"
 			>
@@ -22,21 +22,18 @@
 		</div>
 
 		<!-- Example Groups -->
-		<div class="absolute left-[5%] md:left-[10%] top-[20vh]">
+		<div class="absolute left-[5vw] Xmd:left-[10%] bottom-[8vh]">
 			<ExampleGroup example={uxExamples[0]} />
 		</div>
 
-		<!-- <div class="absolute right-[5%] md:right-[10%] bottom-[20vh]">
-			<ExampleGroup example={uxExamples[1]} />
-		</div> -->
 	</div>
 
 	<!-- Process Section -->
 	<div class="relative px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
 		<!-- Yellow Control Box -->
 		<div
-			class="sticky top-6 z-30 backdrop-blur-sm
-              w-full lg:w-[45%] h-[40vh] lg:h-[70vh]
+			class="sticky p-4 top-[5vh] md:top-[20vh] z-30 backdrop-blur-sm
+              w-full lg:w-[40%] h-[35vh] md:h-[60vh]
               bg-yellow-700/10 z-10
               border border-red-500/50
               lg:ml-auto"
@@ -45,9 +42,9 @@
 		</div>
 
 		<!-- Process Content -->
-		<div class="container relative">
+		<div class="container relative pr-12">
 			<div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-16">
-				<div class="lg:col-span-3 space-y-32 pt-32 lg:pt-0">
+				<div class="lg:col-span-3 space-y-2 pt-32 lg:pt-0">
 					<Process />
 				</div>
 			</div>

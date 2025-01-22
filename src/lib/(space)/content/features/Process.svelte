@@ -38,9 +38,9 @@
   });
 </script>
 
-<div class="relative" bind:this={containerRef}>
+<div class="relative bg-indigo-400/10" bind:this={containerRef}>
   <!-- Process Content -->
-  <div class="lg:col-span-3 space-y-[50vh] pt-[45vh] lg:pt-0">
+  <div class="lg:col-span-3 space-y-[50vh] __pt-[20vh] ">
     {#if visible}
       {#each steps as step, i}
         <div 

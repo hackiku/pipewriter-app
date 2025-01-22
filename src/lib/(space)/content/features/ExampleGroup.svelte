@@ -22,8 +22,8 @@
   <div 
     class="relative"
     style="
-      margin-top: -2rem;
-      margin-left: 2rem;
+      margin-top: -12rem;
+      margin-left: 8rem;
       z-index: 2;
     "
   >

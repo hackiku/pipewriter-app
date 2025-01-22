@@ -57,7 +57,7 @@
 	</section>
 
 
-	<section class="relatisve">
+	<section class="">
 		<Features />
 	</section>
 
@@ -84,8 +84,8 @@
 				>
 					<span class="text-lg font-serif italic">?</span>
 				</div>
-				<p class="text-sm text-muted-foreground text-center mt-2">
-					Wait, where's the space?
+				<p class="text-xl font-medium text-muted-foreground text-center mt-2">
+					Wait, why space?
 				</p>
 			</div>
 			<div class="flex-1 border-t border-border/50" />
