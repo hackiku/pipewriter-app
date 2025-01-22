@@ -4,7 +4,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import { fly } from "svelte/transition";
-	import { tools } from "$lib/data/assets/tools";
+	import { tools } from "$data/assets/tools";
 
 	let visible = false;
 	let container: HTMLElement;
@@ -72,7 +72,7 @@
 		<!-- Add flex and justify-center here -->
 		<div class="flex justify-center min-w-full">
 			<!-- Wrap the scrolling content -->
-			<div class="flex gap-12 px-4 py-2" in:fly={{ x: 20, duration: 800 }}>
+			<div class="flex gap-8 px-4 py-2" in:fly={{ x: 20, duration: 800 }}>
 				{#each spaceStacks as stack, i}
 					<a
 						href={stack.url}
@@ -108,13 +108,6 @@
 		</div>
 	{/if}
 
-	<!-- Gradient Edges -->
-	<div
-		class="absolute inset-y-0 left-0 w-8 bg-gradient-to-r from-background to-transparent"
-	/>
-	<div
-		class="absolute inset-y-0 right-0 w-8 bg-gradient-to-l from-background to-transparent"
-	/>
 </div>
 
 <style>

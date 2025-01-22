@@ -52,10 +52,10 @@
 	</div>
 	<!-- Tech Stack Section -->
 	
-	<div
-		class="border border-border/50 bg-zinc-950/[0.05] dark:bg-white/[0.03]
-              relative rounded-[2.5rem] mx-[3vw]"
+	<TechStack />
+	<!-- <div
+	class="border border-border/50 bg-zinc-950/[0.05] dark:bg-white/[0.03]
+	relative rounded-[2.5rem] mx-[3vw]"
 	>
-		<TechStack />
-	</div>
+	</div> -->
 </div>
