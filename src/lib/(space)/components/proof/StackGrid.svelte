@@ -1,60 +1,48 @@
-<!-- NEW: src/lib/(space)/components/proof/StackGrid.svelte -->
-
+<!-- src/lib/(space)/components/proof/StackGrid.svelte -->
 <script lang="ts">
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
-  import { tools } from "$data/assets/tools";
+  import { tools } from "$data/tools";
+  import type { ToolId } from "$data/tools/types";
   import StackIcon from "./StackIcon.svelte";
 
   export let noStack = false; // If true, show the "no stack" row
+  export let toolIds: ToolId[] = []; // Allow passing specific tools
+  export let spaceDescriptions = false; // Toggle space-specific descriptions
   
-  // Default stack we use
-  const spaceStacks = [
-    {
-      ...tools.sveltekit,
-      description: "Fast as a rocket",
-    },
-    {
-      ...tools.react,
-      description: "Mission control dashboards",
-    },
-    {
-      ...tools.nextjs,
-      description: "Enterprise-ready",
-    },
-    {
-      ...tools.tailwind,
-      description: "Pixel-perfect design",
-    },
-    {
-      ...tools.figma,
-      description: "Launch blueprints",
-    },
-    {
-      ...tools.pipewriter,
-      description: "UX writing",
-    },
-  ];
+  const spaceTools = {
+    svelte: "Fast as a rocket",
+    react: "Mission control dashboards",
+    nextjs: "Enterprise-ready",
+    tailwind: "Pixel-perfect design",
+    vue: "Smooth orbital maneuvers",
+    remix: "Re-entry ready",
+    shopify: "Space commerce",
+    supabase: "Space commerce",
+    firebase: "Space commerce",
+    // ... add more space-themed descriptions
+  };
 
-  // Stack we don't use (only shown if noStack is true)
-  const spaceNoStacks = [
-    {
-      ...tools.wordpress,
-      description: "Too slow for space",
-    },
-    {
-      ...tools.webflow,
-      description: "Limited control",
-    },
-    {
-      ...tools.wix,
-      description: "Not mission-ready",
-    },
-    {
-      ...tools.squarespace,
-      description: "Earth-bound",
-    },
-  ];
+  // Default positive tools if none provided
+  $: displayTools = toolIds.length > 0 
+    ? toolIds.map(id => ({
+        ...tools[id],
+        description: spaceDescriptions ? spaceTools[id] || tools[id].description : tools[id].description
+      }))
+    : Object.entries(tools)
+        .filter(([id]) => !noTools.includes(id))
+        .map(([_, tool]) => tool);
+
+  // Tools we don't recommend
+  const noTools = ['wordpress', 'wix', 'webflow', 'squarespace'];
+  $: displayNoTools = noStack 
+    ? noTools.map(id => ({
+        ...tools[id],
+        description: spaceDescriptions 
+          ? "Not mission-ready" 
+          : tools[id].description
+      }))
+    : [];
 
   let visible = false;
   let container: HTMLElement;
@@ -67,37 +55,26 @@
           observer.disconnect();
         }
       },
-      { threshold: 0.1 },
+      { threshold: 0.1 }
     );
 
     observer.observe(container);
     return () => observer.disconnect();
   });
-
-  let scrolling = false;
-  function handleScroll(e: WheelEvent) {
-    if (!scrolling) {
-      requestAnimationFrame(() => {
-        container.scrollLeft += e.deltaY;
-        scrolling = false;
-      });
-      scrolling = true;
-    }
-  }
 </script>
 
 <div
   class="w-full overflow-x-auto pb-8 hide-scrollbar relative"
   bind:this={container}
-  on:wheel={handleScroll}
 >
   {#if visible}
     <!-- Main stack -->
     <div class="flex justify-center min-w-full">
-      <div class="flex gap-8 px-4 py-2" in:fly={{ x: 20, duration: 800 }}>
-        {#each spaceStacks as stack, i}
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 px-4 py-2" 
+           in:fly={{ x: 20, duration: 800 }}>
+        {#each displayTools as tool, i}
           <div in:fly={{ y: 20, duration: 400, delay: i * 100 }}>
-            <StackIcon {...stack} />
+            <StackIcon {...tool} />
           </div>
         {/each}
       </div>
@@ -106,10 +83,11 @@
     <!-- Optional "no stack" row -->
     {#if noStack}
       <div class="flex justify-center min-w-full mt-12 opacity-50">
-        <div class="flex gap-8 px-4 py-2" in:fly={{ x: 20, duration: 800, delay: 400 }}>
-          {#each spaceNoStacks as stack, i}
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 px-4 py-2" 
+             in:fly={{ x: 20, duration: 800, delay: 400 }}>
+          {#each displayNoTools as tool, i}
             <div in:fly={{ y: 20, duration: 400, delay: (i * 100) + 400 }}>
-              <StackIcon {...stack} />
+              <StackIcon {...tool} />
             </div>
           {/each}
         </div>

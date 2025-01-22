@@ -38,8 +38,8 @@ export const processSteps: ProcessStep[] = [
 		]
 	},
 	{
-		title: "In your code stack",
-		subtitle: "delivered ",
+		title: "Code in your stack",
+		subtitle: "ready to deploy (engineers to engineers)",
 		icon: Zap,
 		tags: [
 			"Clean Components",

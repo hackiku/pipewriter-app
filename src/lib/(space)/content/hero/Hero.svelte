@@ -29,7 +29,5 @@
 			<ClientAvatars />
     </div>
     
-  <!-- </div> -->
-
 
 </div>

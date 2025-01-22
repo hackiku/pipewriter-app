@@ -1,10 +1,10 @@
-// src/lib/data/tools/index.ts
+// src/data/tools/index.ts
 import type { Tool } from './types';
 
 export const tools = {
 	// Frameworks
 	sveltekit: {
-		name: "Svelte",
+		name: "SvelteKit",
 		icon: "/tools/svelte.svg",
 		fallback: "🎭",
 		url: "https://kit.svelte.dev",
@@ -47,65 +47,6 @@ export const tools = {
 		description: "Full stack web framework",
 		category: 'framework',
 		tags: ['frontend', 'fullstack']
-	},
-	astro: {
-		name: "Astro",
-		icon: "/tools/astro.svg",
-		fallback: "🚀",
-		url: "https://astro.build",
-		description: "Content-focused static sites",
-		category: 'framework',
-		tags: ['frontend', 'performance', 'content']
-	},
-
-	supabase: {
-		name: "Supabase",
-		icon: "/tools/supabase.svg",
-		fallback: "⚡",
-		url: "https://supabase.com",
-		description: "Open source Firebase alternative",
-		category: 'framework',
-		tags: ['backend', 'database', 'auth']
-	},
-
-	langchain: {
-		name: "LangChain",
-		icon: "/tools/langchain.svg",
-		fallback: "🦜",
-		url: "https://langchain.com",
-		description: "LLM application framework",
-		category: 'framework',
-		tags: ['ai', 'llm', 'automation']
-	},
-
-	firebase: {
-		name: "Firebase",
-		icon: "/tools/firebase.svg",
-		fallback: "🔥",
-		url: "https://firebase.google.com",
-		description: "App development platform",
-		category: 'framework',
-		tags: ['backend', 'database', 'auth']
-	},
-
-	reactNative: {
-		name: "React Native",
-		icon: "/tools/react-native.svg",
-		fallback: "📱",
-		url: "https://reactnative.dev",
-		description: "Native mobile apps with React",
-		category: 'framework',
-		tags: ['mobile', 'cross-platform']
-	},
-
-	streamlit: {
-		name: "Streamlit",
-		icon: "/tools/streamlit.svg",
-		fallback: "🌊",
-		url: "https://streamlit.io",
-		description: "Data apps in Python",
-		category: 'framework',
-		tags: ['data', 'python', 'dashboard']
 	},
 	// Design & CSS
 	tailwind: {

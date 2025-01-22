@@ -42,7 +42,7 @@
 		</div>
 
 		<!-- Process Content -->
-		<div class="container relative pr-12">
+		<div class="container relative __pr-12">
 			<div class="grid grid-cols-1 lg:grid-cols-5 gap-8 lg:gap-16">
 				<div class="lg:col-span-3 space-y-2 pt-32 lg:pt-0">
 					<Process />
@@ -53,9 +53,11 @@
 	<!-- Tech Stack Section -->
 	
 	<TechStack />
+
 	<!-- <div
 	class="border border-border/50 bg-zinc-950/[0.05] dark:bg-white/[0.03]
 	relative rounded-[2.5rem] mx-[3vw]"
 	>
 	</div> -->
+
 </div>
