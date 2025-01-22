@@ -3,7 +3,7 @@ import type { Tool } from './types';
 
 export const tools = {
 	// Frameworks
-	sveltekit: {
+	svelte: {
 		name: "Svelte",
 		icon: "/tools/svelte.svg",
 		fallback: "🎭",
@@ -57,7 +57,6 @@ export const tools = {
 		category: 'framework',
 		tags: ['frontend', 'performance', 'content']
 	},
-
 	supabase: {
 		name: "Supabase",
 		icon: "/tools/supabase.svg",
@@ -67,7 +66,6 @@ export const tools = {
 		category: 'framework',
 		tags: ['backend', 'database', 'auth']
 	},
-
 	langchain: {
 		name: "LangChain",
 		icon: "/tools/langchain.svg",
@@ -77,7 +75,6 @@ export const tools = {
 		category: 'framework',
 		tags: ['ai', 'llm', 'automation']
 	},
-
 	firebase: {
 		name: "Firebase",
 		icon: "/tools/firebase.svg",
@@ -87,7 +84,6 @@ export const tools = {
 		category: 'framework',
 		tags: ['backend', 'database', 'auth']
 	},
-
 	reactNative: {
 		name: "React Native",
 		icon: "/tools/react-native.svg",
@@ -97,7 +93,6 @@ export const tools = {
 		category: 'framework',
 		tags: ['mobile', 'cross-platform']
 	},
-
 	streamlit: {
 		name: "Streamlit",
 		icon: "/tools/streamlit.svg",

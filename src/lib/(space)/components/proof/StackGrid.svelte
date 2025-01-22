@@ -2,50 +2,35 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { fly } from "svelte/transition";
+  import { Ban } from "lucide-svelte";
   import { tools } from "$data/tools";
   import type { ToolId } from "$data/tools/types";
   import StackIcon from "./StackIcon.svelte";
 
-  export let noStack = false; // If true, show the "no stack" row
   export let toolIds: ToolId[] = []; // Allow passing specific tools
-  export let spaceDescriptions = false; // Toggle space-specific descriptions
-  
-  const spaceTools = {
-    svelte: "Fast as a rocket",
-    react: "Mission control dashboards",
-    nextjs: "Enterprise-ready",
-    tailwind: "Pixel-perfect design",
-    vue: "Smooth orbital maneuvers",
-    remix: "Re-entry ready",
-    shopify: "Space commerce",
-    supabase: "Space commerce",
-    firebase: "Space commerce",
-    // ... add more space-themed descriptions
-  };
+  export let noStack = false; // If true, show the "no stack" row
+
+  // Tools we don't recommend
+  const noTools = ['wordpress', 'wix', 'webflow', 'squarespace'];
 
   // Default positive tools if none provided
   $: displayTools = toolIds.length > 0 
     ? toolIds.map(id => ({
-        ...tools[id],
-        description: spaceDescriptions ? spaceTools[id] || tools[id].description : tools[id].description
+        ...tools[id]
       }))
     : Object.entries(tools)
         .filter(([id]) => !noTools.includes(id))
         .map(([_, tool]) => tool);
 
-  // Tools we don't recommend
-  const noTools = ['wordpress', 'wix', 'webflow', 'squarespace'];
   $: displayNoTools = noStack 
     ? noTools.map(id => ({
-        ...tools[id],
-        description: spaceDescriptions 
-          ? "Not mission-ready" 
-          : tools[id].description
+        ...tools[id]
       }))
     : [];
 
   let visible = false;
   let container: HTMLElement;
+  let isScrolling = false;
 
   onMount(() => {
     const observer = new IntersectionObserver(
@@ -61,19 +46,53 @@
     observer.observe(container);
     return () => observer.disconnect();
   });
+
+  function handleScroll(e: WheelEvent | TouchEvent) {
+    if (!isScrolling) {
+      requestAnimationFrame(() => {
+        if (e instanceof WheelEvent) {
+          container.scrollLeft += e.deltaY;
+        }
+        isScrolling = false;
+      });
+      isScrolling = true;
+    }
+  }
+
+  // Touch handling
+  let touchStart: number;
+  
+  function handleTouchStart(e: TouchEvent) {
+    touchStart = e.touches[0].clientX;
+  }
+
+  function handleTouchMove(e: TouchEvent) {
+    if (!touchStart) return;
+    const touchEnd = e.touches[0].clientX;
+    const delta = touchStart - touchEnd;
+    container.scrollLeft += delta;
+    touchStart = touchEnd;
+  }
 </script>
 
 <div
-  class="w-full overflow-x-auto pb-8 hide-scrollbar relative"
+  class="w-full overflow-y-auto pb-4 hide-scrollbar relative"
   bind:this={container}
+  on:wheel={handleScroll}
+  on:touchstart={handleTouchStart}
+  on:touchmove={handleTouchMove}
+  on:touchend={() => touchStart = null}
 >
   {#if visible}
-    <!-- Main stack -->
-    <div class="flex justify-center min-w-full">
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-8 px-4 py-2" 
+    <!-- Main stack - max 3 rows on mobile -->
+    <div class="flex min-w-full">
+      <div class="flex flex-wrap gap-12 px-4 py-2 max-h-[calc(3*5rem)]" 
            in:fly={{ x: 20, duration: 800 }}>
         {#each displayTools as tool, i}
-          <div in:fly={{ y: 20, duration: 400, delay: i * 100 }}>
+          <div 
+            class="w-[calc(33.333%-1rem)] sm:w-auto"
+            in:fly={{ y: 20, duration: 400, delay: i * 100 }}
+          >
             <StackIcon {...tool} />
           </div>
         {/each}
@@ -82,9 +101,19 @@
 
     <!-- Optional "no stack" row -->
     {#if noStack}
-      <div class="flex justify-center min-w-full mt-12 opacity-50">
-        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8 px-4 py-2" 
-             in:fly={{ x: 20, duration: 800, delay: 400 }}>
+      <div class="relative flex min-w-full mt-8">
+        <div 
+          class="absolute inset-0 z-10 pointer-events-none 
+                 flex items-center justify-center opacity-0 
+                 group-hover:opacity-100 transition-opacity"
+        >
+          <Ban class="w-12 h-12 text-red-500/80" />
+        </div>
+        <div 
+          class="flex gap-4 px-4 py-2 opacity-40 group hover:opacity-30 
+                 transition-opacity duration-300"
+          in:fly={{ x: 20, duration: 800, delay: 400 }}
+        >
           {#each displayNoTools as tool, i}
             <div in:fly={{ y: 20, duration: 400, delay: (i * 100) + 400 }}>
               <StackIcon {...tool} />

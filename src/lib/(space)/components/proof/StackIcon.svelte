@@ -16,9 +16,10 @@
   href={url}
   target="_blank"
   rel="noopener noreferrer"
-  class="flex flex-col items-center gap-3 group"
+  class="relative flex flex-col items-center gap-2 group"
 >
-  <div class="w-16 h-16 rounded-xl bg-card border p-3
+  <!-- Icon -->
+  <div class="w-12 h-12 rounded-lg bg-card border p-2.5
               flex items-center justify-center
               transition-all duration-300
               group-hover:scale-110 group-hover:rotate-3
@@ -30,9 +31,24 @@
       on:error={handleError}
     />
   </div>
-  <span class="text-sm font-medium">{name}</span>
-  <span class="text-xs text-muted-foreground opacity-0
-               group-hover:opacity-100 transition-opacity">
-    {description}
-  </span>
+
+  <!-- Name -->
+  <span class="text-xs font-medium">{name}</span>
+  
+  <!-- Tooltip -->
+  <div class="absolute -bottom-2 translate-y-full left-1/2 -translate-x-1/2 
+              pointer-events-none opacity-0 group-hover:opacity-100 
+              transition-all duration-200 z-10
+              w-32 p-2 rounded-md bg-popover/95 shadow-lg
+              border border-border/50
+              transform group-hover:-translate-y-1">
+    <span class="text-xs text-popover-foreground block text-center">
+      {description}
+    </span>
+    
+    <!-- Tooltip arrow -->
+    <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 
+                w-2 h-2 rotate-45 
+                bg-popover border-l border-t border-border/50" />
+  </div>
 </a>

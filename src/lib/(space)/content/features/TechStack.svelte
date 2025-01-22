@@ -10,11 +10,22 @@
   <div class="py-16 text-center">
     <div class="relative overflow-hidden">
       <!-- <StackGrid noStack /> -->
-			<StackGrid 
-				toolIds={['svelte', 'react', 'nextjs', 'shopify', 'vue', 'remix', 'supabase', 'firebase', ]} 
-				spaceDescriptions={true} 
-				noStack={true} 
-			/>
+      <StackGrid 
+        toolIds={[
+          'svelte',
+          'streamlit', 
+          'react', 
+          'nextjs', 
+          'shopify', 
+          'vue', 
+          'remix', 
+          'supabase', 
+          'firebase'
+        ]} 
+      />
+			<!-- <StackGrid 
+				noTools={true} 
+			/> -->
       <div class="absolute inset-y-0 left-0 w-8 
                   bg-gradient-to-r from-[rgb(245,245,245)] dark:from-zinc-950 to-transparent 
                   pointer-events-none" />
