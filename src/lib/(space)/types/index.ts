@@ -56,3 +56,13 @@ export interface Product {
 	image: string;
 	tech: string[];
 }
+
+
+export interface Project {
+	title: string;
+	description: string;
+	image: string;
+	link: string;
+	status: string;
+	tech: string[];
+}

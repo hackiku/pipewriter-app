@@ -1,22 +1,30 @@
-<!-- src/lib/pages/space/content/About.svelte -->
+<!-- src/lib/(space)/content/about/About.svelte -->
 <script lang="ts">
-  import { Rocket, Code, Send } from "lucide-svelte";
+  import { Rocket } from "lucide-svelte";
   import { Button } from "$lib/components/ui/button";
+  import ProjectsMarquee from "../products/ProjectsMarquee.svelte";
+  import Astronaut from "./Astronaut.svelte";
   
   let showMore = false;
+  let y: number;
 </script>
 
-<div class="relative">
-  <!-- Tilted Images -->
-  <div class="absolute -left-24 -top-12 w-64 h-64 rotate-[-6deg] opacity-80">
-    <img
-      src="/api/placeholder/400/400"
-      alt="Space coding setup"
-      class="w-full h-full object-cover rounded-lg shadow-xl bg-blue-300/5"
-    />
+<svelte:window bind:scrollY={y} />
+
+<div class="relative bg-red-900">
+  <!-- Parallax Astronaut -->
+  <div 
+    class="absolute -left-24 top-0 w-80 h-80 opacity-90"
+    style="transform: translate3d(0, {y * 0.1}px, 0) rotate(-6deg);"
+  >
+    <Astronaut />
   </div>
   
-  <div class="absolute -right-24 bottom-24 w-64 h-64 rotate-[8deg] opacity-80">
+  <!-- Parallax Mission Control Image -->
+  <div 
+    class="absolute -right-24 bottom-24 w-64 h-64 opacity-80"
+    style="transform: translate3d(0, {y * -0.1}px, 0) rotate(8deg);"
+  >
     <img
       src="/api/placeholder/400/400"
       alt="Mission control desk"
@@ -25,10 +33,19 @@
   </div>
 
   <div class="container pt-24 pb-12 relative">
-    <div class="max-w-3xl mx-auto space-y-8">
-      <!-- TLDR Version -->
+    <div class="max-w-xl mx-auto space-y-8">
+      <!-- Section Heading -->
+      <div class="flex flex-col items-center text-center gap-4 mb-12">
+        <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-primary/10 text-primary border border-primary/20">
+          <Rocket class="w-4 h-4" />
+          <span class="text-sm font-medium">My Projects</span>
+        </div>
+        <h2 class="text-3xl">Building Tools for the Space Age</h2>
+      </div>
+
+      <!-- Brief -->
       <p class="text-2xl text-balance leading-relaxed">
-        I'm Ivan 👋 copywriter turned dev. 
+        I'm Ivan 👋 copywriter turned dev.
         I love building techy products like Pipewriter here,
         and a bunch of side projects and flight training.
       </p>
@@ -59,5 +76,10 @@
         {showMore ? 'Show Less' : 'Read More'}
       </Button>
     </div>
+  </div>
+
+  <!-- Projects Marquee -->
+  <div class="mt-24">
+    <ProjectsMarquee />
   </div>
 </div>

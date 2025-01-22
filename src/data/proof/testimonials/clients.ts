@@ -26,7 +26,8 @@ export const testimonials: Testimonial[] = [
 		imgSrc: 'people/clients/david-thomson.jpeg'
 	},
 	{
-		quote: "Ivan created coherent, accessible copy for our complex technical product. He's driven, creative and a critical thinker - someone you can trust to find great solutions.",
+		// quote: " Ivan is exactly who I was looking for. He was able to take a very complex technical subject - which was largely new to him - and create coherent, accessible copy to launch our entire website. He's driven, creative and a critical thinker - someone to whom you can present a problem and be confident that he will find a great solution. The kind of person you want on your team.",
+		quote: "Ivan created coherent, accessible copy for our complex technical web product. He's driven, creative and a critical thinker - someone you can trust to find great solutions.",
 		author: "Devon Price",
 		role: "Sr. Mech Engineer",
 		company: "Raytheon",
