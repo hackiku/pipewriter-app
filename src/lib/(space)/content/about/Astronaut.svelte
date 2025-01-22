@@ -3,7 +3,6 @@
   import { onMount } from 'svelte';
   
   onMount(() => {
-    // Add model-viewer script dynamically
     const script = document.createElement('script');
     script.type = 'module';
     script.src = 'https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js';
@@ -15,16 +14,20 @@
   <model-viewer
     src="space/3d/starman.glb"
     auto-rotate
-    camera-controls
     disable-zoom
-    rotation-per-second="30deg"
-    camera-orbit="0deg 75deg 105%"
+    interaction-prompt="none"
+    camera-controls="true"
+    rotation-per-second="12deg"
+    min-camera-orbit="auto auto 105%"
+    max-camera-orbit="auto auto 105%"
+    camera-orbit="-30deg 75deg 105%"
+    field-of-view="30deg"
     exposure="1"
-    shadow-intensity="1"
-    shadow-softness="1"
     style="width: 100%; height: 100%; background: transparent;"
   >
-    <div slot="progress-bar"></div> <!-- Hide progress bar -->
+    <div slot="progress-bar"></div>
+    <div slot="poster"></div>
+    <div slot="interaction-prompt"></div>
   </model-viewer>
 </div>
 
@@ -32,5 +35,8 @@
   :global(model-viewer) {
     --progress-bar-height: 0;
     --progress-mask: transparent;
+    --interaction-prompt-threshold: 0;
+    --min-camera-orbit: auto auto 105%;
+    --max-camera-orbit: auto auto 105%;
   }
 </style>

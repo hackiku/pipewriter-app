@@ -116,7 +116,7 @@
 					</p>
 				</div>
 			</div>
-			<CTA />
+			<!-- <CTA /> -->
 		</div>
 		<LogosMarquee />
 	</section>
