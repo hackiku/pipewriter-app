@@ -48,9 +48,9 @@
 </script>
 
 <div class="space-y-3 py-4">
-  <h4 class="text-sm font-medium uppercase tracking-wide text-muted-foreground">
+  <!-- <h4 class="text-sm font-medium uppercase tracking-wide text-muted-foreground">
     Client Feedback
-  </h4>
+  </h4> -->
   
   <div class="min-h-[120px]">
     {#key currentIndex}

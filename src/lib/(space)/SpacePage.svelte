@@ -98,25 +98,29 @@
 	</section>
 
 	<!-- CTA Section -->
-	<section class="relative border-t">
+	<section class="relative border-t py-20 space-y-10">
 		<div class="container">
 			<div class="flex text-center justify-center mb-16">
 				<div class="md:w-4/5 space-y-4">
-					<div
+					<!-- <div
 						class="inline-flex items-center gap-1.5 px-3 py-1
                           rounded-full bg-primary/10 text-primary
                           border border-primary/20"
 					>
 						<Rocket class="w-4 h-4" />
 						<span class="text-sm font-medium">Pricing</span>
-					</div>
+					</div> -->
 					<h2 class="text-5xl font-normal">Let the Spice Flow</h2>
 					<p class="text-2xl text-muted-foreground">
 						Book a free discovery call.
 					</p>
 				</div>
 			</div>
-			<CTA />
+		
+			<div class="pxx-20">
+				<CTA />
+			</div>
+		
 		</div>
 		<LogosMarquee />
 	</section>

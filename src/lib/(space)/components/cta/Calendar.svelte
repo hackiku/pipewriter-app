@@ -70,8 +70,9 @@
       elementOrSelector: `#${elementId}`,
       calLink,
       config: {
-        layout: "week_view",
-        hideEventTypeDetails: false,
+        layout: "month_view",
+        hideEventTypeDetails: true,
+			  hideBranding: true,
         theme: "dark",
         styles: {
           branding: {
