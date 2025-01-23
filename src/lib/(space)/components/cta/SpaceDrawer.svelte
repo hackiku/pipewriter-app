@@ -37,7 +37,7 @@
     >
       <!-- Main content -->
       <div class="container py-8">
-        <CTA />
+        <CTA isModal={true}/>
       </div>
 
       <!-- Close button -->

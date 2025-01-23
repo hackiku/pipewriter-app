@@ -10,6 +10,7 @@
   }
 
   export let calLink = "pipewriter/space";
+  export let elementId = "space-calendar"; // Allow custom ID per instance
   let calElement: HTMLDivElement;
   let initialized = false;
   
@@ -54,8 +55,9 @@
       };
     })(window, "https://app.cal.com/embed/embed.js", "init");
 
-    // Initialize with space namespace
-    window.Cal("init", "space", {
+    // Initialize with unique namespace per instance
+    const namespace = elementId.replace(/-/g, '_');
+    window.Cal("init", namespace, {
       origin: "https://cal.com",
       prefill: {
         email: formData.email,
@@ -64,8 +66,8 @@
     });
 
     // Set up the inline embed
-    window.Cal.ns.space("inline", {
-      elementOrSelector: "#space-calendar",
+    window.Cal.ns[namespace]("inline", {
+      elementOrSelector: `#${elementId}`,
       calLink,
       config: {
         layout: "week_view",
@@ -81,13 +83,15 @@
   }
 
   onMount(() => {
-    initializeCalendar();
+    // Small delay to ensure DOM is ready in modal context
+    setTimeout(initializeCalendar, 100);
   });
 
   onDestroy(() => {
-    if (typeof window !== 'undefined' && window.Cal) {
+    if (typeof window !== 'undefined' && window.Cal && initialized) {
       try {
-        window.Cal("destroy");
+        const namespace = elementId.replace(/-/g, '_');
+        window.Cal.ns[namespace]("destroy");
         initialized = false;
       } catch (e) {
         console.error('Error cleaning up Cal:', e);
@@ -97,7 +101,8 @@
 </script>
 
 <div 
-  id="space-calendar"
+  {elementId}
+  id={elementId}
   bind:this={calElement}
   class="w-full h-full overflow-auto rounded-lg border bg-white/5"
 />
