@@ -13,6 +13,7 @@ export const plans: Plan[] = [
 		features: [
 			'Single document template',
 			'Basic UX components',
+			'Docs to code/AI scripts',
 			'Drive folder setup'
 		],
 		cta: {
