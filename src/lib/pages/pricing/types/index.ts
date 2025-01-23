@@ -7,7 +7,7 @@ export interface Plan {
 	price: {
 		amount: number | null;
 		period?: 'monthly' | 'annual' | 'one-time';
-	};
+};
 	features: string[];
 	cta: {
 		text: string;
