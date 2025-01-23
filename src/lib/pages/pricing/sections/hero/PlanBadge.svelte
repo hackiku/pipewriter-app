@@ -1,4 +1,4 @@
-<!-- content/hero/PlanBadge.svelte -->
+<!-- src/lib/pages/pricing/sections/hero/PlanBadge.svelte -->
 <script lang="ts">
  export let text: string;
  export let variant: 'primary' | 'secondary' = 'primary';

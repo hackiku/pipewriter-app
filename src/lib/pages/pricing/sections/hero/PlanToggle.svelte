@@ -1,4 +1,4 @@
-<!-- content/hero/PlanToggle.svelte -->
+<!-- src/lib/pages/pricing/sections/hero/PlanToggle.svelte -->
 <script lang="ts">
   import { Switch } from "$lib/components/ui/switch";
   export let isAnnual = true;

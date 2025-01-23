@@ -1,4 +1,4 @@
-<!-- src/lib/pages/pricing/content/hero/PricingBadge.svelte -->
+<!-- src/lib/pages/pricing/sections/hero/PricingBadge.svelte -->
 <script lang="ts">
   export let text: string;
 </script>

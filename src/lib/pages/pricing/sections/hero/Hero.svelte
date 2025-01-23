@@ -1,4 +1,4 @@
-<!-- src/lib/pages/pricing/content/hero/Hero.svelte -->
+<!-- src/lib/pages/pricing/sections/hero/Hero.svelte -->
 <script lang="ts">
   import PricingBadge from './PricingBadge.svelte';
 </script>
