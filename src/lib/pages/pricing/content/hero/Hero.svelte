@@ -1,21 +1,18 @@
-<!-- lib/pages/pricing/content/hero/Hero.svelte -->
+<!-- src/lib/pages/pricing/content/hero/Hero.svelte -->
 <script lang="ts">
-  import PlanToggle from './PlanToggle.svelte';
-  import PlanBadge from './PlanBadge.svelte';
-  
-  let isAnnual = true;
+  import PricingBadge from './PricingBadge.svelte';
 </script>
 
-<section class="py-24 container mx-auto px-4">
-  <div class="text-center space-y-6 max-w-3xl mx-auto">
-    <PlanBadge text="Beta Launch Special" />
-    <h1 class="text-4xl md:text-5xl font-light">
-      Tools for the Next Space Race
+<section class="pt-24 pb-16 container">
+  <div class="text-center space-y-6 max-w-2xl mx-auto">
+    <PricingBadge text="Beta Launch Special • $59" />
+    
+    <h1 class="text-4xl md:text-5xl font-light tracking-tight">
+      Turn Words into Wireframes
     </h1>
-    <p class="text-xl text-zinc-400">
-      Whether you're writing landing pages or launching rockets, 
-      we've got your tools ready for lift-off
+    
+    <p class="text-xl text-muted-foreground">
+      Choose how you want to build. From simple Drive folders to AI&#8209;powered design systems.
     </p>
-    <PlanToggle bind:isAnnual />
   </div>
 </section>

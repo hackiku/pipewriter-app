@@ -1,68 +1,65 @@
-// data/plans.ts
-
-export interface Plan {
-	id: string;
-	name: string;
-	description: string;
-	price: {
-		monthly: number;
-		annual: number;
-	};
-	features: string[];
-	cta: string;
-	badge?: string;
-}
+// src/lib/pages/pricing/data/plans.ts
+import type { Plan } from '../types';
 
 export const plans: Plan[] = [
 	{
-		id: 'writer',
-		name: 'Writer',
-		description: 'Perfect for freelance writers and small agencies',
+		id: 'lite',
+		name: 'Pipewriter Lite',
+		description: 'Essential tools to start wireframing in Google Docs',
 		price: {
-			monthly: 49,
-			annual: 490,
+			amount: 1,
+			period: 'one-time'
 		},
 		features: [
-			'All UX writing templates',
-			'Sidebar app for Google Docs',
-			'Export to HTML/Figma',
-			'Basic AI assistance',
+			'Single document template',
+			'Basic UX components',
+			'Drive folder setup'
 		],
-		cta: 'Start Writing',
+		cta: {
+			text: 'Try for $1',
+			variant: 'outline',
+			href: 'https://gumroad.com/l/pipewriter-lite'
+		}
 	},
 	{
-		id: 'agency',
-		name: 'Agency',
-		description: 'For design and development teams',
+		id: 'suite',
+		name: 'Writer Suite',
+		description: 'Complete toolkit for UX writing and wireframes',
 		price: {
-			monthly: 149,
-			annual: 1490,
+			amount: 89,
+			period: 'one-time'
 		},
 		features: [
-			'Everything in Writer',
-			'Team collaboration',
-			'Custom templates',
-			'Advanced AI features',
-			'Priority support',
+			'Everything in Lite',
+			'Full Google Docs sidebar app',
+			'84+ UI components & templates',
+			'AI-ready design system comments',
+			'Code export (HTML/React/Svelte)'
 		],
-		cta: 'Power Up Your Team',
 		badge: 'Most Popular',
+		cta: {
+			text: 'Get Suite Access',
+			variant: 'default',
+			href: 'https://gumroad.com/l/pipewriter'
+		}
 	},
 	{
-		id: 'enterprise',
-		name: 'Space Industry',
-		description: 'Custom solutions for aerospace companies',
+		id: 'coming-soon',
+		name: 'Coming Soon',
+		description: 'AI-powered design systems & web editor',
 		price: {
-			monthly: null,
-			annual: null,
+			amount: null
 		},
 		features: [
-			'Everything in Agency',
-			'Custom component development',
-			'Dedicated support team',
-			'Technical documentation',
-			'Security compliance',
+			'Browser-based editor',
+			'AI design system generation',
+			'Team collaboration',
+			'Priority access to beta'
 		],
-		cta: 'Contact Sales',
-	},
+		cta: {
+			text: 'Join Waitlist',
+			variant: 'secondary',
+			href: '/waitlist'
+		}
+	}
 ];
