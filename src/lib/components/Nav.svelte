@@ -7,7 +7,7 @@
   import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
   import ExportButton from "$lib/pages/free/components/cta/ExportButton.svelte";
   import { onMount } from "svelte";
-  import { mainNavItems } from '$lib/data/navigation';
+  import { mainNavItems } from '$data/navigation';
 
   let isMenuOpen = false;
   let isVisible = true;

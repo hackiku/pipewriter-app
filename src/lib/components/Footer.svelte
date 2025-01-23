@@ -2,19 +2,13 @@
 <script lang="ts">
 	// import EmailForm from "$lib/components/cta/EmailForm.svelte";
 	import EmailForm from "$lib/components/cta/email/EmailForm.svelte";
-	import {
-		GithubIcon,
-		LinkedinIcon,
-		Instagram,
-		ShoppingBag,
-	} from "lucide-svelte";
 	import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
   import SocialLink from "./cta/SocialLink.svelte";
 
 	// import ContactModal from "./ContactModal.svelte";
 	import { contactModalStore } from "$lib/stores/contactModalStore";
   import { socialLinks, footerSections } from '$lib/data/navigation';
-  import { mainNavItems } from '$lib/data/navigation';
+  import { mainNavItems } from '$data/navigation';
 	
 	const year = new Date().getFullYear();
 

@@ -25,13 +25,17 @@ It also gave me an idea for their website redesign.
 
 ## Beyond the Standard Launch Site
 
-Most aerospace company websites follow a predictable pattern: hero video of a launch, statistics about payload capacity, and a "Contact Us" button. But Firefly isn't just another launch provider – they're pushing the boundaries of responsive space access.
+Most aerospace company websites follow a predictable pattern: hero video of a launch, statistics about payload capacity, and a "Contact Us" button.
+
+But Firefly isn't just another launch provider – they're pushing the boundaries of responsive space access.
 
 Their website should do the same.
 
 <HexagonPlayer videoId="1045400122" />
 
 ## The Acoustic Innovation
+
+I failed rocket motors exam with a bang. But the real rockets are the friends we made along the way. 
 
 Instead of just showing their Blue Ghost lunar lander, I built an interactive frequency analyzer that processes actual engine test footage. Here's the acoustic mapping interface:
 
