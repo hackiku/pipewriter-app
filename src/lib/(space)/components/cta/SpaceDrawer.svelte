@@ -4,8 +4,7 @@
   import { X } from 'lucide-svelte';
   import { spaceDrawerStore } from '$lib/stores/spaceDrawerStore';
   import { onDestroy } from 'svelte';
-  import Calendar from './Calendar.svelte';
-  import SpaceForm from './SpaceForm.svelte';
+  import CTA from './CTA.svelte';
   
   let isOpen = false;
   $: isOpen = $spaceDrawerStore.isOpen;
@@ -36,28 +35,9 @@
              bg-background border-t border-border
              rounded-t-[10px] shadow-lg"
     >
-      <!-- Header with price -->
-      <div class="container py-6 border-b border-border/50">
-        <div class="flex items-center justify-between">
-          <h2 class="text-2xl font-medium">Chute Repack</h2>
-          <div class="flex items-baseline gap-2">
-            <span class="text-3xl font-medium">$2,000</span>
-            <span class="text-muted-foreground">/page</span>
-          </div>
-        </div>
-      </div>
-
       <!-- Main content -->
       <div class="container py-8">
-        <div class="grid lg:grid-cols-2 gap-16">
-          <!-- Left: Form -->
-          <SpaceForm />
-
-          <!-- Right: Calendar -->
-          <div class="h-[600px]">
-            <Calendar />
-          </div>
-        </div>
+        <CTA />
       </div>
 
       <!-- Close button -->

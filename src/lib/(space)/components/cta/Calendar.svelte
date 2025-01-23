@@ -11,12 +11,15 @@
 
   export let calLink = "pipewriter/space";
   let calElement: HTMLDivElement;
+  let initialized = false;
   
   // Subscribe to form store for prefilling
   $: formData = $spaceFormStore.data;
   
   function initializeCalendar() {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || initialized) return;
+
+    initialized = true;
 
     (function (C, A, L) {
       let p = function (a: any, ar: IArguments) {
@@ -75,15 +78,6 @@
         }
       }
     });
-
-    // Customize UI
-    window.Cal.ns.space("ui", {
-      styles: {
-        branding: { brandColor: "#4f46e5" },
-        enabledDateButton: { background: "#4f46e5" },
-        selectedDateButton: { background: "#4338ca" }
-      }
-    });
   }
 
   onMount(() => {
@@ -94,6 +88,7 @@
     if (typeof window !== 'undefined' && window.Cal) {
       try {
         window.Cal("destroy");
+        initialized = false;
       } catch (e) {
         console.error('Error cleaning up Cal:', e);
       }

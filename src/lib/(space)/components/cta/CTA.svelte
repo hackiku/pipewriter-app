@@ -3,6 +3,9 @@
   import Calendar from './Calendar.svelte';
   import PricingCard from './PricingCard.svelte';
   import BookingTestimonial from '../proof/BookingTestimonial.svelte';
+
+  // Generate a unique ID for this instance
+  const calendarId = `space-calendar-${Math.random().toString(36).substring(7)}`;
 </script>
 
 <div class="w-full bg-black/30 rounded-xl border border-border/50 overflow-hidden">
@@ -10,7 +13,7 @@
     <!-- Left: Calendar -->
     <div class="xl:border-r border-border/50 p-4 sm:p-6 xl:p-8">
       <div class="aspect-video xl:aspect-[3/2]">
-        <Calendar />
+        <Calendar calLink="pipewriter/space" />
       </div>
     </div>
     

@@ -1,5 +1,8 @@
 <!-- src/lib/components/proof/BookingTestimonial.svelte -->
 <script lang="ts">
+  import { onMount, onDestroy } from 'svelte';
+  import { fade } from 'svelte/transition';
+
   const testimonials = [
     {
       quote: "We grew revenue to $960k from $200k average",
@@ -25,13 +28,23 @@
   ];
 
   let currentIndex = 0;
+  let intervalId: NodeJS.Timeout;
 
   function nextTestimonial() {
     currentIndex = (currentIndex + 1) % testimonials.length;
   }
 
-  // Auto-rotate every 5 seconds
-  setInterval(nextTestimonial, 5000);
+  onMount(() => {
+    // Start auto-rotate when component mounts
+    intervalId = setInterval(nextTestimonial, 5000);
+  });
+
+  onDestroy(() => {
+    // Clean up interval when component is destroyed
+    if (intervalId) {
+      clearInterval(intervalId);
+    }
+  });
 </script>
 
 <div class="space-y-3 py-4">

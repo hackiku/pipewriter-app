@@ -35,8 +35,8 @@
              bg-zinc-300/40 dark:bg-zinc-950 text-foreground"
 >
 	<!-- Controls & Scene -->
-	<!-- <Controls {startAnimation} />
-	<Scene bind:startAnimation /> -->
+	<!-- <Controls {startAnimation} /> -->
+	<!-- <Scene bind:startAnimation /> -->
 
 	<!-- Hero Section -->
 	<section class="relative h-[90vh]">
