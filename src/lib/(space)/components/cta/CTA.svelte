@@ -8,32 +8,39 @@
   const calendarId = isModal ? 'modal-calendar' : 'main-calendar';
 </script>
 
-<div class="w-full bg-black/30 rounded-xl border border-border/50 overflow-hidden">
-  <div class="grid gap-8 p-6 md:p-8">
+<!-- Removed background, border, and padding from container -->
+<div class="w-full">
+  <!-- Using grid for spacing with gap -->
+  <div class="grid gap-6">
     <!-- Mobile: Price card on top -->
-    <div class="block md:hidden">
+    <div class="block lg:hidden">
       <PricingCard />
     </div>
     
     <!-- Main content grid -->
-    <div class="grid md:grid-cols-[2fr_1fr] md:gap-8 h-full">
+    <div class="grid lg:grid-cols-[2fr_1fr] h-full">
       <!-- Calendar: Scrollable container that gets clipped -->
-      <div class="order-last md:order-first h-[calc(100vh-24rem)] md:h-auto relative">
+      <div class="order-last lg:order-first h-[calc(100vh-24rem)] lg:h-auto relative 
+                  lg:border-r lg:border-border/50">
         <div class="absolute inset-0">
           <Calendar calLink="pipewriter/space" elementId={calendarId} />
         </div>
       </div>
       
-      <!-- Right side content -->
-      <div class="hidden md:flex flex-col gap-8">
-        <PricingCard />
-        <BookingTestimonial />
+      <!-- Right side content with divider -->
+      <div class="hidden lg:flex flex-col divide-y divide-border/50">
+        <div class="p-6">
+          <PricingCard />
+        </div>
+        <div class="p-6">
+          <BookingTestimonial />
+        </div>
       </div>
     </div>
 
     <!-- Mobile testimonial - only show in main page -->
     {#if !isModal}
-      <div class="block md:hidden pt-4">
+      <div class="block lg:hidden">
         <BookingTestimonial />
       </div>
     {/if}
