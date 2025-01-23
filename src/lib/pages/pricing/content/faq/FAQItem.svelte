@@ -9,13 +9,18 @@
   import type { FAQ } from "../../data/faqs";
   
   export let faq: FAQ;
+  export let value: string;
 </script>
 
-<AccordionItem value={faq.question}>
-  <AccordionTrigger class="text-left">
-    {faq.question}
-  </AccordionTrigger>
-  <AccordionContent>
-    <p class="text-zinc-400">{faq.answer}</p>
-  </AccordionContent>
-</AccordionItem>
+<Accordion type="single" collapsible>
+  <AccordionItem {value}>
+    <AccordionTrigger class="text-left text-lg font-medium">
+      {faq.question}
+    </AccordionTrigger>
+    <AccordionContent>
+      <p class="text-zinc-400 leading-relaxed">
+        {faq.answer}
+      </p>
+    </AccordionContent>
+  </AccordionItem>
+</Accordion>

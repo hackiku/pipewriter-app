@@ -7,9 +7,8 @@
 </script>
 
 <div class="min-h-screen bg-gradient-to-b from-zinc-950 to-black text-white">
-  hero
 	<Hero />
   <Plans />
   <Compare />
-  <!-- <FAQ /> -->
+  <FAQ />
 </div>
