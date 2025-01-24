@@ -5,7 +5,7 @@ import { Plane, Stars, Code } from 'lucide-svelte';
 export const products: Product[] = [
 	{
 		title: "SpaceFOMO",
-		description: "AI-powered news aggregator for the space industry, with FOMO scoring for trending topics.",
+		description: "Space-race fever weekly, 100 words a pop",
 		longDescription: `Stay ahead of the space industry curve with SpaceFOMO. Our AI analyzes thousands of 
     space industry news sources, research papers, and social media to surface trending topics before they go mainstream.
     

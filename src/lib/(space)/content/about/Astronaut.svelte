@@ -1,4 +1,6 @@
 <!-- src/lib/(space)/content/about/Astronaut.svelte -->
+<!-- https://modelviewer.dev/docs/ -->
+
 <script>
   import { onMount } from 'svelte';
   
@@ -18,11 +20,12 @@
 
 </script>
 
-<div class="w-full h-full">
+<div class="w-full h-full opacity-20">
+	<!-- auto-rotate -->
   <model-viewer
     src="space/3d/starman.glb"
     auto-rotate
-    disable-zoom
+		disable-zoom
     interaction-prompt="none"
     camera-controls="false"
     rotation-per-second="15deg"

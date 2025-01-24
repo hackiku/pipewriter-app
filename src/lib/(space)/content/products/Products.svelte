@@ -5,6 +5,7 @@
 	import { products } from "../../data/products";
 	import { spaceStore } from "../../stores/spaceStore";
 	import ProductCard from "./ProductCard.svelte";
+	import MasonryPortfolio from "./MasonryPortfolio.svelte";
 	import ProjectsMarquee from "./ProjectsMarquee.svelte";
 
 	onDestroy(() => {
@@ -15,7 +16,10 @@
 <!-- Section Heading -->
 <div class="flex flex-col items-center text-center gap-4 mb-12">
 
-<div class="container max-w-4xl mx-auto">
+<!-- <MasonryPortfolio {product} index={i} /> -->
+<MasonryPortfolio />
+
+<!-- <div class="container max-w-4xl mx-auto">
 	<div class="relative mt-24 flex flex-col items-center">
 		{#each products as product, i}
 			<div class="w-full relative {i !== 0 ? '-mt-[8rem] sm:-mt-[18rem]' : ''}">
@@ -23,7 +27,7 @@
 			</div>
 		{/each}
 	</div>
-</div>
+</div> -->
 
 
 <div class="mt-24">

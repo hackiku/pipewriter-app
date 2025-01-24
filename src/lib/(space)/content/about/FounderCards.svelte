@@ -9,7 +9,7 @@
     {
       icon: Pen,
       title: "Copywriter",
-      description: "for B2B software startups"
+      description: "for software startups"
     },
     {
       icon: Code,
@@ -19,12 +19,12 @@
 		{
 			icon: Wrench,
 			title: "Pilot & engineer",
-			description: "training PPL(A) with DIY avionics"
+			description: "training PPL and missing school"
 		},
 		{
 			icon: Palette,
-			title: "Product Designer",
-			description: "shipping tools like Pipewriter and these space beauties"
+			title: "Aerospaceish engineer",
+			description: "shipping space apps and missing school 👇"
 		}
   ];
 </script>

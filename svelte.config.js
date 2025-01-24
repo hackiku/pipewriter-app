@@ -4,9 +4,9 @@ import { mdsvex, defineMDSveXConfig } from 'mdsvex';
 
 const mdsvexConfig = defineMDSveXConfig({
 	extensions: ['.md'],
-	layout: {
-		_: './src/routes/(website)/blog/[slug]/+layout.svelte'
-	},
+	// layout: {
+	// 	_: './src/routes/(website)/blog/[slug]/+layout.svelte'
+	// },
   // smartypants: true,
 	// markdownOptions: {
 	// 	headerIds: true,

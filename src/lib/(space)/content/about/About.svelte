@@ -92,8 +92,6 @@
 		</div>
 	</div>
 
-	
-
 	<!-- Content Container -->
 	<div class="relative min-h-[120vh] flex items-center">
 		<div class="container">
@@ -102,41 +100,41 @@
 				<p
 					class="text-xl md:text-2xl lg:text-3xl font-light leading-relaxed tracking-wide"
 				>
-					Hi! I'm Ivan 👋 I design, build and run digital products for the space industry.
+					I'm Ivan 👋 I design, build and run digital products for the space
+					industry.
 				</p>
 				<p
 					class="text-xl md:text-2xl lg:text-3xl font-light leading-relaxed tracking-wide"
 				>
-					I love making complex engineering 'click' 🫰 for hoomans
-					through usable and useful interfaces that tell a story.
+					<!-- I love making complex engineering &#x27;click&#x27; 🫰 for hoomans -->
+					I love making complex engineering click 🫰 for hoomans via usable &#40;and
+					useful&#41; interfaces that tell stories.
 				</p>
 				<p
 					class="text-xl md:text-2xl lg:text-3xl font-light leading-normal tracking-wide"
 				>
-					The Kármán line feels more crossable together.
+					Because, I guess, the Kármán line feels more crossable together.
 				</p>
 
 				<!-- Expanded Story -->
 				{#if showMore}
 					<div class="space-y-8 text-xl text-muted-foreground">
 						<p>
-							<!-- As a kid I couldn't sleep for months, imagining  -->
-							My journey began writing for technology companies, where I
-							discovered a passion for making complex systems more accessible.
-							This led to the development of Pipewriter, evolving from a simple
-							writing tool into a comprehensive UX system.
-						</p>
-						<p>
-							Some of my clients include alumni from YCombinator and 500 Global, 
-							as well as Redocly, GitHub's favorite API docs tool.
+							I started as a tech writer, translating engineer-speak into
+							human-speak. Turns out making complex ideas feel simple is
+							addictive - soon I was building tools to help others do the same.
 						</p>
 
 						<p>
-							The transition into aerospace technology was natural - combining
-							technical expertise with a lifelong fascination with flight.
-							Today, I create tools and interfaces that help space companies
-							connect with their audiences while pursuing formal education in
-							the field.
+							These days I split my time between coding flight computers and
+							designing tools that make space tech more accessible. Sometimes
+							they even work! When they don't, they make great stories.
+						</p>
+
+						<p>
+							Currently building open-source tools for flight data and space
+							news while studying aerospace engineering. Because apparently
+							sleep is optional.
 						</p>
 					</div>
 				{/if}
@@ -151,7 +149,7 @@
 		</div>
 	</div>
 	<!-- <div class="p-12"> -->
-		<FounderCards class_="p-12 md:mt-24" />
+	<FounderCards class_="p-12 md:mt-24" />
 	<!-- </div> -->
 </div>
 

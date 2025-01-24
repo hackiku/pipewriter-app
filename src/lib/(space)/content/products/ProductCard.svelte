@@ -1,77 +1,45 @@
-<!-- src/lib/pages/space/components/products/ProductCard.svelte -->
+<!-- $lib/(space)/content/products/ProductCard.svelte -->
 <script lang="ts">
   import type { Product } from '../../types';
-  import { fade } from 'svelte/transition';
-  import { spaceStore } from '../../stores/spaceStore';
+  import { createEventDispatcher } from 'svelte';
   import CardContent from './CardContent.svelte';
-  import ProductModal from './ProductModal.svelte';
   
   export let product: Product;
   export let index: number;
   
   let showModal = false;
+  let isHovered = false;
   
-  $: isActive = $spaceStore.activeProductIndex === index;
-  $: distanceFromActive = index - $spaceStore.activeProductIndex;
-  
-  // Determine if there are cards between this one and the active card
-  $: hasCardsBetween = Math.abs(distanceFromActive) > 1;
-  
-  // Calculate scale based on relative position to active card
-  $: scale = (() => {
-    const baseScale = 1;        // Active card
-    const mediumScale = 0.92;   // Adjacent cards
-    const smallScale = 0.85;    // Cards with something between them and active
-    
-    if (isActive) return baseScale;
-    if (hasCardsBetween) return smallScale;
-    return mediumScale;
-  })();
-  
-  // Z-index: stack from active outward
-  $: zIndex = 30 - (Math.abs(distanceFromActive) * 10);
-  
-  // Y offset increases with distance from active
-  $: translateY = (() => {
-    if (isActive) return 0;
-    const baseOffset = -2;
-    return baseOffset * Math.abs(distanceFromActive);
-  })();
-  
-  function handleClick() {
-    spaceStore.setActiveProduct(index);
-  }
+  const dispatch = createEventDispatcher();
 </script>
 
 <div 
-  class="relative transition-all duration-500 ease-out cursor-pointer"
-  style="z-index: {zIndex}; 
-         transform: translateY({translateY}rem) scale({scale})"
-  on:click={handleClick}
+  class="group relative"
+  on:mouseenter={() => isHovered = true}
+  on:mouseleave={() => isHovered = false}
 >
-  <div 
-    class="group relative rounded-xl border overflow-hidden shadow-lg
-           bg-card hover:shadow-xl transition-all duration-300"
-  >
-    <!-- Portfolio Container -->
-    <div class="aspect-[16/9] relative">
+  <!-- Glow Effect -->
+  <div class="absolute -inset-[2px] bg-gradient-to-r from-indigo-500/50 to-purple-500/50 
+              rounded-xl opacity-0 group-hover:opacity-100 blur-lg
+              transition-all duration-500" />
+              
+  <!-- Card -->
+  <div class="relative rounded-xl overflow-hidden border bg-card">
+    <!-- Image Container -->
+    <div class="aspect-video relative">
       <img 
         src={product.image} 
         alt={product.title}
-        class="w-full h-full object-cover 
-               transition-transform duration-300
+        class="w-full h-full object-cover transition-transform duration-500
                group-hover:scale-105"
       />
-      <CardContent {product} {index} 
-                  {showModal} 
-                  on:openModal={() => showModal = true} />
+      
+      <CardContent 
+        {product} 
+        {index}
+        {showModal}
+        on:openModal={() => showModal = true}
+      />
     </div>
   </div>
 </div>
-
-{#if showModal}
-  <ProductModal 
-    {product} 
-    onClose={() => showModal = false} 
-  />
-{/if}
