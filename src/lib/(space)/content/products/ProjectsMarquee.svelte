@@ -6,7 +6,7 @@
   const duplicatedProjects = [...projects, ...projects];
 </script>
 
-<div class="w-full overflow-hidden py-12">
+<div class="w-full overflow-hidden">
   <div class="flex space-x-8 animate-marquee">
     {#each duplicatedProjects as project}
       <div class="flex-none w-72">

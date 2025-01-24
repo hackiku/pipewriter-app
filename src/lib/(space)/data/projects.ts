@@ -5,8 +5,8 @@ export const projects: Project[] = [
 	{
 		title: "FlySvelte",
 		description: "SvelteKit + Threlte + Rapier modular flight simulator for composable aerospace engineering GUIs",
-		image: "space/projects/flysimulator.png",
-		link: "https://flysvelte.vercel.app",
+		image: "space/projects/flysvelte.png",
+		link: "https://flysvelte.vercel.app/right-rudder",
 		status: "Early Development",
 		tech: ["SvelteKit", "Threlte", "Rapier"]
 	},

@@ -91,7 +91,7 @@
 			<div class="flex-1 border-t border-border/50" />
 		</div>
 
-		<div class="pt-32 pb-24">
+		<div class="__pt-32 pb-24">
 			<About />
 			<Products />
 		</div>

@@ -1,122 +1,75 @@
-<!-- src/lib/pages/space/components/products/CardContent.svelte -->
+<!-- $lib/(space)/content/products/CardContent.svelte -->
 <script lang="ts">
   import type { Product } from '../../types';
-  import { Plus, ExternalLink } from "lucide-svelte";
-  import { spaceStore } from '../../stores/spaceStore';
+  import { ExternalLink } from "lucide-svelte";
   import { createEventDispatcher } from 'svelte';
+  import { spaceStore } from '../../stores/spaceStore';
+  import TechBadge from './TechBadge.svelte';
   
   export let product: Product;
   export let index: number;
-  export let showModal: boolean;
+  export let showModal = false;
   
   const dispatch = createEventDispatcher();
-  
+
   $: isActive = $spaceStore.activeProductIndex === index;
-
-  // Split title and description for styling
-  const [title, ...descParts] = product.description.split(':');
-  const description = descParts.join(':').trim();
-
-  function handlePlusClick(e: MouseEvent) {
-    e.stopPropagation();
-    dispatch('openModal');
+  
+  function handleClick() {
+    spaceStore.setActiveProduct(index);
   }
-
-  function handleLinkClick(e: MouseEvent) {
-    e.stopPropagation();
+  
+  function openModal() {
+    dispatch('openModal');
   }
 </script>
 
-<div class="absolute inset-0">
-  <!-- Gradient Overlay - Bottom 40% with higher start -->
-  <div 
-    class="absolute inset-x-0 bottom-0 h-2/5
-           bg-gradient-to-t from-card via-card/95 to-transparent
-           pointer-events-none"
-  />
+<div class="absolute inset-0 flex flex-col justify-end">
+  <!-- Base Gradient -->
+  <div class="absolute inset-0 bg-gradient-to-t 
+              from-black/80 via-black/40 to-transparent" />
   
-  <!-- Pulsating Plus Button - Only on active card -->
-  {#if isActive && !showModal}
-    <div class="absolute inset-0 flex items-center justify-center">
-      <button
-        on:click={handlePlusClick}
-        class="group relative w-16 h-16 rounded-full 
-               bg-primary/5 hover:bg-primary/10
-               transition-all duration-300"
+  <!-- Content Drawer -->
+  <div class="relative transition-all duration-300"
+       on:click={handleClick}>
+    <!-- Always Visible Header -->
+    <div class="flex items-center justify-between p-4 group-hover:border-t 
+                group-hover:border-primary/20 transition-all duration-300">
+      <div class="flex items-center gap-3">
+        <h3 class="text-lg font-medium text-white">{product.title}</h3>
+        <span class="text-sm text-white/60">{product.status}</span>
+      </div>
+      
+      <a
+        href={product.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="flex items-center gap-1.5 text-sm text-white/80
+               hover:text-white transition-colors group"
       >
-        <div class="absolute inset-0 rounded-full
-                    bg-gradient-to-r from-indigo-600/20 to-purple-600/20
-                    animate-[pulse_3s_ease-in-out_infinite]" 
-        />
-        <Plus class="w-8 h-8 text-primary absolute 
-                    left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
-                    transition-all duration-300
-                    animate-[fade_3s_ease-in-out_infinite]
-                    group-hover:scale-110" 
-        />
-      </button>
-    </div>
-  {/if}
-  
-  <!-- Content Container -->
-  <div class="absolute bottom-0 left-0 right-0 p-6">
-    <div class="flex justify-between items-start">
-      <!-- Title & Description -->
-      <div class="flex-1">
-        <h3 class="text-2xl">
-          <span class="font-semibold text-primary">{product.title}</span>
-          <span class="text-muted-foreground ml-2">
-            {description}
-          </span>
-        </h3>
-      </div>
-
-      <!-- Status Badge -->
-      <span class="shrink-0 px-2 py-1 text-xs rounded-full 
-                   bg-muted text-muted-foreground ml-4">
-        {product.status}
-      </span>
+        Visit
+        <ExternalLink class="w-4 h-4 transition-transform 
+                          group-hover:translate-x-0.5" />
+      </a>
     </div>
 
-    <!-- Tech Stack & Visit Link -->
-    <div class="flex justify-between items-center mt-4">
-      <!-- Tech Stack -->
-      <div class="flex gap-1.5">
-        {#each product.tech.slice(0, 4) as tech}
-          <div class="w-6 h-6 rounded-full bg-primary/10 
-                      flex items-center justify-center
-                      group hover:bg-primary/20 transition-colors">
-            <span class="text-[10px] text-primary">{tech[0]}</span>
-          </div>
-        {/each}
-      </div>
+    <!-- Expandable Content -->
+    <div class="max-h-0 overflow-hidden transition-all duration-300
+                group-hover:max-h-48 bg-black/60">
+      <div class="p-4 space-y-4">
+        <!-- Description -->
+        <p class="text-sm text-white/80">{product.description}</p>
 
-      <!-- Visit Link -->
-      {#if isActive}
-        <a
-          href={product.link}
-          target="_blank"
-          rel="noopener noreferrer"
-          on:click={handleLinkClick}
-          class="flex items-center gap-1.5 text-primary hover:text-primary/80
-                 transition-colors duration-300 text-sm"
-        >
-          Visit Site
-          <ExternalLink class="w-4 h-4" />
-        </a>
-      {/if}
+        <!-- Tech Stack -->
+        <div class="flex flex-wrap gap-2">
+          {#each product.tech.slice(0, 4) as tech}
+            <TechBadge 
+              icon={`/icons/tech/${tech.toLowerCase()}.svg`}
+              name={tech}
+              size="sm"
+            />
+          {/each}
+        </div>
+      </div>
     </div>
   </div>
 </div>
-
-<style>
-  @keyframes fade {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
-
-  @keyframes pulse {
-    0%, 100% { transform: scale(1); opacity: 0.1; }
-    50% { transform: scale(1.1); opacity: 0.3; }
-  }
-</style>
