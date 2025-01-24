@@ -72,9 +72,9 @@
 		>
 			<img
 				src="/api/placeholder/400/400"
-				alt="Mission control desk"
+				alt="img"
 				class="w-full h-full object-cover rounded-lg
-               shadow-xl bg-blue-300/5"
+               shadow-xl bg-blue-300/5 text-foreground/10 pt-[50%] pl-[50%]"
 			/>
 		</div>
 		<div
@@ -85,14 +85,14 @@
 		>
 			<img
 				src="/api/placeholder/400/400"
-				alt="Mission control desk"
+				alt="img"
 				class="w-full h-full object-cover rounded-lg
-               shadow-xl bg-blue-300/5"
+               shadow-xl bg-blue-300/5 text-foreground/10 pt-[50%] pl-[50%]"
 			/>
 		</div>
 	</div>
 
-	<FounderCards />
+	
 
 	<!-- Content Container -->
 	<div class="relative min-h-[120vh] flex items-center">
@@ -100,26 +100,20 @@
 			<div class="ml-auto w-full max-w-xl pr-8 md:pr-16 space-y-6">
 				<!-- Brief -->
 				<p
-					class="text-xl md:text-2xl lg:text-3xl font-light leading-loose tracking-wide"
+					class="text-xl md:text-2xl lg:text-3xl font-light leading-relaxed tracking-wide"
 				>
 					Hi! I'm Ivan 👋 I design, build and run digital products for the space industry.
 				</p>
 				<p
-					class="text-xl md:text-2xl lg:text-3xl font-light leading-loose tracking-wide"
+					class="text-xl md:text-2xl lg:text-3xl font-light leading-relaxed tracking-wide"
 				>
-					My superpower is infusing complex engineering with storytelling so it 
-					'clicks' 🫰 for humans. Because that Kármán line feels more
-					crossable together
+					I love making complex engineering 'click' 🫰 for hoomans
+					through usable and useful interfaces that tell a story.
 				</p>
-				<!-- Combining years of B2B copywriting and front-end dev, I fuse
-				storytelling + engineering to make techy products 'click' 🫰 for humans. -->
 				<p
-					class="text-xl md:text-2xl lg:text-3xl font-light leading-loose tracking-wide"
+					class="text-xl md:text-2xl lg:text-3xl font-light leading-normal tracking-wide"
 				>
-					Background is in B2B SaaS copywriting, front-end dev and, more recently,
-					aerospace 
-					That Kármán line feels more crossable together. Also training as an
-					avionics engineer and private pilot.
+					The Kármán line feels more crossable together.
 				</p>
 
 				<!-- Expanded Story -->
@@ -156,6 +150,9 @@
 			</div>
 		</div>
 	</div>
+	<!-- <div class="p-12"> -->
+		<FounderCards class_="p-12 md:mt-24" />
+	<!-- </div> -->
 </div>
 
 <style>

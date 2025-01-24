@@ -1,4 +1,4 @@
-// $lib/data/navigation/index.ts
+// $data/navigation/index.ts
 
 import {
 	GithubIcon,
@@ -11,15 +11,16 @@ import { contactModalStore } from '$lib/stores/contactModalStore';
 
 export const mainNavItems: NavItem[] = [
 	{ href: "/product", label: "Product" },
-	{ href: "/pricing", label: "pricing" },
-	{ href: "/about", label: "About" },
+	{ href: "/pricing", label: "Pricing" },
+	{ href: "/space", label: "Work" },
+	// { href: "/about", label: "About" },
 	// { href: "/ai", label: "AI" },
 	{ href: "/blog", label: "Blog" },
-	{
-		href: "",
-		label: "Contact",
-		onClick: () => contactModalStore.set(true)
-	}
+	// {
+	// 	href: "",
+	// 	label: "Contact",
+	// 	onClick: () => contactModalStore.set(true)
+	// }
 ];
 
 export const socialLinks: SocialLink[] = [

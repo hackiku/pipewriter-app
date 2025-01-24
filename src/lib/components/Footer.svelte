@@ -1,8 +1,9 @@
 <!-- $lib/components/Footer.svelte -->
 <script lang="ts">
+	import { ArrowRight } from "lucide-svelte";
 	// import EmailForm from "$lib/components/cta/EmailForm.svelte";
 	import EmailForm from "$lib/components/cta/email/EmailForm.svelte";
-	import EarlyAccessButton from "./cta/EarlyAccessButton.svelte";
+	import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
   import SocialLink from "./cta/SocialLink.svelte";
 
 	// import ContactModal from "./ContactModal.svelte";
@@ -43,7 +44,7 @@
 					<!-- Early Access Button -->
 					<div class="pt-2">
 						<EarlyAccessButton
-							size="sm"
+							size="md"
 							source="footer"
 							className="w-fit font-normal"
 						/>
@@ -103,6 +104,16 @@
 			<div class="md:col-span-2 lg:col-span-4 lg:pl-4">
 				<h4 class="text-lg font-medium mb-4">UX-up your inbox</h4>
 				<EmailForm size="sm" wrap={true} />
+				
+				<div class="flex gap-1 mt-4 h-full items-middle justify-center">
+					<a href="/space"
+						 class="text-sm text-foreground/50 hover:text-foreground font-medium"
+					>
+						aerospace <br>
+						startup? 
+					</a>
+					<ArrowRight class="w-4"/>
+				</div>
 			</div>
 		</div>
 
