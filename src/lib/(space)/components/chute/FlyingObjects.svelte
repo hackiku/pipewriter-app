@@ -3,9 +3,9 @@
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
   
-  export let velocity = 5;  // Base speed for animations
   export let targetX = '65vw';  // Chute position
   export let targetY = '35vh';
+  export let velocity = 5;  // Base speed for animations
 
   // Object Definitions - Keep same objects
   const OBJECTS = [
@@ -60,6 +60,13 @@
     }
   }
 
+	const VISUAL = {
+    baseOpacity: 1,  // Increased from 0.8
+    brightness: 100, // Adjusted from 105
+    shadowSize: 'lg'
+  } as const;
+
+
   onMount(() => {
     startAnimations();
   });
@@ -69,14 +76,15 @@
   });
 </script>
 
-<div class="absolute inset-0 h-screen overflow-hidden pointer-events-none">
+<div class="absolute inset-0 h-screen overflow-hidden">
   <div bind:this={container} class="relative h-full">
-    {#each OBJECTS as object}
+    {#each OBJECTS as object, i}
       <img
         src={object.path}
-        alt="Flying object"
+        alt={`Flying object ${i + 1}`}
         class="absolute w-16 md:w-20 lg:w-24 transform-gpu 
-               drop-shadow-lg"
+               drop-shadow-lg opacity-80"
+        style="z-index: {10 + i};"
       />
     {/each}
   </div>
