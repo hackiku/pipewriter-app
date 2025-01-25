@@ -34,6 +34,35 @@ export const products: Product[] = [
 		}
 	},
 	{
+		id: '6pack',
+		title: "6Pack",
+		description: "Open-source portable flight instrument suite for pilots and their cats",
+		longDescription: `6Pack is an open-source electronic flight instrument system (EFIS) that turns your phone 
+    into a backup aviation instrument panel. Perfect for student pilots or as a backup solution.`,
+		icon: Plane,
+		status: "Beta",
+		link: "https://6pack.cc",
+		image: "space/products/6pack.png",
+		tech: ["reactNative", "firebase"],
+		features: [
+			{
+				title: "Full EFIS Suite",
+				description: "All six primary flight instruments"
+			},
+			{
+				title: "Cross Platform",
+				description: "Works on iOS and Android"
+			}
+		],
+		meta: {
+			github: "https://github.com/jzro/6pack",
+			stats: [
+				{ label: "Test Flights", value: "50+" },
+				{ label: "Cat Copilots", value: "3" }
+			]
+		}
+	},
+	{
 		id: 'jzro',
 		title: "JZRO",
 		description: "Mars METAR & orbital mechanics simulator",
@@ -69,31 +98,41 @@ export const products: Product[] = [
 		}
 	},
 	{
-		id: '6pack',
-		title: "6Pack",
-		description: "Open-source portable flight instrument suite for pilots and their cats",
-		longDescription: `6Pack is an open-source electronic flight instrument system (EFIS) that turns your phone 
-    into a backup aviation instrument panel. Perfect for student pilots or as a backup solution.`,
+		id: 'wingy',
+		title: "Wingy",
+		description: "Design and analyze composite aircraft wings with live CAD integration",
+		longDescription: `Wingy is an interactive aircraft wing design tool that combines real-time CAD visualization, 
+  	composite materials analysis, and structural load calculations. Available in both a modern SvelteKit web app 
+  	and a comprehensive Python toolkit, it helps aerospace engineers prototype composite wings faster.`,
 		icon: Plane,
 		status: "Beta",
-		link: "https://6pack.cc",
-		image: "space/products/6pack.png",
-		tech: ["reactNative", "firebase"],
+		link: "https://wingy.aero",
+		image: "space/products/wingy.png",
+		tech: ["sveltekit", "python", "onshape", "streamlit"],
 		features: [
 			{
-				title: "Full EFIS Suite",
-				description: "All six primary flight instruments"
+				title: "Live CAD Integration",
+				description: "Real-time wing model updates via Onshape API",
+				demo: "https://wingy.aero/demo"
 			},
 			{
-				title: "Cross Platform",
-				description: "Works on iOS and Android"
+				title: "Composite Analysis",
+				description: "Advanced micromechanics calculations for laminate properties"
+			},
+			{
+				title: "Load Calculator",
+				description: "Structural analysis with distributed force visualization"
+			},
+			{
+				title: "Material Library",
+				description: "Extensive database of aerospace composites"
 			}
 		],
 		meta: {
-			github: "https://github.com/jzro/6pack",
+			github: "https://github.com/jzro/wingy",
 			stats: [
-				{ label: "Test Flights", value: "50+" },
-				{ label: "Cat Copilots", value: "3" }
+				{ label: "Materials Database", value: "20+ composites" },
+				{ label: "Load Cases", value: "Custom + 4 presets" }
 			]
 		}
 	}

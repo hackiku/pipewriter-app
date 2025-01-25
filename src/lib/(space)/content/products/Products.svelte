@@ -23,11 +23,9 @@
 		Space Products
 </h3>
 
-
-<div class="px-2 sm:px-12 md:px-20">
+<div class="px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
 	<MasonryPortfolio />
 </div>
-	
 <!-- <ProductCard product={products[2]} index={2} /> -->
 
 	<div class="mt-24 border-t border-opacity-60">

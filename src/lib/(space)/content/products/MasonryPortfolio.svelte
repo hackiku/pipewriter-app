@@ -4,63 +4,43 @@
   import { projects } from '../../data/projects';
   import ProductCard from './ProductCard.svelte';
   import ProjectCard from './ProjectCard.svelte';
-  
-  // Predefined aspect ratio classes
-  const aspectRatios = {
-    productLg: "aspect-[16/9]", // 16:9 for large product cards
-    productSm: "aspect-[4/3]",  // 4:3 for mobile product cards
-    project: "aspect-[3/2]"     // 3:2 for project cards
-  };
-
-  // Get specific products by ID
-  const spaceFOMO = products.find(p => p.id === 'spacefomo');
-  const sixPack = products.find(p => p.id === '6pack');
-  const jzro = products.find(p => p.id === 'jzro');
-  const handyFly = projects.find(p => p.id === 'handyfly');
 </script>
 
-<div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-min">
-  <!-- SpaceFOMO - Large Card -->
-  {#if spaceFOMO}
-    <div class="md:col-span-2 lg:row-span-2">
-      <ProductCard 
-        product={spaceFOMO} 
-        aspectRatio={aspectRatios.productLg}
-        index={0} 
-      />
-    </div>
-  {/if}
+<div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <!-- Product 0 (SpaceFOMO): Always first, spans cols on md+ -->
+  <div class="col-span-1 md:col-span-2">
+    <ProductCard 
+      product={products[0]}
+      index={0}
+      class="aspect-video"
+    />
+  </div>
 
-  <!-- JZRO -->
-  {#if jzro}
-    <div class="col-span-1">
-      <ProductCard 
-        product={jzro} 
-        aspectRatio={aspectRatios.project}
-        index={1} 
-      />
-    </div>
-  {/if}
+  <!-- Product 1 (6Pack): Mobile layout, always second -->
+  <div class="col-span-1 md:row-span-2 lg:row-span-3">
+    <ProductCard 
+      product={products[1]}
+      index={1}
+      isMobileAsset
+      class="h-[32rem] md:h-full" 
+    />
+  </div>
 
-  <!-- HandyFly -->
-  {#if handyFly}
-    <div class="col-span-1">
-      <ProjectCard 
-        project={handyFly}
-        aspectRatio={aspectRatios.project}
-        index={0} 
-      />
-    </div>
-  {/if}
+  <!-- Project (HandyFly) -->
+  <div class="hidden md:block">
+    <ProjectCard 
+      project={projects[0]}
+      index={0}
+      class="aspect-[4/3] mb-4"
+    />
+  </div>
 
-  <!-- 6Pack - Large Mobile View -->
-  {#if sixPack}
-    <div class="lg:col-span-2 lg:row-span-2">
-      <ProductCard 
-        product={sixPack} 
-        aspectRatio={aspectRatios.productLg}
-        index={2} 
-      />
-    </div>
-  {/if}
+  <!-- Product 2 (JZRO) -->
+  <div class="hidden md:block">
+    <ProductCard 
+      product={products[2]}
+      index={2}
+      class="aspect-[4/3]"
+    />
+  </div>
 </div>
