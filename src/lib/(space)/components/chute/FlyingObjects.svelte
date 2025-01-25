@@ -1,60 +1,67 @@
-<!-- src/lib/(space)/components/chute/FlyingObjects.svelte -->
+<!-- FlyingObjects.svelte - Simplified version that works -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
   
-  // Animation Config
-  const VELOCITY = 5;              // Base movement speed multiplier
-  const BASE_DURATION = 15;        // Base duration in seconds
-  const SPACING = 1.2;            // Vertical spacing multiplier (> 1 = more space)
-  const STAGGER_OFFSET = 0.8;     // Delay between objects (0-1)
+  export let velocity = 5;  // Base speed for animations
+  export let targetX = '65vw';  // Chute position
+  export let targetY = '35vh';
 
-  // Object Definitions
+  // Object Definitions - Keep same objects
   const OBJECTS = [
-    { path: '/space/assets/cloud.svg', scale: 0.6, x: 20, speed: 1.2 },
-    { path: '/space/assets/ingenuity.svg', scale: 0.4, x: 70, speed: 1 },
-    { path: '/space/assets/investor.svg', scale: 0.4, x: 40, speed: 0.9 },
-    { path: '/space/assets/starman.png', scale: 0.35, x: 80, speed: 0.8 },
-    { path: '/space/assets/cloud.svg', scale: 0.5, x: 30, speed: 1.1 },
-    { path: '/space/assets/ingenuity.svg', scale: 0.35, x: 60, speed: 1 }
+    { path: '/space/assets/cloud.svg', scale: 0.6, speed: 1.2 },
+    { path: '/space/assets/ingenuity.svg', scale: 0.4, speed: 1 },
+    { path: '/space/assets/investor.svg', scale: 0.4, speed: 0.9 },
+    { path: '/space/assets/starman.png', scale: 0.35, speed: 0.8 },
+    { path: '/space/assets/cloud.svg', scale: 0.5, speed: 1.1 },
+    { path: '/space/assets/ingenuity.svg', scale: 0.35, speed: 1 }
   ] as const;
-
-  // Visual Config
-  const VISUAL = {
-    baseOpacity: 0.8,
-    brightness: 105,
-    shadowSize: 'lg'
-  } as const;
 
   let container: HTMLDivElement;
   let mainTl: gsap.core.Timeline;
 
-  function startMarquee() {
+  function animateObject(element: HTMLElement, index: number) {
+    const obj = OBJECTS[index];
+    const angle = (index / OBJECTS.length) * Math.PI * 2;
+    
+    // Start from planet's circumference
+    const radius = Math.min(window.innerWidth, window.innerHeight);
+    const startX = Math.cos(angle) * radius;
+    const startY = Math.sin(angle) * radius + radius; // Offset to place planet below
+
+    gsap.fromTo(element,
+      {
+        x: startX,
+        y: startY,
+        scale: obj.scale,
+        opacity: 0
+      },
+      {
+        x: targetX,
+        y: targetY,
+        opacity: 0.8,
+        duration: 15 / (velocity * obj.speed),
+        ease: 'none',
+        repeat: -1,
+        delay: index * (2 / OBJECTS.length)
+      }
+    );
+  }
+
+  function startAnimations() {
     if (mainTl) mainTl.kill();
     mainTl = gsap.timeline();
     
-    // Initial positions
-    gsap.set(container.children, {
-      y: (i) => window.innerHeight + (i * (window.innerHeight * SPACING / OBJECTS.length)),
-      opacity: VISUAL.baseOpacity,
-      scale: (i) => OBJECTS[i].scale
-    });
-
-    // Continuous motion
-    OBJECTS.forEach((obj, i) => {
-      const element = container.children[i];
-      gsap.to(element, {
-        y: -100,
-        duration: BASE_DURATION / (obj.speed * VELOCITY),
-        repeat: -1,
-        ease: 'none',
-        delay: i * (BASE_DURATION * STAGGER_OFFSET / OBJECTS.length)
+    const elements = container?.children;
+    if (elements) {
+      Array.from(elements).forEach((el, i) => {
+        animateObject(el as HTMLElement, i);
       });
-    });
+    }
   }
 
   onMount(() => {
-    startMarquee();
+    startAnimations();
   });
 
   onDestroy(() => {
@@ -62,18 +69,14 @@
   });
 </script>
 
-<div class="absolute inset-0 h-screen">
+<div class="absolute inset-0 h-screen overflow-hidden pointer-events-none">
   <div bind:this={container} class="relative h-full">
     {#each OBJECTS as object}
       <img
         src={object.path}
         alt="Flying object"
         class="absolute w-16 md:w-20 lg:w-24 transform-gpu 
-               drop-shadow-{VISUAL.shadowSize}"
-        style="
-          left: {object.x}%;
-          filter: brightness({VISUAL.brightness}%);
-        "
+               drop-shadow-lg"
       />
     {/each}
   </div>

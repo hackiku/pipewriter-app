@@ -54,5 +54,14 @@ export const PHYSICS = {
 			scale,
 			progress
 		};
+	},
+	calculatePlanetScale(altitude: number) {
+		// Simple inverse relationship - planet appears larger as we get closer
+		const maxScale = 2;
+		const minScale = 0.5;
+		const progress = (this.INITIAL_ALTITUDE - altitude) /
+			(this.INITIAL_ALTITUDE - this.FINAL_ALTITUDE);
+
+		return minScale + (maxScale - minScale) * progress;
 	}
 };
