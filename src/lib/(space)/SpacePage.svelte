@@ -30,6 +30,16 @@
 	<BackgroundPattern size="sm" opacity="high" gradient={true} />
 </div> -->
 
+<div class="fixed top-0 right-0 p-2 m-2 bg-black/20 text-white/50 rounded z-50 pointer-events-none text-sm font-mono">
+	<span class="hidden xs:inline sm:hidden">sm {384}px</span>
+	<span class="hidden sm:inline md:hidden">md {640}px</span>
+	<span class="hidden md:inline lg:hidden">lg {768}px</span>
+	<span class="hidden lg:inline xl:hidden">xl {1024}px</span>
+	<span class="hidden xl:inline 2xl:hidden">2xl {1280}px</span>
+	<span class="hidden 2xl:inline">3xl {1536}px</span>
+</div>
+
+
 <main
 	class="flex flex-col relative min-h-screen overflow-x-clip
              bg-zinc-300/40 dark:bg-zinc-950 text-foreground"

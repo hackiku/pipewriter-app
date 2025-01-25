@@ -23,16 +23,15 @@
 		Space Products
 </h3>
 
-	<!-- <MasonryPortfolio {product} index={i} /> -->
+
+<div class="px-2 sm:px-12 md:px-20">
 	<MasonryPortfolio />
+</div>
+	
+<!-- <ProductCard product={products[2]} index={2} /> -->
 
-	<div class="max-w-3xl">
-		<ProductCard product={products[2]} index={2} />
+	<div class="mt-24 border-t border-opacity-60">
+		<h2 class="text-xl text-center">"Deploy in a weekend" they said</h2>
 	</div>
-	<!-- <ProductCard product={products.find(p => p.title === "Wing Designer")} index={2} /> -->
-
-	<div class="mt-24s">
-		<h2 class="text-xl">"Deploy in a weekend" they said</h2>
-	</div>
-	<ProjectsMarquee />
+	<!-- <ProjectsMarquee /> -->
 </div>

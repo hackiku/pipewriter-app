@@ -1,53 +1,66 @@
-<!-- $lib/(space)/content/products/MasonryPortfolio.svelte -->
+<!-- src/lib/(space)/content/products/MasonryPortfolio.svelte -->
 <script lang="ts">
   import { products } from '../../data/products';
   import { projects } from '../../data/projects';
   import ProductCard from './ProductCard.svelte';
   import ProjectCard from './ProjectCard.svelte';
   
-  // Get specific products
-  const spaceFOMO = products.find(p => p.title === 'SpaceFOMO');
-  const sixPack = products.find(p => p.title === '6Pack');
-  
-  // Get first 4 projects
-  const featuredProjects = projects.slice(0, 4);
+  // Predefined aspect ratio classes
+  const aspectRatios = {
+    productLg: "aspect-[16/9]", // 16:9 for large product cards
+    productSm: "aspect-[4/3]",  // 4:3 for mobile product cards
+    project: "aspect-[3/2]"     // 3:2 for project cards
+  };
+
+  // Get specific products by ID
+  const spaceFOMO = products.find(p => p.id === 'spacefomo');
+  const sixPack = products.find(p => p.id === '6pack');
+  const jzro = products.find(p => p.id === 'jzro');
+  const handyFly = projects.find(p => p.id === 'handyfly');
 </script>
 
-<div class="container mx-auto px-4">
-  <!-- Grid Container -->
-  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
-    <!-- Row 1: SpaceFOMO (2) + 2 Projects -->
+<div class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-min">
+  <!-- SpaceFOMO - Large Card -->
+  {#if spaceFOMO}
+    <div class="md:col-span-2 lg:row-span-2">
+      <ProductCard 
+        product={spaceFOMO} 
+        aspectRatio={aspectRatios.productLg}
+        index={0} 
+      />
+    </div>
+  {/if}
+
+  <!-- JZRO -->
+  {#if jzro}
+    <div class="col-span-1">
+      <ProductCard 
+        product={jzro} 
+        aspectRatio={aspectRatios.project}
+        index={1} 
+      />
+    </div>
+  {/if}
+
+  <!-- HandyFly -->
+  {#if handyFly}
+    <div class="col-span-1">
+      <ProjectCard 
+        project={handyFly}
+        aspectRatio={aspectRatios.project}
+        index={0} 
+      />
+    </div>
+  {/if}
+
+  <!-- 6Pack - Large Mobile View -->
+  {#if sixPack}
     <div class="lg:col-span-2 lg:row-span-2">
-      {#if spaceFOMO}
-        <ProductCard product={spaceFOMO} index={0} />
-      {/if}
+      <ProductCard 
+        product={sixPack} 
+        aspectRatio={aspectRatios.productLg}
+        index={2} 
+      />
     </div>
-    <div class="lg:col-span-1">
-      {#if featuredProjects[0]}
-        <ProjectCard project={featuredProjects[0]} index={0} />
-      {/if}
-    </div>
-    <div class="lg:col-span-1">
-      {#if featuredProjects[1]}
-        <ProjectCard project={featuredProjects[1]} index={1} />
-      {/if}
-    </div>
-    
-    <!-- Row 2: 2 Projects + 6Pack (2) -->
-    <div class="lg:col-span-1">
-      {#if featuredProjects[2]}
-        <ProjectCard project={featuredProjects[2]} index={2} />
-      {/if}
-    </div>
-    <div class="lg:col-span-1">
-      {#if featuredProjects[3]}
-        <ProjectCard project={featuredProjects[3]} index={3} />
-      {/if}
-    </div>
-    <div class="lg:col-span-2 lg:row-span-2">
-      {#if sixPack}
-        <ProductCard product={sixPack} index={1} />
-      {/if}
-    </div>
-  </div>
+  {/if}
 </div>

@@ -18,26 +18,6 @@ export interface RepackExample {
 	};
 }
 
-export interface UXExamplePoint {
-	label: string;
-}
-
-export interface UXExampleVariant {
-	title: string;
-	points: UXExamplePoint[];
-}
-
-export interface UXExample {
-	position: {
-		x: string;
-		y: string;
-	};
-	size: 'sm' | 'md' | 'lg';
-	yOffset: number;
-	bad: UXExampleVariant;
-	good: UXExampleVariant;
-}
-
 
 export interface Testimonial {
 	quote: string;
@@ -57,12 +37,45 @@ export interface Product {
 	tech: string[];
 }
 
+// ======== PORTFOLIO ========
 
-export interface Project {
+interface ContentBase {
+	id: string;
 	title: string;
 	description: string;
-	image: string;
 	link: string;
-	status: string;
-	tech: string[];
+	image: string;
+	status: 'Coming Soon' | 'Alpha' | 'Beta' | 'Live' | 'In Development';
+	tech: (keyof typeof tools)[]; // This ensures we only use tools from our list
+}
+
+interface Feature {
+	title: string;
+	description: string;
+	icon?: LucideIcon;
+	demo?: string; // Optional link to feature demo
+}
+
+// Specific interfaces
+export interface Product extends ContentBase {
+	icon: LucideIcon;
+	longDescription: string;
+	features: Feature[];
+	meta?: {
+		launch?: string;
+		github?: string;
+		demo?: string;
+		stats?: {
+			label: string;
+			value: string;
+		}[];
+	};
+}
+
+export interface Project extends ContentBase {
+	category: 'simulation' | 'design' | 'visualization';
+	demo?: {
+		url: string;
+		instructions?: string;
+	};
 }
