@@ -5,7 +5,7 @@ import type { Testimonial } from '../types';
 
 export const testimonials: Testimonial[] = [
 	{
-		quote: "We grew revenue to $960k from $200k average thanks to Ivan's flash sale landing page and ad creative.",
+		quote: "We hit $960k/mo from $250k average thanks to Ivan's flash sale landing page and ad creative.",
 		author: "Tommy Joiner",
 		role: "Co-Founder",
 		company: "WordAgents",

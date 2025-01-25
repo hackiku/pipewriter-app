@@ -1,106 +1,86 @@
 <!-- src/lib/(space)/components/chute/Controls.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { RotateCcw, ChevronUp } from 'lucide-svelte';
+  import { RotateCcw } from 'lucide-svelte';
   import { chuteStore } from '../../stores/chuteStore';
   import { PHYSICS, PLANETS } from './physics';
   import { slide } from 'svelte/transition';
 
   export let startAnimation: () => void;
-  
-  let isOpen = false;
-  let viewportWidth: number;
+  let isOpen = true;
 
-  onMount(() => {
-    viewportWidth = window.innerWidth;
-    const handleResize = () => viewportWidth = window.innerWidth;
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  });
+  const PLANET_OPTIONS = [
+    { id: 'earth', icon: '🌍' },
+    { id: 'mars', icon: '🟠' },
+    { id: 'moon', icon: '🌕' }
+  ] as const;
 
-  $: isMobile = viewportWidth < 768;
+  function handlePlanetClick(planetId: string) {
+    if (planetId === $chuteStore.planet) {
+      isOpen = false;
+    } else if (planetId !== 'moon') {  // Moon disabled for now
+      chuteStore.setPlanet(planetId);
+    }
+  }
 </script>
 
-<div 
-  class="fixed right-4 lg:right-8 z-50 
-         {isMobile ? 'bottom-4' : 'top-1/2 -translate-y-1/2'}
-         transition-all duration-300"
->
-  <!-- Pull tab -->
-  <button
-    class="absolute -translate-x-1/2 cursor-pointer
-           {isMobile ? 'left-1/2 -top-3' : '-left-3 top-1/2 -translate-y-1/2'}
-           {isOpen ? 'rotate-0' : 'rotate-180'}"
-    on:click={() => isOpen = !isOpen}
-  >
-    <div class="relative">
-      <div class="absolute inset-0 bg-black/20 backdrop-blur-sm rounded-full" />
-      <div class="relative bg-white/10 hover:bg-white/20 
-                  border border-white/20 rounded-full p-1.5
-                  transition-colors duration-200">
-        <ChevronUp 
-          class="w-4 h-4 text-white/60
-                 {isMobile ? '' : '-rotate-90'}" 
-        />
-      </div>
-    </div>
-  </button>
-
-  <!-- Controls panel -->
+<div class="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex items-center gap-3">
+  <!-- Stats Panel -->
   {#if isOpen}
-    <div 
-      transition:slide={{ duration: 200 }}
+    <div
+      transition:slide|local={{ duration: 200 }}
       class="backdrop-blur-[2px] bg-black/20 
-             rounded-xl border border-white/10
-             shadow-lg overflow-hidden"
+             rounded-xl border border-white/10 shadow-lg"
     >
       <div class="p-4 font-mono text-sm text-white/60 space-y-2">
-        <!-- Stats -->
         <div>h = {$chuteStore.altitude.toFixed(0)}m</div>
         <div>v = {$chuteStore.velocity.toFixed(1)}m/s</div>
         <div>g = {PLANETS[$chuteStore.planet].gravity}m/s²</div>
-
-        <!-- Planet Selection & Reset -->
-        <div class="flex items-center gap-3 pt-2 border-t border-white/10">
-          <!-- Planet Buttons -->
-          <div class="flex gap-2">
-            {#each ['earth', 'mars'] as planet}
-              <button 
-                class="group p-2.5 rounded-lg transition-all
-                       relative overflow-hidden
-                       {$chuteStore.planet === planet ? 
-                         'bg-white/10 ring-2 ring-white/20' : 
-                         'hover:bg-white/5'}"
-                on:click={() => chuteStore.setPlanet(planet)}
-              >
-                <img 
-                  src={`/space/assets/${planet}.svg`}
-                  alt={planet}
-                  class="w-6 h-6 relative z-10 
-                         transition-transform duration-300
-                         group-hover:scale-110" 
-                />
-                <div class="absolute inset-0 opacity-0 
-                           group-hover:opacity-100
-                           bg-gradient-to-t
-                           from-white/5 to-transparent
-                           transition-opacity duration-300" />
-              </button>
-            {/each}
-          </div>
-
-          <!-- Reset Button -->
-          <button
-            class="p-2 rounded-lg text-white/60
-                   hover:text-white/90 hover:bg-white/10 
-                   hover:scale-110 active:scale-95 
-                   transition-all ml-auto"
-            on:click={startAnimation}
-          >
-            <RotateCcw class="w-5 h-5" />
-          </button>
-        </div>
+        
+        <button
+          class="mt-2 p-2 w-full rounded-lg 
+                 hover:bg-white/10 active:scale-95
+                 transition-all border-t border-white/10"
+          on:click={startAnimation}
+        >
+          <RotateCcw class="w-4 h-4 mx-auto text-white/60" />
+        </button>
       </div>
     </div>
   {/if}
+
+  <!-- Planet Column -->
+  <div class="flex flex-col gap-2">
+    {#if isOpen}
+      {#each PLANET_OPTIONS as planet}
+        <button
+          class="h-12 w-12 rounded-full relative
+                 {planet.id === $chuteStore.planet ? 'ring-2 ring-white/20' : ''}
+                 {planet.id === 'moon' ? 'opacity-50 cursor-not-allowed' : 'hover:scale-110'}
+                 bg-black/20 backdrop-blur-sm transition-all duration-200
+                 border border-white/10"
+          on:click={() => handlePlanetClick(planet.id)}
+        >
+          <span class="text-2xl">{planet.icon}</span>
+          <div class="absolute inset-0 rounded-full opacity-0 
+                      hover:opacity-100 transition-opacity
+                      bg-gradient-to-r from-white/5 to-transparent" />
+        </button>
+      {/each}
+    {:else}
+      <!-- Single Planet Button when closed -->
+      <button
+        class="h-12 w-12 rounded-full relative hover:scale-110
+               bg-black/20 backdrop-blur-sm transition-all duration-200
+               border border-white/10"
+        on:click={() => isOpen = true}
+      >
+        <span class="text-2xl">
+          {PLANET_OPTIONS.find(p => p.id === $chuteStore.planet)?.icon}
+        </span>
+        <div class="absolute inset-0 rounded-full opacity-0 
+                    hover:opacity-100 transition-opacity
+                    bg-gradient-to-r from-white/5 to-transparent" />
+      </button>
+    {/if}
+  </div>
 </div>

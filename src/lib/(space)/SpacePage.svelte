@@ -40,14 +40,14 @@
 	<span class="hidden 2xl:inline">3xl {1536}px</span>
 </div>
 
+<!-- Controls & Scene -->
 
 <main
-	class="flex flex-col relative min-h-screen overflow-x-clip
-             bg-zinc-300/40 dark:bg-zinc-950 text-foreground"
+class="flex flex-col relative min-h-screen overflow-x-clip
+bg-zinc-300/40 dark:bg-zinc-950 text-foreground"
 >
-	<!-- Controls & Scene -->
-	<!-- <Controls {startAnimation} /> -->
-	<!-- <Scene bind:startAnimation /> -->
+<Controls {startAnimation} />
+<Scene bind:startAnimation />
 
 	<!-- Hero Section -->
 	<section class="relative h-[90vh]">

@@ -31,5 +31,5 @@
 	<div class="mt-24 border-t border-opacity-60">
 		<h2 class="text-xl text-center">"Deploy in a weekend" they said</h2>
 	</div>
-	<!-- <ProjectsMarquee /> -->
+	<ProjectsMarquee />
 </div>
