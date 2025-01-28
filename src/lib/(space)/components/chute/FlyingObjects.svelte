@@ -1,13 +1,13 @@
-<!-- FlyingObjects.svelte - Simplified version that works -->
+<!-- src/lib/(space)/components/chute/FlyingObjects.svelte -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { gsap } from 'gsap';
+  import { VIEWPORT } from './coordinates';
   
-  export let targetX = '65vw';  // Chute position
-  export let targetY = '35vh';
-  export let velocity = 5;  // Base speed for animations
+  export let targetX: string;
+  export let targetY: string;
+  export let velocity = 5;
 
-  // Object Definitions - Keep same objects
   const OBJECTS = [
     { path: '/space/assets/cloud.svg', scale: 0.6, speed: 1.2 },
     { path: '/space/assets/ingenuity.svg', scale: 0.4, speed: 1 },
@@ -22,23 +22,23 @@
 
   function animateObject(element: HTMLElement, index: number) {
     const obj = OBJECTS[index];
-    const angle = (index / OBJECTS.length) * Math.PI * 2;
+    // Calculate lateral offset from target
+    const lateralOffset = (Math.random() - 0.5) * 30; // ±15vw from target
     
-    // Start from planet's circumference
-    const radius = Math.min(window.innerWidth, window.innerHeight);
-    const startX = Math.cos(angle) * radius;
-    const startY = Math.sin(angle) * radius + radius; // Offset to place planet below
-
+    // Parse target position to numbers for calculations
+    const targetXNum = parseFloat(targetX);
+    const startX = targetXNum + lateralOffset;
+    
     gsap.fromTo(element,
       {
-        x: startX,
-        y: startY,
+        x: `${startX}vw`,
+        y: '120vh', // Start below viewport
         scale: obj.scale,
         opacity: 0
       },
       {
-        x: targetX,
-        y: targetY,
+        x: `${startX}vw`, // Maintain X position
+        y: '-20vh',      // End above viewport
         opacity: 0.8,
         duration: 15 / (velocity * obj.speed),
         ease: 'none',
@@ -60,13 +60,6 @@
     }
   }
 
-	const VISUAL = {
-    baseOpacity: 1,  // Increased from 0.8
-    brightness: 100, // Adjusted from 105
-    shadowSize: 'lg'
-  } as const;
-
-
   onMount(() => {
     startAnimations();
   });
@@ -76,15 +69,19 @@
   });
 </script>
 
-<div class="absolute inset-0 h-screen overflow-hidden">
+<div class="fixed inset-0 h-screen overflow-hidden pointer-events-none">
   <div bind:this={container} class="relative h-full">
     {#each OBJECTS as object, i}
       <img
         src={object.path}
         alt={`Flying object ${i + 1}`}
-        class="absolute w-16 md:w-20 lg:w-24 transform-gpu 
-               drop-shadow-lg opacity-80"
-        style="z-index: {10 + i};"
+        class="absolute transform-gpu drop-shadow-xl"
+        style="
+          height: {8 * object.scale}vh;
+          width: auto;
+          z-index: {10 + i};
+          opacity: 0.8;
+        "
       />
     {/each}
   </div>

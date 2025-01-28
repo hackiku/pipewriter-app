@@ -4,10 +4,17 @@
   import { gsap } from 'gsap';
   import { chuteStore } from '../../stores/chuteStore';
   import { PHYSICS } from './physics';
+  import { VIEWPORT } from './coordinates';
   
   export let startAnimation: () => void;
+  
   let parachutist: HTMLImageElement;
   let ticker: gsap.core.Tween;
+  let viewportWidth = 0;
+  
+  $: size = viewportWidth < 768 
+    ? VIEWPORT.parachutist.size * 0.8  // Smaller on mobile
+    : VIEWPORT.parachutist.size;       // Base size in vh
   
   let currentState = {
     time: 0,
@@ -37,10 +44,10 @@
       onRepeat: updatePhysics
     });
 
-    // More natural parachute sway
+    // Subtle sway animation using viewport units
     gsap.to(parachutist, {
-      rotation: "random(-3,3)",
-      duration: "random(2,4)",
+      rotation: "random(-2,2)",
+      duration: "random(3,5)",
       ease: "sine.inOut",
       yoyo: true,
       repeat: -1
@@ -50,6 +57,14 @@
   onMount(() => {
     startAnimation = startPhysics;
     startPhysics();
+    viewportWidth = window.innerWidth;
+    
+    const handleResize = () => {
+      viewportWidth = window.innerWidth;
+    };
+    
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
   });
 
   onDestroy(() => {
@@ -57,15 +72,22 @@
   });
 </script>
 
-<div class="relative w-full">
-  <!-- Parachutist -->
+<div class="relative transform-gpu">
   <div class="relative z-20 flex justify-center">
     <img
       bind:this={parachutist}
       src="/space/assets/paraglider.svg"
       alt="Paraglider"
-      class="w-24 md:w-32 lg:w-40 transform-gpu drop-shadow-xl
-             transition-transform duration-300"
+      class="transform-gpu will-change-transform transition-transform duration-300
+             drop-shadow-xl filter brightness-110"
+      style="height: {size}vh; width: auto; transform-origin: center center;"
     />
   </div>
 </div>
+
+<style>
+  img {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+  }
+</style>

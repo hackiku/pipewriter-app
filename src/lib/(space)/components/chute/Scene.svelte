@@ -1,6 +1,7 @@
 <!-- src/lib/(space)/components/chute/Scene.svelte -->
 <script lang="ts">
   import { onMount } from "svelte";
+  import { VIEWPORT, interpolatePosition } from "./coordinates";
   import Parachutist from "./Parachutist.svelte";
   import PlanetGrid from "./PlanetGrid.svelte";
   import FlyingObjects from "./FlyingObjects.svelte";
@@ -10,15 +11,24 @@
   export let startAnimation: () => void;
 
   let sceneLoaded = false;
-
-  // Compute opacity based on controls state and scroll position
+  
+  // Compute scene opacity based on controls state
   $: sceneOpacity = $spaceStore.isControlsOpen 
     ? 1 
     : Math.max(0.1, 1 - ($spaceStore.scrollY / 800));
 
-  $: chutePosition = {
-    x: "calc(65vw)",
-    y: "calc(35vh)",
+  // Animation progress drives all movement
+  $: progress = Math.min(1, $spaceStore.scrollY / 800);
+
+  // Planet position interpolation with easing
+  $: planetPosition = {
+    x: interpolatePosition(VIEWPORT.planet.initial.x, VIEWPORT.planet.final.x, progress),
+    y: interpolatePosition(VIEWPORT.planet.initial.y, VIEWPORT.planet.final.y, Math.pow(progress, 1.5)),
+    scale: interpolatePosition(
+      VIEWPORT.planet.initial.scale,
+      VIEWPORT.planet.final.scale,
+      Math.pow(progress, 1.2)
+    )
   };
 
   onMount(() => {
@@ -26,28 +36,38 @@
   });
 </script>
 
-<div class="fixed inset-0 pointer-events-none"
-     style="opacity: {sceneOpacity}; transition: opacity 200ms ease-out;"
+<div 
+  class="fixed inset-0 w-screen h-screen overflow-hidden pointer-events-none"
+  style="opacity: {sceneOpacity}; transition: opacity 200ms ease-out;"
 >
-  <!-- Planet Background -->
   {#if sceneLoaded}
-    <div class="absolute w-full aspect-square origin-bottom">
-      <PlanetGrid />
-    </div>
+    <!-- Planet Grid with corrected positioning -->
+    <PlanetGrid 
+      progress={progress}
+      position={planetPosition}
+    />
 
-    <!-- Flying Objects -->
+    <!-- Flying Objects with viewport units -->
     <FlyingObjects
-      targetX={chutePosition.x}
-      targetY={chutePosition.y}
+      targetX="{VIEWPORT.parachutist.x}vw"
+      targetY="{VIEWPORT.parachutist.y}vh"
       velocity={$chuteStore.velocity}
     />
 
-    <!-- Parachutist -->
+    <!-- Parachutist with consistent viewport positioning -->
     <div
-      class="absolute transition-all duration-300"
-      style:transform="translate({chutePosition.x}, {chutePosition.y})"
+      class="absolute transform-gpu will-change-transform transition-transform duration-300"
+      style="transform: translate({VIEWPORT.parachutist.x}vw, {VIEWPORT.parachutist.y}vh)"
     >
       <Parachutist {startAnimation} />
     </div>
   {/if}
 </div>
+
+<style>
+  div {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+    will-change: transform, opacity;
+  }
+</style>
