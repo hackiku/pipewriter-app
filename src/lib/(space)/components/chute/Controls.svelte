@@ -18,9 +18,9 @@
   }
 
   const PLANET_OPTIONS = [
-    { id: 'earth', icon: '🌍' },
-    { id: 'mars', icon: '🟠' },
-    { id: 'moon', icon: '🌕' }
+    { id: 'earth', icon: '🌍', label: 'Earth' },
+    { id: 'mars', icon: '🟠', label: 'Mars' },
+    { id: 'moon', icon: '🌕', label: 'Moon (Soon)' }
   ] as const;
 
   function handlePlanetClick(planetId: string) {
@@ -31,15 +31,19 @@
 
   function handleReset() {
     chuteStore.reset();
-    if (startAnimation) startAnimation();
+    if (startAnimation) {
+      startAnimation();
+      chuteStore.setPlaying(true);
+    }
   }
 
   function handlePlayPause() {
-    chuteStore.togglePlay();
     if ($chuteStore.isPlaying) {
-      if (startAnimation) startAnimation();
+      pauseAnimation?.();
+      chuteStore.setPlaying(false);
     } else {
-      if (pauseAnimation) pauseAnimation();
+      startAnimation?.();
+      chuteStore.setPlaying(true);
     }
   }
 
@@ -56,8 +60,9 @@
       transition:slide|local={{ duration: 200, axis: 'y' }}
     >
       {#each PLANET_OPTIONS as planet}
+        <!-- Planet Button with Tooltip -->
         <button
-          class="h-10 w-10 rounded-full relative
+          class="group relative h-10 w-10 rounded-full
                  {planet.id === $chuteStore.planet ? 'opacity-100' : 'opacity-50'}
                  {planet.id === 'moon' ? 'cursor-not-allowed' : 'hover:opacity-100'}
                  bg-black/20 backdrop-blur-sm transition-all duration-200
@@ -65,6 +70,14 @@
           on:click={() => handlePlanetClick(planet.id)}
         >
           <span class="text-xl">{planet.icon}</span>
+          
+          <!-- Tooltip -->
+          <div class="absolute -top-8 left-1/2 -translate-x-1/2 
+                      opacity-0 group-hover:opacity-100 transition-opacity
+                      whitespace-nowrap text-sm px-2 py-1 rounded
+                      bg-black/40 backdrop-blur-sm">
+            {planet.label}
+          </div>
         </button>
       {/each}
     </div>
@@ -74,13 +87,14 @@
       transition:slide|local={{ duration: 200, axis: 'y' }}
       class="backdrop-blur-[2px] bg-black/20 
              rounded-xl border border-white/10 shadow-lg
-             w-[200px] relative"
+             w-[200px] relative overflow-hidden"
     >
       <!-- Control Buttons -->
       <div class="absolute top-2 right-2 flex gap-2">
         <button
           class="p-2 rounded-lg hover:bg-white/10 
-                 active:scale-95 transition-all"
+                 active:scale-95 transition-all
+                 disabled:opacity-50 disabled:cursor-not-allowed"
           on:click={handlePlayPause}
         >
           {#if $chuteStore.isPlaying}
@@ -98,18 +112,27 @@
         </button>
       </div>
 
-      <!-- Stats Panel -->
-      <div class="p-4 pt-12 font-mono text-sm text-white/60">
-        <div class="space-y-2">
-          <div>h = {$chuteStore.altitude.toFixed(0)}m</div>
-          <div>v = {$chuteStore.velocity.toFixed(1)}m/s</div>
-          <div>g = {PLANETS[$chuteStore.planet].gravity}m/s²</div>
+      <!-- Stats Panel with Labels -->
+      <div class="p-4 pt-12 font-mono text-sm">
+        <div class="space-y-1.5">
+          <div class="flex justify-between">
+            <span class="text-white/40">Altitude</span>
+            <span class="text-white/80">{$chuteStore.altitude.toFixed(0)}m</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-white/40">Velocity</span>
+            <span class="text-white/80">{$chuteStore.velocity.toFixed(1)}m/s</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-white/40">Gravity</span>
+            <span class="text-white/80">{PLANETS[$chuteStore.planet].gravity}m/s²</span>
+          </div>
         </div>
       </div>
     </div>
   {/if}
 
-  <!-- Toggle Button - Always Visible -->
+  <!-- Toggle Button -->
   <button
     class="h-10 w-10 rounded-lg relative
            bg-black/20 backdrop-blur-sm

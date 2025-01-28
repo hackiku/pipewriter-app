@@ -1,8 +1,8 @@
 <!-- src/lib/(space)/SpacePage.svelte -->
 <script lang="ts">
+  import { onMount } from "svelte";
   import { Rocket, Stars } from "lucide-svelte";
   // import { spaceStore } from "./stores/spaceStore";
-
   import SpaceNav from "./components/nav/SpaceNav.svelte";
 
   // chute
@@ -21,6 +21,7 @@
   import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
 
   let startAnimation: () => void;
+  let pauseAnimation: () => void;
 </script>
 
 <SpaceNav />
@@ -36,15 +37,15 @@
 </div>
 
 <div class="__fixed inset-0 z-0 w-full h-screen pointer-events-none
-	border overflow-shidden border-red-800/30">
-	<Scene bind:startAnimation />
+	border overflow-hidden border-red-800/30">
+	<Scene bind:startAnimation bind:pauseAnimation/>
 </div>
 
 
 <main class="flex flex-col relative min-h-screen overflow-x-clip bg-zinc-300/40 dark:bg-zinc-950 text-foreground">
   <!-- <Scene bind:startAnimation /> -->
-  <Controls {startAnimation} />
-  
+  <Controls {startAnimation} {pauseAnimation} />
+
   <!-- Hero Section -->
   <section class="relative h-[90vh]">
     <div class="px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 h-[65vh] grid lg:grid-cols-2 items-start">

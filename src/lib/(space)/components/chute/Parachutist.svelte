@@ -1,7 +1,6 @@
 <!-- src/lib/(space)/components/chute/Parachutist.svelte -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import { gsap } from 'gsap';
   import { chuteStore } from '../../stores/chuteStore';
   import { PHYSICS } from './physics';
   import { VIEWPORT } from './coordinates';
@@ -10,61 +9,56 @@
   export let pauseAnimation: () => void;
   
   let parachutist: HTMLImageElement;
-  let ticker: gsap.core.Tween;
+  let animationFrame: number;
   let viewportWidth = 0;
+  let lastTime = 0;
+  let elapsedTime = 0;
   
   $: size = viewportWidth < 768 
     ? VIEWPORT.parachutist.size * 0.8
     : VIEWPORT.parachutist.size;
-  
-  let currentState = {
-    time: 0,
-    velocity: 0,
-    altitude: PHYSICS.INITIAL_ALTITUDE
-  };
 
-  function updatePhysics() {
+  function updatePhysics(timestamp: number) {
+    if (!lastTime) lastTime = timestamp;
+    const deltaTime = timestamp - lastTime;
+    lastTime = timestamp;
+
     if (!$chuteStore.isPlaying) return;
     
-    currentState.time = (currentState.time + 0.1) % 1;
-    const state = PHYSICS.calculateState(
-      currentState.time * PHYSICS.ANIMATION_DURATION, 
-      $chuteStore.planet
-    );
+    // Update total elapsed time
+    elapsedTime += deltaTime;
+    if (elapsedTime >= PHYSICS.ANIMATION_DURATION) {
+      elapsedTime = 0;
+    }
     
-    currentState.velocity = state.velocity;
-    currentState.altitude = state.altitude;
+    // Calculate physics state
+    const state = PHYSICS.calculateState(elapsedTime, $chuteStore.planet);
     
+    // Update store with new values
     chuteStore.updateStats(state.altitude, state.velocity);
+
+    // Request next frame if still playing
+    if ($chuteStore.isPlaying) {
+      animationFrame = requestAnimationFrame(updatePhysics);
+    }
   }
 
   function startPhysics() {
-    if (ticker) ticker.kill();
-    
-    currentState = {
-      time: 0,
-      velocity: 0,
-      altitude: PHYSICS.INITIAL_ALTITUDE
-    };
-    
-    ticker = gsap.to({}, {
-      duration: 0.1,
-      repeat: -1,
-      onRepeat: updatePhysics
-    });
-
-    gsap.to(parachutist, {
-      rotation: "random(-2,2)",
-      duration: "random(3,5)",
-      ease: "sine.inOut",
-      yoyo: true,
-      repeat: -1
-    });
-
+    lastTime = 0;
     chuteStore.setPlaying(true);
+    animationFrame = requestAnimationFrame(updatePhysics);
+
+    // Add smooth sway animation
+    if (parachutist) {
+      parachutist.style.animation = 'sway 5s ease-in-out infinite alternate';
+    }
   }
 
   function pausePhysics() {
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+      animationFrame = undefined;
+    }
     chuteStore.setPlaying(false);
   }
 
@@ -82,7 +76,9 @@
   });
 
   onDestroy(() => {
-    if (ticker) ticker.kill();
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
   });
 </script>
 
@@ -100,6 +96,11 @@
 </div>
 
 <style>
+  @keyframes sway {
+    0% { transform: rotate(-2deg) translateX(-5px); }
+    100% { transform: rotate(2deg) translateX(5px); }
+  }
+
   img {
     backface-visibility: hidden;
     transform-style: preserve-3d;

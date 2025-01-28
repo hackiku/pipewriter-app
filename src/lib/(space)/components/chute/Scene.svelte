@@ -9,18 +9,21 @@
   import { spaceStore } from "../../stores/spaceStore";
 
   export let startAnimation: () => void;
+  export let pauseAnimation: () => void;
 
   let sceneLoaded = false;
+  let parachuteStartAnimation: () => void;
+  let parachutePauseAnimation: () => void;
   
-  // Compute scene opacity based on controls state and scroll
+  // Scene opacity based on controls and scroll
   $: sceneOpacity = $spaceStore.isControlsOpen 
     ? 1 
     : Math.max(0.2, 1 - ($spaceStore.scrollY / 800));
 
-  // Animation progress drives all movement
+  // Animation progress based on scroll position
   $: progress = Math.min(1, $spaceStore.scrollY / 800);
 
-  // Planet position interpolation with smoother easing
+  // Planet position calculations using viewport coordinates
   $: planetPosition = {
     x: interpolatePosition(VIEWPORT.planet.initial.x, VIEWPORT.planet.final.x, progress),
     y: interpolatePosition(VIEWPORT.planet.initial.y, VIEWPORT.planet.final.y, Math.pow(progress, 1.5)),
@@ -31,14 +34,14 @@
     )
   };
 
-  // Auto-start animation on mount
+  // Forward animation controls
+  $: {
+    if (parachuteStartAnimation) startAnimation = parachuteStartAnimation;
+    if (parachutePauseAnimation) pauseAnimation = parachutePauseAnimation;
+  }
+
   onMount(() => {
     sceneLoaded = true;
-    // Short delay to ensure components are ready
-    setTimeout(() => {
-      if (startAnimation) startAnimation();
-      chuteStore.setAnimating(true);
-    }, 100);
   });
 </script>
 
@@ -47,19 +50,32 @@
   style="opacity: {sceneOpacity}; transition: opacity 200ms ease-out;"
 >
   {#if sceneLoaded}
-    <PlanetGrid {progress} position={planetPosition} />
+    <!-- Planet Grid - Background Layer -->
+    <div class="absolute inset-0" style="z-index: 0;">
+      <PlanetGrid {progress} position={planetPosition} />
+    </div>
 
-    <FlyingObjects
-      targetX="{VIEWPORT.parachutist.x}vw"
-      targetY="{VIEWPORT.parachutist.y}vh"
-      velocity={$chuteStore.velocity}
-    />
+    <!-- Flying Objects - Middle Layer -->
+    <div class="absolute inset-0" style="z-index: 10;">
+      <FlyingObjects
+        targetX="{VIEWPORT.parachutist.x}vw"
+        targetY="{VIEWPORT.parachutist.y}vh"
+        velocity={$chuteStore.velocity}
+      />
+    </div>
 
+    <!-- Parachutist - Top Layer -->
     <div
       class="absolute transform-gpu will-change-transform transition-transform duration-300"
-      style="transform: translate({VIEWPORT.parachutist.x}vw, {VIEWPORT.parachutist.y}vh)"
+      style="
+        transform: translate({VIEWPORT.parachutist.x}vw, {VIEWPORT.parachutist.y}vh);
+        z-index: 20;
+      "
     >
-      <Parachutist bind:startAnimation />
+      <Parachutist 
+        bind:startAnimation={parachuteStartAnimation}
+        bind:pauseAnimation={parachutePauseAnimation}
+      />
     </div>
   {/if}
 </div>

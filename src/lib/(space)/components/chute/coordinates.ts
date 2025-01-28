@@ -9,24 +9,16 @@ export const VIEWPORT = {
 
 	planet: {
 		initial: {
-			scale: 0.8,       // Increased initial scale
-			x: 30,            // Shifted to right side
-			y: 15,           // Lower initial position
+			scale: 1.2,       // Larger initial scale for visibility
+			x: 30,            // Centered horizontally
+			y: 20,            // Start higher in viewport
 		},
 		final: {
 			scale: 2.8,       // Larger final scale
-			x: 0,             // Centered at end
-			y: 0,             // Bottom aligned
+			x: 0,             // Center at end
+			y: -10,           // End position below viewport
 		}
 	},
-
-	flight: {
-		radius: 100,
-		speed: {
-			min: 0.8,
-			max: 1.2
-		}
-	}
 } as const;
 
 export function interpolatePosition(

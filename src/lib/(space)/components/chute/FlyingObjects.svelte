@@ -1,86 +1,44 @@
 <!-- src/lib/(space)/components/chute/FlyingObjects.svelte -->
 <script lang="ts">
-  import { onMount, onDestroy } from 'svelte';
-  import { gsap } from 'gsap';
-  import { VIEWPORT } from './coordinates';
+  import { onMount } from 'svelte';
+  import { chuteStore } from '../../stores/chuteStore';
   
   export let targetX: string;
   export let targetY: string;
   export let velocity = 5;
 
   const OBJECTS = [
-    { path: '/space/assets/cloud.svg', scale: 0.6, speed: 1.2 },
-    { path: '/space/assets/ingenuity.svg', scale: 0.4, speed: 1 },
-    { path: '/space/assets/investor.svg', scale: 0.4, speed: 0.9 },
-    { path: '/space/assets/starman.png', scale: 0.35, speed: 0.8 },
-    { path: '/space/assets/cloud.svg', scale: 0.5, speed: 1.1 },
-    { path: '/space/assets/ingenuity.svg', scale: 0.35, speed: 1 }
+    { path: '/space/assets/cloud.svg', scale: 0.6 },
+    { path: '/space/assets/ingenuity.svg', scale: 0.4 },
+    { path: '/space/assets/investor.svg', scale: 0.4 },
+    { path: '/space/assets/starman.png', scale: 0.35 },
+    { path: '/space/assets/cloud.svg', scale: 0.5 },
+    { path: '/space/assets/ingenuity.svg', scale: 0.35 }
   ] as const;
 
-  let container: HTMLDivElement;
-  let mainTl: gsap.core.Timeline;
+  // Generate random positions for each object
+  const positions = OBJECTS.map(() => ({
+    x: (Math.random() - 0.5) * 40,  // ±20vw from target
+    delay: Math.random() * 3        // Stagger the animations
+  }));
 
-  function animateObject(element: HTMLElement, index: number) {
-    const obj = OBJECTS[index];
-    // Calculate lateral offset from target
-    const lateralOffset = (Math.random() - 0.5) * 30; // ±15vw from target
-    
-    // Parse target position to numbers for calculations
-    const targetXNum = parseFloat(targetX);
-    const startX = targetXNum + lateralOffset;
-    
-    gsap.fromTo(element,
-      {
-        x: `${startX}vw`,
-        y: '120vh', // Start below viewport
-        scale: obj.scale,
-        opacity: 0
-      },
-      {
-        x: `${startX}vw`, // Maintain X position
-        y: '-20vh',      // End above viewport
-        opacity: 0.8,
-        duration: 15 / (velocity * obj.speed),
-        ease: 'none',
-        repeat: -1,
-        delay: index * (2 / OBJECTS.length)
-      }
-    );
-  }
-
-  function startAnimations() {
-    if (mainTl) mainTl.kill();
-    mainTl = gsap.timeline();
-    
-    const elements = container?.children;
-    if (elements) {
-      Array.from(elements).forEach((el, i) => {
-        animateObject(el as HTMLElement, i);
-      });
-    }
-  }
-
-  onMount(() => {
-    startAnimations();
-  });
-
-  onDestroy(() => {
-    if (mainTl) mainTl.kill();
-  });
+  $: animationDuration = Math.max(5, 15 / Math.max(velocity, 1));
 </script>
 
 <div class="fixed inset-0 h-screen overflow-hidden pointer-events-none">
-  <div bind:this={container} class="relative h-full">
-    {#each OBJECTS as object, i}
+  <div class="relative h-full">
+    {#each OBJECTS.map((obj, i) => ({ ...obj, ...positions[i] })) as { path, scale, x, delay }, i}
       <img
-        src={object.path}
+        src={path}
         alt={`Flying object ${i + 1}`}
-        class="absolute transform-gpu drop-shadow-xl"
+        class="absolute transform-gpu drop-shadow-xl animate-float"
         style="
-          height: {8 * object.scale}vh;
+          height: {8 * scale}vh;
           width: auto;
+          left: calc({targetX} + {x}vw);
+          animation-duration: {animationDuration}s;
+          animation-delay: {delay}s;
           z-index: {10 + i};
-          opacity: 0.8;
         "
       />
     {/each}
@@ -88,7 +46,25 @@
 </div>
 
 <style>
-  img {
+  @keyframes float {
+    from { 
+      transform: translateY(120vh);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.8;
+    }
+    90% {
+      opacity: 0.8;
+    }
+    to { 
+      transform: translateY(-20vh);
+      opacity: 0;
+    }
+  }
+
+  .animate-float {
+    animation: float linear infinite;
     backface-visibility: hidden;
     transform-style: preserve-3d;
     will-change: transform;
