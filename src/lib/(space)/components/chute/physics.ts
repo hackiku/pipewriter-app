@@ -22,53 +22,63 @@ export const PLANETS = {
 
 export const PHYSICS = {
 	INITIAL_ALTITUDE: 35000,
-	FINAL_ALTITUDE: 100,     // Lower final altitude for intersection effect
-	ANIMATION_DURATION: 45000, // Longer animation duration
+	FINAL_ALTITUDE: 100,
+	ANIMATION_DURATION: 45000,
+
+	// Cache for performance
+	private: {
+		lastProgress: -1,
+		lastState: null as any
+	},
 
 	calculateState(elapsed: number, planet: keyof typeof PLANETS) {
 		const progress = Math.min(elapsed / this.ANIMATION_DURATION, 1);
+
+		// Return cached result if progress hasn't changed significantly
+		if (Math.abs(progress - this.private.lastProgress) < 0.001 && this.private.lastState) {
+			return this.private.lastState;
+		}
+
 		const planetData = PLANETS[planet];
 
-		// Enhanced easing for more dramatic landing
-		const easeOutQuart = (x: number) => {
-			const p = 1 - x;
-			return 1 - (p < 0.5
-				? Math.pow(2 * p, 3)
-				: 1 - Math.pow(2 * (1 - p), 3) / 2);
-		};
-
+		// Enhanced easing curve for smoother animation
+		const easeOutQuart = (x: number) => 1 - Math.pow(1 - x, 4);
 		const altitudeProgress = easeOutQuart(progress);
+
+		// Calculate altitude with smoother interpolation
 		const altitude = this.INITIAL_ALTITUDE +
 			(this.FINAL_ALTITUDE - this.INITIAL_ALTITUDE) * altitudeProgress;
 
-		// Velocity calculation with smoother transitions
+		// Optimized velocity calculation
 		let velocity;
-		if (progress < 0.1) {
-			// Initial acceleration
-			velocity = planetData.terminalVelocity * (progress / 0.1);
-		} else if (progress > 0.9) {
-			// Final dramatic deceleration
-			const decelProgress = (1 - (progress - 0.9) / 0.1);
-			velocity = planetData.terminalVelocity * Math.pow(decelProgress, 2);
+		const p = progress;
+		if (p < 0.1) {
+			velocity = planetData.terminalVelocity * (p / 0.1);
+		} else if (p > 0.9) {
+			velocity = planetData.terminalVelocity * Math.pow(1 - (p - 0.9) / 0.1, 2);
 		} else {
-			// Terminal velocity with atmospheric effects
 			const baseVelocity = planetData.terminalVelocity;
-			const variation = Math.sin(progress * Math.PI * 8) * (baseVelocity * 0.1);
+			// Use cheaper sin approximation for variation
+			const variation = (Math.sin(p * 25.13) * 0.1) * baseVelocity;
 			velocity = (baseVelocity + variation) *
 				(planetData.airDensity / PLANETS.earth.airDensity * 0.5 + 0.5);
 		}
 
-		// Scale calculation matching grid visuals
+		// Optimized scale calculation
 		const scaleProgress = Math.pow(progress, 1.2);
 		const scale = VIEWPORT.planet.initial.scale +
 			(VIEWPORT.planet.final.scale - VIEWPORT.planet.initial.scale) *
 			scaleProgress * planetData.scaleMultiplier;
 
-		return {
+		// Cache the result
+		this.private.lastProgress = progress;
+		this.private.lastState = {
 			altitude,
 			velocity,
 			scale,
 			progress
 		};
+
+		return this.private.lastState;
 	}
 };

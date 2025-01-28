@@ -2,58 +2,56 @@
 <script lang="ts">
   import { chuteStore } from '../../stores/chuteStore';
   import { VIEWPORT } from './coordinates';
+  import { PLANETS } from './physics';
 
-  export let progress = 0;
   export let position: { x: number; y: number; scale: number };
   
-  $: gridColor = $chuteStore.planet === 'earth' ? '#4299E1' : '#ED8936';
+  $: planetData = PLANETS[$chuteStore.planet];
+  $: planetColor = planetData.color;
   
-  const GRID = {
-    baseSize: 140,      // Base size in vh units
-    opacity: 0.15       // Background opacity
+  const PLANET = {
+    baseSize: 80,       // Smaller initial size
+    opacity: 0.12,
+    glowOpacity: 0.05,
+    glowSize: 1.15,     // Glow effect scale
+    finalScale: 3.5     // Much larger final size for dramatic effect
   };
 
-  $: size = GRID.baseSize * position.scale;
-  
-  // Debug info
-  $: debugInfo = {
-    size: size.toFixed(1) + 'vh',
-    pos: `x:${position.x.toFixed(1)} y:${position.y.toFixed(1)}`,
-    scale: position.scale.toFixed(2),
-    progress: (progress * 100).toFixed(0) + '%'
-  };
+  // Calculate actual size with smooth scaling
+  $: size = PLANET.baseSize * (position.scale * PLANET.finalScale) * (planetData?.scaleMultiplier || 1);
+  $: glowSize = size * PLANET.glowSize;
 </script>
 
 <!-- Planet Container -->
 <div 
-  class="absolute left-1/2 top-1/2 transform-gpu"
+  class="absolute left-1/2 transform-gpu"
   style="
-    width: {size}vh;
-    height: {size}vh;
-    transform: translate(-50%, -50%) 
-               translate({position.x}vw, {position.y}vh)
-               perspective(1400px) 
-               rotateX(60deg);
-    transform-origin: center center;
+    width: {glowSize}vh;
+    height: {glowSize}vh;
+    bottom: {position.y}vh;
+    transform: translate(-50%, 50%);
   "
 >
-  <!-- Debug Info -->
-  <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-8
-              font-mono text-xs text-foreground/20 whitespace-pre text-center z-10">
-    size: {debugInfo.size}
-    pos: {debugInfo.pos}
-    scale: {debugInfo.scale}
-    prog: {debugInfo.progress}
-  </div>
-
-  <!-- Planet Circle -->
+  <!-- Glow Effect -->
   <div 
-    class="absolute inset-0 rounded-full border transform-gpu"
+    class="absolute inset-0 rounded-full blur-xl transform-gpu"
     style="
-      background-color: {gridColor};
-      opacity: {GRID.opacity};
-      border-color: {gridColor};
-      border-opacity: 0.3;
+      background-color: {planetColor};
+      opacity: {PLANET.glowOpacity};
+    "
+  />
+  
+  <!-- Main Planet Circle -->
+  <div 
+    class="absolute rounded-full transform-gpu"
+    style="
+      top: {(glowSize - size) / 2}vh;
+      left: {(glowSize - size) / 2}vh;
+      width: {size}vh;
+      height: {size}vh;
+      background-color: {planetColor};
+      opacity: {PLANET.opacity};
+      border: 1px solid {planetColor};
     "
   />
 </div>

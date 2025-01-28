@@ -14,9 +14,10 @@
   let lastTime = 0;
   let elapsedTime = 0;
   
+  // Increase base size and add more dramatic mobile scaling
   $: size = viewportWidth < 768 
-    ? VIEWPORT.parachutist.size * 0.8
-    : VIEWPORT.parachutist.size;
+    ? VIEWPORT.parachutist.size * 1.2  // 20% larger on mobile
+    : VIEWPORT.parachutist.size * 1.5;  // 50% larger on desktop
 
   function updatePhysics(timestamp: number) {
     if (!lastTime) lastTime = timestamp;
@@ -25,19 +26,14 @@
 
     if (!$chuteStore.isPlaying) return;
     
-    // Update total elapsed time
     elapsedTime += deltaTime;
     if (elapsedTime >= PHYSICS.ANIMATION_DURATION) {
       elapsedTime = 0;
     }
     
-    // Calculate physics state
     const state = PHYSICS.calculateState(elapsedTime, $chuteStore.planet);
-    
-    // Update store with new values
     chuteStore.updateStats(state.altitude, state.velocity);
 
-    // Request next frame if still playing
     if ($chuteStore.isPlaying) {
       animationFrame = requestAnimationFrame(updatePhysics);
     }
@@ -47,11 +43,6 @@
     lastTime = 0;
     chuteStore.setPlaying(true);
     animationFrame = requestAnimationFrame(updatePhysics);
-
-    // Add smooth sway animation
-    if (parachutist) {
-      parachutist.style.animation = 'sway 5s ease-in-out infinite alternate';
-    }
   }
 
   function pausePhysics() {
@@ -89,16 +80,27 @@
       src="/space/assets/paraglider.svg"
       alt="Paraglider"
       class="transform-gpu will-change-transform transition-transform duration-300
-             drop-shadow-xl filter brightness-110"
+             drop-shadow-xl filter brightness-110 animate-float"
       style="height: {size}vh; width: auto; transform-origin: center center;"
     />
   </div>
 </div>
 
 <style>
-  @keyframes sway {
-    0% { transform: rotate(-2deg) translateX(-5px); }
-    100% { transform: rotate(2deg) translateX(5px); }
+  @keyframes float {
+    0% { 
+      transform: rotate(-3deg) translateX(-8px) translateY(-4px);
+    }
+    50% {
+      transform: rotate(0deg) translateX(0px) translateY(4px);
+    }
+    100% { 
+      transform: rotate(3deg) translateX(8px) translateY(-4px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
   }
 
   img {

@@ -2,69 +2,91 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   import { chuteStore } from '../../stores/chuteStore';
+  import { fade, fly } from 'svelte/transition';
   
   export let targetX: string;
   export let targetY: string;
-  export let velocity = 5;
-
+  
   const OBJECTS = [
-    { path: '/space/assets/cloud.svg', scale: 0.6 },
-    { path: '/space/assets/ingenuity.svg', scale: 0.4 },
-    { path: '/space/assets/investor.svg', scale: 0.4 },
-    { path: '/space/assets/starman.png', scale: 0.35 },
-    { path: '/space/assets/cloud.svg', scale: 0.5 },
-    { path: '/space/assets/ingenuity.svg', scale: 0.35 }
+    { path: '/space/assets/cloud.svg', scale: 0.6, speed: 1.2, offset: 15 },
+    { path: '/space/assets/ingenuity.svg', scale: 0.4, speed: 1, offset: -20 },
+    { path: '/space/assets/investor.svg', scale: 0.4, speed: 0.9, offset: 25 },
+    { path: '/space/assets/starman.png', scale: 0.35, speed: 0.8, offset: -15 },
+    { path: '/space/assets/cloud.svg', scale: 0.5, speed: 1.1, offset: 20 }
   ] as const;
 
-  // Generate random positions for each object
-  const positions = OBJECTS.map(() => ({
-    x: (Math.random() - 0.5) * 40,  // ±20vw from target
-    delay: Math.random() * 3        // Stagger the animations
-  }));
+  let activeObjects: Array<{ 
+    id: number;
+    x: number;
+    path: string;
+    scale: number;
+    speed: number;
+  }> = [];
 
-  $: animationDuration = Math.max(5, 15 / Math.max(velocity, 1));
-</script>
+  function createObject(index: number) {
+    const obj = OBJECTS[index % OBJECTS.length];
+    const randomOffset = (Math.random() - 0.5) * 30; // ±15vw
+    
+    return {
+      id: Date.now() + Math.random(),
+      x: parseFloat(targetX) + obj.offset + randomOffset,
+      path: obj.path,
+      scale: obj.scale,
+      speed: obj.speed
+    };
+  }
 
-<div class="fixed inset-0 h-screen overflow-hidden pointer-events-none">
-  <div class="relative h-full">
-    {#each OBJECTS.map((obj, i) => ({ ...obj, ...positions[i] })) as { path, scale, x, delay }, i}
-      <img
-        src={path}
-        alt={`Flying object ${i + 1}`}
-        class="absolute transform-gpu drop-shadow-xl animate-float"
-        style="
-          height: {8 * scale}vh;
-          width: auto;
-          left: calc({targetX} + {x}vw);
-          animation-duration: {animationDuration}s;
-          animation-delay: {delay}s;
-          z-index: {10 + i};
-        "
-      />
-    {/each}
-  </div>
-</div>
-
-<style>
-  @keyframes float {
-    from { 
-      transform: translateY(120vh);
-      opacity: 0;
-    }
-    10% {
-      opacity: 0.8;
-    }
-    90% {
-      opacity: 0.8;
-    }
-    to { 
-      transform: translateY(-20vh);
-      opacity: 0;
+  function addObject() {
+    if (!$chuteStore.isPlaying) return;
+    
+    const index = Math.floor(Math.random() * OBJECTS.length);
+    activeObjects = [...activeObjects, createObject(index)];
+    
+    // Remove old objects to prevent memory issues
+    if (activeObjects.length > 8) {
+      activeObjects = activeObjects.slice(-8);
     }
   }
 
-  .animate-float {
-    animation: float linear infinite;
+  let interval: ReturnType<typeof setInterval>;
+
+  $: if ($chuteStore.isPlaying) {
+    interval = setInterval(addObject, 2000);
+  } else {
+    clearInterval(interval);
+  }
+
+  onMount(() => {
+    // Initialize with a few objects
+    for (let i = 0; i < 3; i++) {
+      addObject();
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  });
+</script>
+
+<div class="fixed inset-0 h-screen overflow-hidden pointer-events-none">
+  {#each activeObjects as object (object.id)}
+    <img
+      src={object.path}
+      alt="Flying object"
+      class="absolute transform-gpu drop-shadow-xl"
+      style="
+        height: {8 * object.scale}vh;
+        width: auto;
+        left: {object.x}vw;
+      "
+      in:fade={{ duration: 500 }}
+      out:fly={{ y: -1000, duration: 15000 / object.speed }}
+    />
+  {/each}
+</div>
+
+<style>
+  img {
     backface-visibility: hidden;
     transform-style: preserve-3d;
     will-change: transform;
