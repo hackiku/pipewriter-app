@@ -105,7 +105,7 @@
 				<h4 class="text-lg font-medium mb-4">UX-up your inbox</h4>
 				<EmailForm size="sm" wrap={true} />
 				
-				<div class="flex gap-1 mt-4 h-full items-middle justify-center">
+				<!-- <div class="flex gap-1 mt-4 h-full items-middle justify-center">
 					<a href="/space"
 						 class="text-sm text-foreground/50 hover:text-foreground font-medium"
 					>
@@ -113,7 +113,7 @@
 						startup? 
 					</a>
 					<ArrowRight class="w-4"/>
-				</div>
+				</div> -->
 			</div>
 		</div>
 
