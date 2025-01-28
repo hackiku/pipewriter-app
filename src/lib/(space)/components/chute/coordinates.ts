@@ -24,7 +24,7 @@ export const VIEWPORT = {
 		final: {
 			scale: 2.8,       // Larger final scale
 			x: 0,             // Center at end
-			y: -240,           // End position below viewport
+			y: -600,           // End position below viewport
 		}
 	},
 } as const;

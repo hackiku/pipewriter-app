@@ -4,7 +4,7 @@
   import { VIEWPORT, interpolatePosition } from "./coordinates";
   import Parachutist from "./Parachutist.svelte";
   import PlanetGrid from "./PlanetGrid.svelte";
-  import FlyingObjects from "./FlyingObjects.svelte";
+  // import FlyingObjects from "./FlyingObjects.svelte";
   import { chuteStore } from "../../stores/chuteStore";
   import { spaceStore } from "../../stores/spaceStore";
 
@@ -46,22 +46,22 @@
 </script>
 
 <div 
-  class="fixed inset-0 w-screen h-screen overflow-hidden pointer-events-none"
+  class="__fixed relative inset-0 w-screen h-screen overflow-hidden pointer-events-none"
   style="opacity: {sceneOpacity}; transition: opacity 200ms ease-out;"
 >
   {#if sceneLoaded}
     <!-- Planet Grid - Background Layer -->
     <div class="absolute inset-0" style="z-index: 0;">
-      <PlanetGrid {progress} position={planetPosition} />
+      <PlanetGrid position={planetPosition} />
     </div>
 
     <!-- Flying Objects - Middle Layer -->
     <div class="absolute inset-0" style="z-index: 10;">
-      <FlyingObjects
+      <!-- <FlyingObjects
         targetX="{VIEWPORT.parachutist.x}vw"
         targetY="{VIEWPORT.parachutist.y}vh"
         velocity={$chuteStore.velocity}
-      />
+      /> -->
     </div>
 
     <!-- Parachutist - Top Layer -->
@@ -83,7 +83,7 @@
 <style>
   div {
     backface-visibility: hidden;
-    transform-style: preserve-3d;
+    /* transform-style: preserve-3d; */
     will-change: transform, opacity;
   }
 </style>
