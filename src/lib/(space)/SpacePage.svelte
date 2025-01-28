@@ -53,7 +53,8 @@ class="flex flex-col relative min-h-screen overflow-x-clip
 bg-zinc-300/40 dark:bg-zinc-950 text-foreground"
 >
 <!-- <Controls {startAnimation} opacity={sceneOpacity}/> -->
-<Controls {startAnimation} opacity={1}/>
+<!-- <Controls {startAnimation} opacity={1}/> -->
+<Controls {startAnimation}/>
 <Scene bind:startAnimation opacity={sceneOpacity}/>
 
 

@@ -1,5 +1,6 @@
 <!-- src/lib/(space)/components/chute/Controls.svelte -->
 <script lang="ts">
+  import { onMount } from "svelte";
   import { RotateCcw, ChevronRight } from 'lucide-svelte';
   import { chuteStore } from '../../stores/chuteStore';
   import { spaceStore } from '../../stores/spaceStore';
@@ -7,20 +8,14 @@
   import { slide } from 'svelte/transition';
 
   export let startAnimation: () => void;
-  export let opacity = 1;
 
-  // Close controls only when first scrolling past hero
-  // Hero is 90vh tall, so check for that threshold
-  let hasPassedHeroOnce = false;
-  
-  $: {
-    // Only trigger close behavior once when first passing hero
-    if ($spaceStore.scrollY > window.innerHeight * 0.9 && !hasPassedHeroOnce) {
-      hasPassedHeroOnce = true;
-      if ($spaceStore.isControlsOpen) {
-        spaceStore.toggleControls();
-      }
-    }
+  // Only auto-close on first scroll past hero
+  let hasAutoClosedOnce = false;
+
+  // Watch scroll position for auto-close behavior
+  $: if ($spaceStore.hasScrolledPastHero && !hasAutoClosedOnce && $spaceStore.isControlsOpen) {
+    hasAutoClosedOnce = true;
+    spaceStore.setControlsOpen(false);
   }
 
   const PLANET_OPTIONS = [
@@ -34,18 +29,18 @@
       chuteStore.setPlanet(planetId);
     }
   }
+
+  function toggleControls() {
+    spaceStore.toggleControls();
+  }
 </script>
 
-<div class="fixed right-4 top-1/2 -translate-y-1/2 z-50 flex flex-col items-end gap-3"
-     style="opacity: {opacity}; transition: opacity 200ms ease-out;">
-  
+<div class="fixed right-4 bottom-[20vh] z-50 flex flex-col items-end gap-3">
   {#if $spaceStore.isControlsOpen}
-    
-	
-	    <!-- Planet Selection - Outside Container -->
+    <!-- Planet Selection -->
     <div 
       class="flex justify-end gap-2"
-      transition:slide|local={{ duration: 200, delay: 50 }}
+      transition:slide|local={{ duration: 200, axis: 'y' }}
     >
       {#each PLANET_OPTIONS as planet}
         <button
@@ -61,35 +56,32 @@
       {/each}
     </div>
 
-		<div
-      transition:slide|local={{ duration: 200 }}
+    <!-- Controls Panel -->
+    <div
+      transition:slide|local={{ duration: 200, axis: 'y' }}
       class="backdrop-blur-[2px] bg-black/20 
              rounded-xl border border-white/10 shadow-lg
-             w-[200px]"
+             w-[200px] relative"
     >
+      <!-- Reset Button - Absolute Position -->
+      <button
+        class="absolute top-2 right-2 p-2 rounded-lg 
+               hover:bg-white/10 active:scale-95
+               transition-all"
+        on:click={startAnimation}
+      >
+        <RotateCcw class="w-4 h-4 text-white/60" />
+      </button>
+
       <!-- Stats Panel -->
-      <div class="p-4 font-mono text-sm text-white/60 flex flex-col">
-        <!-- Live Stats -->
-        <div class="space-y-2 flex-grow">
+      <div class="p-4 pt-12 font-mono text-sm text-white/60">
+        <div class="space-y-2">
           <div>h = {$chuteStore.altitude.toFixed(0)}m</div>
           <div>v = {$chuteStore.velocity.toFixed(1)}m/s</div>
           <div>g = {PLANETS[$chuteStore.planet].gravity}m/s²</div>
         </div>
-        
-        <!-- Reset Button - Bottom Right -->
-        <div class="flex justify-end mt-4">
-          <button
-            class="p-2 rounded-lg 
-                   hover:bg-white/10 active:scale-95
-                   transition-all"
-            on:click={startAnimation}
-          >
-            <RotateCcw class="w-4 h-4 text-white/60" />
-          </button>
-        </div>
       </div>
     </div>
-
   {/if}
 
   <!-- Toggle Button - Always Visible -->
@@ -99,7 +91,7 @@
            hover:bg-white/10 active:scale-95
            transition-all border border-white/10
            flex items-center justify-center"
-    on:click={() => spaceStore.toggleControls()}
+    on:click={toggleControls}
   >
     <ChevronRight 
       class="w-5 h-5 text-white/60 transition-transform duration-200"

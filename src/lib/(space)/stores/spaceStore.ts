@@ -12,6 +12,7 @@ interface SpaceState {
 
 	// Scene controls state
 	isControlsOpen: boolean;
+	hasScrolledPastHero: boolean;
 
 	// Scroll position - used by multiple components for animations
 	scrollY: number;
@@ -25,6 +26,7 @@ function createSpaceStore() {
 		isNavVisible: true,
 		isMenuOpen: false,
 		isControlsOpen: true,
+		hasScrolledPastHero: false,
 		scrollY: 0
 	});
 
@@ -53,12 +55,26 @@ function createSpaceStore() {
 			isControlsOpen: !state.isControlsOpen,
 		})),
 
+		setControlsOpen: (isOpen: boolean) => update(state => ({
+			...state,
+			isControlsOpen: isOpen
+		})),
+
+		// Track hero scroll state
+		setHasScrolledPastHero: (hasPassed: boolean) => update(state => ({
+			...state,
+			hasScrolledPastHero: hasPassed
+		})),
+
 		// Scroll handling
 		updateScroll: (scrollY: number) => update(state => {
 			const scrollDelta = scrollY - lastScrollY;
+			const heroHeight = window.innerHeight * 0.9; // 90vh
+
+			// Update scroll past hero state
+			const hasPassedHero = scrollY > heroHeight;
 
 			// Only update lastScrollY when we've scrolled a significant amount
-			// This prevents tiny scroll movements from affecting the nav visibility
 			if (Math.abs(scrollDelta) > 50) {
 				lastScrollY = scrollY;
 			}
@@ -72,6 +88,7 @@ function createSpaceStore() {
 				...state,
 				scrollY,
 				isNavVisible: isVisible,
+				hasScrolledPastHero: hasPassedHero
 			};
 		}),
 
@@ -82,6 +99,7 @@ function createSpaceStore() {
 			isNavVisible: true,
 			isMenuOpen: false,
 			isControlsOpen: true,
+			hasScrolledPastHero: false,
 			scrollY: 0
 		})
 	};

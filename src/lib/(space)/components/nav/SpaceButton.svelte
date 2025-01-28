@@ -1,31 +1,68 @@
 <!-- src/lib/(space)/components/nav/SpaceButton.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
+  import { onMount, onDestroy } from 'svelte';
   import { spaceDrawerStore } from '$lib/stores/spaceDrawerStore';
 
-  export let size: "xs" | "sm" | "md" | "lg" = "md";
+  export let size: "xs" | "sm" | "md" | "lg" | "xl" = "md";
+  export let text: string | undefined = undefined;
 
   // Size mappings
   const sizeClasses = {
     xs: "w-8 h-8",
     sm: "w-10 h-10",
     md: "w-12 h-12",
-    lg: "w-14 h-14"
+    lg: "w-16 h-16",
+    xl: "w-20 h-20"
   };
 
-  let glowRef: HTMLDivElement;
+  const iconSizes = {
+    xs: "w-3 h-3",
+    sm: "w-4 h-4",
+    md: "w-5 h-5",
+    lg: "w-6 h-6",
+    xl: "w-8 h-8"
+  };
+
+  let buttonRef: HTMLDivElement;
+  let parachuteRef: HTMLImageElement;
+  let animationFrame: number;
   
+  // Parachute physics simulation
+  let time = 0;
+  const CENTER_OF_PRESSURE = { x: 0, y: 0 };
+  const DAMPING = 0.98; // Reduces oscillation over time
+  let velocity = { x: 0, y: 0 };
+  
+  function updateParachutePhysics() {
+    time += 0.016; // Assumes 60fps
+
+    // Simulate wind effect
+    const windForceX = Math.sin(time * 0.8) * 0.2;
+    const windForceY = Math.cos(time * 1.2) * 0.15;
+
+    // Apply forces with damping
+    velocity.x = (velocity.x + windForceX) * DAMPING;
+    velocity.y = (velocity.y + windForceY) * DAMPING;
+
+    // Update position relative to center of pressure
+    const dx = CENTER_OF_PRESSURE.x + velocity.x * 3;
+    const dy = CENTER_OF_PRESSURE.y + velocity.y * 3;
+
+    if (parachuteRef) {
+      parachuteRef.style.transform = `translate(${dx}px, ${dy}px) rotate(${dx * 2}deg)`;
+    }
+
+    animationFrame = requestAnimationFrame(updateParachutePhysics);
+  }
+
   onMount(() => {
-    const animate = () => {
-      const x = Math.sin(Date.now() / 800) * 12;
-      const y = Math.cos(Date.now() / 1200) * 12;
-      if (glowRef) {
-        glowRef.style.transform = `translate(${x}px, ${y}px)`;
-      }
-      requestAnimationFrame(animate);
-    };
-    
-    animate();
+    updateParachutePhysics();
+  });
+
+  onDestroy(() => {
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
   });
 </script>
 
@@ -33,37 +70,52 @@
   on:click={() => spaceDrawerStore.open('nav')}
   class="relative group"
 >
-  <!-- Enhanced glow effect -->
+  <!-- Background with lower initial opacity -->
   <div 
-    bind:this={glowRef}
-    class="absolute inset-0 blur-xl opacity-70
-           bg-gradient-to-r from-indigo-600/50 to-purple-600/50
-           transition-all duration-300 group-hover:opacity-90
-           group-hover:scale-110"
+    bind:this={buttonRef}
+    class="absolute inset-0 rounded-full blur-xl opacity-40
+           bg-gradient-to-r from-indigo-600/30 to-purple-600/30
+           transition-all duration-500 
+           group-hover:opacity-90 group-hover:scale-110"
   />
   
   <!-- Button content -->
-  <div class="relative flex items-center justify-center
+  <div class="relative flex items-center justify-center gap-2
               {sizeClasses[size]} rounded-full
-              bg-gradient-to-r from-indigo-600 to-purple-600 
+              bg-gradient-to-r from-indigo-600/80 to-purple-600/80
               hover:from-purple-600 hover:to-indigo-600
+              hover:bg-opacity-100
               transition-all duration-300
               shadow-lg shadow-indigo-500/20">
-    <img 
-			src="/space/assets/paraglider.svg"
-      alt="Parachute"
-      class={size === "xs" ? "w-3 h-3" : 
-             size === "sm" ? "w-4 h-4" :
-             size === "md" ? "w-10 h-10" :
-             "w-6 h-6"}
-    />
-		<!-- class="filter invert" -->
+    
+    <!-- Parachute icon with physics animation -->
+    <div class="relative {iconSizes[size]} transition-transform duration-200">
+      <img 
+        bind:this={parachuteRef}
+        src="/space/assets/paraglider.svg"
+        alt="Parachute"
+        class="w-full h-full will-change-transform"
+      />
+    </div>
+
+    <!-- Optional text label -->
+    {#if text}
+      <span class="text-white font-medium
+                   {size === 'xs' ? 'text-xs' :
+                    size === 'sm' ? 'text-sm' :
+                    size === 'md' ? 'text-base' :
+                    size === 'lg' ? 'text-lg' :
+                    'text-xl'}">
+        {text}
+      </span>
+    {/if}
   </div>
 </button>
 
 <style>
-  /* Ensure smooth animation performance */
-  .blur-xl {
+  /* Optimize animation performance */
+  .will-change-transform {
     will-change: transform;
+    backface-visibility: hidden;
   }
 </style>
