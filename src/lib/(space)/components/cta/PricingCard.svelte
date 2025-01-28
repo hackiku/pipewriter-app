@@ -39,9 +39,9 @@
   <div class="p-6 space-y-6">
     <!-- Price -->
     <div class="flex items-baseline gap-2">
-      <span class="text-4xl lg:text-5xl font-light tracking-tight">$5k</span>
+      <span class="text-4xl lg:text-5xl font-light tracking-tight">$2000</span>
       <div class="flex flex-col text-muted-foreground">
-        <span class="text-lg">/ 1st page</span>
+        <span class="text-lg">/ page</span>
       </div>
     </div>
 		<span class="text-sm text-muted-foreground/80">Less for more pages</span>

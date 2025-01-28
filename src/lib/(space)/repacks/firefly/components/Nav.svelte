@@ -7,11 +7,11 @@
   import { Menu, X } from 'lucide-svelte';
 
   const links = [
-    { href: '/about', label: 'ABOUT' },
-    { href: '/launch', label: 'LAUNCH' },
-    { href: '/lunar', label: 'LUNAR' }, 
-    { href: '/missions', label: 'MISSIONS' },
-    { href: '/careers', label: 'CAREERS' }
+    { href: '/firefly/about', label: 'ABOUT' },
+    { href: '/firefly/launch', label: 'LAUNCH' },
+    { href: '/firefly/lunar', label: 'LUNAR' }, 
+    { href: '/firefly/missions', label: 'MISSIONS' },
+    { href: '/firefly/careers', label: 'CAREERS' }
   ];
 
   let isMenuOpen = false;
@@ -49,9 +49,9 @@
   <header class="bg-black/80 backdrop-blur-md border-b border-[#F5FF00]/50">
     <nav class="container flex items-center justify-between h-20">
       <!-- Logo -->
-      <a href="/space/repacks/firefly" class="flex items-center gap-2">
+      <a href="/firefly" class="flex items-center gap-2">
         <img 
-          src="/space/repacks/firefly/firefly-logo-small.svg" 
+          src="/firefly/logo.svg" 
           alt="Firefly Aerospace"
           class="h-8 w-auto brightness-200"
         />

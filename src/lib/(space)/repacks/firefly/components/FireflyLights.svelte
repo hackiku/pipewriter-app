@@ -1,8 +1,7 @@
-<!-- src/lib/(space)/repacks/firefly/components/FireflyLights.svelte -->
+<!-- $lib/components/FireflyLights.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
   
-  // Number of lights to generate
   export let count = 50;
   
   type Light = {
@@ -12,55 +11,79 @@
     size: number;
     duration: number;
     delay: number;
+    glowSize: number;
+    direction: number; // Angle in degrees
+    speed: number;
   };
   
   let lights: Light[] = [];
   
   onMount(() => {
-    // Generate random lights
     lights = Array.from({ length: count }, (_, i) => ({
       id: i,
-      x: Math.random() * 100, // percentage
-      y: Math.random() * 100, // percentage
-      size: Math.random() * 2 + 1, // 1-3px
-      duration: Math.random() * 3 + 2, // 2-5s
-      delay: Math.random() * 10 // 0-10s initial delay
+      x: Math.random() * 100,
+      y: Math.random() * 200,
+      size: Math.random() * 2 + 1, // Bigger size variation (1-3px)
+      duration: (Math.random() * 4 + 3).toFixed(2),
+      delay: (Math.random() * 10).toFixed(2),
+      glowSize: Math.random() * 4 + 2, // Bigger glow variation
+      direction: Math.random() * 360, // Random angle
+      speed: Math.random() * 20 + 10 // Random speed 10-30
     }));
   });
 </script>
 
-<div class="fixed inset-0 pointer-events-none z-0">
+<div class="fixed inset-0 bg-zinc-950">
   {#each lights as light (light.id)}
     <div
-      class="absolute w-1 h-1 bg-[#F5FF00] rounded-full opacity-0"
+      class="absolute rounded-full firefly"
       style="
         left: {light.x}%;
         top: {light.y}%;
         width: {light.size}px;
         height: {light.size}px;
-        animation: flicker {light.duration}s infinite {light.delay}s;
+        --duration: {light.duration}s;
+        --delay: {light.delay}s;
+        --direction: {light.direction}deg;
+        --speed: {light.speed};
+        animation-delay: {light.delay}s;
+        box-shadow: 0 0 {light.glowSize}px {light.glowSize}px rgba(245, 255, 0, 0.15);
+        background: #F5FF00;
       "
     />
   {/each}
 </div>
 
 <style>
-  @keyframes flicker {
+  .firefly {
+    opacity: 0;
+    will-change: transform, opacity;
+    animation: 
+      glow var(--duration) infinite ease-in-out,
+      float calc(var(--duration) * 2) infinite linear;
+  }
+
+  @keyframes glow {
     0%, 100% { 
       opacity: 0;
-      filter: blur(0px);
+      scale: 0.3;
     }
-    25% { 
-      opacity: 0.1;
-      filter: blur(0px);
+    35% { 
+      opacity: 0.8;
+      scale: 1;
     }
-    50% { 
-      opacity: 0.5;
-      filter: blur(1px);
+    70% { 
+      opacity: 0;
+      scale: 0.3;
     }
-    75% { 
-      opacity: 0.1;
-      filter: blur(0px);
+  }
+
+  @keyframes float {
+    from {
+      transform: translate(0, 0) rotate(var(--direction));
+    }
+    to {
+      transform: translate(calc(var(--speed) * 1vw), 0) rotate(var(--direction));
     }
   }
 </style>

@@ -16,7 +16,7 @@
 			>
 				Your rockets rock hard but your website feels like 1969?
 				<span class="text-muted-foreground">
-					You need a Chute Repack: hardcore redesign sprint to 10x your web without waiting for FAA permits. Users & investors are ready to notice.</span
+					You need a Chute Repack: hardcore redesign sprint to 10x your web presence, wow users and seduce investors. Without waiting for FAA launch permits.</span
 				>
 		</h3>
 		</div>

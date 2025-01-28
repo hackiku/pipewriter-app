@@ -107,8 +107,8 @@
 					class="text-xl md:text-2xl lg:text-3xl font-light leading-relaxed tracking-wide"
 				>
 					<!-- I love making complex engineering &#x27;click&#x27; 🫰 for hoomans -->
-					I love making complex engineering click 🫰 for hoomans via usable &#40;and
-					useful&#41; interfaces that tell stories.
+					I love making complex engineering click 🫰 for hoomans by telling stories
+					through usable &#40;and useful&#41; interfaces.
 				</p>
 				<p
 					class="text-xl md:text-2xl lg:text-3xl font-light leading-normal tracking-wide"

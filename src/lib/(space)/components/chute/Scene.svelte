@@ -6,9 +6,14 @@
 	import FlyingObjects from "./FlyingObjects.svelte";
 	import { chuteStore } from "../../stores/chuteStore";
 
+	export let opacity = 1;
+	export let startAnimation: () => void;
+
 	let sceneLoaded = false;
 
-	export let startAnimation: () => void;
+	// Compute opacity based on scroll
+
+	
 
 	$: chutePosition = {
 		x: "calc(65vw)",
@@ -20,7 +25,9 @@
 	});
 </script>
 
-<div class="fixed inset-0 pointer-events-none">
+<div class="fixed inset-0 pointer-events-none"
+     style="opacity: {opacity}; transition: opacity 200ms ease-out;"
+>
 	<!-- Planet Background -->
 	{#if sceneLoaded}
 		<div class="absolute w-full aspect-square origin-bottom">

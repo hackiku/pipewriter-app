@@ -9,6 +9,8 @@
   import FireflyLights from "./components/FireflyLights.svelte";
   import { bookModalStore } from "./stores/bookModalStore";
 
+	import SpaceButton from "$lib/(space)/components/nav/SpaceButton.svelte";
+
   // If we need to clean up the store on unmount
   import { onDestroy } from "svelte";
   onDestroy(() => {
@@ -16,12 +18,13 @@
   });
 </script>
 
+
 <!-- Root layout with black background -->
-<div class="relative min-h-screen bg-sblack text-white overflow-x-clip">
-  <!-- Ambient Lights -->
-  <FireflyLights count={75} />
+<div class="relative min-h-screen __bg-black text-white overflow-x-clip px-2">
+	<!-- Ambient Lights -->
+	<FireflyLights count={75} />
   
-  <!-- <Nav /> -->
+  <Nav />
   
   <!-- Main Content -->
   <main>
@@ -34,3 +37,6 @@
   <!-- Modals -->
   <BookModal />
 </div>
+
+
+<SpaceButton />

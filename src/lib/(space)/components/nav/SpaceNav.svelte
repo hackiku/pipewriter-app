@@ -32,7 +32,8 @@
   class:translate-y-[-100%]={!isVisible}
 >
   <div class="container py-2 flex justify-between items-center
-						px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
+						max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+						<!-- px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44"> -->
     <Logo />
 
     <!-- Desktop Navigation -->

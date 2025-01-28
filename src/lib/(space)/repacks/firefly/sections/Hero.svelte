@@ -17,12 +17,13 @@
            RESPONSIVE SPACE
          </h2> -->
          <h1 class="text-4xl md:text-6xl font-light leading-tight text-white">
-          	Responsive Space Starts Here
+          	At the Dawn of Responsive Space
          </h1>
        </div>
 
        <!-- Video Player -->
-       <HexagonPlayer />
+
+			 <HexagonPlayer />
      </div>
 
      <!-- Right Timeline (2 cols) -->
