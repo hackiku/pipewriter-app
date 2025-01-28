@@ -25,6 +25,7 @@
 	let startAnimation: () => void;
 
 	$: sceneOpacity = Math.max(0.1, 1 - ($spaceStore.scrollY / 800));
+  // $: sceneOpacity = $spaceStore.isControlsOpen ? 1 : 0.1;
 
 	// $: opacity = Math.max(0.1, 1 - ($spaceStore.scrollY / 500)); // Fade out over 500px scroll
 </script>
@@ -51,17 +52,15 @@
 class="flex flex-col relative min-h-screen overflow-x-clip
 bg-zinc-300/40 dark:bg-zinc-950 text-foreground"
 >
-<Controls {startAnimation} />
+<!-- <Controls {startAnimation} opacity={sceneOpacity}/> -->
+<Controls {startAnimation} opacity={1}/>
 <Scene bind:startAnimation opacity={sceneOpacity}/>
 
+
 	<!-- Hero Section -->
-	<section class="relative h-[90vh] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-		<!-- Top Hero Content -->
-		<div class="h-[65vh] grid lg:grid-cols-2 items-start">
-			<div
-				class="relative z-10 h-full pt-36
-				"
-			>
+	<section class="relative h-[90vh]">
+		<div class="px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 h-[65vh] grid lg:grid-cols-2 items-start">
+			<div class="relative z-10 h-full pt-28">
 				<Hero />
 			</div>
 		</div>

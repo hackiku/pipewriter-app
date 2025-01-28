@@ -40,7 +40,7 @@
     <div class="hidden md:flex items-center gap-6">
       <LanguageSelector />
       <ModeToggle />
-      <SpaceButton />
+      <SpaceButton size="md"/>
     </div>
 
     <!-- Mobile Navigation -->

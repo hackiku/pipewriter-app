@@ -50,11 +50,11 @@
               transition-all duration-300
               shadow-lg shadow-indigo-500/20">
     <img 
-      src="/space/icons/parachute.svg" 
+			src="/space/assets/paraglider.svg"
       alt="Parachute"
       class={size === "xs" ? "w-3 h-3" : 
              size === "sm" ? "w-4 h-4" :
-             size === "md" ? "w-5 h-5" :
+             size === "md" ? "w-10 h-10" :
              "w-6 h-6"}
     />
 		<!-- class="filter invert" -->
