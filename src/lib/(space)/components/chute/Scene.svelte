@@ -12,15 +12,15 @@
 
   let sceneLoaded = false;
   
-  // Compute scene opacity based on controls state
+  // Compute scene opacity based on controls state and scroll
   $: sceneOpacity = $spaceStore.isControlsOpen 
     ? 1 
-    : Math.max(0.1, 1 - ($spaceStore.scrollY / 800));
+    : Math.max(0.2, 1 - ($spaceStore.scrollY / 800));
 
   // Animation progress drives all movement
   $: progress = Math.min(1, $spaceStore.scrollY / 800);
 
-  // Planet position interpolation with easing
+  // Planet position interpolation with smoother easing
   $: planetPosition = {
     x: interpolatePosition(VIEWPORT.planet.initial.x, VIEWPORT.planet.final.x, progress),
     y: interpolatePosition(VIEWPORT.planet.initial.y, VIEWPORT.planet.final.y, Math.pow(progress, 1.5)),
@@ -31,8 +31,14 @@
     )
   };
 
+  // Auto-start animation on mount
   onMount(() => {
     sceneLoaded = true;
+    // Short delay to ensure components are ready
+    setTimeout(() => {
+      if (startAnimation) startAnimation();
+      chuteStore.setAnimating(true);
+    }, 100);
   });
 </script>
 
@@ -41,25 +47,19 @@
   style="opacity: {sceneOpacity}; transition: opacity 200ms ease-out;"
 >
   {#if sceneLoaded}
-    <!-- Planet Grid with corrected positioning -->
-    <PlanetGrid 
-      progress={progress}
-      position={planetPosition}
-    />
+    <PlanetGrid {progress} position={planetPosition} />
 
-    <!-- Flying Objects with viewport units -->
     <FlyingObjects
       targetX="{VIEWPORT.parachutist.x}vw"
       targetY="{VIEWPORT.parachutist.y}vh"
       velocity={$chuteStore.velocity}
     />
 
-    <!-- Parachutist with consistent viewport positioning -->
     <div
       class="absolute transform-gpu will-change-transform transition-transform duration-300"
       style="transform: translate({VIEWPORT.parachutist.x}vw, {VIEWPORT.parachutist.y}vh)"
     >
-      <Parachutist {startAnimation} />
+      <Parachutist bind:startAnimation />
     </div>
   {/if}
 </div>

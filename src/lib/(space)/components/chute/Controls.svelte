@@ -1,18 +1,17 @@
 <!-- src/lib/(space)/components/chute/Controls.svelte -->
 <script lang="ts">
   import { onMount } from "svelte";
-  import { RotateCcw, ChevronRight } from 'lucide-svelte';
+  import { RotateCcw, ChevronRight, Play, Pause } from 'lucide-svelte';
   import { chuteStore } from '../../stores/chuteStore';
   import { spaceStore } from '../../stores/spaceStore';
   import { PHYSICS, PLANETS } from './physics';
   import { slide } from 'svelte/transition';
 
   export let startAnimation: () => void;
+  export let pauseAnimation: () => void;
 
-  // Only auto-close on first scroll past hero
   let hasAutoClosedOnce = false;
 
-  // Watch scroll position for auto-close behavior
   $: if ($spaceStore.hasScrolledPastHero && !hasAutoClosedOnce && $spaceStore.isControlsOpen) {
     hasAutoClosedOnce = true;
     spaceStore.setControlsOpen(false);
@@ -26,7 +25,21 @@
 
   function handlePlanetClick(planetId: string) {
     if (planetId !== 'moon') {
-      chuteStore.setPlanet(planetId);
+      chuteStore.setPlanet(planetId as keyof typeof PLANETS);
+    }
+  }
+
+  function handleReset() {
+    chuteStore.reset();
+    if (startAnimation) startAnimation();
+  }
+
+  function handlePlayPause() {
+    chuteStore.togglePlay();
+    if ($chuteStore.isPlaying) {
+      if (startAnimation) startAnimation();
+    } else {
+      if (pauseAnimation) pauseAnimation();
     }
   }
 
@@ -63,15 +76,27 @@
              rounded-xl border border-white/10 shadow-lg
              w-[200px] relative"
     >
-      <!-- Reset Button - Absolute Position -->
-      <button
-        class="absolute top-2 right-2 p-2 rounded-lg 
-               hover:bg-white/10 active:scale-95
-               transition-all"
-        on:click={startAnimation}
-      >
-        <RotateCcw class="w-4 h-4 text-white/60" />
-      </button>
+      <!-- Control Buttons -->
+      <div class="absolute top-2 right-2 flex gap-2">
+        <button
+          class="p-2 rounded-lg hover:bg-white/10 
+                 active:scale-95 transition-all"
+          on:click={handlePlayPause}
+        >
+          {#if $chuteStore.isPlaying}
+            <Pause class="w-4 h-4 text-white/60" />
+          {:else}
+            <Play class="w-4 h-4 text-white/60" />
+          {/if}
+        </button>
+        <button
+          class="p-2 rounded-lg hover:bg-white/10 
+                 active:scale-95 transition-all"
+          on:click={handleReset}
+        >
+          <RotateCcw class="w-4 h-4 text-white/60" />
+        </button>
+      </div>
 
       <!-- Stats Panel -->
       <div class="p-4 pt-12 font-mono text-sm text-white/60">

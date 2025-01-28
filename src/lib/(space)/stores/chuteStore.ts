@@ -1,30 +1,32 @@
-// src/lib/pages/space/stores/chuteStore.ts
+// src/lib/(space)/stores/chuteStore.ts
 import { writable } from 'svelte/store';
-
-type Planet = 'earth' | 'mars';
+import { PHYSICS, PLANETS } from '../components/chute/physics';
 
 interface ChuteState {
-	planet: Planet;
+	planet: keyof typeof PLANETS;
 	altitude: number;
 	velocity: number;
 	lastUpdate: number;
+	isPlaying: boolean;
 }
 
 function createChuteStore() {
 	const { subscribe, set, update } = writable<ChuteState>({
 		planet: 'earth',
-		altitude: 0,
+		altitude: PHYSICS.INITIAL_ALTITUDE,
 		velocity: 0,
-		lastUpdate: Date.now()
+		lastUpdate: Date.now(),
+		isPlaying: false
 	});
 
-	// Throttle updates to prevent excessive store updates
 	let updateTimeout: NodeJS.Timeout | null = null;
-	const THROTTLE_MS = 50; // Only update every 50ms max
+	const THROTTLE_MS = 33;
 
 	return {
 		subscribe,
-		setPlanet: (planet: Planet) => update(state => ({ ...state, planet })),
+		setPlanet: (planet: keyof typeof PLANETS) =>
+			update(state => ({ ...state, planet })),
+
 		updateStats: (altitude: number, velocity: number) => {
 			if (updateTimeout) return;
 
@@ -38,6 +40,20 @@ function createChuteStore() {
 				updateTimeout = null;
 			}, THROTTLE_MS);
 		},
+
+		setPlaying: (isPlaying: boolean) =>
+			update(state => ({ ...state, isPlaying })),
+
+		togglePlay: () =>
+			update(state => ({ ...state, isPlaying: !state.isPlaying })),
+
+		reset: () => set({
+			planet: 'earth',
+			altitude: PHYSICS.INITIAL_ALTITUDE,
+			velocity: 0,
+			lastUpdate: Date.now(),
+			isPlaying: false
+		})
 	};
 }
 

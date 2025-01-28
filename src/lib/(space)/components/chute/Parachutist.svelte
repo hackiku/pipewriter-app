@@ -7,14 +7,15 @@
   import { VIEWPORT } from './coordinates';
   
   export let startAnimation: () => void;
+  export let pauseAnimation: () => void;
   
   let parachutist: HTMLImageElement;
   let ticker: gsap.core.Tween;
   let viewportWidth = 0;
   
   $: size = viewportWidth < 768 
-    ? VIEWPORT.parachutist.size * 0.8  // Smaller on mobile
-    : VIEWPORT.parachutist.size;       // Base size in vh
+    ? VIEWPORT.parachutist.size * 0.8
+    : VIEWPORT.parachutist.size;
   
   let currentState = {
     time: 0,
@@ -23,6 +24,8 @@
   };
 
   function updatePhysics() {
+    if (!$chuteStore.isPlaying) return;
+    
     currentState.time = (currentState.time + 0.1) % 1;
     const state = PHYSICS.calculateState(
       currentState.time * PHYSICS.ANIMATION_DURATION, 
@@ -38,13 +41,18 @@
   function startPhysics() {
     if (ticker) ticker.kill();
     
+    currentState = {
+      time: 0,
+      velocity: 0,
+      altitude: PHYSICS.INITIAL_ALTITUDE
+    };
+    
     ticker = gsap.to({}, {
       duration: 0.1,
       repeat: -1,
       onRepeat: updatePhysics
     });
 
-    // Subtle sway animation using viewport units
     gsap.to(parachutist, {
       rotation: "random(-2,2)",
       duration: "random(3,5)",
@@ -52,11 +60,17 @@
       yoyo: true,
       repeat: -1
     });
+
+    chuteStore.setPlaying(true);
+  }
+
+  function pausePhysics() {
+    chuteStore.setPlaying(false);
   }
 
   onMount(() => {
     startAnimation = startPhysics;
-    startPhysics();
+    pauseAnimation = pausePhysics;
     viewportWidth = window.innerWidth;
     
     const handleResize = () => {
