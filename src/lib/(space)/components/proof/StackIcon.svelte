@@ -16,39 +16,39 @@
   href={url}
   target="_blank"
   rel="noopener noreferrer"
-  class="relative flex flex-col items-center gap-2 group"
+  class="relative group"
 >
-  <!-- Icon -->
-  <div class="w-12 h-12 rounded-lg bg-card border p-2.5
+  <!-- Icon Container -->
+  <div class="w-16 h-16 rounded-full 
+              bg-white/[0.02] backdrop-blur-sm
+              border border-white/10 
               flex items-center justify-center
               transition-all duration-300
-              group-hover:scale-110 group-hover:rotate-3
-              group-hover:shadow-lg group-hover:border-primary/20">
+              group-hover:scale-110 group-hover:border-indigo-500/20
+              group-hover:shadow-lg group-hover:shadow-indigo-500/10">
     <img
       src={icon}
       alt={name}
-      class="w-full h-full object-contain"
+      class="w-8 h-8 object-contain"
       on:error={handleError}
     />
   </div>
 
-  <!-- Name -->
-  <span class="text-xs font-medium">{name}</span>
-  
   <!-- Tooltip -->
   <div class="absolute -bottom-2 translate-y-full left-1/2 -translate-x-1/2 
               pointer-events-none opacity-0 group-hover:opacity-100 
               transition-all duration-200 z-10
-              w-32 p-2 rounded-md bg-popover/95 shadow-lg
-              border border-border/50
+              w-32 p-2 rounded-md 
+              bg-black/80 backdrop-blur-sm
+              border border-white/10
               transform group-hover:-translate-y-1">
-    <span class="text-xs text-popover-foreground block text-center">
+    <span class="text-xs text-white/90 block text-center font-medium">
       {description}
     </span>
     
     <!-- Tooltip arrow -->
     <div class="absolute -top-1.5 left-1/2 -translate-x-1/2 
                 w-2 h-2 rotate-45 
-                bg-popover border-l border-t border-border/50" />
+                bg-black/80 border-l border-t border-white/10" />
   </div>
 </a>

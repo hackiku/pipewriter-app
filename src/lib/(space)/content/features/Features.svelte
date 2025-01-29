@@ -19,7 +19,8 @@
 					You need a </span
 				>
 				Chute Repack<span class="text-muted-foreground">
-				: a space specialized redesign sprint to 10x your web presence, wow the public, and seduce investors. Without waiting for FAA launch permits.</span
+				: a space specialized redesign sprint to 10x your web presence, wow the public,
+				and seduce investors. No waiting for FAA launch permits.</span
 				>
 		</h3>
 		</div>
@@ -32,7 +33,8 @@
 	</div>
 
 	<!-- Process Section -->
-	<div class="relative px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44">
+	<div class="relative">
+	 <!-- px-4 sm:px-6 md:px-16 lg:px-24 xl:px-44"> -->
 		<!-- Yellow Control Box -->
 		<div
 			class="sticky p-4 top-[5vh] md:top-[20vh] z-30 backdrop-blur-sm

@@ -4,12 +4,11 @@
   import SpaceButton from "../../components/cta/SpaceButton.svelte";
 </script>
 
-<div class="mx-[5vh] border border-border/50 
-            bg-zinc-950/[0.05] dark:bg-white/[0.03] 
-            rounded-[2.5rem]">
+<div class="bg-gradient-to-br from-indigo-600/[0.1] to-purple-600/[0.1] 
+            border border-indigo-600/10
+            rounded-[2.5rem] rounded-tl-none">
   <div class="py-16 text-center">
-    <div class="relative overflow-hidden">
-      <!-- <StackGrid noStack /> -->
+    <div class="relative">
       <StackGrid 
         toolIds={[
           'svelte',
@@ -23,15 +22,6 @@
           'firebase'
         ]} 
       />
-			<!-- <StackGrid 
-				noTools={true} 
-			/> -->
-      <div class="absolute inset-y-0 left-0 w-8 
-                  bg-gradient-to-r from-[rgb(245,245,245)] dark:from-zinc-950 to-transparent 
-                  pointer-events-none" />
-      <div class="absolute inset-y-0 right-0 w-8 
-                  bg-gradient-to-l from-[rgb(245,245,245)] dark:from-zinc-950 to-transparent 
-                  pointer-events-none" />
     </div>
 
     <div class="mt-12">
