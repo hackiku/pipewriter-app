@@ -1,38 +1,24 @@
-<!-- src/lib/pages/space/components/chute/BeforeAfter.svelte -->
+<!-- src/lib/(space)/content/repack/BeforeAfter.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import * as Resizable from "$lib/components/ui/resizable";
-  import RepackLabel from './RepackLabel.svelte';
+  import Firefly from '../../repacks/firefly/Firefly.svelte';
   
-  export let beforeContent: any = null;
-  export let afterContent: any = null;
+  export let beforeUrl: string;
   export let defaultSplit = 50;
-  export let description = "";
   export let company = "";
+  export let description = "";
 
-  // SSR safety
   let mounted = false;
-  let container: HTMLDivElement;
   
   onMount(() => {
     mounted = true;
-    return () => {
-      mounted = false;
-    };
+    return () => mounted = false;
   });
 </script>
 
-<!-- Labels Container -->
-<div class="relative h-12 mb-4">
-  <RepackLabel type="before" />
-  <RepackLabel type="after" />
-</div>
-
 <!-- Main Container -->
-<div 
-  bind:this={container}
-  class="relative aspect-[16/9] rounded-xl overflow-hidden border bg-card shadow-xl"
->
+<div class="relative aspect-[16/9] rounded-xl overflow-hidden border bg-card shadow-xl">
   {#if mounted}
     <Resizable.PaneGroup
       direction="horizontal"
@@ -43,42 +29,41 @@
         defaultSize={100 - defaultSplit}
         class="relative h-full min-h-[300px]"
       >
-        <slot name="before">
-          {#if beforeContent}
-            {beforeContent}
-          {/if}
-        </slot>
+        <div class="absolute inset-0">
+          <img 
+            src={beforeUrl}
+            alt="Original {company} website"
+            class="w-full h-full object-cover"
+            style="transform: scale(1.01);"
+          />
+        </div>
       </Resizable.Pane>
 
       <Resizable.Handle withHandle class="hidden lg:block" />
 
-      <!-- After Content -->
+      <!-- After Content (Live Firefly Component) -->
       <Resizable.Pane 
         defaultSize={defaultSplit}
-        class="relative h-full"
+        class="relative h-full overflow-hidden"
       >
-        <slot name="after">
-          {#if afterContent}
-            {afterContent}
-          {/if}
-        </slot>
+        <div class="absolute inset-0 bg-black">
+          <Firefly />
+        </div>
       </Resizable.Pane>
     </Resizable.PaneGroup>
 
     <!-- Info Overlay -->
-    {#if company || description}
-      <div class="absolute bottom-0 inset-x-0 
-                  bg-gradient-to-t from-black/90 to-transparent
-                  pt-12 pb-4 px-6">
-        <div class="text-white">
-          {#if company}
-            <h3 class="text-lg font-medium">{company}</h3>
-          {/if}
-          {#if description}
-            <p class="text-sm text-white/80">{description}</p>
-          {/if}
-        </div>
+    <div class="absolute bottom-0 inset-x-0 
+                bg-gradient-to-t from-black/90 to-transparent
+                pt-12 pb-4 px-6 z-10">
+      <div class="text-white">
+        {#if company}
+          <h3 class="text-lg font-medium">{company}</h3>
+        {/if}
+        {#if description}
+          <p class="text-sm text-white/80">{description}</p>
+        {/if}
       </div>
-    {/if}
+    </div>
   {/if}
 </div>

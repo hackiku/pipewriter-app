@@ -1,4 +1,4 @@
-<!-- src/lib/pages/space/components/chute/Repack.svelte -->
+<!-- src/lib/pages/space/components/chute/OLD.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
   import { ChevronLeft, ChevronRight, Maximize2 } from 'lucide-svelte';

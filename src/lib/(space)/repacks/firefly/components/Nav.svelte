@@ -25,9 +25,14 @@
     if (isMenuOpen) isMenuOpen = false;
   }
 
+  // Container-scoped scroll handling
   onMount(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
+    const container = document.querySelector('.firefly-container');
+    if (!container) return;
+
+    const handleScroll = (e: Event) => {
+      const target = e.target as HTMLElement;
+      const currentScrollY = target.scrollTop;
       const scrollDelta = currentScrollY - lastScrollY;
 
       if (Math.abs(scrollDelta) > 50) {
@@ -36,29 +41,25 @@
       }
     };
 
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    container.addEventListener("scroll", handleScroll);
+    return () => container?.removeEventListener("scroll", handleScroll);
   });
 </script>
 
-<div 
-  class="fixed top-0 inset-x-0 z-50 transition-transform duration-300"
-  class:translate-y-0={isVisible}
-  class:translate-y-[-100%]={!isVisible}
->
+<div class="relative w-full z-10">
   <header class="bg-black/80 backdrop-blur-md border-b border-[#F5FF00]/50">
-    <nav class="container flex items-center justify-between h-20">
+    <nav class="flex items-center justify-between h-16 px-4">
       <!-- Logo -->
       <a href="/firefly" class="flex items-center gap-2">
         <img 
           src="/firefly/logo.svg" 
           alt="Firefly Aerospace"
-          class="h-8 w-auto brightness-200"
+          class="h-6 w-auto brightness-200"
         />
       </a>
 
       <!-- Desktop Nav -->
-      <ul class="hidden md:flex items-center gap-8">
+      <ul class="hidden md:flex items-center gap-6">
         {#each links as { href, label }}
           <li>
             <a 
@@ -79,9 +80,9 @@
         on:click={() => isMenuOpen = !isMenuOpen}
       >
         {#if isMenuOpen}
-          <X class="w-6 h-6" />
+          <X class="w-5 h-5" />
         {:else}
-          <Menu class="w-6 h-6" />
+          <Menu class="w-5 h-5" />
         {/if}
       </button>
 
@@ -99,13 +100,13 @@
         class="md:hidden border-t border-[#F5FF00]/20 bg-black/95"
         transition:slide={{ duration: 200 }}
       >
-        <nav class="container py-6 space-y-6">
-          <ul class="space-y-4">
+        <nav class="py-4 px-4 space-y-4">
+          <ul class="space-y-3">
             {#each links as { href, label }}
               <li>
                 <a 
                   {href}
-                  class="block text-lg tracking-wider transition-colors hover:text-[#F5FF00]"
+                  class="block text-base tracking-wider transition-colors hover:text-[#F5FF00]"
                   class:text-[#F5FF00]={isActive(href)}
                   class:text-zinc-400={!isActive(href)}
                   on:click={() => isMenuOpen = false}
@@ -128,6 +129,3 @@
     {/if}
   </header>
 </div>
-
-<!-- Spacer to prevent content from going under fixed nav -->
-<div class="h-20" />
