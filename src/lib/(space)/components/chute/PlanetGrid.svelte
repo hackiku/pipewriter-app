@@ -28,7 +28,7 @@
   style="
     width: {glowSize}vh;
     height: {glowSize}vh;
-    bottom: {position.y}vh;
+    bottom: {(position.y - 0.1 * glowSize )}vh;
     transform: translate(-50%, 50%);
   "
 >

@@ -43,7 +43,7 @@
 
 
 <main class="flex flex-col relative min-h-screen overflow-x-clip __bg-zinc-300/40 __dark:bg-zinc-950 text-foreground">
-  <!-- <Scene bind:startAnimation /> -->
+	<!-- <Scene bind:startAnimation /> -->
   <Controls {startAnimation} {pauseAnimation} />
 	<!-- <div class="fixed inset-0 z-0 w-full h-screen pointer-events-none
 		border overflow-hidden border-red-800/30">

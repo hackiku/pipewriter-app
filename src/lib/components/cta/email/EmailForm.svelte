@@ -98,7 +98,7 @@
           <span class="relative">{isSubmitting ? 'Subscribing...' : buttonText}</span>
           <div 
             class="transform transition-all duration-200 opacity-0 absolute"
-            style="right: -24px"
+            style="right: -1em"
             class:opacity-100={isButtonActive}
           >
             <Icon.ArrowRight size={20} />
