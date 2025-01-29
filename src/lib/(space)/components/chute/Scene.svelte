@@ -18,7 +18,7 @@
   // Scene opacity based on controls and scroll
   $: sceneOpacity = $spaceStore.isControlsOpen 
     ? 1 
-    : Math.max(0., 1 - ($spaceStore.scrollY / 800));
+    : Math.max(0.1, 1 - ($spaceStore.scrollY / 800));
 
   // Animation progress based on scroll position
   $: progress = Math.min(1, $spaceStore.scrollY / 800);
@@ -83,7 +83,7 @@
 <style>
   div {
     backface-visibility: hidden;
-    /* transform-style: preserve-3d; */
+    transform-style: preserve-3d;
     will-change: transform, opacity;
   }
 </style>

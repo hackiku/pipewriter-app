@@ -3,13 +3,13 @@
 export const VIEWPORT = {
 	parachutist: {
 		// desktop
-		// x: 70,              // Right-biased position
-		// y: 30,              // Upper third of viewport
-		// size: 18            // Increased base size in vh
+		x: 70,              // Right-biased position
+		y: 30,              // Upper third of viewport
+		size: 18            // Increased base size in vh
 		// mobile
-		x: 40,              // Right-biased position
-		y: 65,              // Upper third of viewport
-		size: 14            // Increased base size in vh
+		// x: 40,              // Right-biased position
+		// y: 65,              // Upper third of viewport
+		// size: 14            // Increased base size in vh
 	},
 
 	planet: {
