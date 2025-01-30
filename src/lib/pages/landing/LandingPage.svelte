@@ -32,12 +32,12 @@
 		<Features />
   </section>
 	
-  <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+  <!-- <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"> -->
     <!-- <Benefits /> -->
-  </section>
+  <!-- </section> -->
 
 	<!-- Social Proof -->
-  <section class="py-24">
+  <section class="__py-24">
     <Proof />
   </section>
 

@@ -8,7 +8,7 @@
 <div class="container max-w-6xl">
   <div class="text-center mb-16">
     <h2 class="text-4xl font-medium mb-4">
-      Writers Dig the UX of it all
+      Writers Dig the UX
     </h2>
   </div>
 

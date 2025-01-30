@@ -1,97 +1,71 @@
 <!-- src/lib/pages/landing/sections/features/AiPipeline.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
-  import { Code, Cpu, FileCode } from 'lucide-svelte';
+  import { Sparkles } from 'lucide-svelte';
+  import ExportPreview from './ExportPreview.svelte';
+  import { landingStore } from '../../stores/landingStore';
 
-  let container: HTMLElement;
-  let activeStep = 0;
-  
   const steps = [
-    { icon: FileCode, label: "Google Doc" },
-    { icon: Cpu, label: "AI Processing" },
-    { icon: Code, label: "Production Code" }
-  ];
-
-  onMount(() => {
-    const interval = setInterval(() => {
-      activeStep = (activeStep + 1) % steps.length;
-    }, 2000);
-
-    return () => clearInterval(interval);
-  });
-
-  $: isActive = (i: number) => activeStep === i;
-  $: isPast = (i: number) => activeStep > i;
+    {
+      id: 'doc',
+      title: 'Write & Design',
+      description: 'Design your product directly in Google Docs using our UX components and templates.'
+    },
+    {
+      id: 'process',
+      title: 'AI Processing',
+      description: 'Our AI analyzes your document structure and converts it into clean, semantic code.'
+    },
+    {
+      id: 'code',
+      title: 'Ship Product',
+      description: 'Get production-ready code that works with React, Svelte, or pure HTML/CSS.'
+    }
+  ] as const;
 </script>
 
-<div bind:this={container} class="relative rounded-xl overflow-hidden bg-black border border-zinc-800">
-  <!-- Pipeline Steps -->
-  <div class="p-8 flex items-center justify-between">
-    {#each steps as step, i}
-      <div class="flex flex-col items-center gap-3 relative z-10">
-        <!-- Icon Circle -->
-        <div class="w-16 h-16 rounded-full bg-zinc-900 border border-zinc-800 
-                    flex items-center justify-center transition-all duration-300
-                    {isActive(i) ? 'scale-110 bg-primary bg-opacity-20' : ''}">
-          <svelte:component 
-            this={step.icon} 
-            class="w-8 h-8 transition-colors duration-300
-                   {isActive(i) ? 'text-primary' : 'text-zinc-500'}"
-          />
-        </div>
-        
-        <!-- Label -->
-        <span class="text-sm text-zinc-500">{step.label}</span>
+<div class="relative overflow-hidden">
+  <!-- Brand Gradient Background -->
+  <div class="absolute inset-0 bg-gradient-to-r from-[#3644FE] to-[#B345ED] opacity-[0.03]" />
+  
+  <!-- Content -->
+  <div class="relative container max-w-7xl py-32">
+    <!-- Center Header -->
+    <div class="text-center mb-16">
+      <div class="inline-flex items-center justify-center w-16 h-16 
+                  rounded-full bg-primary bg-opacity-10 mb-8">
+        <Sparkles class="w-8 h-8 text-primary" />
+      </div>
+      
+      <h2 class="text-4xl md:text-5xl font-medium">
+        Export Writing to Live Product
+      </h2>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid lg:grid-cols-4 gap-16">
+      <!-- Steps List -->
+      <div class="lg:pt-8 space-y-12">
+        {#each steps as step}
+          <button
+            class="text-left space-y-2 w-full group"
+            on:click={() => landingStore.setExportStep(step.id)}
+          >
+            <h3 class="text-xl font-medium transition-colors
+                       {$landingStore.activeExportStep === step.id ? 
+                         'text-primary' : 'text-muted-foreground group-hover:text-primary'}" >
+              {step.title}
+            </h3>
+            <p class="text-muted-foreground text-sm leading-relaxed">
+              {step.description}
+            </p>
+          </button>
+        {/each}
       </div>
 
-      <!-- Connector Line -->
-      {#if i < steps.length - 1}
-        <div class="flex-1 h-px bg-zinc-800 mx-4">
-          <div 
-            class="h-full bg-primary transition-all duration-1000" 
-            style="width: {isPast(i) ? '100%' : '0%'}"
-          />
-        </div>
-      {/if}
-    {/each}
+      <!-- Preview Area -->
+      <div class="lg:col-span-3">
+        <ExportPreview />
+      </div>
+    </div>
   </div>
-
-  <!-- Code Preview -->
-  <div class="p-8 border-t border-zinc-800 font-mono text-sm">
-    {#if activeStep === 0}
-      <div class="text-zinc-500">
-        <span class="text-primary"># Google Doc Export</span><br />
-        Wireframe content ready for processing...
-      </div>
-    {:else if activeStep === 1}
-      <div class="text-zinc-500">
-        <span class="text-primary"># AI Processing</span><br />
-        Generating components and styles...
-      </div>
-    {:else}
-      <div class="text-zinc-500">
-        <span class="text-primary"># Generated Code</span><br />
-        {'<Component'}<br />
-        {'  className="flex items-center..."'}<br />
-        {'  variants={fadeIn}'}<br />
-        {'/>'}<br />
-      </div>
-    {/if}
-  </div>
-
-  <!-- Animated Gradient -->
-  <div class="absolute inset-0 bg-gradient-to-r from-primary to-transparent to-primary bg-opacity-5 animate-gradient" />
 </div>
-
-<style>
-  @keyframes gradient {
-    0% { background-position: 0% 50%; }
-    50% { background-position: 100% 50%; }
-    100% { background-position: 0% 50%; }
-  }
-
-  .animate-gradient {
-    background-size: 200% 200%;
-    animation: gradient 8s ease infinite;
-  }
-</style>
