@@ -7,10 +7,12 @@
 
   // ./sections/
   import Hero from "./sections/hero/Hero.svelte";
+  import Features from "./sections/features/Features.svelte";
+  import Proof from "./sections/proof/Proof.svelte";
+  import Pricing from "./sections/pricing/Pricing.svelte";
 
 </script>
 
-<!-- <SpaceNav /> -->
 
 <!-- Viewport Size Indicator -->
 {#if dev}
@@ -34,18 +36,16 @@
 	
 	<section class="relative py-24 border
 		max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    Features
-		<!-- <Features /> -->
+		<Features />
   </section>
   
   <section class="py-12 sm:py-16 md:py-20 lg:py-24 xl:py-32">
-    <!-- <Testimonials /> -->
-    Testimonials
+    <Proof />
   </section>
 
 
   <!-- CTA Section -->
   <section class="relative border-t py-20">
-		Pricing
+		<Pricing />
   </section>
 </main>

@@ -1,0 +1,47 @@
+// src/data/pricing/plans.ts
+import type { Plan } from './types';
+
+export const plans: Plan[] = [
+	{
+		id: 'lite',
+		name: 'Try for $1',
+		description: 'Test drive with a single template',
+		price: {
+			amount: 1,
+			period: 'one-time'
+		},
+		features: [
+			'UX writing template',
+			'Basic components library',
+			'Google Drive setup',
+			'Export to HTML/AI'
+		],
+		cta: {
+			text: 'Start Writing',
+			variant: 'outline',
+			href: 'https://gumroad.com/l/pipewriter-lite'
+		}
+	},
+	{
+		id: 'suite',
+		name: 'Writer Suite',
+		description: 'Complete UX writing toolkit',
+		price: {
+			amount: 89,
+			period: 'one-time'
+		},
+		features: [
+			'Full Google Docs app',
+			'84+ UI components',
+			'All templates & guides',
+			'Code export (HTML/React/Svelte)',
+			'AI-ready design comments'
+		],
+		badge: 'Most Popular',
+		cta: {
+			text: 'Get Full Access',
+			variant: 'default',
+			href: 'https://gumroad.com/l/pipewriter'
+		}
+	}
+];

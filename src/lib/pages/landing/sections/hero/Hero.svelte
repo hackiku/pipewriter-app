@@ -1,17 +1,25 @@
 <!-- src/lib/pages/landing/hero/Hero.svelte -->
 <script lang="ts">
-  import { Send } from "lucide-svelte";
+  import { FileText } from "lucide-svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
   // import ClientAvatars from "../../components/proof/ClientAvatars.svelte";
 </script>
 
+
+
 <div class="h-full flex flex-col justify-start
 						w-full sm:w-[55vw] md:w-[45vw] lg:w-[50vw]"
 						>
-  <h1 class="text-[7vh] md:text-[7vh] lg:text-[10vh] 
+  <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full 
+              bg-primary/10 text-primary border border-primary/20 mb-4">
+    <FileText class="w-4 h-4" />
+    <span class="text-sm font-medium">10× Your Copy Decks</span>
+  </div>
+
+						<h1 class="text-[7vh] md:text-[7vh] lg:text-[10vh] 
              font-medium leading-[1.1] tracking-tight mb-[2vh]
              ">
-    10x your copy decks
+    10x Your Copy Decks in Google Docs
     <span class="whitespace-nowrap"></span>
   </h1>
 <!-- text-xl sm:text-xl lg:text-[2.5vh]  -->
