@@ -4,6 +4,7 @@
   import Hero from "./sections/hero/Hero.svelte";
   import Demo from "./sections/demo/Demo.svelte";
   import Features from "./sections/features/Features.svelte";
+  import Benefits from "./sections/benefits/Benefits.svelte";
   import Proof from "./sections/proof/Proof.svelte";
   import Pricing from "./sections/pricing/Pricing.svelte";
 </script>
@@ -11,7 +12,7 @@
 <main class="flex flex-col relative min-h-screen overflow-x-clip text-foreground">
   <!-- Hero Section -->
   <section class="relative pt-32 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    <Hero />
+    <Hero /> 
   </section>
 
   <!-- Demo Section -->
@@ -23,8 +24,12 @@
   <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <Features />
   </section>
+	
+  <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+    <Benefits />
+  </section>
 
-  <!-- Social Proof -->
+	<!-- Social Proof -->
   <section class="py-24">
     <Proof />
   </section>

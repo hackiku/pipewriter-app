@@ -1,40 +1,37 @@
-<!-- src/lib/pages/landing/hero/Hero.svelte -->
+<!-- src/lib/pages/landing/sections/hero/Hero.svelte -->
 <script lang="ts">
   import { FileText } from "lucide-svelte";
   import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
-  // import ClientAvatars from "../../components/proof/ClientAvatars.svelte";
+  import Stickers from "./Stickers.svelte";
 </script>
 
-
-
-<div class="h-full flex flex-col justify-start
-						w-full sm:w-[55vw] md:w-[45vw] lg:w-[50vw]"
-						>
-  <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full 
-              bg-primary/10 text-primary border border-primary/20 mb-4">
-    <FileText class="w-4 h-4" />
-    <span class="text-sm font-medium">10× Your Copy Decks</span>
-  </div>
-
-						<h1 class="text-[7vh] md:text-[7vh] lg:text-[10vh] 
-             font-medium leading-[1.1] tracking-tight mb-[2vh]
-             ">
-    10x Your Copy Decks in Google Docs
-    <span class="whitespace-nowrap"></span>
-  </h1>
-<!-- text-xl sm:text-xl lg:text-[2.5vh]  -->
-  <p class="text-[5vw] sm:text-[3.5vw] md:text-[2vw]
-            text-muted-foreground mb-[3vh] leading-relaxed 
-            max-w-[45ch]">
-    Website revamps for space startups. Delivered at reentry speeds in your brand and code stack.
-  </p>
-
-  <!-- Button Container -->
-  <!-- <div class="space-y-3"> -->
-    <div class="flex flex-col __md:flex-row items-center w-fit gap-7">
-      <EarlyAccessButton size="md" text="Book a Chute Repack" />
-			<!-- <ClientAvatars /> -->
+<div class="relative">
+  <Stickers />
+  
+  <div class="flex flex-col items-center text-center">
+    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full 
+                bg-primary/10 text-primary border border-primary/20 mb-6">
+      <FileText class="w-4 h-4" />
+      <span class="text-sm font-medium">Write in Google Docs</span>
     </div>
-    
 
+    <h1 class="text-[7vh] md:text-[8vh] lg:text-[12vh] 
+              font-medium leading-[1.1] tracking-tight mb-6 
+              max-w-[20ch] mx-auto">
+      UX App for Writers
+    </h1>
+
+    <p class="text-[4vw] sm:text-[3vw] md:text-[2vw] lg:text-[1.5vw]
+              text-muted-foreground mb-6 leading-relaxed 
+              max-w-[45ch]">
+      Design wireframes in your favorite text editor. Ship in any code stack.
+    </p>
+
+    <EarlyAccessButton 
+      size="lg"
+      text="Get the Google Drive App" 
+      showPrice={true}
+      price="$89"
+    />
+  </div>
 </div>
