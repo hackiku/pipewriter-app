@@ -22,12 +22,19 @@
   
   <!-- Features Section -->
   <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    <Features />
+    
+		    <h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
+              font-medium leading-[1.1] tracking-tight mb-12
+              max-w-[20ch] mx-auto text-center">
+      10x Your Copy Decks in Google Docs
+    </h2>
+
+		<Features />
   </section>
 	
-  <!-- <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    <Benefits />
-  </section> -->
+  <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+    <!-- <Benefits /> -->
+  </section>
 
 	<!-- Social Proof -->
   <section class="py-24">

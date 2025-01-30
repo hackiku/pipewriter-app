@@ -38,7 +38,7 @@
   <div class="container max-w-6xl">
     <!-- Section Header -->
     <div class="text-center space-y-4 mb-20">
-      <h2 class="text-4xl font-medium">Write at the Speed of Thought</h2>
+      <h2 class="text-5xl font-medium">Bridge the Writing-Product Divide</h2>
       <p class="text-xl text-muted-foreground max-w-2xl mx-auto">
         Stop letting design tools slow down your writing flow. Pipewriter helps you create 
         better content faster, while delivering more value to your clients.

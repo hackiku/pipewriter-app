@@ -8,11 +8,8 @@
 <div class="container max-w-6xl">
   <div class="text-center mb-16">
     <h2 class="text-4xl font-medium mb-4">
-      Loved by Writers
+      Writers Dig the UX of it all
     </h2>
-    <p class="text-xl text-muted-foreground">
-      Join hundreds of writers designing better websites in Google&nbsp;Docs.
-    </p>
   </div>
 
   <!-- Scrollable container with gradient edges -->
