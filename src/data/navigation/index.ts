@@ -12,9 +12,10 @@ import { contactModalStore } from '$lib/stores/contactModalStore';
 export const mainNavItems: NavItem[] = [
 	// { href: "/product", label: "Product" },
 	// { href: "/pricing", label: "Pricing" },
-	// { href: "/space", label: "Work" },
 	// { href: "/about", label: "About" },
 	// { href: "/ai", label: "AI" },
+	{ href: "/editor", label: "Editor" },
+	{ href: "/space", label: "Space" },
 	{ href: "/blog", label: "Blog" },
 	{	href: "",	label: "Contact",
 		onClick: () => contactModalStore.set(true)
