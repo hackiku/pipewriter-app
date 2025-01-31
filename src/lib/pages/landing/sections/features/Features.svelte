@@ -1,100 +1,70 @@
 <!-- src/lib/pages/landing/sections/features/Features.svelte -->
 <script lang="ts">
-  import { FileText } from 'lucide-svelte';
-  import DemoVideo from './DemoVideo.svelte';
+  import DriveFolder from './DriveFolder.svelte';
   import DrivePreview from './DrivePreview.svelte';
-  import AiPipe from './AiPipe.svelte';
-  import { onMount } from 'svelte';
+  import { Button } from "$lib/components/ui/button";
+  import { ShoppingCart } from 'lucide-svelte';
   
   let activeFeature: string | null = 'elements';
-  let showMobilePreview = false;
-  let featuresSection: HTMLElement;
 
-  onMount(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        showMobilePreview = entry.isIntersecting;
-      },
-      { threshold: 0.1 }
-    );
+  function handleDriveSelect(id: string) {
+    activeFeature = id;
+  }
 
-    if (featuresSection) {
-      observer.observe(featuresSection);
-    }
-
-    return () => observer.disconnect();
-  });
+  function handleGumroadCheckout() {
+    window.location.href = 'https://gum.co/pipewriter';
+  }
 </script>
 
-<div class="container max-w-7xl" bind:this={featuresSection}>
-  <!-- First Feature - Video Demo -->
-  <div class="mb-32">
-    <div class="flex gap-4 items-center mb-16">
-      <div class="inline-flex items-center justify-center w-16 h-16 
-                  rounded-full bg-primary bg-opacity-10">
-        <FileText class="w-8 h-8 text-primary" />
+<div class="relative">
+  <!-- Desktop Layout -->
+  <div class="hidden lg:grid grid-cols-4 gap-8">
+    <!-- Left Column: Drive Folder & CTA -->
+    <div class="relative">
+      <div class="sticky top-28 space-y-6">
+        <DriveFolder activeId={activeFeature} onSelect={handleDriveSelect} />
+        <Button 
+          variant="ghost" 
+          class="w-full group"
+          on:click={handleGumroadCheckout}
+        >
+          <ShoppingCart class="w-4 h-4 mr-2 opacity-50 group-hover:opacity-100 transition-opacity" />
+          <span class="opacity-50 group-hover:opacity-100 transition-opacity">Add to Cart</span>
+        </Button>
       </div>
-      <h2 class="text-4xl font-medium">Wireframes where you write</h2>
     </div>
 
-    <div class="grid lg:grid-cols-5 gap-16 items-start">
-      <div class="lg:col-span-2 space-y-6">
-        <p class="text-xl text-muted-foreground">
-          Build website layouts right in Google Docs. No switching apps, 
-          no learning curve - just write and watch your ideas take shape.
-        </p>
-      </div>
-
-      <div class="lg:col-span-3">
-        <DemoVideo />
-      </div>
+    <!-- Right Column: Preview -->
+    <div class="col-span-3">
+      {#if activeFeature}
+        <DrivePreview {activeFeature} />
+      {/if}
     </div>
   </div>
 
-  <!-- Second Feature - Drive Integration -->
-  <div class="relative grid lg:grid-cols-3 gap-16 min-h-[150vh]">
-    <!-- Desktop: Left Side Drive Preview (sticky) -->
-    <div class="lg:col-span-2 hidden lg:block">
-      <div class="sticky top-8 z-[9999]">
-        <DrivePreview activeFeature={activeFeature} />
+  <!-- Mobile Layout -->
+  <div class="lg:hidden space-y-6">
+    <!-- Top Bar with Folder and Cart -->
+    <div class="grid grid-cols-4 gap-4">
+      <div class="col-span-3">
+        <DriveFolder activeId={activeFeature} onSelect={handleDriveSelect} />
       </div>
+      <Button 
+        variant="ghost"
+        size="icon"
+        class="h-auto aspect-square"
+        on:click={handleGumroadCheckout}
+      >
+        <div class="flex flex-col items-center gap-1">
+          <ShoppingCart class="w-6 h-6" />
+          <span class="text-xs">Buy</span>
+        </div>
+      </Button>
     </div>
 
-    <!-- Mobile: Sticky Drive Preview (only shown when scrolled into view) -->
-    {#if showMobilePreview}
-      <div class="lg:hidden fixed inset-x-0 top-0 z-40 px-4 bg-background/80 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto z-[999]">
-          <DrivePreview activeFeature={activeFeature} />
-        </div>
-        <!-- Gradient fade for content below -->
-        <div class="absolute -bottom-8 left-0 right-0 h-8 
-                    bg-gradient-to-b from-background/80 to-transparent" />
-      </div>
+    <!-- Preview Card -->
+    {#if activeFeature}
+      <DrivePreview {activeFeature} />
     {/if}
-
-    <!-- Right Side: Feature Text -->
-    <div class="space-y-[50vh] mt-[30vh] lg:mt-0">
-      <!-- Mobile spacing to account for fixed preview -->
-      <div class="h-[100vh] lg:hidden" />
-      
-      {#each ['Design Components', 'Pro Templates', 'Dark Mode Built-in'] as feature}
-        <div class="space-y-4">
-          <h3 class="text-3xl font-medium">{feature}</h3>
-          <p class="text-xl text-muted-foreground">
-            {#if feature === 'Design Components'}
-              90+ copy-paste UI elements for rapid wireframing.
-            {:else if feature === 'Pro Templates'}
-              12 pre-formatted docs that present like a $10k deliverable.
-            {:else}
-              Switch themes with one click. Your docs, your  vibe.
-            {/if}
-          </p>
-        </div>
-      {/each}
-    </div>
   </div>
-
-	<!-- 3rd feature -->
-	<!-- <AiPipe /> -->
-
 </div>

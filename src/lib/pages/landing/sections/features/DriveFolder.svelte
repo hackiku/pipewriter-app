@@ -19,11 +19,11 @@
   ];
 </script>
 
-<div class="w-fit flex flex-col rounded-xl border overflow-hidden bg-zinc-950 text-white">
+<div class="flex flex-col rounded-xl border overflow-hidden bg-zinc-950 text-white">
   <!-- Drive Header -->
-  <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900 w-full">
+  <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
     <img src="/icons/google-drive.svg" alt="Google Drive" class="w-5 h-5" />
-    <div class="flex items-center gap-1 text-sm whitespace-nowrap">
+    <div class="flex items-center gap-1 text-sm">
       {#each pathParts as part, i}
         {#if i > 0}
           <span class="text-white/40">/</span>
@@ -34,7 +34,7 @@
   </div>
 
   <!-- File List -->
-  <div class="flex-1 overflow-y-auto min-w-[300px]">
+  <div class="overflow-y-auto">
     {#each driveContents as item}
       {#if item.type === 'folder'}
         <div class="group">

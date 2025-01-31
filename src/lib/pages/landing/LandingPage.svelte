@@ -59,9 +59,9 @@
     </div>
   </section>
 	
-	<div class="border border-dashed border-red-500/40 m-6 rounded-3xl">
-		<AppDemo />
-	</div>
+	<!-- <div class="border border-dashed border-red-500/40 m-6 rounded-3xl"> -->
+		<!-- <AppDemo /> -->
+	<!-- </div> -->
 
   <!-- Social Proof -->
   <section class="py-24">
