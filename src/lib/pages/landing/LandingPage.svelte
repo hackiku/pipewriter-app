@@ -24,19 +24,19 @@
 
   <!-- Demo Section -->
   <section class="relative -mt-[10vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    <!-- <Demo /> -->
+    <Demo />
     <!-- <DocsDemo /> -->
   </section>
   
   <!-- Features Section -->
   <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
-              font-medium leading-[1.1] tracking-tight mb-16
+              font-medium leading-[1.3] tracking-tight mb-16
               max-w-[20ch] mx-auto text-center">
-      10x Your Copy Decks in Google Docs
+      Write 10x Copy Decks <br>in Google Docs
     </h2>
 
-    <!-- <Features /> -->
+    <Features />
   </section>
 
   <!-- App Demo Section -->
@@ -54,7 +54,7 @@
 
       <!-- App Content -->
       <div class="min-h-[80vh]">
-        <!-- <AppDemo /> -->
+        <AppDemo />
       </div>
     </div>
   </section>
@@ -65,17 +65,17 @@
 
   <!-- Social Proof -->
   <section class="py-24">
-    <!-- <Proof />s -->
+    <Proof />
   </section>
 
   <!-- Pricing -->
   <section class="relative border-t pt-24">
-    <!-- <Pricing /> -->
+    <Pricing />
   </section>
 	
 	<div class="py-12">
 
-		<!-- <LogosMarquee /> -->
+		<LogosMarquee />
 	</div>
 
 </main>
