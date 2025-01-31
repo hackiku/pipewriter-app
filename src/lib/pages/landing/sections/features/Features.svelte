@@ -3,11 +3,30 @@
   import { FileText } from 'lucide-svelte';
   import DemoVideo from './DemoVideo.svelte';
   import DrivePreview from './DrivePreview.svelte';
+  import AiPipe from './AiPipe.svelte';
+  import { onMount } from 'svelte';
   
-  let activeFeature: string | null = 'elements'; // Start with elements selected
+  let activeFeature: string | null = 'elements';
+  let showMobilePreview = false;
+  let featuresSection: HTMLElement;
+
+  onMount(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        showMobilePreview = entry.isIntersecting;
+      },
+      { threshold: 0.1 }
+    );
+
+    if (featuresSection) {
+      observer.observe(featuresSection);
+    }
+
+    return () => observer.disconnect();
+  });
 </script>
 
-<div class="container max-w-7xl">
+<div class="container max-w-7xl" bind:this={featuresSection}>
   <!-- First Feature - Video Demo -->
   <div class="mb-32">
     <div class="flex gap-4 items-center mb-16">
@@ -34,20 +53,30 @@
 
   <!-- Second Feature - Drive Integration -->
   <div class="relative grid lg:grid-cols-3 gap-16 min-h-[150vh]">
-    <!-- Left Side: Drive Preview (sticky) -->
+    <!-- Desktop: Left Side Drive Preview (sticky) -->
     <div class="lg:col-span-2 hidden lg:block">
-      <div class="sticky top-32">
+      <div class="sticky top-8">
         <DrivePreview activeFeature={activeFeature} />
       </div>
     </div>
 
-    <!-- Mobile: Drive Preview (non-sticky) -->
-    <div class="lg:hidden mb-16">
-      <DrivePreview activeFeature={activeFeature} />
-    </div>
+    <!-- Mobile: Sticky Drive Preview (only shown when scrolled into view) -->
+    {#if showMobilePreview}
+      <div class="lg:hidden fixed inset-x-0 top-0 z-40 px-4 bg-background/80 backdrop-blur-sm">
+        <div class="max-w-7xl mx-auto">
+          <DrivePreview activeFeature={activeFeature} />
+        </div>
+        <!-- Gradient fade for content below -->
+        <div class="absolute -bottom-8 left-0 right-0 h-8 
+                    bg-gradient-to-b from-background/80 to-transparent" />
+      </div>
+    {/if}
 
     <!-- Right Side: Feature Text -->
-    <div class="space-y-32">
+    <div class="space-y-[50vh] mt-[30vh] lg:mt-0">
+      <!-- Mobile spacing to account for fixed preview -->
+      <div class="h-[100vh] lg:hidden" />
+      
       {#each ['Design Components', 'Pro Templates', 'Dark Mode Built-in'] as feature}
         <div class="space-y-4">
           <h3 class="text-3xl font-medium">{feature}</h3>
@@ -64,4 +93,8 @@
       {/each}
     </div>
   </div>
+
+	<!-- 3rd feature -->
+	<AiPipe />
+
 </div>

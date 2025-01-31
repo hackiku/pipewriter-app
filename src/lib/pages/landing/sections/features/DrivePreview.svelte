@@ -2,15 +2,14 @@
 <script lang="ts">
   import { fade, fly } from 'svelte/transition';
   import DriveFolder from './DriveFolder.svelte';
-  import { onMount } from 'svelte';
   
-  export let activeFeature: string | null = 'elements'; // Start with elements selected
+  export let activeFeature: string | null = 'elements';
 
   const previews = {
     samples: {
       emoji: "📦",
-      title: "Sample Templates",
-      description: "Ready-made examples to build from"
+      title: "90+ UI Elements",
+      description: "Copy-paste components for rapid prototyping"
     },
     guides: {
       emoji: "📖",
@@ -31,7 +30,6 @@
 
   function handleSelect(id: string) {
     if (id === activeFeature) {
-      // Toggle off if clicking the active item
       activeFeature = null;
     } else {
       activeFeature = id;
@@ -39,17 +37,16 @@
   }
 </script>
 
-<!-- Container with max-width constraint -->
-<div class="max-w-[calc(100%-4rem)] space-y-[3vh]">
-  <!-- Drive Folder View -->
-  <div class="h-[45vh] lg:h-[35vh]">
+<div class="space-y-4 lg:max-w-fit">
+  <!-- Drive Folder - Auto height -->
+  <div class="min-h-[30vh] max-h-[80vh] lg:min-h-0 lg:h-auto w-full">
     <DriveFolder activeId={activeFeature} onSelect={handleSelect} />
   </div>
 
   <!-- Preview Window -->
   {#if activeFeature && previews[activeFeature]}
     <div 
-      class="aspect-video w-full rounded-xl overflow-hidden border bg-zinc-950 text-white"
+      class="aspect-video lg:min-w-[640px] w-full rounded-xl overflow-hidden border bg-zinc-950 text-white"
       in:fade={{ duration: 200 }}
     >
       <div class="relative h-full flex items-center justify-center">
@@ -64,15 +61,3 @@
     </div>
   {/if}
 </div>
-
-<style>
-  /* Fix for iOS vh issues */
-  /* @supports (-webkit-touch-callout: none) {
-    .h-[45vh] {
-      height: 45dvh;
-    }
-    .h-[35vh] {
-      height: 35dvh;
-    }
-  } */
-</style>
