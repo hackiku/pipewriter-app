@@ -1,10 +1,10 @@
-<!-- src/lib/components/cta/pricing/PricingCard.svelte -->
+<!-- src/lib/components/cta/pricing/cards/ProCard.svelte -->
 
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import { Check, ArrowRight } from "lucide-svelte";
   import type { Plan } from '$data/pricing/types';
-  import ProductStat from './ProductStat.svelte';
+  import ProductStat from '../ProductStat.svelte';
   
   export let plan: Plan;
   export let className = '';
@@ -37,10 +37,29 @@
   {/if}
 
   <!-- Header -->
-  <div class="mb-6">
+  <div class="flex align-center justify-between w-full">
     <h3 class="text-3xl font-semibold mb-2">
       {plan.name}
     </h3>
+		  <!-- Stats Row -->
+		<!-- {#if isMainPlan} -->
+			<div class="flex gap-3 mb-6">
+				<ProductStat
+					count="80"
+					icon="/tools/google-docs.svg"
+					iconAlt="Google Docs"
+					variant="primary"
+					size="sm"
+				/>
+				<ProductStat
+					count="8"
+					icon="/tools/google-apps-script.svg"
+					iconAlt="Apps Script"
+					variant="primary"
+					size="sm"
+				/>
+			</div>
+		<!-- {/if} -->
   </div>
 
   <!-- Price -->
@@ -51,37 +70,19 @@
       <span class="text-5xl font-bold tracking-tight">{priceDisplay.amount}</span>
       <span class="text-lg text-muted-foreground">/{priceDisplay.period}</span>
       {#if isMainPlan}
-        <span class="ml-3 text-sm line-through text-muted-foreground">$149</span>
+        <span class="ml-3 text-sm line-through text-muted-foreground">$97</span>
         <span class="ml-2 text-sm text-primary font-medium">Save 40%</span>
       {/if}
     {/if}
   </div>
 
-  <!-- Stats Row -->
-  {#if isMainPlan}
-    <div class="flex gap-3 mb-6">
-      <ProductStat
-        count="80"
-        icon="/tools/google-docs.svg"
-        iconAlt="Google Docs"
-        variant="primary"
-        size="sm"
-      />
-      <ProductStat
-        count="8"
-        icon="/tools/google-apps-script.svg"
-        iconAlt="Apps Script"
-        variant="primary"
-        size="sm"
-      />
-    </div>
-  {/if}
+
 
   <!-- Description -->
   <p class="text-muted-foreground mb-8">{plan.description}</p>
 
   <!-- Features -->
-  {#if isMainPlan}
+  <!-- {#if isMainPlan} -->
     <div class="mb-8">
       <ul class="space-y-3">
         {#each plan.features as feature}
@@ -93,7 +94,7 @@
         {/each}
       </ul>
     </div>
-  {/if}
+  <!-- {/if} -->
 
   <!-- CTA -->
   <Button 

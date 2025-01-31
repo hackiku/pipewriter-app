@@ -17,4 +17,4 @@
   </div>
 
 	<PricingGrid />
-</div>
+</div> 

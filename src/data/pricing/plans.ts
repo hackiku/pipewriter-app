@@ -23,12 +23,12 @@ export const plans: Plan[] = [
 		}
 	},
 	{
-		id: 'suite',
-		name: 'Writer Suite',
+		id: 'pro',
+		name: 'Pro',
 		description: 'Complete UX writing toolkit',
 		price: {
-			amount: 89,
-			period: 'one-time'
+			amount: 97,
+			period: 'lifetime'
 		},
 		features: [
 			'Full Google Docs app',

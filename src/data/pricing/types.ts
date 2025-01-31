@@ -2,7 +2,7 @@
 
 export interface PlanPrice {
 	amount: number | null;
-	period?: 'one-time' | 'monthly' | 'yearly';
+	period?: 'one-time' | 'monthly' | 'yearly' | 'lifetime';
 }
 
 export interface PlanCTA {
