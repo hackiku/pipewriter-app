@@ -51,8 +51,10 @@
       </div>
     </div>
   </section>
-
-	        <AppDemo />
+	
+	<div class="border border-red-500/50">
+		<AppDemo />
+	</div>
 
   <!-- Social Proof -->
   <section class="py-24">

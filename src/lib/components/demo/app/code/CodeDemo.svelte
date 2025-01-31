@@ -1,4 +1,4 @@
-<!-- src/lib/components/demo/app/tabs/CodeTab.svelte -->
+<!-- src/lib/components/demo/app/code/CodeTab.svelte -->
 <script lang="ts">
   // Sample generated code
   const code = `<!DOCTYPE html>
