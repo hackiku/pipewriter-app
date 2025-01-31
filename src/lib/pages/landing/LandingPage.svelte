@@ -10,7 +10,7 @@
   import Pricing from "./sections/pricing/Pricing.svelte";
   import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
 
-
+	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte"
   // import Frame from '$lib/iframe/Frame.svelte';
 
 </script>
@@ -69,7 +69,13 @@
   </section>
 
   <!-- Pricing -->
-  <section class="relative border-t py-20">
+  <section class="relative border-t pt-24">
     <Pricing />
   </section>
+	
+	<div class="py-12">
+
+		<LogosMarquee />
+	</div>
+
 </main>

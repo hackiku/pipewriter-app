@@ -4,8 +4,8 @@ import type { Plan } from './types';
 export const plans: Plan[] = [
 	{
 		id: 'lite',
-		name: 'Try for $1',
-		description: 'Test drive with a single template',
+		name: 'Lite',
+		description: 'Test drive a folder & show you care',
 		price: {
 			amount: 1,
 			period: 'one-time'

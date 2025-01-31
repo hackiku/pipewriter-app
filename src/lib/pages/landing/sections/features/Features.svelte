@@ -78,7 +78,7 @@
 				</Button>
 
 				<!-- Add Mini Testimonial -->
-				<div class="p-12 __border-t">
+				<div class="px-12 py-6 __border-t">
 					<MiniTestimonial />
 				</div>
 			</div>
