@@ -31,7 +31,7 @@
   <video
     bind:this={video}
     class="w-full h-full object-cover"
-    src="/videos/demo.webm"
+    src="/demo/videos/wireframing-demo.webp"
     loop
     muted
     playsinline

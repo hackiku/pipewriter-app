@@ -1,55 +1,87 @@
 <!-- src/lib/pages/landing/sections/features/DriveFolder.svelte -->
 <script lang="ts">
-  import { FileText, Folder, Settings } from 'lucide-svelte';
+  import { FileText, Folder } from 'lucide-svelte';
+  import { driveContents, type DriveItem } from '../../data/folders';
+  
+  export let activeId: string | null = null;
+  export let onSelect: (id: string) => void = () => {};
 
-  const folderContents = [
-    { type: 'folder', name: 'samples', icon: Folder },
-    { type: 'folder', name: 'guides', icon: Folder },
-    { type: 'folder', name: 'AI', icon: Folder },
-    { type: 'doc', name: 'Elements 🎨', icon: FileText, shared: true },
-    { type: 'doc', name: 'Darkmode 🌒', icon: FileText, shared: true },
-    { type: 'doc', name: 'Blank ⚪', icon: FileText, shared: true }
-  ];
+  function handleItemClick(item: DriveItem) {
+    if (item.preview) {
+      onSelect(item.id);
+    }
+  }
 </script>
 
-<div class="h-full flex flex-col rounded-xl border overflow-hidden bg-zinc-950 text-white">
+<div class="flex flex-col rounded-xl border overflow-hidden bg-zinc-950 text-white">
   <!-- Drive Header -->
   <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
-    <img src="/icons/google-drive.svg" alt="Google Drive" class="w-6 h-6" />
+    <img src="/icons/google-drive.svg" alt="Google Drive" class="w-5 h-5" />
     <div class="flex items-center gap-1 text-sm">
       <span>My Drive</span>
-      <span class="text-white/40">/</span>
-      <span>DOCS</span>
       <span class="text-white/40">/</span>
       <span>Pipewriter</span>
     </div>
   </div>
 
-  <!-- Toolbar -->
-  <div class="flex items-center gap-4 px-4 py-2 border-b border-white/10 bg-zinc-900/50">
-    <button class="px-3 py-1.5 text-sm hover:bg-white/10 rounded-md transition-colors">
-      Type
-    </button>
-    <button class="px-3 py-1.5 text-sm hover:bg-white/10 rounded-md transition-colors">
-      People
-    </button>
-    <button class="px-3 py-1.5 text-sm hover:bg-white/10 rounded-md transition-colors">
-      Modified
-    </button>
-  </div>
-
   <!-- File List -->
   <div class="flex-1 overflow-y-auto">
-    {#each folderContents as item}
-      <div class="flex items-center gap-3 px-4 py-2 hover:bg-white/5 transition-colors">
-        <svelte:component this={item.icon} class="w-5 h-5 text-white/70" />
-        <span class="flex-1">{item.name}</span>
-        {#if item.shared}
-          <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
-            <span class="text-xs">👥</span>
-          </div>
-        {/if}
-      </div>
+    {#each driveContents as item}
+      <!-- Handle both files and folders -->
+      {#if item.type === 'folder'}
+        <div class="group">
+          <button 
+            class="flex items-center gap-3 px-4 py-2 w-full
+                   {activeId === item.id ? 'bg-white/10' : 'hover:bg-white/5'} 
+                   {item.preview ? 'cursor-pointer' : 'cursor-default'}
+                   transition-colors"
+            on:click={() => handleItemClick(item)}
+          >
+            <Folder class="w-4 h-4 text-white/70" />
+            <span class="flex-1 text-sm text-left">{item.name}</span>
+          </button>
+          
+          {#if activeId === item.id && item.items}
+            <div class="pl-4">
+              {#each item.items as subItem}
+                <button 
+                  class="flex items-center gap-3 px-4 py-2 w-full
+                         {activeId === subItem.id ? 'bg-white/10' : 'hover:bg-white/5'}
+                         {subItem.preview ? 'cursor-pointer' : 'cursor-default'}
+                         transition-colors"
+                  on:click={() => handleItemClick(subItem)}
+                >
+                  <img class="w-4 h-4" src="/icons/google-docs.svg" alt="Google Docs Icon"/>
+                  <!-- <FileText class="w-4 h-4 text-white/70" /> -->
+                  <span class="flex-1 text-sm text-left">{subItem.name}</span>
+                  {#if subItem.shared}
+                    <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
+                      <span class="text-xs">👥</span>
+                    </div>
+                  {/if}
+                </button>
+              {/each}
+            </div>
+          {/if}
+        </div>
+      {:else}
+        <!-- File items -->
+        <button 
+          class="flex items-center gap-3 px-4 py-2 w-full
+                 {activeId === item.id ? 'bg-white/10' : 'hover:bg-white/5'}
+                 {item.preview ? 'cursor-pointer' : 'cursor-default'}
+                 transition-colors"
+          on:click={() => handleItemClick(item)}
+        >
+	        <img class="w-4 h-4" src="/icons/google-docs-file.svg" alt="Google Docs Icon"/>
+				<span class="flex-1 text-sm text-left">{item.name}</span>
+          {#if item.shared}
+            <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
+              <span class="text-xs">👥</span>
+            </div>
+          {/if}
+        </button>
+      {/if}
     {/each}
   </div>
 </div>
