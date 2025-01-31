@@ -55,7 +55,7 @@
   <div class="relative grid lg:grid-cols-3 gap-16 min-h-[150vh]">
     <!-- Desktop: Left Side Drive Preview (sticky) -->
     <div class="lg:col-span-2 hidden lg:block">
-      <div class="sticky top-8">
+      <div class="sticky top-8 z-[9999]">
         <DrivePreview activeFeature={activeFeature} />
       </div>
     </div>
@@ -63,7 +63,7 @@
     <!-- Mobile: Sticky Drive Preview (only shown when scrolled into view) -->
     {#if showMobilePreview}
       <div class="lg:hidden fixed inset-x-0 top-0 z-40 px-4 bg-background/80 backdrop-blur-sm">
-        <div class="max-w-7xl mx-auto">
+        <div class="max-w-7xl mx-auto z-[999]">
           <DrivePreview activeFeature={activeFeature} />
         </div>
         <!-- Gradient fade for content below -->

@@ -4,6 +4,7 @@
   import { Circle } from 'lucide-svelte';
   import Hero from "./sections/hero/Hero.svelte";
   import Demo from "./sections/demo/Demo.svelte";
+  import DocsDemo from "$lib/components/demo/docs/DocsDemo.svelte";
   import Features from "./sections/features/Features.svelte";
   import Proof from "./sections/proof/Proof.svelte";
   import Pricing from "./sections/pricing/Pricing.svelte";
@@ -19,6 +20,7 @@
   <!-- Demo Section -->
   <section class="relative -mt-[10vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <Demo />
+    <!-- <DocsDemo /> -->
   </section>
   
   <!-- Features Section -->
@@ -52,7 +54,7 @@
     </div>
   </section>
 	
-	<div class="border border-red-500/50">
+	<div class="border border-dashed border-red-500/40 m-6 rounded-3xl">
 		<AppDemo />
 	</div>
 
