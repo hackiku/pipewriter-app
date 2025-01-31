@@ -2,7 +2,6 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   
-  // Sample sections that can be inserted
   const sampleSections = {
     hero: {
       title: "Write Straight to Product",
@@ -15,26 +14,37 @@
         "Pro-grade templates",
         "Dark mode built-in"
       ]
-    },
-    pricing: {
-      plans: [
-        "Starter: $49/mo",
-        "Pro: $99/mo",
-        "Enterprise: Custom"
-      ]
     }
   };
 </script>
 
-<div class="max-w-[850px] mx-auto py-12 px-8">
-  <div class="prose prose-zinc max-w-none">
+<div class="max-w-3xl mx-auto py-16 px-12">
+  <div class="prose prose-zinc dark:prose-invert max-w-none">
     <!-- Initial content -->
-    <h1>SaaS Landing Page Copy</h1>
-    <p class="text-zinc-500">Click "Insert" then choose a layout template to begin...</p>
+    <h1 class="text-4xl font-semibold mb-6 text-zinc-900 dark:text-white">
+      Website Copy
+    </h1>
     
-    <!-- Dynamic sections will be inserted here -->
-    <div class="space-y-8">
-      <!-- We'll implement section rendering based on Frame selection -->
+    <p class="text-xl text-zinc-500 dark:text-zinc-400">
+      Click "Insert" then choose a layout to begin...
+    </p>
+    
+    <!-- Dynamic sections -->
+    <div class="space-y-8 mt-12">
+      {#if false} <!-- Placeholder for dynamic content -->
+        <div transition:fade>
+          <h2>{sampleSections.hero.title}</h2>
+          <p>{sampleSections.hero.subtitle}</p>
+        </div>
+      {/if}
     </div>
   </div>
 </div>
+
+<style>
+  :global(.dark) .prose {
+    --tw-prose-body: theme(colors.zinc.300);
+    --tw-prose-headings: theme(colors.white);
+    --tw-prose-links: theme(colors.blue.400);
+  }
+</style>

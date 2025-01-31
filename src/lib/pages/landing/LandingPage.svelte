@@ -4,12 +4,17 @@
   import { Circle } from 'lucide-svelte';
   import Hero from "./sections/hero/Hero.svelte";
   import Demo from "./sections/demo/Demo.svelte";
-  import DocsDemo from "$lib/components/demo/docs/DocsDemo.svelte";
+  // import DocsDemo from "$lib/components/demo/docs/DocsDemo.svelte";
   import Features from "./sections/features/Features.svelte";
   import Proof from "./sections/proof/Proof.svelte";
   import Pricing from "./sections/pricing/Pricing.svelte";
   import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
+
+
+  // import Frame from '$lib/iframe/Frame.svelte';
+
 </script>
+
 
 <main class="flex flex-col relative min-h-screen overflow-x-clip text-foreground">
   <!-- Hero Section -->

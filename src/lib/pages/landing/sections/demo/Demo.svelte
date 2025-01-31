@@ -9,20 +9,19 @@
 </script>
 
 <div class="relative">
-  <!-- Demo Container with Gradient Border -->
-  <div class="relative w-full aspect-[16/10] rounded-lg border overflow-hidden 
-              shadow-xl bg-zinc-950">
+  <!-- Demo Container -->
+  <div class="relative w-full aspect-[16/10] rounded-lg border bg-zinc-950 overflow-hidden shadow-xl">
     <!-- Gradient Overlay for Visual Interest -->
     <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 
                 pointer-events-none" />
     
-    <!-- Docs Demo with Scrollable Container -->
-    <div class="absolute inset-0 overflow-auto">
+    <!-- Docs Demo Container -->
+    <div class="absolute inset-0">
       <DocsDemo />
     </div>
   </div>
 
-  <!-- Floating Video Button -->
+  <!-- Video Button -->
   <div class="relative -mt-10 flex justify-center">
     <Button 
       variant="secondary" 
@@ -41,31 +40,3 @@
 {#if isVideoOpen}
   <VideoPlayer onClose={() => isVideoOpen = false} />
 {/if}
-
-<style>
-  /* Enable smooth scrolling for demo container */
-  .overflow-auto {
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
-  }
-
-  /* Custom scrollbar styling */
-  .overflow-auto::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
-  }
-
-  .overflow-auto::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .overflow-auto::-webkit-scrollbar-thumb {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
-  }
-
-  .overflow-auto::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-  }
-</style>
