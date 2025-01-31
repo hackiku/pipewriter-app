@@ -1,8 +1,8 @@
-<!-- src/lib/components/cta/EarlyAccess.svelte -->
+<!-- src/lib/components/cta/buy/EarlyAccess.svelte -->
 <script lang="ts">
   import CartButton from "./CartButton.svelte";
   import Timer from "./Timer.svelte";
-  import GumroadEmbed from "./GumroadEmbed.svelte";
+  // import GumroadEmbed from "./GumroadEmbed.svelte";
   import { ExternalLink } from "lucide-svelte";
   
   export let embedded = false;
@@ -24,7 +24,7 @@
           <span class="text-muted-foreground line-through ml-2">$99</span>
         </h2>
         <p class="text-lg text-muted-foreground max-w-xl">
-          Join the first wave of copywriters using AI-powered design tools. Price increases Jan 31st.
+					Join the first wave of copywriters using AI-powered design tools. Price increases Jan 31st.
         </p>
       </div>
       
@@ -57,7 +57,7 @@
   {#if showEmbed}
     <!-- Gumroad Embed Area -->
     <div class="relative overflow-hidden bg-background">
-      <GumroadEmbed height="calc(100vh - 12rem)" showGradient={true} />
+      <!-- <GumroadEmbed height="calc(100vh - 12rem)" showGradient={true} /> -->
 		</div>
   {/if}
 </div>

@@ -1,7 +1,7 @@
 <!-- src/lib/pages/landing/sections/hero/Hero.svelte -->
 <script lang="ts">
   import { FileText } from "lucide-svelte";
-  import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
+  import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
   import Stickers from "./Stickers.svelte";
 </script>
 
@@ -27,11 +27,12 @@
       Design wireframes in your favorite text editor. Ship in any code stack.
     </p>
 
-    <EarlyAccessButton 
+    <BuyButton 
       size="lg"
       text="Early Access" 
       showPrice={true}
       price="— $97"
+      source="hero"
     />
   </div>
 </div>

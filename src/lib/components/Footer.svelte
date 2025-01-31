@@ -2,10 +2,10 @@
 <script lang="ts">
   import { ArrowRight } from "lucide-svelte";
   import EmailForm from "$lib/components/cta/email/EmailForm.svelte";
-  import EarlyAccessButton from "$lib/components/cta/EarlyAccessButton.svelte";
+  import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
   import SocialLink from "./cta/SocialLink.svelte";
   import { contactModalStore } from "$lib/stores/contactModalStore";
-  import { socialLinks, footerSections } from '$lib/data/navigation';
+  import { socialLinks, footerSections } from '$data/navigation';
   import { mainNavItems } from '$data/navigation';
   
   const year = new Date().getFullYear();
@@ -26,11 +26,12 @@
             Professional website copy decks in Google Docs. Design-ready templates + sidebar app.
           </p>
           <div class="pt-2">
-            <EarlyAccessButton
-              size="md"
-              source="footer"
-              className="w-fit font-normal"
-            />
+						<BuyButton
+							size="sm"
+							text="Get Access"
+							source="footer"
+							className="w-fit font-normal"
+						/>
           </div>
         </div>
 

@@ -1,4 +1,4 @@
-<!-- src/routes/+layout.svelte -->
+<!-- src/routes/(website)/+layout.svelte -->
 <script lang="ts">
   import { getContext } from 'svelte';
 	import { dev } from '$app/environment';
@@ -7,13 +7,12 @@
 	import Nav from "$lib/components/Nav.svelte";
   import Footer from "$lib/components/Footer.svelte";
   import SEO from "$lib/components/SEO.svelte";
-
-  import EarlyAccess from "$lib/components/cta/EarlyAccess.svelte";
-  import EarlyAccessDrawer from "$lib/components/cta/EarlyAccessDrawer.svelte";
+	import BuyDrawer from "$lib/components/cta/buy/BuyDrawer.svelte";
   import ContactModal from "$lib/components/ContactModal.svelte";
 
   import { ModeWatcher } from "mode-watcher";
-  import { drawerStore } from '$lib/stores/earlyAccessStore';
+  import { buyStore } from '$lib/stores/buyStore';
+
 	import { contactModalStore } from '$lib/stores/contactModalStore';
   
 	import { onMount } from 'svelte';
@@ -32,13 +31,10 @@
 
 <SEO />
 
-<!-- Global Early Access Drawer -->
-<EarlyAccessDrawer>
-  <div slot="trigger">
-    <!-- Empty trigger slot - actual triggers come from buttons -->
-  </div>
-  <EarlyAccess />
-</EarlyAccessDrawer>
+<!-- Global Buy Drawer -->
+<BuyDrawer>
+  <div slot="trigger" />
+</BuyDrawer>
 
 <ModeWatcher />
 

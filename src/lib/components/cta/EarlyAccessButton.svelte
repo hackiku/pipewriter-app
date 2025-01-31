@@ -1,4 +1,4 @@
-<!-- $lib/components/cta/EarlyAccessButton.svelte -->
+<!-- $lib/components/cta/buy/EarlyAccessButton.svelte -->
 <script lang="ts">
   import { ArrowUp } from "lucide-svelte";
   import { ShoppingCart } from "lucide-svelte";
