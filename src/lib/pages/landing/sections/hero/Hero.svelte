@@ -21,7 +21,7 @@
       UX App for Writers
     </h1>
 
-    <p class="text-[4vw] sm:text-[3vw] md:text-[2vw] lg:text-[1.5vw]
+    <p class="text-[4.5vw] sm:text-[3vw] md:text-[2vw] lg:text-[2vw]
               text-muted-foreground mb-6 leading-relaxed 
               max-w-[45ch]">
       Design wireframes in your favorite text editor. Ship in any code stack.
@@ -29,9 +29,9 @@
 
     <EarlyAccessButton 
       size="lg"
-      text="Get the Google Drive App" 
+      text="Early Access" 
       showPrice={true}
-      price="$89"
+      price="— $97"
     />
   </div>
 </div>

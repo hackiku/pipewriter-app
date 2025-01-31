@@ -1,63 +1,85 @@
 <!-- src/lib/pages/landing/sections/features/Features.svelte -->
 <script lang="ts">
+  import { FileText } from 'lucide-svelte';
   import DemoVideo from './DemoVideo.svelte';
-  import DriveFolder from './DriveFolder.svelte';
-  import Blurbs from './Blurbs.svelte';
-  import AiPipeline from './AiPipeline.svelte';
-  import { FileText, Database, Sparkles } from 'lucide-svelte';
+  import DrivePreview from './DrivePreview.svelte';
 
-  const features = [
+  let activePreview: number | null = null;
+  
+  const stats = [
     {
-      icon: FileText,
-      title: "Wireframes where you write",
-      description: "Build website layouts right in Google Docs. No switching apps, no learning curve - just write and watch your ideas take shape.",
-      component: DemoVideo
+      number: "90+",
+      label: "UI elements",
+      description: "Copy paste away.",
+      previewId: 1
     },
     {
-      icon: Database,
-      title: "Template system",
-      description: "Copy-paste from our library of UX patterns. Every component perfectly formatted for Google Docs, ready to customize.",
-      component: DriveFolder
+      number: "12",
+      label: "template docs",
+      description: "Formatted to look like a million bucks.",
+      previewId: 2
+    },
+    {
+      number: "2×",
+      label: "color modes",
+      description: "Light and dark, perfectly themed.",
+      previewId: 3
     }
   ];
 </script>
 
 <div class="container max-w-7xl">
-  <!-- Features with demos -->
-  {#each features as feature, i}
-    <div class="mb-32">
-      <!-- Feature content -->
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
-        <div class="space-y-6">
-          <div class="inline-flex items-center justify-center w-16 h-16 
-                      rounded-full bg-primary/10 mb-4">
-            <svelte:component this={feature.icon} 
-                            class="w-8 h-8 text-primary" />
-          </div>
-          
-          <h3 class="text-4xl font-medium leading-tight">
-            {feature.title}
-          </h3>
-          
-          <p class="text-xl text-muted-foreground">
-            {feature.description}
-          </p>
-        </div>
+  <!-- First Feature - Video Demo -->
+  <div class="mb-32">
+    <!-- Headline -->
+    <div class="flex gap-4 items-center mb-16">
+      <div class="inline-flex items-center justify-center w-16 h-16 
+                  rounded-full bg-primary bg-opacity-10">
+        <FileText class="w-8 h-8 text-primary" />
+      </div>
+      <h2 class="text-4xl font-medium">Wireframes where you write</h2>
+    </div>
 
-        <!-- Demo component -->
-        <div class="relative -z-10 lg:translate-x-12">
-          <svelte:component this={feature.component} />
-        </div>
+    <!-- Content Grid -->
+    <div class="grid lg:grid-cols-4 gap-16 items-start">
+      <div class="space-y-6">
+        <p class="text-xl text-muted-foreground">
+          Build website layouts right in Google Docs. No switching apps, 
+          no learning curve - just write and watch your ideas take shape.
+        </p>
       </div>
 
-      <!-- Add Blurbs after first feature -->
-      {#if i === 1}
-        <Blurbs />
-      {/if}
+      <div class="lg:col-span-3">
+        <DemoVideo />
+      </div>
     </div>
-  {/each}
+  </div>
 
-  <!-- AI Pipeline Section -->
-	<AiPipeline />
-	
+  <!-- Second Feature - Drive Preview -->
+  <div class="relative">
+    <!-- Fixed Drive Preview -->
+    <div class="lg:sticky lg:top-24 lg:w-[45%] lg:ml-auto">
+      <DrivePreview activeId={activePreview} />
+    </div>
+
+    <!-- Scrolling Stats -->
+    <div class="relative lg:w-1/2 space-y-32 py-16">
+      {#each stats as stat}
+        <div 
+          class="space-y-4"
+          on:mouseenter={() => activePreview = stat.previewId}
+          on:mouseleave={() => activePreview = null}
+        >
+          <div class="space-y-1">
+            <div class="text-4xl font-medium">
+              {stat.number} <span class="text-muted-foreground">{stat.label}</span>
+            </div>
+            <p class="text-xl text-muted-foreground">
+              {stat.description}
+            </p>
+          </div>
+        </div>
+      {/each}
+    </div>
+  </div>
 </div>
