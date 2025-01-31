@@ -5,6 +5,9 @@
   
   export let activeId: string | null = null;
   export let onSelect: (id: string) => void = () => {};
+  export let isRootView = true;
+
+  let showEarlyAccess = false;
 
   function handleItemClick(item: DriveItem) {
     if (item.preview) {
@@ -12,90 +15,116 @@
     }
   }
 
+  function handlePathClick(part: string) {
+    if (part === 'My Drive') {
+      showEarlyAccess = true;
+    } else if (part === 'Pipewriter') {
+      showEarlyAccess = false;
+      onSelect('elements');
+    }
+  }
+
   $: pathParts = [
     'My Drive',
     'Pipewriter',
-    ...(activeId === 'samples' ? ['samples'] : [])
+    ...(activeId?.includes('/') ? activeId.split('/') : [])
   ];
+
+  $: currentFolder = activeId?.split('/')[0];
 </script>
 
 <div class="flex flex-col rounded-xl border overflow-hidden bg-zinc-950 text-white">
   <!-- Drive Header -->
   <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
     <img src="/icons/google-drive.svg" alt="Google Drive" class="w-5 h-5" />
-    <div class="flex items-center gap-1 text-sm">
+    <div class="flex items-center gap-1 text-sm whitespace-nowrap overflow-x-auto">
       {#each pathParts as part, i}
         {#if i > 0}
           <span class="text-white/40">/</span>
         {/if}
-        <span class={i === pathParts.length - 1 ? 'text-white/40' : ''}>{part}</span>
+        <button 
+          class="hover:text-white/90 transition-colors
+                 {part === 'My Drive' && !showEarlyAccess ? 'text-white/40' : ''}
+                 {part === 'Pipewriter' && showEarlyAccess ? 'text-white/40' : ''}"
+          on:click={() => handlePathClick(part)}
+        >
+          {part}
+        </button>
       {/each}
     </div>
   </div>
 
-  <!-- File List -->
-  <div class="overflow-y-auto">
-    {#each driveContents as item}
-      {#if item.type === 'folder'}
-        <div class="group">
+  <!-- Early Access Message or File List -->
+  {#if showEarlyAccess}
+    <div class="p-8 text-center">
+      <p class="text-lg mb-4">👋 Get early access to start building your docs!</p>
+      <p class="text-sm text-white/70">Join the waitlist to be one of the first.</p>
+    </div>
+  {:else}
+    <!-- File List -->
+    <div class="overflow-y-auto">
+      {#each driveContents as item}
+        {#if item.type === 'folder'}
+          <div class="group">
+            <button 
+              class="flex items-center gap-3 px-4 py-2 w-full
+                     {activeId?.startsWith(item.id) ? 'bg-white/10' : 'hover:bg-white/5'} 
+                     {item.preview ? 'cursor-pointer' : 'cursor-default'}
+                     transition-colors"
+              on:click={() => handleItemClick(item)}
+            >
+              <Folder class="w-4 h-4 text-white/70" />
+              <span class="flex-1 text-sm text-left">{item.name}</span>
+            </button>
+            
+            {#if activeId?.startsWith(item.id) && item.items}
+              <div class="pl-4">
+                {#each item.items as subItem}
+                  <button 
+                    class="flex items-center gap-3 px-4 py-2 w-full
+                           {activeId === `${item.id}/${subItem.id}` ? 'bg-white/10' : 'hover:bg-white/5'}
+                           {subItem.preview ? 'cursor-pointer' : 'cursor-default'}
+                           transition-colors"
+                    on:click={() => handleItemClick(subItem)}
+                  >
+                    <img
+                      class="w-4 h-4"
+                      src="/icons/google-docs-file.svg"
+                      alt="Google Docs Icon"
+                    />
+                    <span class="flex-1 text-sm text-left">{subItem.name}</span>
+                    {#if subItem.shared}
+                      <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
+                        <span class="text-xs">👥</span>
+                      </div>
+                    {/if}
+                  </button>
+                {/each}
+              </div>
+            {/if}
+          </div>
+        {:else}
           <button 
             class="flex items-center gap-3 px-4 py-2 w-full
-                   {activeId === item.id ? 'bg-white/10' : 'hover:bg-white/5'} 
+                   {activeId === item.id ? 'bg-white/10' : 'hover:bg-white/5'}
                    {item.preview ? 'cursor-pointer' : 'cursor-default'}
                    transition-colors"
             on:click={() => handleItemClick(item)}
           >
-            <Folder class="w-4 h-4 text-white/70" />
+            <img
+              class="w-4 h-4"
+              src="/icons/google-docs-file.svg"
+              alt="Google Docs Icon"
+            />
             <span class="flex-1 text-sm text-left">{item.name}</span>
+            {#if item.shared}
+              <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
+                <span class="text-xs">👥</span>
+              </div>
+            {/if}
           </button>
-          
-          {#if activeId === item.id && item.items}
-            <div class="pl-4">
-              {#each item.items as subItem}
-                <button 
-                  class="flex items-center gap-3 px-4 py-2 w-full
-                         {activeId === subItem.id ? 'bg-white/10' : 'hover:bg-white/5'}
-                         {subItem.preview ? 'cursor-pointer' : 'cursor-default'}
-                         transition-colors"
-                  on:click={() => handleItemClick(subItem)}
-                >
-                  <img
-                    class="w-4 h-4"
-                    src="/icons/google-docs-file.svg"
-                    alt="Google Docs Icon"
-                  />
-                  <span class="flex-1 text-sm text-left">{subItem.name}</span>
-                  {#if subItem.shared}
-                    <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
-                      <span class="text-xs">👥</span>
-                    </div>
-                  {/if}
-                </button>
-              {/each}
-            </div>
-          {/if}
-        </div>
-      {:else}
-        <button 
-          class="flex items-center gap-3 px-4 py-2 w-full
-                 {activeId === item.id ? 'bg-white/10' : 'hover:bg-white/5'}
-                 {item.preview ? 'cursor-pointer' : 'cursor-default'}
-                 transition-colors"
-          on:click={() => handleItemClick(item)}
-        >
-          <img
-            class="w-4 h-4"
-            src="/icons/google-docs-file.svg"
-            alt="Google Docs Icon"
-          />
-          <span class="flex-1 text-sm text-left">{item.name}</span>
-          {#if item.shared}
-            <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
-              <span class="text-xs">👥</span>
-            </div>
-          {/if}
-        </button>
-      {/if}
-    {/each}
-  </div>
+        {/if}
+      {/each}
+    </div>
+  {/if}
 </div>

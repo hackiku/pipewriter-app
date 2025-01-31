@@ -15,19 +15,17 @@ export interface DriveItem {
 	items?: DriveItem[];
 }
 
-export const driveContents: DriveItem[] = [
-	{
-		id: 'elements',
-		type: 'doc',
-		name: 'Elements 🎨',
-		shared: true,
-		preview: true,
-		previewContent: {
-			emoji: "🎨",
-			title: "90+ UI Elements",
-			description: "Copy-paste components for rapid prototyping"
+// Helper to sort items - folders first, then docs alphabetically
+function sortDriveItems(items: DriveItem[]): DriveItem[] {
+	return items.sort((a, b) => {
+		if (a.type === b.type) {
+			return a.name.localeCompare(b.name);
 		}
-	},
+		return a.type === 'folder' ? -1 : 1;
+	});
+}
+
+export const driveContents: DriveItem[] = sortDriveItems([
 	{
 		id: 'samples',
 		type: 'folder',
@@ -38,10 +36,10 @@ export const driveContents: DriveItem[] = [
 			title: "Pro Templates",
 			description: "Ship faster with ready-to-go components"
 		},
-		items: [
+		items: sortDriveItems([
 			{ id: 'hero', type: 'doc', name: 'Hero Section.doc', shared: true, preview: true },
 			{ id: 'features', type: 'doc', name: 'Feature Grid.doc', shared: true, preview: true }
-		]
+		])
 	},
 	{
 		id: 'guides',
@@ -53,10 +51,22 @@ export const driveContents: DriveItem[] = [
 			title: "Quick Start Guides",
 			description: "Learn the basics in 5 minutes"
 		},
-		items: [
+		items: sortDriveItems([
 			{ id: 'start', type: 'doc', name: '1. Start 🚀', shared: true, preview: true },
 			{ id: 'install', type: 'doc', name: '2. Install app ⚡', shared: true, preview: true }
-		]
+		])
+	},
+	{
+		id: 'elements',
+		type: 'doc',
+		name: 'Elements 🎨',
+		shared: true,
+		preview: true,
+		previewContent: {
+			emoji: "🎨",
+			title: "90+ UI Elements",
+			description: "Copy-paste components for rapid prototyping"
+		}
 	},
 	{
 		id: 'darkmode',
@@ -76,4 +86,4 @@ export const driveContents: DriveItem[] = [
 		name: 'Blank ⚪',
 		shared: true
 	}
-];
+]);
