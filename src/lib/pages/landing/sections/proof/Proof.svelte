@@ -1,5 +1,4 @@
-<!-- src/lib/pages/landing/sections/testimonials/Proof.svelte -->
-
+<!-- src/lib/pages/landing/sections/proof/Proof.svelte -->
 <script lang="ts">
   import { userTestimonials } from '$data/proof/testimonials/users';
   import UserTestimonial from '$lib/components/proof/testimonials/UserTestimonial.svelte';
@@ -18,7 +17,10 @@
                 scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]">
       {#each userTestimonials as testimonial}
         <div class="flex-shrink-0 w-[min(100%,_24rem)] snap-center">
-          <UserTestimonial {testimonial} />
+          <UserTestimonial 
+            {testimonial}
+            useShortQuote={false} 
+          />
         </div>
       {/each}
     </div>

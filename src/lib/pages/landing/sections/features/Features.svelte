@@ -78,7 +78,7 @@
 				</Button>
 
 				<!-- Add Mini Testimonial -->
-				<div class="p-6 border-t">
+				<div class="p-12 __border-t">
 					<MiniTestimonial />
 				</div>
 			</div>
@@ -94,23 +94,26 @@
 	<div class="lg:hidden">
 		<!-- Sticky Header with Drive Folder -->
 		<div class="sticky top-4 z-[999] bg-background/80 backdrop-blur-sm pb-6">
-			<DriveFolder
-				activeId={activeFeature}
-				onSelect={handleDriveSelect}
-				{isRootView}
+			<DriveFolder 
+				activeId={activeFeature} 
+				onSelect={handleDriveSelect} 
+				isRootView={isRootView}
 			/>
-			<Button
-				variant="ghost"
-				class="w-full group mt-6"
-				on:click={handleGumroadCheckout}
-			>
-				<ShoppingCart
-					class="w-4 h-4 mr-2 opacity-50 group-hover:opacity-100 transition-opacity"
-				/>
-				<span class="opacity-50 group-hover:opacity-100 transition-opacity"
-					>Add to Cart</span
+			<div class="space-y-6 mt-6">
+				<Button 
+					variant="ghost" 
+					class="w-full group"
+					on:click={handleGumroadCheckout}
 				>
-			</Button>
+					<ShoppingCart class="w-4 h-4 mr-2 opacity-50 group-hover:opacity-100 transition-opacity" />
+					<span class="opacity-50 group-hover:opacity-100 transition-opacity">Add to Cart</span>
+				</Button>
+				
+				<!-- Add Mini Testimonial -->
+				<!-- <div class="pt-6 border-t"> -->
+					<!-- <MiniTestimonial /> -->
+				<!-- </div> -->
+			</div>
 		</div>
 
 		<!-- Preview Cards -->

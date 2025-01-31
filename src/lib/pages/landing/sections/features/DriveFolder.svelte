@@ -8,29 +8,67 @@
   export let isRootView = true;
 
   let showEarlyAccess = false;
+  let currentFolder: string | null = null;
 
-  function handleItemClick(item: DriveItem) {
+  function handleDocClick(item: DriveItem) {
     if (item.preview) {
       onSelect(item.id);
+    }
+  }
+
+  function handleFolderClick(item: DriveItem) {
+    if (item.type === 'folder') {
+      currentFolder = item.id;
+      onSelect(`${item.id}/${item.items?.[0]?.id || ''}`);
+    }
+  }
+
+  function handleItemClick(item: DriveItem) {
+    if (item.type === 'folder') {
+      handleFolderClick(item);
+    } else {
+      handleDocClick(item);
     }
   }
 
   function handlePathClick(part: string) {
     if (part === 'My Drive') {
       showEarlyAccess = true;
+      currentFolder = null;
     } else if (part === 'Pipewriter') {
       showEarlyAccess = false;
+      currentFolder = null;
       onSelect('elements');
+    } else {
+      // Handle subfolder clicks in path
+      const folder = driveContents.find(item => item.id === part);
+      if (folder) {
+        handleFolderClick(folder);
+      }
+    }
+  }
+
+  $: {
+    // Update currentFolder when activeId changes
+    if (activeId?.includes('/')) {
+      currentFolder = activeId.split('/')[0];
     }
   }
 
   $: pathParts = [
     'My Drive',
     'Pipewriter',
-    ...(activeId?.includes('/') ? activeId.split('/') : [])
+    ...(currentFolder ? [currentFolder] : [])
   ];
 
-  $: currentFolder = activeId?.split('/')[0];
+  $: getPathPartStyle = (part: string) => {
+    if (showEarlyAccess) {
+      return part === 'My Drive' ? 'text-white' : 'text-white/40';
+    }
+    if (part === currentFolder) return 'text-white';
+    if (part === 'Pipewriter' && !currentFolder && !showEarlyAccess) return 'text-white';
+    return 'text-white/40';
+  };
 </script>
 
 <div class="flex flex-col rounded-xl border overflow-hidden bg-zinc-950 text-white">
@@ -43,9 +81,7 @@
           <span class="text-white/40">/</span>
         {/if}
         <button 
-          class="hover:text-white/90 transition-colors
-                 {part === 'My Drive' && !showEarlyAccess ? 'text-white/40' : ''}
-                 {part === 'Pipewriter' && showEarlyAccess ? 'text-white/40' : ''}"
+          class="hover:text-white/90 transition-colors {getPathPartStyle(part)}"
           on:click={() => handlePathClick(part)}
         >
           {part}
@@ -68,16 +104,15 @@
           <div class="group">
             <button 
               class="flex items-center gap-3 px-4 py-2 w-full
-                     {activeId?.startsWith(item.id) ? 'bg-white/10' : 'hover:bg-white/5'} 
-                     {item.preview ? 'cursor-pointer' : 'cursor-default'}
-                     transition-colors"
-              on:click={() => handleItemClick(item)}
+                     {currentFolder === item.id ? 'bg-white/10' : 'hover:bg-white/5'} 
+                     cursor-pointer transition-colors"
+              on:click={() => handleFolderClick(item)}
             >
               <Folder class="w-4 h-4 text-white/70" />
               <span class="flex-1 text-sm text-left">{item.name}</span>
             </button>
             
-            {#if activeId?.startsWith(item.id) && item.items}
+            {#if currentFolder === item.id && item.items}
               <div class="pl-4">
                 {#each item.items as subItem}
                   <button 
@@ -85,7 +120,7 @@
                            {activeId === `${item.id}/${subItem.id}` ? 'bg-white/10' : 'hover:bg-white/5'}
                            {subItem.preview ? 'cursor-pointer' : 'cursor-default'}
                            transition-colors"
-                    on:click={() => handleItemClick(subItem)}
+                    on:click={() => handleDocClick(subItem)}
                   >
                     <img
                       class="w-4 h-4"
@@ -109,7 +144,7 @@
                    {activeId === item.id ? 'bg-white/10' : 'hover:bg-white/5'}
                    {item.preview ? 'cursor-pointer' : 'cursor-default'}
                    transition-colors"
-            on:click={() => handleItemClick(item)}
+            on:click={() => handleDocClick(item)}
           >
             <img
               class="w-4 h-4"

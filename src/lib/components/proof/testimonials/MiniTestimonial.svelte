@@ -32,52 +32,50 @@
 <div class="space-y-4">
   <div class="min-h-[100px]">
     {#key currentIndex}
-      <div class="space-y-3" in:fade={{ duration: 300 }}>
+      <div class="relative space-y-3" in:fade={{ duration: 300 }}>
         <blockquote class="text-sm text-muted-foreground">
           "{miniTestimonials[currentIndex].quote.short}"
         </blockquote>
         
-        <div class="flex items-center justify-between gap-3">
-          <div class="flex items-center gap-3">
-            <div class="w-8 h-8 rounded-full overflow-hidden bg-muted">
-              <img 
-                src={miniTestimonials[currentIndex].imgSrc} 
-                alt={miniTestimonials[currentIndex].author}
-                class="w-full h-full object-cover"
-              />
-            </div>
-            <div class="text-sm">
-              <span class="font-medium">
-                {miniTestimonials[currentIndex].author}
-              </span>
-              <span class="text-muted-foreground">
-                , {miniTestimonials[currentIndex].role}
-              </span>
-            </div>
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded-full overflow-hidden bg-muted">
+            <img 
+              src={miniTestimonials[currentIndex].imgSrc} 
+              alt={miniTestimonials[currentIndex].author}
+              class="w-full h-full object-cover"
+            />
           </div>
+          <div class="flex flex-col text-sm whitespace-nowrap">
+            <span class="font-medium">
+              {miniTestimonials[currentIndex].author}
+            </span>
+            <span class="text-muted-foreground">
+              {miniTestimonials[currentIndex].role}
+            </span>
+          </div>
+        </div>
 
-          {#if miniTestimonials[currentIndex].hire}
+        {#if miniTestimonials[currentIndex].hire}
+          <div class="absolute -bottom-10 right-0 -rotate-3 hover:rotate-0 transition-transform">
             <Button 
-              variant="ghost" 
+              variant="outline"
               size="sm"
-              class="group"
+              class="group font-medium hover:bg-primary hover:text-primary-foreground"
               href={miniTestimonials[currentIndex].hire.url}
               target="_blank"
               rel="noopener noreferrer"
             >
-              <span class="text-xs">
-                {miniTestimonials[currentIndex].hire.buttonText}
-              </span>
-              <ExternalLink class="w-3 h-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
+              <span>{miniTestimonials[currentIndex].hire.buttonText}</span>
+              <ExternalLink class="w-3.5 h-3.5 ml-1.5 opacity-70 group-hover:opacity-100 transition-opacity" />
             </Button>
-          {/if}
-        </div>
+          </div>
+        {/if}
       </div>
     {/key}
   </div>
 
   <!-- Dots -->
-  <div class="flex gap-1.5">
+  <div class="flex gap-1.5 px-4">
     {#each miniTestimonials as _, i}
       <button
         class="w-1.5 h-1.5 rounded-full transition-colors"
