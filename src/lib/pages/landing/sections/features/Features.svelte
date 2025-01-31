@@ -86,7 +86,7 @@
             {:else if feature === 'Pro Templates'}
               12 pre-formatted docs that present like a $10k deliverable.
             {:else}
-              Switch themes with one click. Your docs, your vibe.
+              Switch themes with one click. Your docs, your  vibe.
             {/if}
           </p>
         </div>
@@ -95,6 +95,6 @@
   </div>
 
 	<!-- 3rd feature -->
-	<AiPipe />
+	<!-- <AiPipe /> -->
 
 </div>
