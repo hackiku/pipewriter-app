@@ -1,78 +1,76 @@
-<!-- src/lib/components/proof/BookingTestimonial.svelte -->
+<!-- src/lib/components/proof/MiniTestimonial.svelte -->
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
   import { fade } from 'svelte/transition';
+  import { Button } from "$lib/components/ui/button";
+  import { ExternalLink } from 'lucide-svelte';
+  import { userTestimonials } from '$data/proof/testimonials/users';
 
-  const testimonials = [
-    {
-      quote: "We grew revenue to $960k from $200k average",
-      author: "Tommy Joiner",
-      role: "Co-Founder",
-      company: "WordAgents",
-      imgSrc: 'people/clients/tommy-joiner.jpg'
-    },
-    {
-      quote: "Wow, this guy is incredible — a level above & beyond anything I could have hoped for",
-      author: "David Thomson",
-      role: "Founder",
-      company: "Suada",
-      imgSrc: 'people/clients/david-thomson.jpeg'
-    },
-    {
-      quote: "Exceptionally high quality of work. Makes a real effort to understand the product",
-      author: "Ben Carey",
-      role: "CTO",
-      company: "Bubbla",
-      imgSrc: 'people/clients/ben-carey.jpeg'
-    }
-  ];
+  // Filter to just Giorgi and Warren's testimonials for the mini version
+  const miniTestimonials = userTestimonials.filter(t => 
+    t.author === "Giorgi C." || t.author === "Warren West"
+  );
 
   let currentIndex = 0;
   let intervalId: NodeJS.Timeout;
 
   function nextTestimonial() {
-    currentIndex = (currentIndex + 1) % testimonials.length;
+    currentIndex = (currentIndex + 1) % miniTestimonials.length;
   }
 
   onMount(() => {
-    // Start auto-rotate when component mounts
     intervalId = setInterval(nextTestimonial, 5000);
   });
 
   onDestroy(() => {
-    // Clean up interval when component is destroyed
     if (intervalId) {
       clearInterval(intervalId);
     }
   });
 </script>
 
-<div class="space-y-3 py-4">
-  <!-- <h4 class="text-sm font-medium uppercase tracking-wide text-muted-foreground">
-    Client Feedback
-  </h4> -->
-  
-  <div class="min-h-[120px]">
+<div class="space-y-4">
+  <div class="min-h-[100px]">
     {#key currentIndex}
       <div class="space-y-3" in:fade={{ duration: 300 }}>
-        <blockquote class="text-sm italic">
-          "{testimonials[currentIndex].quote}"
+        <blockquote class="text-sm text-muted-foreground">
+          "{miniTestimonials[currentIndex].quote.short}"
         </blockquote>
         
-        <div class="flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full overflow-hidden bg-muted">
-            <img 
-              src={testimonials[currentIndex].imgSrc} 
-              alt={testimonials[currentIndex].author}
-              class="w-full h-full object-cover"
-            />
+        <div class="flex items-center justify-between gap-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full overflow-hidden bg-muted">
+              <img 
+                src={miniTestimonials[currentIndex].imgSrc} 
+                alt={miniTestimonials[currentIndex].author}
+                class="w-full h-full object-cover"
+              />
+            </div>
+            <div class="text-sm">
+              <span class="font-medium">
+                {miniTestimonials[currentIndex].author}
+              </span>
+              <span class="text-muted-foreground">
+                , {miniTestimonials[currentIndex].role}
+              </span>
+            </div>
           </div>
-          <div class="text-sm">
-            <span class="font-medium">{testimonials[currentIndex].author}</span>
-            <span class="text-muted-foreground">
-              , {testimonials[currentIndex].role} @ {testimonials[currentIndex].company}
-            </span>
-          </div>
+
+          {#if miniTestimonials[currentIndex].hire}
+            <Button 
+              variant="ghost" 
+              size="sm"
+              class="group"
+              href={miniTestimonials[currentIndex].hire.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span class="text-xs">
+                {miniTestimonials[currentIndex].hire.buttonText}
+              </span>
+              <ExternalLink class="w-3 h-3 ml-1.5 opacity-50 group-hover:opacity-100 transition-opacity" />
+            </Button>
+          {/if}
         </div>
       </div>
     {/key}
@@ -80,7 +78,7 @@
 
   <!-- Dots -->
   <div class="flex gap-1.5">
-    {#each testimonials as _, i}
+    {#each miniTestimonials as _, i}
       <button
         class="w-1.5 h-1.5 rounded-full transition-colors"
         class:bg-primary={i === currentIndex}
