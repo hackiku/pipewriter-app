@@ -2,49 +2,75 @@
 <script lang="ts">
   import * as Drawer from "$lib/components/ui/drawer";
   import { X } from 'lucide-svelte';
+  import { cn } from '$lib/utils';
   import { buyStore } from '$lib/stores/buyStore';
   import PricingGrid from "../pricing/PricingGrid.svelte";
   import { onMount, onDestroy } from 'svelte';
   import { browser } from '$app/environment';
   
   let isOpen = false;
+  let isPeeking = false;
   $: isOpen = $buyStore.drawer.isOpen;
   
-  // Handle scrollbar compensation
-  let scrollbarWidth = 0;
-  
   onMount(() => {
-    if (browser) {
-      // Calculate scrollbar width once
-      scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
-    }
+    if (!browser) return;
+
+    // Set up hover watchers for peek functionality
+    const buttons = document.querySelectorAll('[data-buy-button]');
+    buttons.forEach(button => {
+      button.addEventListener('mouseenter', handlePeek);
+      button.addEventListener('mouseleave', handleUnpeek);
+    });
+
+    return () => {
+      buttons.forEach(button => {
+        button.removeEventListener('mouseenter', handlePeek);
+        button.removeEventListener('mouseleave', handleUnpeek);
+      });
+    };
   });
+
+  function handlePeek() {
+    if (!isOpen) isPeeking = true;
+  }
+
+  function handleUnpeek() {
+    isPeeking = false;
+  }
 
   function handleOpenChange(open: boolean) {
     if (!open) {
       buyStore.closeDrawer();
-    } else if (browser) {
-      // Add padding to prevent content shift when scrollbar disappears
-      document.body.style.paddingRight = `${scrollbarWidth}px`;
-      document.body.style.overflow = 'hidden';
+      isPeeking = false;
     }
   }
 
   function handleClose() {
     buyStore.closeDrawer();
-    if (browser) {
-      document.body.style.paddingRight = '';
-      document.body.style.overflow = '';
-    }
+    isPeeking = false;
   }
 
   onDestroy(() => {
     if (browser) {
-      document.body.style.paddingRight = '';
-      document.body.style.overflow = '';
+      buyStore.reset();
     }
-    buyStore.reset();
   });
+
+  $: overlayClasses = cn(
+    "fixed inset-0 bg-black/40 z-50 backdrop-blur-sm",
+    "transition-opacity duration-300",
+    (!isOpen && !isPeeking) ? "opacity-0" : "opacity-100"
+  );
+
+  $: contentClasses = cn(
+    "fixed bottom-0 left-0 right-0 z-50",
+    "bg-background border-t border-border",
+    "rounded-t-[10px] shadow-lg",
+    "transition-transform duration-300",
+    isPeeking && !isOpen ? "translate-y-[98%]" : "",
+    isOpen ? "translate-y-0" : "",
+    !isOpen && !isPeeking ? "translate-y-full" : ""
+  );
 </script>
 
 <Drawer.Root bind:open={isOpen} onOpenChange={handleOpenChange}>
@@ -52,14 +78,10 @@
   
   <Drawer.Portal>
     <Drawer.Overlay 
-      class="fixed inset-0 bg-black/40 z-50 backdrop-blur-sm"
+      class={overlayClasses}
       on:click={handleClose}
     />
-    <Drawer.Content 
-      class="fixed bottom-0 left-0 right-0 z-50 
-             bg-background border-t border-border
-             rounded-t-[10px] shadow-lg"
-    >
+    <Drawer.Content class={contentClasses}>
       <!-- Handle & Close -->
       <div class="mx-auto w-full">
         <div class="flex h-7 items-center justify-center relative">
@@ -77,7 +99,8 @@
       </div>
 
       <!-- Content -->
-      <div class="mx-auto w-full max-w-5xl overflow-y-auto px-6"
+      <div class="mx-auto w-full max-w-5xl px-6 overflow-y-auto
+                  scrollbar-none" 
            style="height: calc(85vh - 2rem);">
         <div class="py-8">
           <!-- Header -->
@@ -98,3 +121,14 @@
     </Drawer.Content>
   </Drawer.Portal>
 </Drawer.Root>
+
+<style>
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+</style>
