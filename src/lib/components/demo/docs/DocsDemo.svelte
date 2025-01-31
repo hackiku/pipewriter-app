@@ -1,8 +1,8 @@
 <!-- src/lib/components/demo/docs/DocsDemo.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import Frame from '$lib/iframe/Frame.svelte';
   import { FileText } from 'lucide-svelte';
+  import FrameDemo from './frame/FrameDemo.svelte';
   import DocsHeader from './DocsHeader.svelte';
   import DocsBody from './DocsBody.svelte';
 
@@ -19,16 +19,11 @@
       <DocsBody />
     </div>
 
-    <!-- Frame Integration with Containment -->
+    <!-- Frame Integration -->
     {#if isFrameOpen}
       <div class="w-[clamp(280px,25vw,400px)] border-l border-zinc-200 dark:border-zinc-800 
-                  bg-white dark:bg-zinc-900 shadow-xl relative">
-        <!-- Frame Container with Fixed Height -->
-        <div class="absolute inset-0 overflow-hidden">
-          <div class="h-full relative">
-            <Frame />
-          </div>
-        </div>
+                  bg-white dark:bg-zinc-900 shadow-xl">
+        <FrameDemo />
       </div>
     {/if}
   </div>
