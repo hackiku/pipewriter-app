@@ -1,4 +1,5 @@
 <!-- src/lib/components/cta/pricing/PricingCard.svelte -->
+
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import { Check, ArrowRight } from "lucide-svelte";

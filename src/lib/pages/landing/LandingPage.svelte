@@ -18,7 +18,7 @@
 
 <main class="flex flex-col relative min-h-screen overflow-x-clip text-foreground">
   <!-- Hero Section -->
-  <section class="relative pt-32 md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+  <section class="relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <Hero /> 
   </section>
 

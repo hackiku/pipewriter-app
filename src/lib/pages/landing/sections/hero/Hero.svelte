@@ -5,7 +5,7 @@
   import Stickers from "./Stickers.svelte";
 </script>
 
-<div class="relative">
+<div class="relative h-full flex items-start justify-center pt-36">
   <Stickers />
   
   <div class="flex flex-col items-center text-center">
