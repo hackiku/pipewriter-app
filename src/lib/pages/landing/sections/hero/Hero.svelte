@@ -7,7 +7,7 @@
   export let HEADLINE: string;
 </script>
 
-<div class="relative h-full flex items-start justify-center pt-[10vh]">
+<div class="relative h-full flex items-start justify-center pt-[18vh]">
   <StickerBackground opacity="0.2" />
   
   <div class="flex flex-col items-center text-center">

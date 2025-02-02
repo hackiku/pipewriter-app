@@ -4,7 +4,7 @@
   import { fade } from 'svelte/transition';
   import { tools } from '$data/tools';
   
-  const models = ['claude', 'gpt4', 'gemini'];
+  const models = ['claude', 'gpt4', 'deepseek'];
   const placeholders = [
     "Design a landing page with a sticky header...",
     "Help me write a product description for...",
