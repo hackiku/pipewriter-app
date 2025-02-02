@@ -13,19 +13,26 @@
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte"
   // import Frame from '$lib/iframe/Frame.svelte';
 
-	export const BG = "bg-[#ECEDE6] dark:bg-[#212121]"; // highfive
-	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]"; // highfive
-	// export const BG_DARK = "dark:bg-[#212121]"; // shipfast
-	// export const HEADLINE_DARK = "text-[#CFCFCF]"; // shipfast
+	export const BG = `
+		bg-[#ECEDE6] dark:bg-[#212121]
+	`;
+	export const HEADLINE = `
+		text-[#171717] _dark:text-[#CFCFCF]
+		dark:text-[#FF0000]
+	`; 
 
 </script>
+
+<div class="{BG} fixed inset-0 min-w-screen min-h-screen overflow-hidden mouse-none -z-10">
+	<div class="p-3 text-gray-500/30">bg</div>
+</div>
 
 
 <main class="
 						 flex flex-col relative min-h-screen overflow-x-clip text-foreground ">
   <!-- Hero Section -->
   <section class="BG} relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    <Hero /> 
+    <Hero {BG} {HEADLINE} /> 
   </section>
 
   <!-- Demo Section -->

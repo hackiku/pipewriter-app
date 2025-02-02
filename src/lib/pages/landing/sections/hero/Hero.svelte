@@ -1,8 +1,11 @@
 <!-- src/lib/pages/landing/sections/hero/Hero.svelte -->
 <script lang="ts">
-  import { FileText } from "lucide-svelte";
+  import { FileText, StrikethroughIcon } from "lucide-svelte";
   import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
   import Stickers from "./Stickers.svelte";
+
+	export let BG: string;
+	export let HEADLINE: string;
 </script>
 
 <div class="relative h-full flex items-start justify-center pt-36">
@@ -15,7 +18,7 @@
       <span class="text-sm font-medium">Write in Google Docs</span>
     </div>
 
-    <h1 class="text-[7vh] md:text-[8vh] lg:text-[12vh] 
+    <h1 class="{HEADLINE} text-[7vh] md:text-[8vh] lg:text-[12vh] 
               font-medium leading-[1.1] tracking-tight mb-6 
               max-w-[20ch] mx-auto">
       UX App for Writers
