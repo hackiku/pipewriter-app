@@ -15,6 +15,7 @@ const config = {
 		},
 		extend: {
 			colors: {
+				landing: "hsl(var(--landing) / <alpha-value>)",
 				border: "hsl(var(--border) / <alpha-value>)",
 				input: "hsl(var(--input) / <alpha-value>)",
 				ring: "hsl(var(--ring) / <alpha-value>)",

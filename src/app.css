@@ -4,7 +4,14 @@
  
 @layer base {
   :root {
-    --background: 0 0% 100%;
+		--landing: 60 20% 92%;
+		/* --landing-bg: 0 5% 100%; */
+		/* --landing: 0 100% 10%; */
+		
+		/* -------------- */
+		/* --background: 0 0% 100%; */
+    /* --foreground: 0 0% 3.9%; */
+		--background: 0 0% 100%;
     --foreground: 0 0% 3.9%;
  
     --muted: 0 0% 96.1%;
@@ -37,7 +44,11 @@
   }
  
   .dark {
-    --background: 0 0% 3.9%;
+		--landing: 220 12% 10%;
+		/* --landing: 0 100% 50%; */
+
+		/* -------------- */
+		--background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
  
     --muted: 0 0% 14.9%;

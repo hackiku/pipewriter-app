@@ -14,32 +14,29 @@
   // import Frame from '$lib/iframe/Frame.svelte';
 	import BackgroundGrid from '$lib/components/BackgroundGrid.svelte';
 
-	export const BG = "[#ECEDE6]"
-	// export const BG = "[#FF0000]"
-	export const BG_DARK = "[#212121]";
-	export const HEADLINE = `
-		text-[#171717] dark:text-[#CFCFCF] 
-	`; 
+	// export const BG = "#ECEDE6"
+	// export const BG_DARK = "#16181C"; //astro
+	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]"; 
+	// export const HEADLINE = `
+	// 	text-[#171717] dark:text-[#CFCFCF] 
+	// `; 
 
 </script>
 
-<div class="bg-{BG} dark:bg-{BG_DARK} fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10">
-  <BackgroundGrid 
-    {BG} 
-    {BG_DARK} 
-    gridSize="4"
-    fadeSize="150%"
-    speed="40s"
-    opacity="0.08"
-  />
+<!-- <div class={`bg-[${BG}] dark:bg-[${BG_DARK}] fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10`}> -->
+<div class="bg-landing dark:bg-landing fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10">
+	
+	<BackgroundGrid 
+		gridSize="48"
+		speed="30s"
+		opacity="0.09"
+	/>
 </div>
 
-
-<main class="
-						 flex flex-col relative min-h-screen overflow-x-clip text-foreground ">
+<main class="flex flex-col relative min-h-screen overflow-x-clip text-foreground ">
   <!-- Hero Section -->
-  <section class="BG} relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    <Hero {BG} {HEADLINE} /> 
+  <section class="relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+    <Hero {HEADLINE} /> 
   </section>
 
   <!-- Demo Section -->
@@ -53,7 +50,7 @@
     <h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
               font-medium leading-[1.3] tracking-tight mb-16
               max-w-[20ch] mx-auto text-center
-							text-[#171717]">
+							{HEADLINE}">
       Write 10x Copy Decks <br>in Google Docs
     </h2>
 

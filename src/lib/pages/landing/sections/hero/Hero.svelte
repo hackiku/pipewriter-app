@@ -4,10 +4,12 @@
   import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
   import Stickers from "./Stickers.svelte";
 
-	export let BG: string;
 	export let HEADLINE: string;
+	export let BG: string;
+	export let BG_DARK: string;
 </script>
 
+<div class={`bg-[${BG}] dark:bg-[${BG_DARK}] fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10`}>
 <div class="relative h-full flex items-start justify-center pt-36">
   <Stickers />
   
@@ -38,4 +40,5 @@
       source="hero"
     />
   </div>
+</div>
 </div>
