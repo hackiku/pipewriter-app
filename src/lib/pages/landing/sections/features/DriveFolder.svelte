@@ -2,9 +2,9 @@
 <script lang="ts">
   import { Folder } from 'lucide-svelte';
   import { driveStore } from '../../stores/driveStore';
-  import { driveRoot, getNodeByPath, type DriveNode } from '../../data/folders';
+  import { driveRoot, getNodeByPath } from '../../data/folders';
 
-  // Get current folder's contents
+  // Store subscriptions with proper reactivity
   $: currentFolder = $driveStore.currentFolder;
   $: breadcrumbs = $driveStore.breadcrumbs;
   $: currentPath = $driveStore.currentPath;
@@ -12,8 +12,20 @@
   $: showEarlyAccess = $driveStore.showEarlyAccess;
   
   // Ensure we have items to iterate over
-  $: items = currentFolder?.children || [];
+  $: items = currentFolder?.children || driveRoot.children || [];
   $: activeNode = getNodeByPath(currentPath);
+
+  // Handle navigation with path context
+  function handleItemClick(path: string) {
+    console.log('Clicked item:', path);
+    driveStore.navigate(path);
+  }
+
+  // Breadcrumb click with index awareness
+  function handleBreadcrumbClick(part: string, index: number) {
+    console.log('Breadcrumb clicked:', part, 'at index:', index);
+    driveStore.handleBreadcrumbClick(part, index);
+  }
 </script>
 
 <div 
@@ -23,7 +35,13 @@
 >
   <!-- Path Bar -->
   <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
-    <img src="/icons/google-drive.svg" alt="Google Drive" class="w-5 h-5" />
+    <button 
+      class="hover:opacity-80 transition-opacity"
+      on:click={() => driveStore.showMyDrive()}
+    >
+      <img src="/icons/google-drive.svg" alt="Google Drive" class="w-5 h-5" />
+    </button>
+    
     <nav class="flex items-center gap-1 text-sm whitespace-nowrap overflow-x-auto">
       {#each breadcrumbs || [] as part, i}
         {#if i > 0}
@@ -32,7 +50,7 @@
         <button 
           class="hover:text-white/90 transition-colors
                  {i === (breadcrumbs?.length || 0) - 1 ? 'text-white' : 'text-white/40'}"
-          on:click={() => driveStore.navigate(part === 'My Drive' ? '/' : part === 'Pipewriter' ? '/Elements.gdoc' : items[i]?.path || '/')}
+          on:click={() => handleBreadcrumbClick(part, i)}
           aria-current={i === (breadcrumbs?.length || 0) - 1 ? 'page' : undefined}
         >
           {part}
@@ -51,15 +69,14 @@
   <!-- File List -->
   {:else}
     <div 
-      class="overflow-hidden {isCompact ? 'max-h-[120px]' : ''} transition-all duration-300"
-      role="list"
+      class="overflow-hidden transition-all duration-300"
+      class:max-h-[120px]={isCompact}
     >
       <!-- Compact View -->
       {#if isCompact && activeNode}
         <button 
           class="flex items-center gap-3 px-4 py-2 w-full bg-white/10"
           on:click={() => driveStore.toggleCompact()}
-          role="listitem"
         >
           {#if activeNode.type === 'folder'}
             <Folder class="w-4 h-4 text-white/70" />
@@ -76,12 +93,14 @@
       <!-- Full View -->
       {:else}
         {#each items as item (item.path)}
-          <div role="listitem">
+          <div class="group">
             <button 
               class="flex items-center gap-3 px-4 py-2 w-full
-                     {currentPath === item.path ? 'bg-white/10' : 'hover:bg-white/5'}
+                     {currentPath === item.path || currentPath.startsWith(item.path + '/') 
+                       ? 'bg-white/10' 
+                       : 'hover:bg-white/5'}
                      transition-colors"
-              on:click={() => driveStore.navigate(item.path)}
+              on:click={() => handleItemClick(item.path)}
             >
               {#if item.type === 'folder'}
                 <Folder class="w-4 h-4 text-white/70" />
@@ -98,16 +117,15 @@
               </div>
             </button>
 
-            <!-- Folder Contents -->
+            <!-- Show folder contents when folder is active -->
             {#if item.type === 'folder' && item.path === currentPath && item.children}
-              <div class="pl-4" role="list">
+              <div class="pl-4">
                 {#each item.children as subItem (subItem.path)}
                   <button 
                     class="flex items-center gap-3 px-4 py-2 w-full
                            {currentPath === subItem.path ? 'bg-white/10' : 'hover:bg-white/5'}
                            transition-colors"
-                    on:click={() => driveStore.navigate(subItem.path)}
-                    role="listitem"
+                    on:click={() => handleItemClick(subItem.path)}
                   >
                     <img
                       class="w-4 h-4"

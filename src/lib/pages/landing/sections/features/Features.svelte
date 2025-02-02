@@ -4,7 +4,7 @@
   import { driveStore } from '../../stores/driveStore';
   import AddToCart from "$lib/components/cta/buy/AddToCart.svelte";
   import DriveFolder from "./DriveFolder.svelte";
-  import DriveFolderDebug from "./DriveFolderDebug.svelte";
+  // import DriveFolderDebug from "./DriveFolderDebug.svelte";
   import DrivePreview from "./DrivePreview.svelte";
   import WriterStep from "./WriterStep.svelte";
 
@@ -44,14 +44,10 @@
     <!-- Left Column: Drive Folder & CTA -->
     <div class="col-span-2">
       <div class="sticky top-4 space-y-6 z-50 pb-12">
-        <!-- Drive Folder - Now controlled by store -->
-        {#if import.meta.env.DEV}
-		      <DriveFolderDebug />
-		    {:else}
-    		  <DriveFolder />
-    		{/if}
 
-				<!-- <DriveFolder /> -->
+				<!-- Drive Folder - Now controlled by store -->
+	      <!-- <DriveFolderDebug /> -->
+   		  <DriveFolder />
 
         <!-- Writer Testimonials -->
         <div class="p-4 pt-12">
