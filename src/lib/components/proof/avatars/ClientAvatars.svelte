@@ -3,8 +3,8 @@
   const TOTAL_CLIENTS = 39;
   
   const CLIENT_IMAGES = [
-    'people/clients/tommy-joiner.jpg',
-    'people/clients/jameson-day.jpeg',
+    '/people/clients/tommy-joiner.jpg',
+    '/people/writers/giorgi-chkoidze.jpg',
     'people/clients/david-thomson.jpeg',
     'people/clients/devon-price.jpeg',
     'people/clients/ben-carey.jpeg'

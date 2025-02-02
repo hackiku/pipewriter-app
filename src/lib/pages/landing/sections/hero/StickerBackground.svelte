@@ -25,11 +25,15 @@
       "
     >
       {#if key === 'keyboard'}
-        <KeyboardShortcut />
+        <KeyboardShortcut rotation={config.rotation} />
       {:else if key === 'chat'}
-        <ChatBox />
+        <ChatBox rotation={config.rotation} />
       {:else}
-        <Sticker icon={config.icon} rotation={config.rotation} />
+        <Sticker 
+          icon={config.icon} 
+          rotation={config.rotation}
+          hasStrike={config.hasStrike}
+        />
       {/if}
     </div>
   {/each}

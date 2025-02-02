@@ -7,7 +7,7 @@
   export let HEADLINE: string;
 </script>
 
-<div class="relative h-full flex items-start justify-center pt-[24vh]">
+<div class="relative h-full flex items-start justify-center pt-[20vh]">
   
 	<StickerBackground opacity="0.6" />
   
@@ -27,8 +27,9 @@
 
     <p class="text-[4.5vw] sm:text-[3vw] md:text-[2vw] lg:text-[2vw]
               text-muted-foreground mb-6 leading-relaxed 
-              max-w-[45ch]">
-      Write wireframes. Wow clients. Convert writing to product.
+              max-w-[40ch]">
+      Wireframes in Google Docs + AI code. Protoype where you write
+			and charge more for deliverables.
     </p>
 
     <BuyButton 
