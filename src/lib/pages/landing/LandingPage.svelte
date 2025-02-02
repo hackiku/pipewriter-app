@@ -14,7 +14,7 @@
   // import Frame from '$lib/iframe/Frame.svelte';
 	import BackgroundGrid from '$lib/components/BackgroundGrid.svelte';
 
-  // import StickerBackground from "./sections/hero/StickerBackground.svelte";
+	import WriterStep from "./sections/features/WriterStep.svelte";
 
 	// export const BG = "#ECEDE6"
 	// export const BG_DARK = "#16181C"; //astro
@@ -35,7 +35,7 @@
 
 <main class="flex flex-col relative min-h-screen overflow-x-clip text-foreground ">
   <!-- Hero Section -->
-  <section class="relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+	<section class="relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <Hero {HEADLINE} /> 
   </section>
 
@@ -43,7 +43,11 @@
   <section class="relative -mt-[10vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <Demo />
     <!-- <DocsDemo /> -->
-  </section>
+		<div class="max-w-sm mx-auto my-6">
+			<WriterStep />
+		</div>
+  
+	</section>
   
   <!-- Features Section -->
   <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">

@@ -2,7 +2,8 @@
 <script lang="ts">
 	import DriveFolder from "./DriveFolder.svelte";
 	import DrivePreview from "./DrivePreview.svelte";
-	import MiniTestimonial from "$lib/components/proof/testimonials/MiniTestimonial.svelte";
+	// import MiniTestimonial from "$lib/components/proof/testimonials/MiniTestimonial.svelte";
+	import WriterStep from "./WriterStep.svelte";
 	import { Button } from "$lib/components/ui/button";
 	import { ShoppingCart } from "lucide-svelte";
 	import { onMount } from "svelte";
@@ -57,10 +58,10 @@
 
 <div class="relative">
 	<!-- Desktop Layout -->
-	<div class="hidden lg:grid grid-cols-5 gap-8">
+	<div class="hidden lg:grid grid-cols-6 gap-8">
 		<!-- Left Column: Drive Folder & CTA -->
 		<div class="col-span-2">
-			<div class="sticky top-28 space-y-6">
+			<div class="sticky top-24 space-y-6">
 				<DriveFolder
 					activeId={activeFeature}
 					onSelect={handleDriveSelect}
@@ -81,13 +82,13 @@
 
 				<!-- Add Mini Testimonial -->
 				<div class="px-12 py-6 __border-t">
-					<MiniTestimonial />
+					<WriterStep />
 				</div>
 			</div>
 		</div>
 
 		<!-- Right Column: Preview Cards -->
-		<div class="col-span-3" bind:this={previewContainer}>
+		<div class="col-span-4" bind:this={previewContainer}>
 			<DrivePreview {activeFeature} />
 		</div>
 	</div>
