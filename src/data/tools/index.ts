@@ -131,7 +131,35 @@ export const tools = {
 		category: 'cms',
 		tags: ['ecommerce']
 	},
-	// ... add more tools as needed
+	// ai
+	claude: {
+		name: "Claude",
+		icon: "/tools/claude.svg",
+		fallback: "🤖",
+		url: "https://anthropic.com/claude",
+		description: "Helpful and honest AI assistant",
+		category: 'ai',
+		tags: ['llm', 'chat', 'writing']
+	},
+	gpt4: {
+		name: "GPT-4",
+		icon: "/tools/gpt4.svg",
+		fallback: "🧠",
+		url: "https://openai.com/gpt-4",
+		description: "Advanced language model",
+		category: 'ai',
+		tags: ['llm', 'chat', 'coding']
+	},
+	gemini: {
+		name: "Gemini",
+		icon: "/tools/gemini.svg",
+		fallback: "💫",
+		url: "https://deepmind.google/technologies/gemini/",
+		description: "Multimodal AI model",
+		category: 'ai',
+		tags: ['llm', 'chat', 'multimodal']
+	}
+
 } as const;
 
 // Helper functions

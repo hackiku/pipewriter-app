@@ -1,17 +1,14 @@
 <!-- src/lib/pages/landing/sections/hero/Hero.svelte -->
 <script lang="ts">
-  import { FileText, StrikethroughIcon } from "lucide-svelte";
+  import { FileText } from "lucide-svelte";
   import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
-  import Stickers from "./Stickers.svelte";
+  import StickerBackground from "./StickerBackground.svelte";
 
-	export let HEADLINE: string;
-	export let BG: string;
-	export let BG_DARK: string;
+  export let HEADLINE: string;
 </script>
 
-<div class={`bg-[${BG}] dark:bg-[${BG_DARK}] fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10`}>
-<div class="relative h-full flex items-start justify-center pt-36">
-  <Stickers />
+<div class="relative h-full flex items-start justify-center pt-[10vh]">
+  <StickerBackground opacity="0.2" />
   
   <div class="flex flex-col items-center text-center">
     <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full 
@@ -40,5 +37,4 @@
       source="hero"
     />
   </div>
-</div>
 </div>

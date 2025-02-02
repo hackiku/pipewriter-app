@@ -14,6 +14,8 @@
   // import Frame from '$lib/iframe/Frame.svelte';
 	import BackgroundGrid from '$lib/components/BackgroundGrid.svelte';
 
+  // import StickerBackground from "./sections/hero/StickerBackground.svelte";
+
 	// export const BG = "#ECEDE6"
 	// export const BG_DARK = "#16181C"; //astro
 	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]"; 
@@ -23,15 +25,13 @@
 
 </script>
 
-<!-- <div class={`bg-[${BG}] dark:bg-[${BG_DARK}] fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10`}> -->
-<div class="bg-landing dark:bg-landing fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10">
+<div class="bg-landing dark:bg-[#040D12]
+		fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10">
 	
-	<BackgroundGrid 
-		gridSize="48"
-		speed="30s"
-		opacity="0.09"
-	/>
+	<!-- <StickerBackground /> -->
+	<BackgroundGrid gridSize="48" speed="30s" opacity="0.06" />
 </div>
+
 
 <main class="flex flex-col relative min-h-screen overflow-x-clip text-foreground ">
   <!-- Hero Section -->
@@ -48,10 +48,10 @@
   <!-- Features Section -->
   <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
-              font-medium leading-[1.3] tracking-tight mb-16
+              font-bold leading-[1.3] tracking-tight mb-16
               max-w-[20ch] mx-auto text-center
 							{HEADLINE}">
-      Write 10x Copy Decks <br>in Google Docs
+      Write 10× Copy Decks <br>in Google Docs
     </h2>
 
     <Features />
