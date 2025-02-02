@@ -1,29 +1,30 @@
 <!-- src/lib/pages/landing/LandingPage.svelte -->
 <script lang="ts">
-  import { dev } from "$app/environment";
+  // import { dev } from "$app/environment";
   import { Circle } from 'lucide-svelte';
-  import Hero from "./sections/hero/Hero.svelte";
+  // sections
+	import Hero from "./sections/hero/Hero.svelte";
   import Demo from "./sections/demo/Demo.svelte";
   // import DocsDemo from "$lib/components/demo/docs/DocsDemo.svelte";
   import Features from "./sections/features/Features.svelte";
   import Proof from "./sections/proof/Proof.svelte";
-  import Pricing from "./sections/pricing/Pricing.svelte";
   import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
-
+  import Pricing from "./sections/pricing/Pricing.svelte";
+	// proof
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte"
-  // import Frame from '$lib/iframe/Frame.svelte';
-	import BackgroundGrid from '$lib/components/BackgroundGrid.svelte';
-
 	import WriterStep from "./sections/features/WriterStep.svelte";
+	
+	// dev & design
+	import BackgroundGrid from '$lib/components/BackgroundGrid.svelte';
+	import ViewportSize from '$lib/components/dev/ViewportSize.svelte';
+  // import Frame from '$lib/iframe/Frame.svelte';
+	
 
-	// export const BG = "#ECEDE6"
-	// export const BG_DARK = "#16181C"; //astro
 	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]"; 
-	// export const HEADLINE = `
-	// 	text-[#171717] dark:text-[#CFCFCF] 
-	// `; 
 
 </script>
+
+<ViewportSize />
 
 <div class="bg-landing dark:bg-[#040D12]
 		fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10">
@@ -34,7 +35,7 @@
 
 
 <main class="flex flex-col relative min-h-screen overflow-x-clip text-foreground ">
-  <!-- Hero Section -->
+	<!-- Hero Section -->
 	<section class="relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <Hero {HEADLINE} /> 
   </section>

@@ -51,12 +51,18 @@ const config = {
 				}
 			},
 			borderRadius: {
+				xl: "calc(var(--radius) + 2px)",
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
 				sm: "calc(var(--radius) - 4px)"
 			},
 			fontFamily: {
 				sans: [...fontFamily.sans]
+			},
+			screens: {
+				'3xl': '1800px',
+				'4xl': '2100px',
+				'5xl': '2400px'
 			}
 		}
 	},
