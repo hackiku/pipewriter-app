@@ -12,7 +12,7 @@
 	{#key activeStep}
 		<!-- Quote -->
 		<blockquote
-			class="text-lg text-muted-foreground"
+			class="text-md font-medium text-muted-foreground"
 			in:fade={{ duration: 200, delay: 100 }}
 		>
 			"{shoutouts[activeStep].quote}"
@@ -20,7 +20,7 @@
 
 		<div class="flex items-center gap-4" in:fade={{ duration: 200 }}>
 			<!-- Avatar -->
-			<div class="w-12 h-12 rounded-full overflow-hidden border">
+			<div class="w-10 h-10 rounded-full overflow-hidden border">
 				<img
 					src={shoutouts[activeStep].image}
 					alt={shoutouts[activeStep].writer}
@@ -30,7 +30,7 @@
 
 			<!-- Writer Details -->
 			<div class="flex flex-col gap-1">
-				<div class="text-md font-medium">{shoutouts[activeStep].writer}</div>
+				<div class="text-sm font-medium">{shoutouts[activeStep].writer}</div>
 				<div class="text-xs text-muted-foreground">
 					{shoutouts[activeStep].role}
 				</div>

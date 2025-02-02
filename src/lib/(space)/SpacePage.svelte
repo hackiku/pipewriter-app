@@ -1,16 +1,12 @@
 <!-- src/lib/(space)/SpacePage.svelte -->
 <script lang="ts">
-  import { onMount } from "svelte";
-	import { dev } from "$app/environment"
-  import { Rocket, Stars } from "lucide-svelte";
+  // import { onMount } from "svelte";
+	// import { dev } from "$app/environment"
   // import { spaceStore } from "./stores/spaceStore";
   import SpaceNav from "./components/nav/SpaceNav.svelte";
-
   // chute
   import Scene from "./components/chute/Scene.svelte";
   import Controls from "./components/chute/Controls.svelte";
-  import BeforeAfter from "./components/repack/BeforeAfter.svelte";
-  
   // ./content/
   import Hero from "./content/hero/Hero.svelte";
   import Repack from './content/repack/Repack.svelte';
@@ -20,6 +16,8 @@
   import Testimonials from "./components/proof/Testimonials.svelte";
   import CTA from "./components/cta/CTA.svelte";
   import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
+	// dev
+	import ViewportSize from '$lib/components/dev/ViewportSize.svelte';
 
   let startAnimation: () => void;
   let pauseAnimation: () => void;
@@ -28,16 +26,7 @@
 <SpaceNav />
 
 <!-- Viewport Size Indicator -->
-{#if dev}
-	<div class="fixed top-0 right-0 p-2 m-2 bg-black/20 text-white/50 rounded z-50 pointer-events-none text-sm font-mono">
-		<span class="hidden xs:inline sm:hidden">sm {384}px</span>
-		<span class="hidden sm:inline md:hidden">md {640}px</span>
-		<span class="hidden md:inline lg:hidden">lg {768}px</span>
-		<span class="hidden lg:inline xl:hidden">xl {1024}px</span>
-		<span class="hidden xl:inline 2xl:hidden">2xl {1280}px</span>
-		<span class="hidden 2xl:inline">3xl {1536}px</span>
-	</div>
-{/if}
+<ViewportSize />
 
 <div class="fixed inset-0 z-0 w-full h-screen pointer-events-none
 	border overflow-hidden border-red-800/30">

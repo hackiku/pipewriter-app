@@ -15,11 +15,11 @@ export const mainNavItems: NavItem[] = [
 	// { href: "/about", label: "About" },
 	// { href: "/ai", label: "AI" },
 	{ href: "/editor", label: "Editor" },
-	{ href: "/space", label: "Space" },
+	{ href: "/space", label: "Work" },
 	{ href: "/blog", label: "Blog" },
-	{	href: "",	label: "Contact",
-		onClick: () => contactModalStore.set(true)
-	}
+	// {	href: "",	label: "Contact",
+	// 	onClick: () => contactModalStore.set(true)
+	// }
 ];
 
 export const socialLinks: SocialLink[] = [

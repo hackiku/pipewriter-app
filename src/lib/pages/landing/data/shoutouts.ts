@@ -15,7 +15,7 @@ export const shoutouts: Shoutout[] = [
 		image: "/people/writers/eoin-cronolly.jpeg",
 		// image: "/people/partners/kutay-guler.jpeg",
 		// step: "Collaboration",
-		quote: "Works natively in docs. Been building wireframes by hand in tables, even for five-figure contracts.",
+		quote: "Works natively in Docs. No more building table wireframes by hand for five-figure contracts.",
 	},
 	{
 		writer: "Giorgi Chkoidze",
