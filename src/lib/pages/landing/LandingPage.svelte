@@ -13,12 +13,18 @@
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte"
   // import Frame from '$lib/iframe/Frame.svelte';
 
+	export const BG = "bg-[#ECEDE6] dark:bg-[#212121]"; // highfive
+	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]"; // highfive
+	// export const BG_DARK = "dark:bg-[#212121]"; // shipfast
+	// export const HEADLINE_DARK = "text-[#CFCFCF]"; // shipfast
+
 </script>
 
 
-<main class="flex flex-col relative min-h-screen overflow-x-clip text-foreground">
+<main class="
+						 flex flex-col relative min-h-screen overflow-x-clip text-foreground ">
   <!-- Hero Section -->
-  <section class="relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+  <section class="BG} relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <Hero /> 
   </section>
 
@@ -32,7 +38,8 @@
   <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
               font-medium leading-[1.3] tracking-tight mb-16
-              max-w-[20ch] mx-auto text-center">
+              max-w-[20ch] mx-auto text-center
+							text-[#171717]">
       Write 10x Copy Decks <br>in Google Docs
     </h2>
 
