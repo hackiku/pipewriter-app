@@ -48,7 +48,7 @@
 	{#if !isIframe && !overrideNav}
 		<div class="fixed inset-0 pointer-events-none">
     		<!-- <BackgroundPattern size="lg" opacity="high" gradient={true} /> -->
-    		<BackgroundPattern />
+    		<!-- <BackgroundPattern /> -->
   	</div>
 	{/if}
 

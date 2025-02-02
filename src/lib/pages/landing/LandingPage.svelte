@@ -12,19 +12,26 @@
 
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte"
   // import Frame from '$lib/iframe/Frame.svelte';
+	import BackgroundGrid from '$lib/components/BackgroundGrid.svelte';
 
-	export const BG = `
-		bg-[#ECEDE6] dark:bg-[#212121]
-	`;
+	export const BG = "[#ECEDE6]"
+	// export const BG = "[#FF0000]"
+	export const BG_DARK = "[#212121]";
 	export const HEADLINE = `
-		text-[#171717] _dark:text-[#CFCFCF]
-		dark:text-[#FF0000]
+		text-[#171717] dark:text-[#CFCFCF] 
 	`; 
 
 </script>
 
-<div class="{BG} fixed inset-0 min-w-screen min-h-screen overflow-hidden mouse-none -z-10">
-	<div class="p-3 text-gray-500/30">bg</div>
+<div class="bg-{BG} dark:bg-{BG_DARK} fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10">
+  <BackgroundGrid 
+    {BG} 
+    {BG_DARK} 
+    gridSize="4"
+    fadeSize="150%"
+    speed="40s"
+    opacity="0.08"
+  />
 </div>
 
 
