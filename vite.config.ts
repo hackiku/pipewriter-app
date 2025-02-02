@@ -8,5 +8,5 @@ export default defineConfig({
 			allow: ['src/lib/blog/content']
 		}
 	},
-	assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif']
+	assetsInclude: ['**/*.svg', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.webp', '**/*.webm']
 });

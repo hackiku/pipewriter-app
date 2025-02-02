@@ -46,8 +46,10 @@
 		return () => observer.disconnect();
 	});
 
+	// window.location.href = "https://gum.co/pipewriter";
+
 	function handleGumroadCheckout() {
-		window.location.href = "https://gum.co/pipewriter";
+		window.location.href = "https://app.gumroad.com/checkout?product=qmifdo&quantity=1";
 	}
 
 	$: isRootView = !activeFeature || !activeFeature.includes("/");
@@ -73,7 +75,7 @@
 						class="w-4 h-4 mr-2 opacity-50 group-hover:opacity-100 transition-opacity"
 					/>
 					<span class="opacity-50 group-hover:opacity-100 transition-opacity"
-						>Add to Cart</span
+						>Get Drive Access</span
 					>
 				</Button>
 
@@ -106,7 +108,7 @@
 					on:click={handleGumroadCheckout}
 				>
 					<ShoppingCart class="w-4 h-4 mr-2 opacity-50 group-hover:opacity-100 transition-opacity" />
-					<span class="opacity-50 group-hover:opacity-100 transition-opacity">Add to Cart</span>
+					<span class="opacity-50 group-hover:opacity-100 transition-opacity">Get Drive Access</span>
 				</Button>
 				
 				<!-- Add Mini Testimonial -->
