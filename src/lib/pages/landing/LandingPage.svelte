@@ -12,7 +12,7 @@
   import Pricing from "./sections/pricing/Pricing.svelte";
 	// proof
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte"
-	import WriterStep from "./sections/features/WriterStep.svelte";
+	// import WriterStep from "./sections/features/WriterStep.svelte";
 	
 	// dev & design
 	import BackgroundGrid from '$lib/components/BackgroundGrid.svelte';
@@ -45,7 +45,7 @@
     <Demo />
     <!-- <DocsDemo /> -->
 		<div class="max-w-sm mx-auto my-6">
-			<WriterStep />
+			<!-- <WriterStep /> -->
 		</div>
   
 	</section>

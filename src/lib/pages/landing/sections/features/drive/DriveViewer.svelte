@@ -1,9 +1,9 @@
-<!-- src/lib/pages/landing/sections/features/DriveFolder.svelte -->
+<!-- src/lib/pages/landing/sections/features/DriveViewer.svelte -->
 <script lang="ts">
-  import { driveStore } from '../../stores/driveStore';
-  import { driveRoot, getNodeByPath } from '../../data/folders';
-  import DriveItem from './DriveItem.svelte';
-  import DriveBreadcrumbs from './DriveBreadcrumbs.svelte';
+  import { driveStore } from '../../../stores/driveStore';
+  import { driveRoot, getNodeByPath } from '../../../data/folders';
+  import Row from './Row.svelte';
+  import Breadcrumbs from './Breadcrumbs.svelte';
   
   // Store subscriptions with proper reactivity
   $: currentFolder = $driveStore.currentFolder;
@@ -30,7 +30,7 @@
   role="navigation"
   aria-label="Drive folder navigation"
 >
-  <DriveBreadcrumbs
+  <Breadcrumbs
     {breadcrumbs}
     onClick={handleBreadcrumbClick}
   />
@@ -50,7 +50,7 @@
     >
       <!-- Compact View -->
       {#if isCompact && activeNode}
-        <DriveItem
+        <Row
           item={activeNode}
           currentPath={currentPath}
           onClick={() => driveStore.toggleCompact()}
@@ -59,7 +59,7 @@
       <!-- Full View -->
       {:else}
         {#each items as item (item.path)}
-          <DriveItem
+          <Row
             {item}
             {currentPath}
             onClick={handleItemClick}

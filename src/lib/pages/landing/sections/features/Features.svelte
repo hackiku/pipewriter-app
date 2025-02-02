@@ -3,10 +3,9 @@
   import { onMount } from "svelte";
   import { driveStore } from '../../stores/driveStore';
   import AddToCart from "$lib/components/cta/buy/AddToCart.svelte";
-  import DriveFolder from "./DriveFolder.svelte";
-  import DriveFolderDebug from "./DriveFolderDebug.svelte";
-  import DrivePreview from "./DrivePreview.svelte";
-  import WriterStep from "./WriterStep.svelte";
+  import DriveViewer from "./drive/DriveViewer.svelte";
+  import FeaturePreview from "./FeaturePreview.svelte";
+  import WriterShoutout from "./WriterShoutout.svelte";
 
   // Reference to container for intersection observer
   let previewContainer: HTMLElement;
@@ -45,13 +44,11 @@
     <div class="col-span-2">
       <div class="sticky top-4 space-y-6 z-50 pb-12">
 
-				<!-- Drive Folder - Now controlled by store -->
-	      <!-- <DriveFolderDebug /> -->
-   		  <DriveFolder />
+   		  <DriveViewer />
 
         <!-- Writer Testimonials -->
         <div class="p-4 pt-12">
-          <WriterStep />
+          <WriterShoutout />
         </div>
 
         <!-- CTA Button -->
@@ -66,7 +63,7 @@
 
     <!-- Right Column: Preview Cards -->
     <div class="col-span-4" bind:this={previewContainer}>
-      <DrivePreview />
+      <FeaturePreview />
     </div>
   </div>
 
@@ -74,12 +71,12 @@
   <div class="md:hidden">
     <!-- Sticky Header with Drive Folder -->
     <div class="sticky top-4 z-[999] bg-background/80 backdrop-blur-sm pb-6">
-      <DriveFolder />
+      <DriveViewer />
     </div>
 
     <!-- Preview Cards -->
     <div class="mt-6 pb-20"> <!-- Added padding for mobile CTA -->
-      <DrivePreview />
+      <FeaturePreview />
     </div>
 
     <!-- Fixed Mobile CTA -->

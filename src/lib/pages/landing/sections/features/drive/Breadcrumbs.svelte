@@ -1,4 +1,4 @@
-<!-- src/lib/pages/landing/sections/features/DriveBreadcrumbs.svelte -->
+<!-- src/lib/pages/landing/sections/features/drive/Breadcrumbs.svelte -->
 <script lang="ts">
   export let breadcrumbs: string[] = [];
   export let onClick: (part: string, index: number) => void;
