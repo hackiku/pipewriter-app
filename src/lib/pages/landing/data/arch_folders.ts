@@ -1,3 +1,4 @@
+// ⚠️ OLD FOLDERS DATA FILE
 // src/lib/pages/landing/data/folders.ts
 export interface PreviewContent {
 	emoji: string;

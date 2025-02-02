@@ -4,18 +4,18 @@ import { getNodeByPath, getParentPath, getBreadcrumbs, type DriveNode } from '..
 
 interface DriveState {
 	currentPath: string;
-	isCompact: boolean;  // For mobile view
+	isCompact: boolean;
 	showEarlyAccess: boolean;
 }
 
 function createDriveStore() {
 	const { subscribe, update, set } = writable<DriveState>({
-		currentPath: '/Elements.gdoc', // Default selected item
-		isCompact: false,
+		currentPath: '/Elements.gdoc',
+		isCompact: true, // Default to compact on mobile
 		showEarlyAccess: false
 	});
 
-	// Derived store for current folder contents
+	// Derived store for current folder
 	const currentFolder = derived(
 		{ subscribe },
 		($state) => {
@@ -36,22 +36,35 @@ function createDriveStore() {
 		currentFolder,
 		breadcrumbs,
 
-		navigate: (path: string) => update(state => ({ ...state, currentPath: path })),
-		toggleCompact: () => update(state => ({ ...state, isCompact: !state.isCompact })),
+		navigate: (path: string) => {
+			console.log('Store: Navigating to', path);
+			update(state => ({ ...state, currentPath: path }));
+		},
 
-		// Special handling for My Drive click
-		showMyDrive: () => update(state => ({
-			...state,
-			showEarlyAccess: true,
-			currentPath: '/'
-		})),
+		toggleCompact: () => {
+			update(state => {
+				console.log('Store: Toggling compact mode', !state.isCompact);
+				return { ...state, isCompact: !state.isCompact };
+			});
+		},
 
-		// Return to main view
-		showPipewriter: () => update(state => ({
-			...state,
-			showEarlyAccess: false,
-			currentPath: '/Elements.gdoc'
-		}))
+		showMyDrive: () => {
+			update(state => ({
+				...state,
+				showEarlyAccess: true,
+				currentPath: '/',
+				isCompact: true
+			}));
+		},
+
+		showPipewriter: () => {
+			update(state => ({
+				...state,
+				showEarlyAccess: false,
+				currentPath: '/Elements.gdoc',
+				isCompact: true
+			}));
+		}
 	};
 }
 
