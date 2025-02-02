@@ -1,89 +1,127 @@
 // src/lib/pages/landing/data/folders.ts
-export interface PreviewContent {
+
+export interface Preview {
 	emoji: string;
 	title: string;
 	description: string;
 }
 
-export interface DriveItem {
-	id: string;
+export interface DriveNode {
+	path: string;          // Full path like 'samples/Corpo.gdoc'
 	type: 'folder' | 'doc';
 	name: string;
-	shared?: boolean;
-	preview?: boolean;
-	previewContent?: PreviewContent;
-	items?: DriveItem[];
+	preview?: Preview;     // Only for previewable items
+	children?: DriveNode[]; // For folders
 }
 
-// Helper to sort items - folders first, then docs alphabetically
-function sortDriveItems(items: DriveItem[]): DriveItem[] {
-	return items.sort((a, b) => {
-		if (a.type === b.type) {
-			return a.name.localeCompare(b.name);
+export const driveRoot: DriveNode = {
+	path: '/',
+	type: 'folder',
+	name: 'Pipewriter',
+	children: [
+		{
+			path: '/samples',
+			type: 'folder',
+			name: 'samples',
+			children: [
+				{
+					path: '/samples/Corpo.gdoc',
+					type: 'doc',
+					name: 'Corpo.gdoc',
+					preview: {
+						emoji: "📱",
+						title: "Corporate Components",
+						description: "Enterprise-ready UI kit for business apps"
+					}
+				},
+				{
+					path: '/samples/SaaS.gdoc',
+					type: 'doc',
+					name: 'SaaS.gdoc',
+					preview: {
+						emoji: "⚡",
+						title: "SaaS Landing",
+						description: "Start with proven conversion templates"
+					}
+				}
+			]
+		},
+		{
+			path: '/code',
+			type: 'folder',
+			name: 'code',
+			children: [
+				{
+					path: '/code/Prompt.gdoc',
+					type: 'doc',
+					name: 'Prompt.gdoc'
+				},
+				{
+					path: '/code/index.html',
+					type: 'doc',
+					name: 'index.html',
+					preview: {
+						emoji: "🎯",
+						title: "Live Preview",
+						description: "See changes in real-time as you type"
+					}
+				}
+			]
+		},
+		{
+			path: '/App.gdoc',
+			type: 'doc',
+			name: 'App.gdoc',
+			preview: {
+				emoji: "📱",
+				title: "App Builder",
+				description: "Design complete applications in Google Docs"
+			}
+		},
+		{
+			path: '/Darkmode.gdoc',
+			type: 'doc',
+			name: 'Darkmode.gdoc',
+			preview: {
+				emoji: "🌗",
+				title: "Dark Mode Built-in",
+				description: "Switch themes with one click"
+			}
+		},
+		{
+			path: '/Elements.gdoc',
+			type: 'doc',
+			name: 'Elements.gdoc',
+			preview: {
+				emoji: "🎨",
+				title: "90+ UI Elements",
+				description: "Copy-paste components for rapid prototyping"
+			}
 		}
-		return a.type === 'folder' ? -1 : 1;
-	});
-}
+	]
+};
 
-export const driveContents: DriveItem[] = sortDriveItems([
-	{
-		id: 'samples',
-		type: 'folder',
-		name: 'samples',
-		preview: true,
-		previewContent: {
-			emoji: "📦",
-			title: "Pro Templates",
-			description: "Ship faster with ready-to-go components"
-		},
-		items: sortDriveItems([
-			{ id: 'hero', type: 'doc', name: 'Hero Section.doc', shared: true, preview: true },
-			{ id: 'features', type: 'doc', name: 'Feature Grid.doc', shared: true, preview: true }
-		])
-	},
-	{
-		id: 'guides',
-		type: 'folder',
-		name: 'guides',
-		preview: true,
-		previewContent: {
-			emoji: "📖",
-			title: "Quick Start Guides",
-			description: "Learn the basics in 5 minutes"
-		},
-		items: sortDriveItems([
-			{ id: 'start', type: 'doc', name: '1. Start 🚀', shared: true, preview: true },
-			{ id: 'install', type: 'doc', name: '2. Install app ⚡', shared: true, preview: true }
-		])
-	},
-	{
-		id: 'elements',
-		type: 'doc',
-		name: 'Elements 🎨',
-		shared: true,
-		preview: true,
-		previewContent: {
-			emoji: "🎨",
-			title: "90+ UI Elements",
-			description: "Copy-paste components for rapid prototyping"
-		}
-	},
-	{
-		id: 'darkmode',
-		type: 'doc',
-		name: 'Darkmode 🌒',
-		shared: true,
-		preview: true,
-		previewContent: {
-			emoji: "🌗",
-			title: "Dark Mode Built-in",
-			description: "Switch themes with one click"
-		}
-	},
-	{
-		id: 'blank',
-		type: 'doc',
-		name: 'Blank ⚪',
-		shared: true
+// Helper functions
+export function getNodeByPath(path: string): DriveNode | null {
+	if (path === '/') return driveRoot;
+
+	const parts = path.split('/').filter(Boolean);
+	let current = driveRoot;
+
+	for (const part of parts) {
+		current = current.children?.find(node => node.name === part) || null;
+		if (!current) return null;
 	}
-]);
+
+	return current;
+}
+
+export function getParentPath(path: string): string {
+	if (path === '/') return '';
+	const parts = path.split('/');
+	return parts.slice(0, -1).join('/') || '/';
+}
+
+export function getBreadcrumbs(path: string): string[] {
+	return ['My Drive', 'Pipewriter', ...path.split('/').filter(Boolean)];
+}

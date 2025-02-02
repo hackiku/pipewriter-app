@@ -1,128 +1,90 @@
 <!-- src/lib/pages/landing/sections/features/Features.svelte -->
 <script lang="ts">
-	import { onMount } from "svelte";
-	import AddToCart from "$lib/components/cta/buy/AddToCart.svelte";
-	import DriveFolder from "./DriveFolder.svelte";
-	import DrivePreview from "./DrivePreview.svelte";
-	// import MiniTestimonial from "$lib/components/proof/testimonials/MiniTestimonial.svelte";
-	import WriterStep from "./WriterStep.svelte";
-	import { Button } from "$lib/components/ui/button";
-	import { ShoppingCart } from "lucide-svelte";
-	// import { demoStore } from "../../stores/demoStore";
+  import { onMount } from "svelte";
+  import { driveStore } from '../../stores/driveStore';
+  import AddToCart from "$lib/components/cta/buy/AddToCart.svelte";
+  import DriveFolder from "./DriveFolder.svelte";
+  import DrivePreview from "./DrivePreview.svelte";
+  import WriterStep from "./WriterStep.svelte";
 
-	let activeFeature: string | null = "elements";
-	let previewContainer: HTMLElement;
+  // Reference to container for intersection observer
+  let previewContainer: HTMLElement;
 
-	function handleDriveSelect(id: string) {
-		activeFeature = id;
-		// Scroll to the selected preview card
-		const card = document.getElementById(`preview-${id}`);
-		if (card) {
-			card.scrollIntoView({ behavior: "smooth" });
-		}
-	}
+  onMount(() => {
+    // Set up intersection observer for preview cards
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const path = entry.target.id.replace('preview-', '');
+            driveStore.navigate(path);
+          }
+        });
+      },
+      {
+        root: null,
+        threshold: 0.5,
+        rootMargin: "-20% 0px -30% 0px",
+      }
+    );
 
-	onMount(() => {
-		// Set up intersection observer for preview cards
-		const observer = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						const id = entry.target.id.replace("preview-", "");
-						activeFeature = id;
-					}
-				});
-			},
-			{
-				root: null,
-				threshold: 0.5, // Trigger when card is 50% visible
-				rootMargin: "-20% 0px -30% 0px", // Adjust trigger area
-			},
-		);
+    // Observe all preview cards
+    document.querySelectorAll(".preview-card").forEach((card) => {
+      observer.observe(card);
+    });
 
-		// Observe all preview cards
-		document.querySelectorAll(".preview-card").forEach((card) => {
-			observer.observe(card);
-		});
-
-		return () => observer.disconnect();
-	});
-
-	// window.location.href = "https://gum.co/pipewriter";
-
-	function handleGumroadCheckout() {
-		window.location.href =
-			"https://app.gumroad.com/checkout?product=qmifdo&quantity=1";
-	}
-
-	$: isRootView = !activeFeature || !activeFeature.includes("/");
+    return () => observer.disconnect();
+  });
 </script>
 
 <div class="relative">
-	<!-- Desktop Layout -->
-	<div class="hidden md:grid grid-cols-6 gap-8">
-		<!-- Left Column: Drive Folder & CTA -->
-		<div class="col-span-2 __bg-red-800/20 mb-2">
-			<div class="sticky top-4 space-y-6 z-50 pb-12">
-				<DriveFolder
-					activeId={activeFeature}
-					onSelect={handleDriveSelect}
-					{isRootView}
-				/>
+  <!-- Desktop Layout -->
+  <div class="hidden md:grid grid-cols-6 gap-8">
+    <!-- Left Column: Drive Folder & CTA -->
+    <div class="col-span-2">
+      <div class="sticky top-4 space-y-6 z-50 pb-12">
+        <!-- Drive Folder - Now controlled by store -->
+        <DriveFolder />
 
-				<div class="p-4 pt-12">
-					<WriterStep />
-				</div>
+        <!-- Writer Testimonials -->
+        <div class="p-4 pt-12">
+          <WriterStep />
+        </div>
 
-				<AddToCart
-					position="bottom-absolute"
-					text="Add to Cart"
-					showPrice={true}
-					price="• 40% OFF"
-					source="features-desktop"
-				/>
-			</div>
-		</div>
+        <!-- CTA Button -->
+        <AddToCart
+          text="Add to Cart"
+          showPrice={true}
+          price="• 40% OFF"
+          source="features-desktop"
+        />
+      </div>
+    </div>
 
-		<!-- Right Column: Preview Cards -->
-		<div class="col-span-4" bind:this={previewContainer}>
-			<DrivePreview {activeFeature} />
-		</div>
-	</div>
+    <!-- Right Column: Preview Cards -->
+    <div class="col-span-4" bind:this={previewContainer}>
+      <DrivePreview />
+    </div>
+  </div>
 
-	<!-- Mobile Layout -->
-	<div class="lg:hidden">
-		<!-- Sticky Header with Drive Folder -->
-		<div class="sticky top-4 z-[999] bg-background/80 backdrop-blur-sm pb-6">
-			<DriveFolder
-				activeId={activeFeature}
-				onSelect={handleDriveSelect}
-				{isRootView}
-			/>
-			<div class="space-y-6 mt-6">
-				<Button
-					variant="ghost"
-					class="w-full group"
-					on:click={handleGumroadCheckout}
-				>
-					<ShoppingCart
-						class="w-4 h-4 mr-2 opacity-50 group-hover:opacity-100 transition-opacity"
-					/>
-					<span class="opacity-50 group-hover:opacity-100 transition-opacity"
-						>Get Drive Access</span
-					>
-				</Button>
+  <!-- Mobile Layout -->
+  <div class="md:hidden">
+    <!-- Sticky Header with Drive Folder -->
+    <div class="sticky top-4 z-[999] bg-background/80 backdrop-blur-sm pb-6">
+      <DriveFolder />
+    </div>
 
-				<!-- Add Mini Testimonial -->
-				<!-- <div class="pt-6 border-t"> -->
-				<!-- <MiniTestimonial /> -->
-				<!-- </div> -->
-			</div>
-		</div>
+    <!-- Preview Cards -->
+    <div class="mt-6 pb-20"> <!-- Added padding for mobile CTA -->
+      <DrivePreview />
+    </div>
 
-		<!-- Preview Cards -->
-		<div class="mt-6">
-			<DrivePreview {activeFeature} />
-		</div>
-	</div>
+    <!-- Fixed Mobile CTA -->
+    <div class="fixed bottom-6 left-4 right-4 z-[999]">
+      <AddToCart
+        text="Get Drive Access"
+        source="features-mobile"
+      />
+    </div>
+  </div>
 </div>

@@ -1,126 +1,113 @@
 <!-- src/lib/pages/landing/sections/features/DriveFolder.svelte -->
 <script lang="ts">
   import { Folder } from 'lucide-svelte';
-  import { driveContents, type DriveItem } from '../../data/folders';
+  import { driveStore } from '../../stores/driveStore';
+  import { driveRoot, getNodeByPath, type DriveNode } from '../../data/folders';
+
+  // Get current folder's contents
+  $: currentFolder = $driveStore.currentFolder;
+  $: breadcrumbs = $driveStore.breadcrumbs;
+  $: currentPath = $driveStore.currentPath;
+  $: isCompact = $driveStore.isCompact;
+  $: showEarlyAccess = $driveStore.showEarlyAccess;
   
-  export let activeId: string | null = null;
-  export let onSelect: (id: string) => void = () => {};
-  export let isRootView = true;
-
-  let showEarlyAccess = false;
-  let currentFolder: string | null = null;
-
-  function handleDocClick(item: DriveItem) {
-    if (item.preview) {
-      onSelect(item.id);
-    }
-  }
-
-  function handleFolderClick(item: DriveItem) {
-    if (item.type === 'folder') {
-      currentFolder = item.id;
-      onSelect(`${item.id}/${item.items?.[0]?.id || ''}`);
-    }
-  }
-
-  function handleItemClick(item: DriveItem) {
-    if (item.type === 'folder') {
-      handleFolderClick(item);
-    } else {
-      handleDocClick(item);
-    }
-  }
-
-  function handlePathClick(part: string) {
-    if (part === 'My Drive') {
-      showEarlyAccess = true;
-      currentFolder = null;
-    } else if (part === 'Pipewriter') {
-      showEarlyAccess = false;
-      currentFolder = null;
-      onSelect('elements');
-    } else {
-      // Handle subfolder clicks in path
-      const folder = driveContents.find(item => item.id === part);
-      if (folder) {
-        handleFolderClick(folder);
-      }
-    }
-  }
-
-  $: {
-    // Update currentFolder when activeId changes
-    if (activeId?.includes('/')) {
-      currentFolder = activeId.split('/')[0];
-    }
-  }
-
-  $: pathParts = [
-    'My Drive',
-    'Pipewriter',
-    ...(currentFolder ? [currentFolder] : [])
-  ];
-
-  $: getPathPartStyle = (part: string) => {
-    if (showEarlyAccess) {
-      return part === 'My Drive' ? 'text-white' : 'text-white/40';
-    }
-    if (part === currentFolder) return 'text-white';
-    if (part === 'Pipewriter' && !currentFolder && !showEarlyAccess) return 'text-white';
-    return 'text-white/40';
-  };
+  // Ensure we have items to iterate over
+  $: items = currentFolder?.children || [];
+  $: activeNode = getNodeByPath(currentPath);
 </script>
 
-<div class="flex flex-col rounded-xl border overflow-hidden bg-zinc-950 text-white">
-  <!-- Drive Header -->
+<div 
+  class="flex flex-col rounded-xl border overflow-hidden bg-zinc-950 text-white"
+  role="navigation"
+  aria-label="Drive folder navigation"
+>
+  <!-- Path Bar -->
   <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
     <img src="/icons/google-drive.svg" alt="Google Drive" class="w-5 h-5" />
-    <div class="flex items-center gap-1 text-sm whitespace-nowrap overflow-x-auto">
-      {#each pathParts as part, i}
+    <nav class="flex items-center gap-1 text-sm whitespace-nowrap overflow-x-auto">
+      {#each breadcrumbs || [] as part, i}
         {#if i > 0}
-          <span class="text-white/40">/</span>
+          <span class="text-white/40" aria-hidden="true">/</span>
         {/if}
         <button 
-          class="hover:text-white/90 transition-colors {getPathPartStyle(part)}"
-          on:click={() => handlePathClick(part)}
+          class="hover:text-white/90 transition-colors
+                 {i === (breadcrumbs?.length || 0) - 1 ? 'text-white' : 'text-white/40'}"
+          on:click={() => driveStore.navigate(part === 'My Drive' ? '/' : part === 'Pipewriter' ? '/Elements.gdoc' : items[i]?.path || '/')}
+          aria-current={i === (breadcrumbs?.length || 0) - 1 ? 'page' : undefined}
         >
           {part}
         </button>
       {/each}
-    </div>
+    </nav>
   </div>
 
-  <!-- Early Access Message or File List -->
+  <!-- Early Access Message -->
   {#if showEarlyAccess}
     <div class="p-8 text-center">
       <p class="text-lg mb-4">👋 Get early access to start building your docs!</p>
       <p class="text-sm text-white/70">Join the waitlist to be one of the first.</p>
     </div>
+  
+  <!-- File List -->
   {:else}
-    <!-- File List -->
-    <div class="overflow-y-auto">
-      {#each driveContents as item}
-        {#if item.type === 'folder'}
-          <div class="group">
+    <div 
+      class="overflow-hidden {isCompact ? 'max-h-[120px]' : ''} transition-all duration-300"
+      role="list"
+    >
+      <!-- Compact View -->
+      {#if isCompact && activeNode}
+        <button 
+          class="flex items-center gap-3 px-4 py-2 w-full bg-white/10"
+          on:click={() => driveStore.toggleCompact()}
+          role="listitem"
+        >
+          {#if activeNode.type === 'folder'}
+            <Folder class="w-4 h-4 text-white/70" />
+          {:else}
+            <img
+              class="w-4 h-4"
+              src="/icons/google-docs-file.svg"
+              alt="Google Docs Icon"
+            />
+          {/if}
+          <span class="flex-1 text-sm text-left">{activeNode.name}</span>
+        </button>
+
+      <!-- Full View -->
+      {:else}
+        {#each items as item (item.path)}
+          <div role="listitem">
             <button 
               class="flex items-center gap-3 px-4 py-2 w-full
-                     {currentFolder === item.id ? 'bg-white/10' : 'hover:bg-white/5'} 
-                     cursor-pointer transition-colors"
-              on:click={() => handleFolderClick(item)}
+                     {currentPath === item.path ? 'bg-white/10' : 'hover:bg-white/5'}
+                     transition-colors"
+              on:click={() => driveStore.navigate(item.path)}
             >
-              <Folder class="w-4 h-4 text-white/70" />
+              {#if item.type === 'folder'}
+                <Folder class="w-4 h-4 text-white/70" />
+              {:else}
+                <img
+                  class="w-4 h-4"
+                  src="/icons/google-docs-file.svg"
+                  alt="Google Docs Icon"
+                />
+              {/if}
               <span class="flex-1 text-sm text-left">{item.name}</span>
+              <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
+                <span class="text-xs" aria-label="Shared document">👥</span>
+              </div>
             </button>
-            
-            {#if currentFolder === item.id && item.items}
-              <div class="pl-4">
-                {#each item.items as subItem}
+
+            <!-- Folder Contents -->
+            {#if item.type === 'folder' && item.path === currentPath && item.children}
+              <div class="pl-4" role="list">
+                {#each item.children as subItem (subItem.path)}
                   <button 
                     class="flex items-center gap-3 px-4 py-2 w-full
-                           {activeId === `${item.id}/${subItem.id}` ? 'bg-white/10' : 'hover:bg-white/5'}
-                           {subItem.preview ? 'cursor-pointer' : 'cursor-default'}
+                           {currentPath === subItem.path ? 'bg-white/10' : 'hover:bg-white/5'}
                            transition-colors"
-                    on:click={() => handleDocClick(subItem)}
+                    on:click={() => driveStore.navigate(subItem.path)}
+                    role="listitem"
                   >
                     <img
                       class="w-4 h-4"
@@ -128,38 +115,16 @@
                       alt="Google Docs Icon"
                     />
                     <span class="flex-1 text-sm text-left">{subItem.name}</span>
-                    {#if subItem.shared}
-                      <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
-                        <span class="text-xs">👥</span>
-                      </div>
-                    {/if}
+                    <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
+                      <span class="text-xs" aria-label="Shared document">👥</span>
+                    </div>
                   </button>
                 {/each}
               </div>
             {/if}
           </div>
-        {:else}
-          <button 
-            class="flex items-center gap-3 px-4 py-2 w-full
-                   {activeId === item.id ? 'bg-white/10' : 'hover:bg-white/5'}
-                   {item.preview ? 'cursor-pointer' : 'cursor-default'}
-                   transition-colors"
-            on:click={() => handleDocClick(item)}
-          >
-            <img
-              class="w-4 h-4"
-              src="/icons/google-docs-file.svg"
-              alt="Google Docs Icon"
-            />
-            <span class="flex-1 text-sm text-left">{item.name}</span>
-            {#if item.shared}
-              <div class="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center">
-                <span class="text-xs">👥</span>
-              </div>
-            {/if}
-          </button>
-        {/if}
-      {/each}
+        {/each}
+      {/if}
     </div>
   {/if}
 </div>
