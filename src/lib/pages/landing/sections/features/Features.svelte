@@ -4,7 +4,7 @@
   import { driveStore } from '../../stores/driveStore';
   import AddToCart from "$lib/components/cta/buy/AddToCart.svelte";
   import DriveFolder from "./DriveFolder.svelte";
-  // import DriveFolderDebug from "./DriveFolderDebug.svelte";
+  import DriveFolderDebug from "./DriveFolderDebug.svelte";
   import DrivePreview from "./DrivePreview.svelte";
   import WriterStep from "./WriterStep.svelte";
 
