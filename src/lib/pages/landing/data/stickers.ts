@@ -1,68 +1,17 @@
 // src/lib/pages/landing/data/stickers.ts
 
-export type StickerConfig = {
-	icon: 'docs' | 'drive' | 'chat';
-	position: {
-		top?: string;
-		bottom?: string;
-		left?: string;
-		right?: string;
-	};
-	size: {
-		width: string;
-		height: string;
-	};
-	rotation: number;
-	animation: {
-		duration: string;
-		delay: string;
-	};
-}
-
-export const stickerConfigs: Record<string, StickerConfig> = {
-	docs: {
-		icon: 'docs',
-		position: {
-			top: '15vh',
-			right: '10vw'
-		},
-		size: {
-			width: '10vw',
-			height: '10vw'
-		},
-		rotation: 6,
-		animation: {
-			duration: '6s',
-			delay: '0s'
-		}
-	},
-	drive: {
-		icon: 'drive',
-		position: {
-			bottom: '20vh',
-			right: '15vw'
-		},
-		size: {
-			width: '12vw',
-			height: '12vw'
-		},
-		rotation: -12,
-		animation: {
-			duration: '7s',
-			delay: '0.5s'
-		}
-	},
+export const stickerConfigs = {
 	keyboard: {
 		icon: 'keyboard',
 		position: {
-			bottom: '25vh',
+			bottom: '18vh',
 			left: '10vw'
 		},
 		size: {
 			width: '15vw',
 			height: '5vw'
 		},
-		rotation: 8,
+		rotation: -8,
 		animation: {
 			duration: '5s',
 			delay: '1s'
@@ -71,7 +20,7 @@ export const stickerConfigs: Record<string, StickerConfig> = {
 	chat: {
 		icon: 'chat',
 		position: {
-			top: '20vh',
+			bottom: '20vh',
 			right: '15vw'
 		},
 		size: {
@@ -82,6 +31,38 @@ export const stickerConfigs: Record<string, StickerConfig> = {
 		animation: {
 			duration: '6.5s',
 			delay: '0.75s'
+		}
+	},
+	docs: {
+		icon: 'docs',
+		position: {
+			top: '14vh',
+			left: '6%'
+		},
+		size: {
+			width: '10vh',
+			height: '10vh'
+		},
+		rotation: 6,
+		animation: {
+			duration: '6s',
+			delay: '0s'
+		}
+	},
+	drive: {
+		icon: 'drive',
+		position: {
+			top: '16vh',
+			left: '12%'
+		},
+		size: {
+			width: '12vh',
+			height: '12vh'
+		},
+		rotation: -12,
+		animation: {
+			duration: '7s',
+			delay: '0.5s'
 		}
 	}
 }

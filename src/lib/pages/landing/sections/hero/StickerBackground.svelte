@@ -1,13 +1,11 @@
 <!-- src/lib/pages/landing/sections/hero/StickerBackground.svelte -->
 <script lang="ts">
-  import { onMount } from 'svelte';
   import { stickerConfigs } from '../../data/stickers';
   import KeyboardShortcut from './KeyboardShortcut.svelte';
   import Sticker from './Sticker.svelte';
   import ChatBox from './ChatBox.svelte';
 
   export let opacity = '1';
-  export let container = true; // If false, uses viewport positioning
 </script>
 
 <div class="absolute inset-0 overflow-hidden pointer-events-none select-none"
@@ -24,7 +22,6 @@
         height: {config.size.height};
         --duration: {config.animation.duration};
         --delay: {config.animation.delay};
-        transform: rotate({config.rotation}deg);
       "
     >
       {#if key === 'keyboard'}
@@ -32,7 +29,7 @@
       {:else if key === 'chat'}
         <ChatBox />
       {:else}
-        <Sticker icon={config.icon} />
+        <Sticker icon={config.icon} rotation={config.rotation} />
       {/if}
     </div>
   {/each}
@@ -46,8 +43,8 @@
   }
   
   @keyframes float {
-    0% { transform: translate3d(0, 0, 0) rotate(var(--rotation, 0deg)); }
-    50% { transform: translate3d(0, -10px, 0) rotate(var(--rotation, 0deg)); }
-    100% { transform: translate3d(0, 0, 0) rotate(var(--rotation, 0deg)); }
+    0% { transform: translate3d(0, 0, 0); }
+    50% { transform: translate3d(0, -10px, 0); }
+    100% { transform: translate3d(0, 0, 0); }
   }
 </style>

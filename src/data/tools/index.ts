@@ -150,16 +150,43 @@ export const tools = {
 		category: 'ai',
 		tags: ['llm', 'chat', 'coding']
 	},
-	gemini: {
-		name: "Gemini",
-		icon: "/tools/gemini.svg",
+	deepseek: {
+		name: "DeepSeek",
+		icon: "/tools/deepseek.svg",
 		fallback: "💫",
 		url: "https://deepmind.google/technologies/gemini/",
 		description: "Multimodal AI model",
 		category: 'ai',
 		tags: ['llm', 'chat', 'multimodal']
-	}
-
+	},
+	// apps
+	gdocs: {
+		name: "Google Docs",
+		icon: "/tools/gdocs.svg",
+		fallback: "🧠",
+		url: "https://docs.google.com",
+		description: "Advanced language model",
+		category: 'ai',
+		tags: ['', '']
+	},
+	gdrive: {
+		name: "Google Drive",
+		icon: "/tools/gdrive.svg",
+		fallback: "💫",
+		url: "https://drive.google.com",
+		description: "Multimodal AI model",
+		category: 'ai',
+		tags: ['', '']
+	},
+	appsscript: {
+		name: "Google Apps Script",
+		icon: "/tools/appsscript.svg",
+		fallback: "💫",
+		url: "https://script.google.com",
+		description: "_",
+		category: 'ai',
+		tags: ['', '']
+	},
 } as const;
 
 // Helper functions

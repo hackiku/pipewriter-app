@@ -31,7 +31,7 @@
 </script>
 
 <nav
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300
+  class="fixed -top-2 left-0 right-0 z-50 transition-all duration-300
          max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
   class:translate-y-4={isVisible}
   class:translate-y-[-100%]={!isVisible}
@@ -40,7 +40,7 @@
   <div class="relative rounded-full">
     <!-- Subtle gradient glow -->
     <div
-      class="absolute inset-0 rounded-full opacity-50 dark:opacity-30 blur-xl -z-10"
+      class="absolute inset-0 rounded-full opacity-30 dark:opacity-30 blur-xl -z-10"
       style="
         background: radial-gradient(
           circle at 50% 50%,
@@ -53,10 +53,10 @@
 
     <!-- Main nav content -->
     <div
-      class="bg-background/70 backdrop-blur-md border border-border/5 
+      class="bg-white/40 dark:bg-black/40 backdrop-blur-[6px] border border-border/5 
              shadow-sm rounded-full px-1 md:px-4"
     >
-      <div class="container mx-auto px-4 py-4 flex items-center justify-between">
+      <div class="container mx-auto px-4 py-3 flex items-center justify-between">
         <Logo />
 
         <!-- Desktop Navigation -->
