@@ -1,11 +1,14 @@
-<!-- src/lib/pages/landing/sections/proof/Proof.svelte -->
+<!-- src/lib/pages/landing/sections/proof/FounderCard.svelte -->
 <script lang="ts">
-  import { userTestimonials } from '$data/proof/testimonials/users';
-  import UserTestimonial from '$lib/components/proof/testimonials/UserTestimonial.svelte';
-  import FounderTestimonial from '$lib/components/proof/testimonials/UserTestimonial.svelte';
+  import { userTestimonials } from "$data/proof/testimonials/types";
 </script>
 
 <div class="container max-w-6xl">
+  <div class="text-center mb-16">
+    <h2 class="text-4xl font-medium mb-4">
+      Made With 🫶 for <br>Us Who Write
+    </h2>
+  </div>
 
   <!-- Scrollable container with gradient edges -->
   <div class="relative">

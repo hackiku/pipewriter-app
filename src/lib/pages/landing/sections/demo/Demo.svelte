@@ -22,7 +22,7 @@
   </div>
 
   <!-- Video Button -->
-  <div class="relative -mt-10 flex justify-center">
+  <div class="relative -mt-16 flex justify-center">
     <Button 
       variant="secondary" 
       size="lg"

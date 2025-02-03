@@ -3,6 +3,7 @@
   import { onMount } from 'svelte';
   import { fade } from 'svelte/transition';
   import { writable } from 'svelte/store';
+	import { Circle } from 'lucide-svelte'
   import Tabs from './Tabs.svelte';
   
   // Demo Components
@@ -11,6 +12,8 @@
   import PromptDemo from './prompt/PromptDemo.svelte';
   import CodeDemo from './code/CodeDemo.svelte';
   
+	export let showBrowser: boolean = false;
+
   // Local store for demo state
   const demoState = writable({
     activeTab: 'wireframe' as const
@@ -43,38 +46,52 @@
   }
 </script>
 
-<div class="relative bg-zinc-950 rounded-xl overflow-hidden shadow-2xl">
-  <!-- Main Content Area -->
-  <div class="relative h-[calc(80vh-48px)]">
-    <!-- Tab Content with Transitions -->
-    <div class="h-full p-8 overflow-y-auto">
-      {#each tabs as tab (tab.id)}
-        {#if activeTab === tab.id}
-          <div 
-            class="h-full"
-            in:fade={{ duration: 200, delay: 200 }}
-            out:fade={{ duration: 200 }}
-          >
-            <svelte:component this={tab.component} />
-          </div>
-        {/if}
-      {/each}
-    </div>
 
-    <!-- Floating Tabs with Backdrop -->
-    <div 
-      class="absolute bottom-0 inset-x-0 pb-4 pt-12
-             bg-gradient-to-t from-zinc-950 via-zinc-950/90 to-transparent"
-    >
-      <div class="flex justify-center">
-        <Tabs 
-          {tabs} 
-          {activeTab}
-          {handleTabSelect}
-        />
-      </div>
-    </div>
-  </div>
+<!-- Browser Mock -->
+<div class="relative rounded-xl overflow-hidden border bg-zinc-950 text-white">
+	<!-- Browser Chrome -->
+	<div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
+		<div class="flex gap-1.5">
+			<Circle class="w-3 h-3 fill-red-500 text-red-500" />
+			<Circle class="w-3 h-3 fill-yellow-500 text-yellow-500" />
+			<Circle class="w-3 h-3 fill-green-500 text-green-500" />
+		</div>
+	</div>
+
+
+	<div class="relative bg-zinc-950 rounded-xl overflow-hidden shadow-2xl">
+		<!-- Main Content Area -->
+		<div class="relative h-[calc(80vh-48px)]">
+			<!-- Tab Content with Transitions -->
+			<div class="h-full p-8 overflow-y-auto">
+				{#each tabs as tab (tab.id)}
+					{#if activeTab === tab.id}
+						<div 
+							class="h-full"
+							in:fade={{ duration: 200, delay: 200 }}
+							out:fade={{ duration: 200 }}
+						>
+							<svelte:component this={tab.component} />
+						</div>
+					{/if}
+				{/each}
+			</div>
+
+			<!-- Floating Tabs with Backdrop -->
+			<div 
+				class="absolute bottom-0 inset-x-0 pb-4 pt-12
+							bg-gradient-to-t from-zinc-950 via-zinc-950/90 to-transparent"
+			>
+				<div class="flex justify-center">
+					<Tabs 
+						{tabs} 
+						{activeTab}
+						{handleTabSelect}
+					/>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 
 <style>

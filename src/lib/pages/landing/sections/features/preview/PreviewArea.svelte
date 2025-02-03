@@ -1,8 +1,10 @@
-<!-- src/lib/pages/landing/sections/FeaturePreview.svelte -->
+<!-- src/lib/pages/landing/sections/preview/PreviewArea.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
-  import { driveStore } from '../../stores/driveStore';
-  import { driveRoot, type DriveNode } from '../../data/folders';
+  import { driveStore } from '../../../stores/driveStore';
+  import { driveRoot, type DriveNode } from '../../../data/folders';
+
+	import FeatureCard from "./FeatureCard.svelte"
 
   // Flatten drive structure to get all previewable items
   function getPreviewableItems(node: DriveNode): DriveNode[] {

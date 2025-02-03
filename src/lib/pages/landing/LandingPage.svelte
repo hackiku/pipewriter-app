@@ -64,35 +64,39 @@
 
   <!-- App Demo Section -->
   <section class="relative pt-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    <!-- Browser Mock -->
-    <div class="relative rounded-xl overflow-hidden border bg-zinc-950 text-white">
-      <!-- Browser Chrome -->
-      <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
-        <div class="flex gap-1.5">
-          <Circle class="w-3 h-3 fill-red-500 text-red-500" />
-          <Circle class="w-3 h-3 fill-yellow-500 text-yellow-500" />
-          <Circle class="w-3 h-3 fill-green-500 text-green-500" />
-        </div>
-      </div>
 
-      <!-- App Content -->
-      <div class="min-h-[80vh]">
-        <AppDemo />
-      </div>
+    <div class="min-h-[80vh]">
+      <AppDemo />
     </div>
   </section>
 	
-	<!-- <div class="border border-dashed border-red-500/40 m-6 rounded-3xl"> -->
-		<!-- <AppDemo /> -->
-	<!-- </div> -->
 
   <!-- Social Proof -->
   <section class="py-24">
+		
+		<div class="text-center mb-16">
+    	<h2 class="text-4xl font-medium mb-4">
+      	Made With 🫶 for <br>Us Who Write
+    	</h2>
+  	</div>
+
     <Proof />
-  </section>
+  
+	</section>
 
   <!-- Pricing -->
   <section class="relative border-t pt-24">
+		<div class="text-center mb-16">
+    	<h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
+      	        font-medium leading-[1.1] tracking-tight mb-16
+        	      max-w-[20ch] mx-auto text-center">
+      	Start Pipewriting Away
+    	</h2>
+    	<!-- <p class="text-xl text-muted-foreground">
+      	Start with a $1 trial or go all-in with the complete toolkit.
+    	</p> -->
+  </div>
+
     <Pricing />
   </section>
 	

@@ -46,14 +46,14 @@
 			<div class="flex gap-3 mb-6">
 				<ProductStat
 					count="80"
-					icon="/tools/google-docs.svg"
+					icon="/tools/gdocs.svg"
 					iconAlt="Google Docs"
 					variant="primary"
 					size="sm"
 				/>
 				<ProductStat
 					count="8"
-					icon="/tools/google-apps-script.svg"
+					icon="/tools/appsscript.svg"
 					iconAlt="Apps Script"
 					variant="primary"
 					size="sm"

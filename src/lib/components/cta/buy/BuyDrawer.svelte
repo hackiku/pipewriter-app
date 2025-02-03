@@ -106,11 +106,10 @@
           <!-- Header -->
           <div class="text-center mb-12">
             <h2 class="text-4xl font-bold mb-3">
-              Start Writing Better
+              Better deliverables forever
             </h2>
             <p class="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Choose a plan that works for you. All plans include lifetime access
-              and future updates at no additional cost.
+              Access all docs & scripts lifetime.
             </p>
           </div>
 

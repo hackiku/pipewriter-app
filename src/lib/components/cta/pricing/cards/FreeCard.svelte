@@ -42,7 +42,7 @@
 
       <ProductStat
         count="1"
-        icon="/tools/google-docs.svg"
+        icon="/tools/gdocs.svg"
         iconAlt="Google Docs"
         variant="primary"
         size="sm"

@@ -25,7 +25,7 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		author: "Eoin Cronolly",
 		role: "SaaS Copywriter",
 		company: "Freelance",
-		imgSrc: 'people/writers/eoin-cronolly.jpg',
+		imgSrc: 'people/writers/eoin-cronolly.jpeg',
 		hire: {
 			url: "https://eoincronolly.com",
 			buttonText: "Visit Website"
@@ -39,7 +39,7 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		author: "Giorgi C.",
 		role: "Freelance Copywriter",
 		company: "Independent",
-		imgSrc: 'people/writers/giorgi-c.jpg',
+		imgSrc: 'people/writers/giorgi-chkoidze.jpeg',
 		hire: {
 			url: "https://twitter.com/giorgicopywrite",
 			buttonText: "Hire Giorgi"
@@ -53,7 +53,7 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		author: "Warren West",
 		role: "Copy Chief",
 		company: "AppSumo",
-		imgSrc: 'people/writers/warren-west.jpg',
+		imgSrc: 'people/writers/warren-west.jpeg',
 		hire: {
 			url: "https://warrenwords.com",
 			buttonText: "Hire Warren"

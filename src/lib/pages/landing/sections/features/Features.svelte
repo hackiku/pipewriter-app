@@ -4,7 +4,7 @@
   import { driveStore } from '../../stores/driveStore';
   import AddToCart from "$lib/components/cta/buy/AddToCart.svelte";
   import DriveViewer from "./drive/DriveViewer.svelte";
-  import FeaturePreview from "./FeaturePreview.svelte";
+  import PreviewArea from "./preview/PreviewArea.svelte";
   import WriterShoutout from "./WriterShoutout.svelte";
 
   // Reference to container for intersection observer
@@ -63,7 +63,7 @@
 
     <!-- Right Column: Preview Cards -->
     <div class="col-span-4" bind:this={previewContainer}>
-      <FeaturePreview />
+      <PreviewArea />
     </div>
   </div>
 
@@ -76,7 +76,7 @@
 
     <!-- Preview Cards -->
     <div class="mt-6 pb-20"> <!-- Added padding for mobile CTA -->
-      <FeaturePreview />
+      <PreviewArea />
     </div>
 
     <!-- Fixed Mobile CTA -->
