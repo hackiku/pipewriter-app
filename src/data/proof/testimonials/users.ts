@@ -20,7 +20,7 @@ export const userTestimonials: EnhancedTestimonial[] = [
 	{
 		author: "Jaye Hannah",
 		quote: {
-			full: "Just discovered Pipewriter. Been obsessing over it all morning.",
+			full: "1 • Just discovered Pipewriter. Been obsessing over it all morning.",
 			short: "Just discovered Pipewriter. Been obsessing over it all morning."
 		},
 		role: "Content Strategist",
@@ -33,10 +33,24 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		}
 	},
 	{
+		author: "Giorgi Chkoidze",
+		quote: {
+			full: "2 Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask.",
+			short: "Clients immediately get the vision. Revisions become much easier or they don't even ask."
+		},
+		role: "Freelance Copywriter",
+		company: "",
+		imgSrc: 'people/writers/giorgi-chkoidze.jpeg',
+		hire: {
+			url: "https://www.linkedin.com/in/giorgi-kynecos/",
+			buttonText: "Hire Giorgi"
+		}
+	},
+	{
 		author: "Eoin Cronolly",
 		status: "Early Adopter",
 		quote: {
-			full: "I've never seen a tool like this that works natively in Docs. Been building wireframes by hand using tables, even for five-figure contracts. This changes everything for us UX writers.",
+			full: "3 I've never seen a tool like this that works natively in Docs. Been building wireframes by hand using tables, even for five-figure contracts. This changes everything for us UX writers.",
 			short: "This changes everything for us UX writers. Been building wireframes by hand in tables, even for five-figure contracts."
 		},
 		role: "SaaS Copywriter",
@@ -50,7 +64,7 @@ export const userTestimonials: EnhancedTestimonial[] = [
 	{
 		author: "Steena Marie Pierce",
 		quote: {
-			full: "This is such a fascinating use of AI for writers – could I potentially kiss my GDoc-patchwork wireframes goodbye?! Let\’s hope so.",
+			full: "4 This is such a fascinating use of AI for writers – could I potentially kiss my GDoc-patchwork wireframes goodbye?! Let\’s hope so.",
 			short: "Fascinating AI for writers. I can kiss my GDoc-patchwork wireframes goodbye."
 		},
 		role: "Writer & Coach",
@@ -61,25 +75,11 @@ export const userTestimonials: EnhancedTestimonial[] = [
 			buttonText: "Hire Steena"
 		}
 	},
-	{
-		author: "Giorgi Chkoidze",
-		quote: {
-			full: "Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask. Plus, for me it's easier because I don't have to write long copies just to impress them.",
-			short: "Clients immediately get the vision. Revisions become much easier or they don't even ask."
-		},
-		role: "Freelance Copywriter",
-		company: "",
-		imgSrc: 'people/writers/giorgi-chkoidze.jpeg',
-		hire: {
-			url: "https://www.linkedin.com/in/giorgi-kynecos/",
-			buttonText: "Hire Giorgi"
-		}
-	},
 
 	{
 		author: "Warren West",
 		quote: {
-			full: "Thanks Ivan! This looks super cool and is probably 1000x better than the wireframing I've been doing in Google Docs.",
+			full: "5 Thanks Ivan! This looks super cool and is probably 1000x better than the wireframing I've been doing in Google Docs.",
 			short: "This is 1000x better than the wireframing I've been doing in Google Docs."
 		},
 		role: "Copy Chief",
@@ -93,15 +93,45 @@ export const userTestimonials: EnhancedTestimonial[] = [
 	{
 		author: "Matthew Szymanski",
 		quote: {
-			full: "I've been trying out no-code editors like Webflow and Wix Studio but found them clunky. Going from copy doc to a website that's around 90% ready to deploy is the exact thing I've been looking for.",
+			full: "6 I've been trying out no-code editors like Webflow and Wix Studio but found them clunky. Going from copy doc to a website that's around 90% ready to deploy is the exact thing I've been looking for.",
 			short: "No-code editors are clunky. Going 90% This is 1000x better than the wireframing I've been doing in Google Docs."
 		},
 		role: "Web Copywriter & Dev",
 		company: "",
 		imgSrc: 'people/writers/matthew-szymanski.png',
 		// hire: {
-			// url: "",
-			// buttonText: "Hire Matt"
+		// url: "",
+		// buttonText: "Hire Matt"
 		// }
+	},
+	{
+		author: "7",
+		quote: {
+			full: "7 No-code editors suck hard. Svelte is the key, beltalowda.",
+			short: "No-code editors are clunky. Going 90% This is 1000x better than the wireframing I've been doing in Google Docs."
+		},
+		role: "7 Writer",
+	},
+	{
+		author: "8",
+		quote: {
+			full: "8 Layout challenges, here's how we can improve the distribution of cards after the founder card for both layouts:",
+			short: "No-code editors are clunky. Going 90% This is 1000x better than the wireframing I've been doing in Google Docs."
+		},
+		role: "UX Writer",
+	},
+	{
+		author: "9",
+		quote: {
+			full: "9 Simple slice with direct counts instead of modulo. Show More functionality that adds 3 cards",
+		},
+		role: "UX Writer",
+	},
+	{
+		author: "10",
+		quote: {
+			full: "10  We'll just fill columns from left to right, respecting the initial card positions.",
+		},
+		role: "UX Writer",
 	}
 ];
