@@ -52,7 +52,7 @@
 
 	</section>
 
-	<FounderCard />
+	<!-- <FounderCard /> -->
 
   <!-- Features Section -->
   <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
@@ -66,6 +66,12 @@
     <Features />
   </section>
 
+	<div class="_py-12">
+		<h3 class="text-center text-foreground">Battle tested writing SaaS copy for</h3>
+		<LogosMarquee />
+		<LogosMarquee />
+	</div>
+
   <!-- App Demo Section -->
   <!-- <section class="relative pt-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <div class="min-h-[80vh]">
@@ -77,11 +83,10 @@
   <!-- Social Proof -->
   <!-- <section class="py-24 bg-red-800/20"> -->
 	<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-
 		
-		<div class="text-center mb-16">
+		<div class="text-center mb-16 max-w-lg mx-auto">
     	<h2 class="text-4xl font-medium mb-4">
-      	Made With 🫶 for <br>Us Who Write
+      	Made with 🫶, ☕️, and Oxford comma for us wordsmiths
     	</h2>
   	</div>
 
@@ -106,7 +111,6 @@
   </section>
 	
 	<div class="py-12">
-
 		<LogosMarquee />
 	</div>
 

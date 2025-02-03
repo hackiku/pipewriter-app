@@ -18,25 +18,11 @@ export interface EnhancedTestimonial extends Testimonial {
 
 export const userTestimonials: EnhancedTestimonial[] = [
 	{
-		quote: {
-			full: "I've never seen a tool like this that works natively in Docs. Been building wireframes by hand using tables, even for five-figure contracts. This changes everything for us UX writers.",
-			short: "This changes everything for us UX writers. Been building wireframes by hand in tables, even for five-figure contracts."
-		},
-		author: "Eoin Cronolly",
-		role: "SaaS Copywriter",
-		company: "Freelance",
-		imgSrc: 'people/writers/eoin-cronolly.jpeg',
-		hire: {
-			url: "https://www.upwork.com/freelancers/~01a3d679d42bc61963",
-			buttonText: "Hire Eoin"
-		}
-	},
-	{
+		author: "Jaye Hannah",
 		quote: {
 			full: "Just discovered Pipewriter. Been obsessing over it all morning.",
 			short: "Just discovered Pipewriter. Been obsessing over it all morning."
 		},
-		author: "Jaye Hannah",
 		role: "Content Strategist",
 		company: "",
 		imgSrc: 'people/writers/jaye-hannah.jpeg',
@@ -47,11 +33,40 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		}
 	},
 	{
+		author: "Eoin Cronolly",
+		status: "Early Adopter",
+		quote: {
+			full: "I've never seen a tool like this that works natively in Docs. Been building wireframes by hand using tables, even for five-figure contracts. This changes everything for us UX writers.",
+			short: "This changes everything for us UX writers. Been building wireframes by hand in tables, even for five-figure contracts."
+		},
+		role: "SaaS Copywriter",
+		company: "",
+		imgSrc: 'people/writers/eoin-cronolly.jpeg',
+		hire: {
+			url: "https://www.upwork.com/freelancers/~01a3d679d42bc61963",
+			buttonText: "Hire Eoin"
+		}
+	},
+	{
+		author: "Steena Marie Pierce",
+		quote: {
+			full: "This is such a fascinating use of AI for writers – could I potentially kiss my GDoc-patchwork wireframes goodbye?! Let\’s hope so.",
+			short: "Fascinating AI for writers. I can kiss my GDoc-patchwork wireframes goodbye."
+		},
+		role: "Writer & Coach",
+		company: "",
+		imgSrc: 'people/writers/steena-marie-pierce.jpeg',
+		hire: {
+			url: "https://theartoflifedesign.com/",
+			buttonText: "Hire Steena"
+		}
+	},
+	{
+		author: "Giorgi Chkoidze",
 		quote: {
 			full: "Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask. Plus, for me it's easier because I don't have to write long copies just to impress them.",
 			short: "Clients immediately get the vision. Revisions become much easier or they don't even ask."
 		},
-		author: "Giorgi C.",
 		role: "Freelance Copywriter",
 		company: "",
 		imgSrc: 'people/writers/giorgi-chkoidze.jpeg',
@@ -60,12 +75,13 @@ export const userTestimonials: EnhancedTestimonial[] = [
 			buttonText: "Hire Giorgi"
 		}
 	},
+
 	{
+		author: "Warren West",
 		quote: {
 			full: "Thanks Ivan! This looks super cool and is probably 1000x better than the wireframing I've been doing in Google Docs.",
 			short: "This is 1000x better than the wireframing I've been doing in Google Docs."
 		},
-		author: "Warren West",
 		role: "Copy Chief",
 		company: "AppSumo",
 		imgSrc: 'people/writers/warren-west.jpeg',
@@ -73,5 +89,19 @@ export const userTestimonials: EnhancedTestimonial[] = [
 			url: "https://www.linkedin.com/in/warrenwords/",
 			buttonText: "Hire Warren"
 		}
+	},
+	{
+		author: "Matthew Szymanski",
+		quote: {
+			full: "I've been trying out no-code editors like Webflow and Wix Studio but found them clunky. Going from copy doc to a website that's around 90% ready to deploy is the exact thing I've been looking for.",
+			short: "No-code editors are clunky. Going 90% This is 1000x better than the wireframing I've been doing in Google Docs."
+		},
+		role: "Web Copywriter & Dev",
+		company: "",
+		imgSrc: 'people/writers/matthew-szymanski.png',
+		// hire: {
+			// url: "",
+			// buttonText: "Hire Matt"
+		// }
 	}
 ];

@@ -9,6 +9,9 @@
   $: remainingGroup = userTestimonials.slice(2);
 </script>
 
+
+<!-- <FounderCard /> -->
+
 <!-- <section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"> -->
   <div class="max-w-7xl __mx-auto">
 
