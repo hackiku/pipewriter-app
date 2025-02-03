@@ -1,35 +1,58 @@
 <!-- src/lib/pages/landing/sections/proof/FounderCard.svelte -->
 <script lang="ts">
-  import { userTestimonials } from "$data/proof/testimonials/types";
+  import { Button } from "$lib/components/ui/button";
+  import { CalendarDays } from "lucide-svelte";
+  
+  export let name = "Ivan Karaman";
+  export let role = "Builder & Lead Designer";
+  export let years = "10+ years designing products";
+  export let imageSrc = "/avatars/ivan.png";
 </script>
 
-<div class="container max-w-6xl">
-  <div class="text-center mb-16">
-    <h2 class="text-4xl font-medium mb-4">
-      Made With 🫶 for <br>Us Who Write
-    </h2>
-  </div>
-
-  <!-- Scrollable container with gradient edges -->
-  <div class="relative">
-    <div class="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory
-                scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]">
-      {#each userTestimonials as testimonial}
-        <div class="flex-shrink-0 w-[min(100%,_24rem)] snap-center">
-          <UserTestimonial 
-            {testimonial}
-            useShortQuote={false} 
+<div class="relative col-span-2 row-span-2 rounded-xl overflow-hidden">
+  <!-- Gradient Border -->
+  <div class="absolute inset-0 p-[1px] rounded-xl bg-gradient-to-r from-[#3644FE] to-[#B345ED]">
+    <!-- Content Container with Gradient Background -->
+    <div class="h-full rounded-xl bg-gradient-to-r from-[#3644FE]/30 to-[#B345ED]/30 p-6 flex flex-col">
+      
+      <!-- Header -->
+      <div class="flex items-start justify-between mb-6">
+        <div class="flex items-center gap-4">
+          <img
+            src={imageSrc}
+            alt={name}
+            class="w-16 h-16 rounded-full border-2 border-white/10"
           />
+          <div>
+            <h3 class="text-xl font-medium">{name}</h3>
+            <p class="text-sm text-muted-foreground">{role}</p>
+          </div>
         </div>
-      {/each}
-    </div>
-
-    <!-- Gradient edges -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute left-0 top-0 bottom-8 w-16 
-                  bg-gradient-to-r from-background to-transparent" />
-      <div class="absolute right-0 top-0 bottom-8 w-16 
-                  bg-gradient-to-l from-background to-transparent" />
+        <div class="flex items-center text-sm text-muted-foreground">
+          <CalendarDays class="w-4 h-4 mr-2" />
+          {years}
+        </div>
+      </div>
+      
+      <!-- Body -->
+      <div class="mb-8 space-y-4 text-lg">
+        <p>
+          "I built Pipewriter because I was tired of seeing talented writers struggle with complex design tools. Your words deserve better tools."
+        </p>
+        <p>
+          "After a decade of crafting websites for startups and agencies, I've packaged all my tricks into a simple system that just works."
+        </p>
+      </div>
+      
+      <!-- CTA -->
+      <div class="mt-auto">
+        <Button 
+          size="lg" 
+          class="w-full text-lg bg-gradient-to-r from-[#3644FE] to-[#B345ED] hover:shadow-lg hover:shadow-primary/20"
+        >
+          Hire {name.split(' ')[0]}
+        </Button>
+      </div>
     </div>
   </div>
 </div>

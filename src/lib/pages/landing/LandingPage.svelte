@@ -12,7 +12,8 @@
   import Pricing from "./sections/pricing/Pricing.svelte";
 	// proof
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte"
-	// import WriterStep from "./sections/features/WriterStep.svelte";
+	// import WriterStep from "./sections/features/proof/WriterStep.svelte";
+	import FounderCard from "./sections/proof/FounderCard.svelte";
 	
 	// dev & design
 	import BackgroundGrid from '$lib/components/BackgroundGrid.svelte';
@@ -23,6 +24,7 @@
 	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]"; 
 
 </script>
+
 
 <ViewportSize />
 
@@ -47,9 +49,11 @@
 		<div class="max-w-sm mx-auto my-6">
 			<!-- <WriterStep /> -->
 		</div>
-  
+
 	</section>
-  
+
+	<FounderCard />
+
   <!-- Features Section -->
   <section class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
@@ -63,12 +67,11 @@
   </section>
 
   <!-- App Demo Section -->
-  <section class="relative pt-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-
+  <!-- <section class="relative pt-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     <div class="min-h-[80vh]">
       <AppDemo />
     </div>
-  </section>
+  </section> -->
 	
 
   <!-- Social Proof -->

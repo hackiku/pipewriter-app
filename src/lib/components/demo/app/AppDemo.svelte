@@ -12,7 +12,7 @@
   import PromptDemo from './prompt/PromptDemo.svelte';
   import CodeDemo from './code/CodeDemo.svelte';
   
-	export let showBrowser: boolean = false;
+	export let showChrome: boolean = false;
 
   // Local store for demo state
   const demoState = writable({
@@ -50,12 +50,13 @@
 <!-- Browser Mock -->
 <div class="relative rounded-xl overflow-hidden border bg-zinc-950 text-white">
 	<!-- Browser Chrome -->
-	<div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
+	<div class="flex items-center gap-4 px-4 py-3 border-b border-white/10 bg-zinc-900">
 		<div class="flex gap-1.5">
 			<Circle class="w-3 h-3 fill-red-500 text-red-500" />
 			<Circle class="w-3 h-3 fill-yellow-500 text-yellow-500" />
 			<Circle class="w-3 h-3 fill-green-500 text-green-500" />
 		</div>
+		<p class="font-mono text-xs">app_v1</p>
 	</div>
 
 

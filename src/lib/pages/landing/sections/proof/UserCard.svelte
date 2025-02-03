@@ -1,35 +1,50 @@
-<!-- src/lib/pages/landing/sections/proof/FounderCard.svelte -->
+<!-- src/lib/pages/landing/sections/proof/UserCard.svelte -->
 <script lang="ts">
-  import { userTestimonials } from "$data/proof/testimonials/types";
+  export let name: string;
+  export let role: string;
+  export let quote: string;
+  export let imageSrc: string;
+  export let index: number;
 </script>
 
-<div class="container max-w-6xl">
-  <div class="text-center mb-16">
-    <h2 class="text-4xl font-medium mb-4">
-      Made With 🫶 for <br>Us Who Write
-    </h2>
-  </div>
-
-  <!-- Scrollable container with gradient edges -->
-  <div class="relative">
-    <div class="flex gap-8 overflow-x-auto pb-8 snap-x snap-mandatory
-                scrollbar-none [scrollbar-width:none] [-ms-overflow-style:none]">
-      {#each userTestimonials as testimonial}
-        <div class="flex-shrink-0 w-[min(100%,_24rem)] snap-center">
-          <UserTestimonial 
-            {testimonial}
-            useShortQuote={false} 
-          />
-        </div>
-      {/each}
+<div 
+  class="rounded-xl overflow-hidden border border-white/10 bg-zinc-950"
+  style="animation-delay: {index * 100}ms"
+>
+  <div class="p-6">
+    <!-- Header -->
+    <div class="flex items-center gap-4 mb-4">
+      <img
+        src={imageSrc}
+        alt={name}
+        class="w-12 h-12 rounded-full border border-white/10"
+      />
+      <div>
+        <h3 class="font-medium">{name}</h3>
+        <p class="text-sm text-muted-foreground">{role}</p>
+      </div>
     </div>
-
-    <!-- Gradient edges -->
-    <div class="absolute inset-0 pointer-events-none">
-      <div class="absolute left-0 top-0 bottom-8 w-16 
-                  bg-gradient-to-r from-background to-transparent" />
-      <div class="absolute right-0 top-0 bottom-8 w-16 
-                  bg-gradient-to-l from-background to-transparent" />
-    </div>
+    
+    <!-- Quote -->
+    <blockquote class="text-muted-foreground">
+      "{quote}"
+    </blockquote>
   </div>
 </div>
+
+<style>
+  div {
+    animation: fadeSlideUp 0.5s ease-out backwards;
+  }
+
+  @keyframes fadeSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+</style>
