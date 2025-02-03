@@ -1,91 +1,67 @@
 <!-- src/lib/components/cta/pricing/cards/ProCard.svelte -->
-
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
-  import { Check, ArrowRight } from "lucide-svelte";
-  import type { Plan } from '$data/pricing/types';
+  import { Check, ArrowRight, Star } from "lucide-svelte";
   import ProductStat from '../ProductStat.svelte';
   
-  export let plan: Plan;
   export let className = '';
-
-  $: priceDisplay = getPriceDisplay(plan.price);
-  $: isMainPlan = plan.id === 'suite';
-
-  function getPriceDisplay(price: Plan['price']) {
-    if (!price.amount) return 'In Development';
-    
-    const amount = `$${price.amount}`;
-    const period = price.period === 'one-time' ? 'one-time' : 
-                  price.period === 'monthly' ? '/month' : 
-                  '/year';
-                  
-    return { amount, period };
-  }
+  
+  const features = [
+    '80+ UX Copy Components & Patterns',
+    'AI Component Generator',
+    'Automatic HTML & CSS Export',
+    'Premium Support & Updates',
+    'Private Discord Community',
+    'Commercial License'
+  ];
 </script>
 
-<div class="relative p-8 rounded-xl border transition-all duration-300 {className}">
-  <!-- Badge (if exists) -->
-  {#if plan.badge}
-    <div class="absolute -top-3 left-1/2 -translate-x-1/2">
-      <div class="px-3 py-1 text-sm font-medium
-                  bg-primary text-primary-foreground
-                  rounded-full shadow-sm">
-        {plan.badge}
+<div class="relative p-8 rounded-xl border border-primary/20 
+            bg-zinc-950 hover:bg-zinc-950/90
+            transition-all duration-300 {className}">
+  <!-- Badge -->
+  <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+    <div class="px-3 py-1 text-sm font-medium
+                bg-primary text-primary-foreground
+                rounded-full shadow-sm">
+      Most Popular
+    </div>
+  </div>
+  
+  <div class="relative space-y-6">
+    <!-- Header -->
+    <div class="flex items-center justify-between">
+      <h3 class="text-3xl font-semibold">Pro Suite</h3>
+      <div class="flex gap-3">
+        <ProductStat
+          count="80"
+          icon="/tools/gdocs.svg"
+          iconAlt="Google Docs"
+          variant="primary"
+          size="sm"
+        />
+        <ProductStat
+          count="8"
+          icon="/tools/appsscript.svg"
+          iconAlt="Apps Script"
+          variant="primary"
+          size="sm"
+        />
       </div>
     </div>
-  {/if}
 
-  <!-- Header -->
-  <div class="flex align-center justify-between w-full">
-    <h3 class="text-3xl font-semibold mb-2">
-      {plan.name}
-    </h3>
-		  <!-- Stats Row -->
-		<!-- {#if isMainPlan} -->
-			<div class="flex gap-3 mb-6">
-				<ProductStat
-					count="80"
-					icon="/tools/gdocs.svg"
-					iconAlt="Google Docs"
-					variant="primary"
-					size="sm"
-				/>
-				<ProductStat
-					count="8"
-					icon="/tools/appsscript.svg"
-					iconAlt="Apps Script"
-					variant="primary"
-					size="sm"
-				/>
-			</div>
-		<!-- {/if} -->
-  </div>
+    <!-- Price -->
+    <div class="flex items-baseline gap-x-2">
+      <span class="text-5xl font-bold tracking-tight">$57</span>
+      <span class="text-lg text-muted-foreground">/one-time</span>
+      <span class="ml-3 text-sm line-through text-muted-foreground">$97</span>
+      <span class="ml-2 text-sm text-primary font-medium">Save 40%</span>
+    </div>
 
-  <!-- Price -->
-  <div class="flex items-baseline gap-x-2 mb-6">
-    {#if typeof priceDisplay === 'string'}
-      <span class="text-2xl text-muted-foreground">{priceDisplay}</span>
-    {:else}
-      <span class="text-5xl font-bold tracking-tight">{priceDisplay.amount}</span>
-      <span class="text-lg text-muted-foreground">/{priceDisplay.period}</span>
-      {#if isMainPlan}
-        <span class="ml-3 text-sm line-through text-muted-foreground">$97</span>
-        <span class="ml-2 text-sm text-primary font-medium">Save 40%</span>
-      {/if}
-    {/if}
-  </div>
-
-
-
-  <!-- Description -->
-  <p class="text-muted-foreground mb-8">{plan.description}</p>
-
-  <!-- Features -->
-  <!-- {#if isMainPlan} -->
-    <div class="mb-8">
+    <!-- Features -->
+    <div>
       <ul class="space-y-3">
-        {#each plan.features as feature}
+        {#each features as feature}
           <li class="flex items-start gap-x-3 group">
             <Check class="h-5 w-5 text-primary shrink-0 
                          group-hover:scale-110 transition-transform" />
@@ -94,16 +70,16 @@
         {/each}
       </ul>
     </div>
-  <!-- {/if} -->
 
-  <!-- CTA -->
-  <Button 
-    variant={plan.cta.variant} 
-    size="lg" 
-    class="w-full group"
-    href={plan.cta.href}
-  >
-    {plan.cta.text}
-    <ArrowRight class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-  </Button>
+    <!-- CTA -->
+    <Button 
+      variant="default"
+      size="lg" 
+      class="w-full group bg-primary hover:bg-primary/90"
+    >
+      Get Pro Access
+      <ArrowRight class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
+    </Button>
+  </div>
 </div>
+

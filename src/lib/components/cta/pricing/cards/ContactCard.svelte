@@ -17,7 +17,7 @@
 
 <div class="p-6 rounded-xl border bg-zinc-950 space-y-2">
   <p class="text-sm text-muted-foreground">
-    Questions? Send me an email
+    Questions, support, work stuff:
   </p>
   
   <div class="flex items-center gap-4">

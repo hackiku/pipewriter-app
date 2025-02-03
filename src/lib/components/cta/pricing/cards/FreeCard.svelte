@@ -3,70 +3,45 @@
   import { Button } from "$lib/components/ui/button";
   import { Check, ArrowRight } from "lucide-svelte";
   import ProductStat from '../ProductStat.svelte';
-  import type { Plan } from '$data/pricing/types';
   
-  const plan: Plan = {
-    id: 'free',
-    name: 'Starter',
-    description: 'Get started with our free UX writing template',
-    price: {
-      amount: 0,
-      period: 'one-time'
-    },
-    features: [
-      'Basic UX writing template',
-      'Sample microcopy patterns',
-      'Community support'
-    ],
-    cta: {
-      text: 'Get Free Template',
-      variant: 'outline',
-      href: 'https://docs.google.com/document/d/xyz'
-    }
-  };
+  export let className = '';
+  
+  const features = [
+    'Basic UX writing template',
+    'Community support',
+    'Sample microcopy patterns',
+    'Access to tutorial videos'
+  ];
 </script>
 
-<div class="relative p-8 rounded-xl border bg-zinc-950 group
-            hover:bg-zinc-950/80 transition-all duration-300">
-  <!-- Gradient Overlay -->
-  <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 
-              rounded-xl pointer-events-none" />
-              
-  <!-- Content -->
-  <div class="relative">
+<div class="relative p-8 rounded-xl border bg-card hover:bg-card/80 
+            transition-all duration-300 {className}">
+  <div class="relative space-y-6">
     <!-- Header -->
-    <div class="flex items-center justify-between w-full mb-6">
-      <h3 class="text-3xl font-semibold">
-        {plan.name}
-      </h3>
-
+    <div class="flex items-center justify-between">
+      <h3 class="text-3xl font-semibold">Free Template</h3>
       <ProductStat
         count="1"
         icon="/tools/gdocs.svg"
         iconAlt="Google Docs"
-        variant="primary"
+        variant="muted"
         size="sm"
       />
     </div>
 
     <!-- Price -->
-    <div class="flex items-baseline gap-x-2 mb-6">
-      <span class="text-5xl font-bold tracking-tight">${plan.price.amount}</span>
+    <div class="flex items-baseline gap-x-2">
+      <span class="text-5xl font-bold tracking-tight">$0</span>
       <span class="text-lg text-muted-foreground">/forever</span>
     </div>
 
-    <!-- Description -->
-    <p class="text-muted-foreground mb-8">
-      {plan.description}
-    </p>
-
     <!-- Features -->
-    <div class="mb-8">
+    <div>
       <ul class="space-y-3">
-        {#each plan.features as feature}
-          <li class="flex items-start gap-x-3 group">
-            <Check class="h-5 w-5 text-primary shrink-0" />
-            <span class="leading-tight">{feature}</span>
+        {#each features as feature}
+          <li class="flex items-start gap-x-3">
+            <Check class="h-5 w-5 text-muted-foreground shrink-0" />
+            <span class="text-muted-foreground">{feature}</span>
           </li>
         {/each}
       </ul>
@@ -74,14 +49,14 @@
 
     <!-- CTA -->
     <Button 
-      variant={plan.cta.variant}
+      variant="outline" 
       size="lg" 
-      class="w-full group border-primary/20 hover:border-primary/40
-             bg-transparent hover:bg-primary/5"
-      href={plan.cta.href}
+      class="w-full group"
+      href="https://docs.google.com/document/d/xyz"
     >
-      {plan.cta.text}
+      Get Free Template
       <ArrowRight class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
     </Button>
   </div>
 </div>
+
