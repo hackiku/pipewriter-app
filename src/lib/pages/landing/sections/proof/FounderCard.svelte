@@ -18,20 +18,20 @@
         />
         <div>
           <h3 class="text-xl font-medium">Ivan Karaman</h3>
-          <p class="text-sm text-muted-foreground">Pipewriter Guy</p>
+          <p class="text-sm text-muted-foreground">Indie Founder</p>
         </div>
       </div>
 
       <div class="space-y-4 text-lg mb-6">
 				<p class="text-muted-foreground">
-					"I built Pipewriter to survive years of SaaS copy deck gigs. 
+					"I built Pipewriter to survive years of SaaS copy gigs. 
 					It's my jar of hearts of ADHD scripts, hacks and tricks, productized
 					for your enjoyment. They can AI all they like, but writing will
-					always be the the <span class="inline-block animate-heartbeat">💜</span> heart of product design."
+					always be the the <span class="inline-block animate-heartbeat">💜</span> of product design."
 				</p>
+				<!-- TODO: change heart on button hover -->
       </div>
 
-			<!-- href="https://twitter.com/devjavu" -->
 			<BuyButton
 				size="sm"
 				text="Get Pipewriter"

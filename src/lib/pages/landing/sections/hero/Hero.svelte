@@ -30,7 +30,7 @@
               text-muted-foreground leading-relaxed
               max-w-[40ch] mb-2"
 		>
-			Wireframes in Google Docs + AI code. Protoype where you write and charge
+			Wireframes in Google Docs + AI code. Prototype where you write and charge
 			more for deliverables.
 		</p>
 

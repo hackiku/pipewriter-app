@@ -67,9 +67,9 @@
   </section>
 
 	<div class="_py-12">
-		<h3 class="text-center text-foreground">Battle tested writing SaaS copy for</h3>
+		<h3 class="text-center text-foreground">Battle tested writing for the bestest</h3>
 		<LogosMarquee />
-		<LogosMarquee />
+		<!-- <LogosMarquee /> -->
 	</div>
 
   <!-- App Demo Section -->
