@@ -4,6 +4,8 @@ export interface Preview {
 	emoji: string;
 	title: string;
 	description: string;
+	shoutout?: string;  // Link to corresponding testimonial
+	order?: number;         // Display order in preview
 }
 
 export interface DriveNode {
@@ -12,6 +14,7 @@ export interface DriveNode {
 	name: string;
 	preview?: Preview;     // Only for previewable items
 	children?: DriveNode[]; // For folders
+	interactive?: boolean;
 }
 
 export const driveRoot: DriveNode = {
@@ -23,26 +26,17 @@ export const driveRoot: DriveNode = {
 			path: '/samples',
 			type: 'folder',
 			name: 'samples',
+			interactive: true,
 			children: [
 				{
 					path: '/samples/Corpo.gdoc',
 					type: 'doc',
 					name: 'Corpo.gdoc',
-					preview: {
-						emoji: "📱",
-						title: "Corporate Components",
-						description: "Enterprise-ready UI kit for business apps"
-					}
 				},
 				{
 					path: '/samples/SaaS.gdoc',
 					type: 'doc',
 					name: 'SaaS.gdoc',
-					preview: {
-						emoji: "⚡",
-						title: "SaaS Landing",
-						description: "Start with proven conversion templates"
-					}
 				}
 			]
 		},
@@ -50,6 +44,7 @@ export const driveRoot: DriveNode = {
 			path: '/code',
 			type: 'folder',
 			name: 'code',
+			interactive: true,
 			children: [
 				{
 					path: '/code/Prompt.gdoc',
@@ -60,10 +55,13 @@ export const driveRoot: DriveNode = {
 					path: '/code/index.html',
 					type: 'doc',
 					name: 'index.html',
+					interactive: true,
 					preview: {
 						emoji: "🎯",
 						title: "Live Preview",
-						description: "See changes in real-time as you type"
+						description: "See changes in real-time as you type",
+						shoutout: "See changes in real-time as you type",
+						order: 4,
 					}
 				}
 			]
@@ -72,30 +70,39 @@ export const driveRoot: DriveNode = {
 			path: '/App.gdoc',
 			type: 'doc',
 			name: 'App.gdoc',
+			interactive: true,
 			preview: {
 				emoji: "📱",
-				title: "App Builder",
-				description: "Design complete applications in Google Docs"
+				title: "Sidebar App",
+				description: "Click drop elements",
+				shoutout: "writer1",
+				order: 1
 			}
 		},
 		{
 			path: '/Darkmode.gdoc',
 			type: 'doc',
 			name: 'Darkmode.gdoc',
+			interactive: true,
 			preview: {
 				emoji: "🌗",
-				title: "Dark Mode Built-in",
-				description: "Switch themes with one click"
+				title: "Theming",
+				description: "Text styles auto-update and color mode",
+				shoutout: "writer3",
+				order: 3
 			}
 		},
 		{
 			path: '/Elements.gdoc',
 			type: 'doc',
 			name: 'Elements.gdoc',
+			interactive: true,
 			preview: {
 				emoji: "🎨",
 				title: "90+ UI Elements",
-				description: "Copy-paste components for rapid prototyping"
+				description: "Copy-paste components for rapid prototyping",
+				shoutout: "writer2",
+				order: 2,
 			}
 		}
 	]

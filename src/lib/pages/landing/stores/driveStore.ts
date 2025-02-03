@@ -1,86 +1,56 @@
 // src/lib/pages/landing/stores/driveStore.ts
-import { writable, derived } from 'svelte/store';
-import { driveRoot, getNodeByPath, getParentPath, getBreadcrumbs, type DriveNode } from '../data/folders';
+import { writable } from 'svelte/store';
+import { getNodeByPath } from '../data/folders';
 
-interface DriveState {
-	currentPath: string;
-	isCompact: boolean;
-	showEarlyAccess: boolean;
-}
-
-function createDriveStore() {
-	const { subscribe, update, set } = writable<DriveState>({
-		currentPath: '/Elements.gdoc',  // Default selected document
-		isCompact: false,              // Default expanded on desktop
-		showEarlyAccess: false
-	});
-
-	// Get current folder's contents
-	const currentFolder = derived({ subscribe }, ($state) => {
-		if ($state.showEarlyAccess) return null;
-		const parentPath = getParentPath($state.currentPath);
-		const folder = getNodeByPath(parentPath);
-		console.log('Current folder:', folder?.path, 'Children:', folder?.children?.length);
-		return folder;
-	});
-
-	// Get breadcrumb path parts
-	const breadcrumbs = derived({ subscribe }, ($state) => {
-		const parts = getBreadcrumbs($state.currentPath);
-		console.log('Breadcrumbs generated:', parts);
-		return parts;
+export const driveStore = (() => {
+	const { subscribe, update } = writable({
+		currentPath: '/',  // Start at root
+		isCompact: false
 	});
 
 	return {
 		subscribe,
-		currentFolder,
-		breadcrumbs,
 
-		// Navigation with path validation
 		navigate: (path: string) => {
-			console.log('Navigating to:', path);
 			const targetNode = getNodeByPath(path);
-			if (targetNode || path === '/') {
-				update(state => ({ ...state, currentPath: path }));
-			} else {
-				console.warn('Invalid path:', path);
+			if (!targetNode) return;
+
+			// Handle folder toggle
+			if (targetNode.type === 'folder') {
+				update(state => {
+					// If already open, close it by going to root
+					if (state.currentPath === path) {
+						return { ...state, currentPath: '/' };
+					}
+					return { ...state, currentPath: path };
+				});
+				return;
 			}
+
+			// Handle doc clicks
+			update(state => ({ ...state, currentPath: path }));
 		},
 
-		// Special path handling
 		handleBreadcrumbClick: (part: string, index: number) => {
-			update(state => {
-				// Handle special paths
-				if (part === 'My Drive') {
-					return { ...state, showEarlyAccess: true, currentPath: '/' };
-				}
-				if (part === 'Pipewriter') {
-					return { ...state, showEarlyAccess: false, currentPath: '/Elements.gdoc' };
-				}
+			// Pipewriter always goes home
+			if (part === 'Pipewriter' || index === 0) {
+				update(state => ({
+					...state,
+					currentPath: '/'
+				}));
+				return;
+			}
 
-				// Get path up to clicked breadcrumb
-				const pathParts = state.currentPath.split('/').filter(Boolean);
-				const newPath = '/' + pathParts.slice(0, index).join('/');
-				console.log('Breadcrumb click:', part, 'New path:', newPath);
-
-				return { ...state, currentPath: newPath || '/' };
-			});
+			// Navigate to clicked folder
+			update(state => ({
+				...state,
+				currentPath: '/' + part
+			}));
 		},
 
-		toggleCompact: () => update(state => ({ ...state, isCompact: !state.isCompact })),
-
-		showMyDrive: () => update(state => ({
+		toggleCompact: () => update(state => ({
 			...state,
-			showEarlyAccess: true,
-			currentPath: '/',
+			isCompact: !state.isCompact
 		})),
-
-		showPipewriter: () => update(state => ({
-			...state,
-			showEarlyAccess: false,
-			currentPath: '/Elements.gdoc',
-		}))
 	};
-}
-
-export const driveStore = createDriveStore();
+})();

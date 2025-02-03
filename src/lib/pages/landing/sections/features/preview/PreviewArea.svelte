@@ -1,33 +1,61 @@
-<!-- src/lib/pages/landing/sections/preview/PreviewArea.svelte -->
+<!-- src/lib/pages/landing/sections/features/preview/PreviewArea.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { driveStore } from '../../../stores/driveStore';
   import { driveRoot, type DriveNode } from '../../../data/folders';
+  import { shoutouts } from '../../../data/shoutouts';
 
-	import FeatureCard from "./FeatureCard.svelte"
-
-  // Flatten drive structure to get all previewable items
+  // Get all previewable items and sort by order
   function getPreviewableItems(node: DriveNode): DriveNode[] {
     const items: DriveNode[] = [];
     
-    if (node.preview) {
-      items.push(node);
+    function traverse(node: DriveNode) {
+      if (node.preview) {
+        items.push(node);
+      }
+      if (node.children) {
+        node.children.forEach(traverse);
+      }
     }
     
-    if (node.children) {
-      node.children.forEach(child => {
-        items.push(...getPreviewableItems(child));
-      });
-    }
-    
-    return items;
+    traverse(node);
+    return items.sort((a, b) => (a.preview?.order || 99) - (b.preview?.order || 99));
   }
 
-  // Get all previewable items
+  // Get previewable items
   $: previewItems = getPreviewableItems(driveRoot);
-  
-  // Current path for highlighting
   $: currentPath = $driveStore.currentPath;
+  $: activeNode = previewItems.find(item => item.path === currentPath) || previewItems[0];
+  
+  // Get matching shoutout
+  $: shoutout = activeNode?.preview?.shoutout 
+    ? shoutouts.find((s, i) => `writer${i + 1}` === activeNode?.preview?.shoutout)
+    : null;
+
+  // Create observer to highlight drive items on scroll
+  function createObserver(node: HTMLElement) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const path = entry.target.id.replace('preview-', '');
+            driveStore.navigate(path);
+          }
+        });
+      },
+      {
+        threshold: 0.6,
+        rootMargin: "-20% 0px -30% 0px"
+      }
+    );
+
+    observer.observe(node);
+    return {
+      destroy() {
+        observer.disconnect();
+      }
+    };
+  }
 </script>
 
 <div class="space-y-8">
@@ -35,8 +63,9 @@
     <div 
       id="preview-{item.path}"
       class="w-full aspect-video rounded-xl overflow-hidden border bg-zinc-950 text-white
-             preview-card transition-colors duration-300
-             {currentPath === item.path ? 'border-primary' : 'border-white/10'}"
+             preview-card transition-all duration-300
+             {currentPath === item.path ? 'border-primary scale-[1.02]' : 'border-white/10'}"
+      use:createObserver
       in:fade={{ duration: 200 }}
     >
       <div class="relative h-full flex items-center justify-center">
