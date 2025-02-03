@@ -86,7 +86,7 @@
 		
 		<div class="text-center mb-16 max-w-lg mx-auto">
     	<h2 class="text-4xl font-medium mb-4">
-      	Made with 🫶, ☕️, and Oxford comma for us wordsmiths
+      	Made with 🫶, ⏱️, and <br>Oxford comma
     	</h2>
   	</div>
 

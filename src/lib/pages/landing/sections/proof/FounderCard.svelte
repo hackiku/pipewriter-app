@@ -14,7 +14,7 @@
         <img
           src="/people/ivan-karaman.png"
           alt="Ivan Karaman"
-          class="w-16 h-16 rounded-full border-2 border-white/10"
+          class="w-12 h-12 rounded-full border-2 border-white/10"
         />
         <div>
           <h3 class="text-xl font-medium">Ivan Karaman</h3>
