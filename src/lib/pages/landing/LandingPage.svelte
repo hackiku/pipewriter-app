@@ -75,7 +75,9 @@
 	
 
   <!-- Social Proof -->
-  <section class="py-24">
+  <!-- <section class="py-24 bg-red-800/20"> -->
+	<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+
 		
 		<div class="text-center mb-16">
     	<h2 class="text-4xl font-medium mb-4">

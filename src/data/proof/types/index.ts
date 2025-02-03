@@ -44,8 +44,8 @@ export interface UXExample {
 export interface Testimonial {
 	quote: string;
 	author: string;
-	role: string;
-	company: string;
+	role?: string;
+	company?: string;
 	imgSrc?: string;
 }
 

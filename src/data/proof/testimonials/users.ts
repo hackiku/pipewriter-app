@@ -27,8 +27,23 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		company: "Freelance",
 		imgSrc: 'people/writers/eoin-cronolly.jpeg',
 		hire: {
-			url: "https://eoincronolly.com",
-			buttonText: "Visit Website"
+			url: "https://www.upwork.com/freelancers/~01a3d679d42bc61963",
+			buttonText: "Hire Eoin"
+		}
+	},
+	{
+		quote: {
+			full: "Just discovered Pipewriter. Been obsessing over it all morning.",
+			short: "Just discovered Pipewriter. Been obsessing over it all morning."
+		},
+		author: "Jaye Hannah",
+		role: "Content Strategist",
+		company: "",
+		imgSrc: 'people/writers/jaye-hannah.jpeg',
+		hire: {
+			// url: "https://www.upwork.com/freelancers/~01fea28dff1519da4a",
+			url: "https://www.jayewrites.com/",
+			buttonText: "Hire Jaye"
 		}
 	},
 	{
@@ -38,10 +53,10 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		},
 		author: "Giorgi C.",
 		role: "Freelance Copywriter",
-		company: "Independent",
+		company: "",
 		imgSrc: 'people/writers/giorgi-chkoidze.jpeg',
 		hire: {
-			url: "https://twitter.com/giorgicopywrite",
+			url: "https://www.linkedin.com/in/giorgi-kynecos/",
 			buttonText: "Hire Giorgi"
 		}
 	},
@@ -55,7 +70,7 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		company: "AppSumo",
 		imgSrc: 'people/writers/warren-west.jpeg',
 		hire: {
-			url: "https://warrenwords.com",
+			url: "https://www.linkedin.com/in/warrenwords/",
 			buttonText: "Hire Warren"
 		}
 	}
