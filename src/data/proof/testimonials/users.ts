@@ -104,33 +104,17 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		}
 	},
 	{
-		author: "7",
+		author: "Jamie Smith",
 		quote: {
-			full: "7 No-code editors suck hard. Svelte is the key, beltalowda.",
-			short: "No-code editors are clunky. Going 90% This is 1000x better than the wireframing I've been doing in Google Docs."
+			full: "//todo",
+			short: "//todo"
 		},
-		role: "7 Writer",
-	},
-	{
-		author: "8",
-		quote: {
-			full: "8 Layout challenges, here's how we can improve the distribution of cards after the founder card for both layouts:",
-			short: "No-code editors are clunky. Going 90% This is 1000x better than the wireframing I've been doing in Google Docs."
-		},
-		role: "UX Writer",
-	},
-	{
-		author: "9",
-		quote: {
-			full: "9 Simple slice with direct counts instead of modulo. Show More functionality that adds 3 cards",
-		},
-		role: "UX Writer",
-	},
-	{
-		author: "10",
-		quote: {
-			full: "10  We'll just fill columns from left to right, respecting the initial card positions.",
-		},
-		role: "UX Writer",
+		role: "Content Marketer",
+		// company: "AppSumo",
+		imgSrc: 'people/writers/jamie-smith.png',
+		hire: {
+			url: "https://www.wireframeagency.co.uk/",
+			buttonText: "Hire Jamie"
+		}
 	}
 ];

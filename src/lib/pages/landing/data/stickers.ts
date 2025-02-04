@@ -1,4 +1,5 @@
 // src/lib/pages/landing/data/stickers.ts
+
 export type StickerConfig = {
   icon: 'docs' | 'drive' | 'figma' | 'keyboard' | 'chat';
   position: {
@@ -23,14 +24,14 @@ export const stickerConfigs: Record<string, StickerConfig> = {
   keyboard: {
     icon: 'keyboard',
     position: {
-      top: '14vh',
-      left: '4vw'
+      bottom: '28vh',
+      right: '12vw'
     },
     size: {
       width: '15vw',
       height: '5vw'
     },
-    rotation: -8,
+    rotation: 8,
     animation: {
       duration: '5s',
       delay: '1s'

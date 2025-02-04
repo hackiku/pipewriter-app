@@ -4,13 +4,13 @@
   import { Copy } from "lucide-svelte";
   
   const email = "ivan@pipewriter.io";
-  let copyText = "Copy";
+  let copyText = "";
   
   function copyEmail() {
     navigator.clipboard.writeText(email);
     copyText = "Copied!";
     setTimeout(() => {
-      copyText = "Copy";
+      copyText = "";
     }, 2000);
   }
 </script>
@@ -20,7 +20,7 @@
     Questions, support, work stuff:
   </p>
   
-  <div class="flex items-center gap-4">
+  <div class="flex items-center gap-2">
     <a 
       href="mailto:{email}"
       class="flex-1 text-xl font-medium bg-gradient-to-r from-[#3644FE] to-[#B345ED] 

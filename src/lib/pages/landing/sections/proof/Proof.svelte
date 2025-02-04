@@ -7,13 +7,13 @@
 	const maxCards = {
 		mobile: 5, // Total cards for mobile (including founder)
 		md: {
-			leftCol: 4,
-			rightCol: 5, // Including founder
+			leftCol: 3,
+			rightCol: 4, // Including founder
 		},
 		lg: {
-			leftCol: 3,
-			midCol: 3, // Including founder
-			rightCol: 3,
+			leftCol: 2,
+			midCol: 2, // Including founder
+			rightCol: 2,
 		},
 	};
 </script>

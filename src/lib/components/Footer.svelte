@@ -3,8 +3,8 @@
   import { ArrowRight } from "lucide-svelte";
   import EmailForm from "$lib/components/cta/email/EmailForm.svelte";
   import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
-  import SocialLink from "./cta/SocialLink.svelte";
-  import { contactModalStore } from "$lib/stores/contactModalStore";
+  // import SocialLink from "./cta/SocialLink.svelte";
+  // import { contactModalStore } from "$lib/stores/contactModalStore";
   import { socialLinks, footerSections } from '$data/navigation';
   import { mainNavItems } from '$data/navigation';
   

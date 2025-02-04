@@ -1,62 +1,66 @@
 <!-- src/lib/components/cta/pricing/cards/FreeCard.svelte -->
 <script lang="ts">
-  import { Button } from "$lib/components/ui/button";
-  import { Check, ArrowRight } from "lucide-svelte";
-  import ProductStat from '../ProductStat.svelte';
-  
-  export let className = '';
-  
-  const features = [
-    'Basic UX writing template',
-    'Community support',
-    'Sample microcopy patterns',
-    'Access to tutorial videos'
-  ];
+	import { Check, ArrowRight } from "lucide-svelte";
+	import EmailForm from "$lib/components/cta/email/EmailForm.svelte";
+	import ProductStat from "../ProductStat.svelte";
+
+	const features = [
+		"Basic UX writing template",
+		"Sample microcopy patterns",
+		"Community access",
+	];
 </script>
 
-<div class="relative p-8 rounded-xl border bg-card hover:bg-card/80 
-            transition-all duration-300 {className}">
-  <div class="relative space-y-6">
-    <!-- Header -->
-    <div class="flex items-center justify-between">
-      <h3 class="text-3xl font-semibold">Free Template</h3>
-      <ProductStat
-        count="1"
-        icon="/tools/gdocs.svg"
-        iconAlt="Google Docs"
-        variant="muted"
-        size="sm"
-      />
-    </div>
+<div
+	class="relative p-10 rounded-xl border border-border/40
+            bg-card/50 hover:bg-card/60
+            transition-all duration-300"
+>
+	<div class="space-y-8">
+		<!-- Header -->
+		<div class="flex items-start justify-between">
+			<div>
+				<h3 class="text-2xl font-medium mb-2">Lite</h3>
+			</div>
+			<!-- <div class="flex justify-center gap-3 h-full">
+				<ProductStat count="1" icon="docs" />
+				<ProductStat count="4" icon="scripts" />
+			</div> -->
+		</div>
 
-    <!-- Price -->
-    <div class="flex items-baseline gap-x-2">
-      <span class="text-5xl font-bold tracking-tight">$0</span>
-      <span class="text-lg text-muted-foreground">/forever</span>
-    </div>
+		<!-- Price -->
+		<div class="flex items-baseline gap-x-2">
+			<span class="text-4xl font-medium">Free</span>
+			<!-- <span class="text-lg text-muted-foreground">forever</span> -->
+		</div>
 
-    <!-- Features -->
-    <div>
-      <ul class="space-y-3">
-        {#each features as feature}
-          <li class="flex items-start gap-x-3">
-            <Check class="h-5 w-5 text-muted-foreground shrink-0" />
-            <span class="text-muted-foreground">{feature}</span>
-          </li>
-        {/each}
-      </ul>
-    </div>
+		<!-- Features -->
+		<ul class="space-y-3">
+			{#each features as feature}
+				<li class="flex items-center gap-3 group">
+					<div
+						class="h-5 w-5 rounded-full bg-muted/80
+                      flex items-center justify-center shrink-0"
+					>
+						<Check class="h-3 w-3 text-muted-foreground" />
+					</div>
+					<span class="text-base text-muted-foreground">
+						{feature}
+					</span>
+				</li>
+			{/each}
+		</ul>
 
-    <!-- CTA -->
-    <Button 
-      variant="outline" 
-      size="lg" 
-      class="w-full group"
-      href="https://docs.google.com/document/d/xyz"
-    >
-      Get Free Template
-      <ArrowRight class="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-    </Button>
-  </div>
+		<!-- Email Form -->
+		<div class="space-y-2">
+			<EmailForm
+				buttonText="Get Template"
+				size="default"
+				wrap={true}
+				source="pricing-free"
+				className="w-full"
+			/>
+
+		</div>
+	</div>
 </div>
-

@@ -1,31 +1,33 @@
-<!-- src/lib/components/cta/pricing/ProductStat.svelte -->
+<!-- lib/components/cta/pricing/ProductStat.svelte -->
 <script lang="ts">
-  export let count: string | number;
-  export let icon: string;
-  export let iconAlt: string;
-  export let size: "sm" | "md" | "lg" = "md";
-  export let variant: "default" | "primary" | "muted" = "default";
+  import { Layout, Box } from 'lucide-svelte';
   
-  const sizeClasses = {
-    sm: "h-8 px-3 text-xl",
-    md: "h-10 px-4 text-2xl",
-    lg: "h-12 px-5 text-3xl"
-  };
-  
-  const iconSizes = {
-    sm: "w-5 h-5",
-    md: "w-6 h-6",
-    lg: "w-7 h-7"
-  };
-  
-  const variants = {
-    default: "bg-card border",
-    primary: "bg-primary/5 border border-primary/10",
-    muted: "bg-muted border-muted-foreground/20"
+  export let count: string | number = '';
+  export let icon: 'docs' | 'scripts' | 'components' = 'docs';
+  export let label: string = '';
+
+  const icons = {
+    docs: '/tools/gdocs.svg',
+    scripts: '/tools/appsscript.svg',
+    components: Layout // Lucide icon for UI components
   };
 </script>
 
-<div class="flex items-center gap-2 rounded-full {sizeClasses[size]} {variants[variant]}">
-  <span class="font-semibold {variant === 'primary' ? 'text-primary' : ''}">{count}</span>
-  <img src={icon} alt={iconAlt} class="{iconSizes[size]} opacity-80" />
+<div class="flex flex-col items-center gap-1.5 px-2 bg-muted-foreground/10 rounded-full border">
+  <div class="flex items-center gap-1 text-muted-foreground/50">
+    
+		{#if typeof icons[icon] === 'string'}
+			<img src={icons[icon]} alt={label} class="w-4 h-4 opacity-80" />
+		{:else}
+			<svelte:component this={icons[icon]} class="w-4 h-" />
+		{/if}
+    
+		{#if count}
+      <span class="text-md font-medium">{count}</span>
+    {/if}
+
+  </div>
+  {#if label}
+    <span class="text-xs text-muted-foreground">{label}</span>
+  {/if}
 </div>
