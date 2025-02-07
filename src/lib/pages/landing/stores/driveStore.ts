@@ -5,7 +5,8 @@ import { getNodeByPath } from '../data/folders';
 export const driveStore = (() => {
 	const { subscribe, update } = writable({
 		currentPath: '/',  // Start at root
-		isCompact: false
+		isCompact: false,
+		activeShoutoutId: 'writer1' // Track current shoutout
 	});
 
 	return {
@@ -15,24 +16,19 @@ export const driveStore = (() => {
 			const targetNode = getNodeByPath(path);
 			if (!targetNode) return;
 
-			// Handle folder toggle
-			if (targetNode.type === 'folder') {
-				update(state => {
-					// If already open, close it by going to root
-					if (state.currentPath === path) {
-						return { ...state, currentPath: '/' };
-					}
-					return { ...state, currentPath: path };
-				});
-				return;
-			}
+			update(state => {
+				const newState = { ...state, currentPath: path };
 
-			// Handle doc clicks
-			update(state => ({ ...state, currentPath: path }));
+				// Update shoutout if preview exists
+				if (targetNode.preview?.shoutout) {
+					newState.activeShoutoutId = targetNode.preview.shoutout;
+				}
+
+				return newState;
+			});
 		},
 
 		handleBreadcrumbClick: (part: string, index: number) => {
-			// Pipewriter always goes home
 			if (part === 'Pipewriter' || index === 0) {
 				update(state => ({
 					...state,
@@ -41,16 +37,15 @@ export const driveStore = (() => {
 				return;
 			}
 
-			// Navigate to clicked folder
 			update(state => ({
 				...state,
 				currentPath: '/' + part
 			}));
 		},
 
-		toggleCompact: () => update(state => ({
+		toggleCompact: (value?: boolean) => update(state => ({
 			...state,
-			isCompact: !state.isCompact
+			isCompact: value !== undefined ? value : !state.isCompact
 		})),
 	};
 })();

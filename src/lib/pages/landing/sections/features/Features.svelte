@@ -51,13 +51,6 @@
           <WriterShoutout />
         </div>
 
-        <!-- CTA Button -->
-        <AddToCart
-          text="Add to Cart"
-          showPrice={true}
-          price="• 40% OFF"
-          source="features-desktop"
-        />
       </div>
     </div>
 
@@ -79,12 +72,5 @@
       <PreviewArea />
     </div>
 
-    <!-- Fixed Mobile CTA -->
-    <div class="fixed bottom-6 left-4 right-4 z-[999]">
-      <AddToCart
-        text="Get Drive Access"
-        source="features-mobile"
-      />
-    </div>
   </div>
 </div>

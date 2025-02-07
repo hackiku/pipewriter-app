@@ -106,7 +106,7 @@
 	<!-- Pricing -->
 	<section
 		class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
-									border-t ___bg-muted-foreground/5"
+					 dark:bg-zinc-950/60 border-t ___bg-muted-foreground/5"
 	>
 		<div class="text-center mb-16 ___max-w-lg">
 			<div
