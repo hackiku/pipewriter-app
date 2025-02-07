@@ -2,53 +2,60 @@
 
 export interface Feature {
 	name: string;
-	description: string;
-	writer: boolean;  // Lite
-	agency: boolean;  // Suite
-	enterprise: boolean;  // Web App
+	tooltip: string;
+	free: boolean | string;
+	pro: boolean | string;
+	figma: boolean | string;
+	manual: boolean | string;
 }
 
 export const features: Feature[] = [
 	{
-		name: 'UX Writing Template',
-		description: 'Basic wireframing template to get started',
-		writer: true,
-		agency: true,
-		enterprise: true
+		name: 'Google Docs Native',
+		tooltip: 'Work directly in Google Docs where your content lives - no more copy-paste between tools',
+		free: true,
+		pro: true,
+		figma: false,
+		manual: true
 	},
 	{
-		name: 'Drive Integration',
-		description: 'Work directly in Google Docs with our bound scripts',
-		writer: true,
-		agency: true,
-		enterprise: true
+		name: 'UI Components',
+		tooltip: 'Pre-built components for headers, buttons, forms, and more - just insert and customize',
+		free: '12+',
+		pro: '90+',
+		figma: '∞',
+		manual: false
 	},
 	{
-		name: 'Component Library',
-		description: 'Full access to 84+ UI components and layouts',
-		writer: false,
-		agency: true,
-		enterprise: true
+		name: 'Export to Code',
+		tooltip: 'Convert your docs directly to HTML/CSS, React, or Svelte components',
+		free: false,
+		pro: true,
+		figma: true,
+		manual: false
 	},
 	{
-		name: 'Code Export',
-		description: 'Convert docs to HTML, React, or Svelte components',
-		writer: false,
-		agency: true,
-		enterprise: true
+		name: 'Version Control',
+		tooltip: 'Track changes and manage versions directly in Google Docs',
+		free: true,
+		pro: true,
+		figma: true,
+		manual: 'Manual'
 	},
 	{
-		name: 'Design Systems',
-		description: 'Pre-built design systems with AI conversion',
-		writer: false,
-		agency: false,
-		enterprise: true
+		name: 'Team Collaboration',
+		tooltip: 'Share, comment, and iterate together in real-time',
+		free: 'Basic',
+		pro: true,
+		figma: true,
+		manual: true
 	},
 	{
-		name: 'Web Editor',
-		description: 'Browser-based visual editor with real-time preview',
-		writer: false,
-		agency: false,
-		enterprise: true
+		name: 'AI Assistance',
+		tooltip: 'Smart suggestions for copy improvements and component selection',
+		free: false,
+		pro: true,
+		figma: false,
+		manual: false
 	}
 ];

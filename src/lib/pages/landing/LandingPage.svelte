@@ -3,8 +3,7 @@
   // import { dev } from "$app/environment";
 	import { FileText } from "lucide-svelte";
 
-	// sections
-	
+	// sections	
 	import Hero from "./sections/hero/Hero.svelte";
   import Demo from "./sections/demo/Demo.svelte";
   // import DocsDemo from "$lib/components/demo/docs/DocsDemo.svelte";
@@ -12,9 +11,9 @@
   import Proof from "./sections/proof/Proof.svelte";
   // import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
 	import PricingGrid from "$lib/components/cta/pricing/PricingGrid.svelte";
-	import Compare from "$lib/components/cta/pricing/comparison/Compare.svelte";
-  // import Pricing from "./sections/pricing/Pricing.svelte";
-
+	// import Compare from "$lib/components/cta/pricing/comparison/Compare.svelte";
+  import Pricing from "./sections/pricing/Pricing.svelte";
+  
 	// proof
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte"
 	// import WriterStep from "./sections/features/proof/WriterStep.svelte";
@@ -100,7 +99,7 @@
 
   <!-- Pricing -->
   <section class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
-									border-t bg-muted-foreground/5">
+									border-t ___bg-muted-foreground/5">
 		
 		<div class="text-center mb-16 smax-w-lg ">
 					<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full 
@@ -118,14 +117,14 @@
     	</p> -->
   	</div>
 
-  <div class="mx-auto _container max-w-3xl">
+  <!-- <div class="mx-auto _container max-w-3xl">
     <PricingGrid />
-  </div>
+  </div> -->
 	
-	<Compare />
+	<Pricing />
 	
-	<!-- <div class="py-12">
+	<div class="py-12">
 		<LogosMarquee />
-	</div> -->
+	</div>
 
 </main>

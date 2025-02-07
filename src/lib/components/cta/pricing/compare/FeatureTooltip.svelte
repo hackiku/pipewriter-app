@@ -1,5 +1,4 @@
 <!-- src/lib/components/cta/pricing/compare/FeatureTooltip.svelte -->
-
 <script lang="ts">
   import * as Popover from "$lib/components/ui/popover";
   import { Info } from "lucide-svelte";
