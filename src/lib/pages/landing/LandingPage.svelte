@@ -27,7 +27,7 @@
 	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]";
 </script>
 
-<ViewportSize />
+<!-- <ViewportSize /> -->
 
 <div
 	class="bg-landing dark:bg-[#040D12]

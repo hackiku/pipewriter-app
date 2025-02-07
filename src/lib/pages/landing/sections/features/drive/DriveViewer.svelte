@@ -1,7 +1,6 @@
 <!-- src/lib/pages/landing/sections/features/drive/DriveViewer.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { ChevronDown } from 'lucide-svelte';
   import { driveStore } from '../../../stores/driveStore';
   import { driveRoot } from '../../../data/folders';
   import Row from './Row.svelte';
@@ -18,10 +17,28 @@
   );
 
   let driveContainer: HTMLElement;
+  $: isMobile = typeof window !== 'undefined' ? window.innerWidth < 768 : false;
 
   onMount(() => {
+    // Start expanded (not compact)
+    driveStore.toggleCompact(false);
+
+    const handleResize = () => {
+      const wasMobile = isMobile;
+      isMobile = window.innerWidth < 768;
+      
+      // Reset to expanded when switching views
+      if (wasMobile !== isMobile) {
+        driveStore.toggleCompact(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+
+    // Mobile-only intersection observer for sticky behavior
     const observer = new IntersectionObserver(
       (entries) => {
+        if (!isMobile) return;
+        
         entries.forEach((entry) => {
           if (!entry.isIntersecting) {
             driveStore.toggleCompact(true);
@@ -37,7 +54,11 @@
     );
 
     if (driveContainer) observer.observe(driveContainer);
-    return () => observer.disconnect();
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener('resize', handleResize);
+    };
   });
 
   // Scroll active item into view when compact
@@ -68,14 +89,13 @@
     breadcrumbs={['Pipewriter', ...(currentPath !== '/' ? currentPath.split('/').filter(Boolean) : [])]}
     onClick={(part, index) => driveStore.handleBreadcrumbClick(part, index)}
     {currentPath}
-    {isCompact}
   />
 
   <div 
-    class="overflow-hidden transition-all duration-300 relative
-           {isCompact ? 'h-24' : 'h-auto'}"
+    class="relative transition-all duration-300
+           {isCompact ? 'h-[3.5em] overflow-hidden' : ''}"
   >
-    <div class="absolute inset-0 overflow-y-auto">
+    <div class="overflow-y-auto scrollbar-hide {isCompact ? 'absolute inset-0' : ''}">
       {#each items as item, i (item.path)}
         <Row
           {item}
@@ -88,13 +108,13 @@
     </div>
   </div>
 
-  <!-- CTA Button - Now consistent across layouts -->
+  <!-- CTA Button -->
   <div class="p-4 border-t border-white/10">
     <AddToCart
       text="Get Drive Access"
       source="features-drive"
-      showPrice={true}
-      price="• 40% OFF"
+      showPrice={false}
+      price="40% OFF"
     />
   </div>
 </div>
@@ -102,5 +122,14 @@
 <style>
   .drive-viewer-container {
     will-change: min-height;
+  }
+  
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
   }
 </style>
