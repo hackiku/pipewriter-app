@@ -76,6 +76,20 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		}
 	},
 	{
+		author: "Esma Akalın",
+		quote: {
+			full: "Had a chance to test early versions. Couldn't believe what Google Docs scripts could do.",
+			short: "Had a chance to test early version. Couldn't believe what Google Docs scripts could do."
+		},
+		role: "UX Writer",
+		company: "Papara",
+		imgSrc: 'people/writers/esma-akalin.jpeg',
+		hire: {
+		url: "https://www.linkedin.com/in/esma-akal%C4%B1n-355b49125",
+		buttonText: "Hire Esma"
+		}
+	},
+	{
 		author: "Matthew Szymanski",
 		quote: {
 			full: "I've been trying out no-code editors like Webflow and Wix Studio but found them clunky. Going from copy doc to a website that's around 90% ready to deploy is the exact thing I've been looking for.",
@@ -88,6 +102,7 @@ export const userTestimonials: EnhancedTestimonial[] = [
 		// url: "",
 		// buttonText: "Hire Matt"
 		// }
+
 	},
 	{
 		author: "Warren West",

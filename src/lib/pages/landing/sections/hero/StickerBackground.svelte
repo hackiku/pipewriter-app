@@ -26,8 +26,8 @@
     >
       {#if key === 'keyboard'}
         <KeyboardShortcut rotation={config.rotation} />
-      {:else if key === 'chat'}
-        <ChatBox rotation={config.rotation} />
+      <!-- {:else if key === 'chat'}
+        <ChatBox rotation={config.rotation} /> -->
       {:else}
         <Sticker 
           icon={config.icon} 

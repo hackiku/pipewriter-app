@@ -1,7 +1,10 @@
 <!-- src/lib/pages/landing/LandingPage.svelte -->
 <script lang="ts">
   // import { dev } from "$app/environment";
-  // sections
+	import { FileText } from "lucide-svelte";
+
+	// sections
+	
 	import Hero from "./sections/hero/Hero.svelte";
   import Demo from "./sections/demo/Demo.svelte";
   // import DocsDemo from "$lib/components/demo/docs/DocsDemo.svelte";
@@ -9,6 +12,7 @@
   import Proof from "./sections/proof/Proof.svelte";
   // import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
 	import PricingGrid from "$lib/components/cta/pricing/PricingGrid.svelte";
+	import Compare from "$lib/components/cta/pricing/comparison/Compare.svelte";
   // import Pricing from "./sections/pricing/Pricing.svelte";
 
 	// proof
@@ -68,7 +72,7 @@
   </section>
 
 	<div class="_py-12">
-		<h3 class="text-center text-foreground">Battle tested writing for the bestest</h3>
+		<h3 class="text-center font-medium text-foreground/60">Battle-tested writing for the bestest</h3>
 		<LogosMarquee />
 		<!-- <LogosMarquee /> -->
 	</div>
@@ -85,7 +89,7 @@
 	<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
 		
 		<div class="text-center mb-16 max-w-lg mx-auto">
-    	<h2 class="text-4xl font-medium mb-4">
+    	<h2 class="text-4xl font-semibold mb-4">
       	Made with 🫶, ⏱️, and <br>Oxford comma
     	</h2>
   	</div>
@@ -95,11 +99,17 @@
 	</section>
 
   <!-- Pricing -->
-  <section class="relative border-t pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+  <section class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
+									border-t bg-muted-foreground/5">
 		
-		<div class="text-center mb-16 smax-w-lg smx-auto border">
+		<div class="text-center mb-16 smax-w-lg ">
+					<div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full 
+                bg-primary/10 text-primary border border-primary/20 mb-6">
+      <FileText class="w-4 h-4" />
+      <span class="text-sm font-medium">Pricing</span>
+    </div>
     	<h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
-      	        font-medium leading-[1.1] tracking-tight
+      	        font-semibold leading-[1.1] tracking-tight
         	      max-w-[16ch] mx-auto text-center">
       	Take Writer Wireframes for a Ride
     	</h2>
@@ -111,10 +121,11 @@
   <div class="mx-auto _container max-w-3xl">
     <PricingGrid />
   </div>
-
 	
-	<div class="py-12">
+	<Compare />
+	
+	<!-- <div class="py-12">
 		<LogosMarquee />
-	</div>
+	</div> -->
 
 </main>

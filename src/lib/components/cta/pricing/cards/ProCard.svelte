@@ -2,16 +2,16 @@
 <script lang="ts">
 	import { Button } from "$lib/components/ui/button";
 	import { Check, ArrowRight, Lock } from "lucide-svelte";
-	import ProductStat from "../ProductStat.svelte";
+	import ProductStat from "../components/ProductStat.svelte";
 	import CartButton from "$lib/components/cta/buy/CartButton.svelte";
 
 	export let className = "";
 
 	const features = [
-		"Wireframe in Google Docs",
-		"90+ pre-made UX components",
-		"Export to HTML/CSS code",
-		"Premium Discord access",
+		"Wireframes in Google Docs",
+		"90+ UI components (tables)",
+		"Export to HTML/CSS",
+		"AI prompts & workflows",
 	];
 </script>
 
@@ -41,7 +41,7 @@
 	<div class="space-y-1s max-w-lg">
 		<!-- Title & Description -->
 		<div class="flex justify-between items-center mb-12">
-			<h3 class="text-xl font-bold">Docs Pro</h3>
+			<h3 class="text-2xl font-semibold">Docs Pro</h3>
 
 			<div class="flex justify-center gap-3 h-full">
 				<ProductStat count="13" icon="docs" />
@@ -56,11 +56,11 @@
 				<span class="text-xl text-muted-foreground">lifetime</span>
 			</div>
 			<div class="absolute -top-4 -left-10 rotate-[-12deg]">
-				<span class="text-3xl font-medium text-foreground/20 relative">
+				<span class="text-3xl font-medium text-foreground/40 relative">
 					$97
 					<div
 						class="absolute inset-0 w-[120%] -left-[10%] top-1/2 h-[3px]
-											bg-foreground/30 rotate-[-8deg]"
+											bg-foreground/40 rotate-[-8deg]"
 					/>
 				</span>
 			</div>

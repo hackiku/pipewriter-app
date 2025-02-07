@@ -24,14 +24,14 @@ export const stickerConfigs: Record<string, StickerConfig> = {
   keyboard: {
     icon: 'keyboard',
     position: {
-      bottom: '28vh',
-      right: '12vw'
+      bottom: '18vh',
+      left: '12vw'
     },
     size: {
       width: '15vw',
       height: '5vw'
     },
-    rotation: 8,
+    rotation: -8,
     animation: {
       duration: '5s',
       delay: '1s'
@@ -41,7 +41,7 @@ export const stickerConfigs: Record<string, StickerConfig> = {
     icon: 'chat',
     position: {
       bottom: '20vh',
-      right: '15vw'
+      left: '15vw'
     },
     size: {
       width: '20vw',
@@ -56,8 +56,8 @@ export const stickerConfigs: Record<string, StickerConfig> = {
   docs: {
     icon: 'docs',
     position: {
-      bottom: '26vh',
-      left: '3vw'
+			bottom: '16vh',
+			right: '6vh'
     },
     size: {
       width: '10vh',
@@ -72,8 +72,8 @@ export const stickerConfigs: Record<string, StickerConfig> = {
   drive: {
     icon: 'drive',
     position: {
-      bottom: '14vh',
-      left: '12vh'
+			top: '15vh',
+			left: '6vw'
     },
     size: {
       width: '12vh',
@@ -85,21 +85,21 @@ export const stickerConfigs: Record<string, StickerConfig> = {
       delay: '0.5s'
     }
   },
-  figma: {
-    icon: 'figma',
-    position: {
-      bottom: '22vh',
-      left: '13vw'
-    },
-    size: {
-      width: '11vh',
-      height: '11vh'
-    },
-    rotation: 8,
-    animation: {
-      duration: '6.2s',
-      delay: '0.25s'
-    },
-    hasStrike: true
-  }
+  // figma: {
+  //   icon: 'figma',
+  //   position: {
+  //     bottom: '22vh',
+  //     left: '13vw'
+  //   },
+  //   size: {
+  //     width: '11vh',
+  //     height: '11vh'
+  //   },
+  //   rotation: 8,
+  //   animation: {
+  //     duration: '6.2s',
+  //     delay: '0.25s'
+  //   },
+  //   hasStrike: true
+  // }
 }

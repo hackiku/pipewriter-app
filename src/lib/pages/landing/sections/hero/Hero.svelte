@@ -7,15 +7,11 @@
 	export let HEADLINE: string;
 </script>
 
-<div class="relative h-full flex items-start justify-center pt-[20vh]">
+<div class="relative h-full flex items-start justify-center pt-[26vh]">
 	<StickerBackground opacity="0.6" />
 
-	<div class="flex flex-col gap-6 items-center text-center">
-		<!-- <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full 
-                bg-primary/10 text-primary border border-primary/20 mb-6">
-      <FileText class="w-4 h-4" />
-      <span class="text-sm font-medium">Write in Google Docs</span>
-    </div> -->
+	<div class="flex flex-col gap-4 items-center text-center">
+
 
 		<h1
 			class="{HEADLINE} text-[7vh] md:text-[8vh] lg:text-[12vh]
@@ -30,7 +26,7 @@
               text-muted-foreground leading-relaxed
               max-w-[40ch] mb-2"
 		>
-			Wireframes in Google Docs + AI code. Prototype where you write and charge
+			Wireframes in Google Docs + AI workflows. Prototype where you write and charge
 			more for deliverables.
 		</p>
 

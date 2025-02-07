@@ -1,82 +1,94 @@
-<!-- src/lib/pages/pricing/sections/compare/CompareTable.svelte -->
-
+<!-- src/lib/components/cta/pricing/compare/CompareTable.svelte -->
 <script lang="ts">
-  import type { Feature } from "../../data/features";
+  import type { Feature } from "$data/pricing/comparison";
   import { cn } from "$lib/utils";
+  import FeatureTooltip from "./FeatureTooltip.svelte";
   
   export let features: Feature[];
 
   const plans = [
-    { id: "lite", name: "Lite", price: "$1" },
-    { id: "suite", name: "Suite", price: "$97" },
-    { id: "waitlist", name: "Web App", price: "Soon" }
+    { id: "free", name: "Free", price: "$0" },
+    { id: "pro", name: "Pro", price: "$57", popular: true },
+    { id: "figma", name: "Figma", price: "$15/mo" },
+    { id: "manual", name: "Manual", price: "$0" }
   ];
 
-  function Check(value: boolean) {
-    if (value) {
-      return "✓";
+  function getValue(value: boolean | string): string {
+    if (typeof value === 'boolean') {
+      return value ? "✓" : "−";
     }
-    return "−";
+    return value;
+  }
+
+  function getValueClass(value: boolean | string): string {
+    if (typeof value === 'boolean') {
+      return value ? "text-primary font-medium" : "text-muted-foreground/40";
+    }
+    return "text-primary font-medium";
   }
 </script>
 
-<div class="relative">
-  <div class="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px]" />
-  
-  <div class="relative overflow-x-auto rounded-xl border border-border/50">
-    <table class="w-full text-left">
-      <thead>
-        <tr class="border-b border-border/50">
-          <th class="p-6 text-xl font-light">Features</th>
-          {#each plans as plan}
-            <th class="p-6 text-center">
-              <div class="space-y-1">
-                <div class="text-xl font-light">{plan.name}</div>
-                <div class="text-2xl font-light tracking-tight">
-                  {plan.price}
+<div class="relative rounded-xl border border-border/50 overflow-hidden">
+  <table class="w-full text-left border-collapse">
+    <thead>
+      <tr class="border-b border-border/50 bg-muted/50">
+        <th class="p-6 text-xl font-medium">Compare</th>
+        {#each plans as plan}
+          <th class="p-6 text-center relative">
+            {#if plan.popular}
+              <div class="absolute -top-3 left-1/2 -translate-x-1/2">
+                <div class="px-3 py-1 text-xs font-medium bg-primary/10 text-primary
+                           rounded-full border border-primary/20">
+                  Most Popular
                 </div>
               </div>
-            </th>
-          {/each}
-        </tr>
-      </thead>
-      
-      <tbody class="text-muted-foreground">
-        {#each features as feature, i}
-          <tr class={cn(
-            "border-border/50",
-            i !== features.length - 1 && "border-b"
-          )}>
-            <td class="p-6">
-              <div class="space-y-1 max-w-md">
-                <div class="text-foreground font-medium">{feature.name}</div>
-                <div class="text-sm leading-relaxed">{feature.description}</div>
+            {/if}
+            <div class="space-y-1">
+              <div class="text-lg font-medium">{plan.name}</div>
+              <div class="text-2xl font-light tracking-tight text-muted-foreground">
+                {plan.price}
               </div>
-            </td>
-            <td class="p-6 text-center">
-              <span class={feature.writer ? "text-primary text-lg" : "text-muted-foreground/50"}>
-                {Check(feature.writer)}
-              </span>
-            </td>
-            <td class="p-6 text-center">
-              <span class={feature.agency ? "text-primary text-lg" : "text-muted-foreground/50"}>
-                {Check(feature.agency)}
-              </span>
-            </td>
-            <td class="p-6 text-center">
-              <span class={feature.enterprise ? "text-primary text-lg" : "text-muted-foreground/50"}>
-                {Check(feature.enterprise)}
-              </span>
-            </td>
-          </tr>
+            </div>
+          </th>
         {/each}
-      </tbody>
-    </table>
-  </div>
+      </tr>
+    </thead>
+    
+    <tbody>
+      {#each features as feature, i}
+        <tr class={cn(
+          "border-border/50",
+          i !== features.length - 1 && "border-b",
+          i % 2 === 0 ? "bg-background" : "bg-muted/30"
+        )}>
+          <td class="p-6">
+            <div class="flex items-center gap-2">
+              <span class="font-medium">{feature.name}</span>
+              <FeatureTooltip tooltip={feature.tooltip} />
+            </div>
+          </td>
+          <td class="p-6 text-center">
+            <span class={getValueClass(feature.free)}>
+              {getValue(feature.free)}
+            </span>
+          </td>
+          <td class="p-6 text-center">
+            <span class={getValueClass(feature.pro)}>
+              {getValue(feature.pro)}
+            </span>
+          </td>
+          <td class="p-6 text-center">
+            <span class={getValueClass(feature.figma)}>
+              {getValue(feature.figma)}
+            </span>
+          </td>
+          <td class="p-6 text-center">
+            <span class={getValueClass(feature.manual)}>
+              {getValue(feature.manual)}
+            </span>
+          </td>
+        </tr>
+      {/each}
+    </tbody>
+  </table>
 </div>
-
-<style>
-  .bg-grid-white {
-    background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
-  }
-</style>
