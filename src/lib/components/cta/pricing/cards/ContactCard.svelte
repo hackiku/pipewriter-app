@@ -15,7 +15,9 @@
   }
 </script>
 
-<div class="p-6 rounded-xl border bg-zinc-950/70 hover:bg-zinc-950/90
+<div class="p-6 rounded-xl border 
+            bg-white/50 hover:bg-white/70
+            dark:bg-zinc-950/70 dark:hover:bg-zinc-950/90
             transition-all duration-300 backdrop-blur-sm
             hover:shadow-lg hover:shadow-primary/5">
   <div class="flex items-start justify-between gap-4">
@@ -32,7 +34,7 @@
             {email}
           </a>
           <Button variant="ghost" size="sm" on:click={copyEmail}
-                  class="h-7 px-2 hover:bg-white/5">
+                  class="h-7 px-2 hover:bg-black/5 dark:hover:bg-white/5">
             <Copy class="w-3 h-3" />
             <span class="sr-only">Copy email</span>
             {#if copyText}
@@ -44,7 +46,7 @@
     </div>
 
     <!-- Enterprise Icon -->
-    <div class="text-primary/20">
+    <div class="text-foreground/10">
       <Building2 class="w-6 h-6" />
     </div>
   </div>

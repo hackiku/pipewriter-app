@@ -1,19 +1,15 @@
 // src/routes/early/+page.server.ts
-import type { PageServerLoad } from './$types';
+import { redirect } from '@sveltejs/kit';
 
-const GUMROAD_URL = 'https://pipewriter.gumroad.com/l/wires-for-writers';
+const CHECKOUT_URL = "https://app.gumroad.com/checkout?product=qmifdo&quantity=1";
 
 export const load = (async ({ request, getClientAddress }) => {
-	const ip = getClientAddress();
-	const url = new URL(request.url);
-	const source = url.searchParams.get('utm_source') || 'organic';
+	// Basic logging to server logs (shows up in Vercel logs)
+	console.log({
+		timestamp: new Date().toISOString(),
+		ip: getClientAddress(),
+		url: request.url
+	});
 
-	// Build redirect URL with UTM params
-	const redirectUrl = new URL(GUMROAD_URL);
-	redirectUrl.searchParams.set('utm_source', source);
-	redirectUrl.searchParams.set('utm_medium', url.searchParams.get('utm_medium') || 'link');
-	redirectUrl.searchParams.set('utm_campaign', url.searchParams.get('utm_campaign') || 'early_access');
-
-	// Always return URL instead of redirecting
-	return { redirectUrl: redirectUrl.toString() };
+	throw redirect(302, CHECKOUT_URL);
 }) satisfies PageServerLoad;
