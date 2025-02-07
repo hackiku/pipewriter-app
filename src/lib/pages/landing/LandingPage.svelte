@@ -121,7 +121,8 @@
       	        font-semibold leading-[1.1] tracking-tight
         	      max-w-[16ch] mx-auto text-center"
 			>
-				Take Writer Wireframes for a Ride
+				<!-- Take Writer Wireframes for a Ride -->
+				Wireframe Where you Already Write
 			</h2>
 		</div>
 
