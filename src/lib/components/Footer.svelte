@@ -79,8 +79,13 @@
 
       <!-- Newsletter - Better spacing and alignment -->
       <div class="lg:col-span-4">
-        <h4 class="text-lg font-medium mb-4">UX-up your inbox</h4>
-        <EmailForm size="sm" wrap={true} />
+        <h4 class="text-lg font-bold mb-4">UX-up your inbox</h4>
+        <EmailForm 
+				  source="footer" 
+				  buttonText="Loop me in" 
+					size="sm"
+					wrap={true}
+				/>
       </div>
     </div>
 

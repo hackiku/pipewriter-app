@@ -49,11 +49,11 @@
 <button
   class={cn(
     "relative inline-flex items-center justify-center",
-    iconOnly ? "rounded-full" : "rounded-lg",
+    iconOnly ? "rounded-full" : "rounded-full",
     "font-medium",
     "bg-gradient-to-r from-[#3644FE] to-[#B345ED]",
     dimensions[size].height,
-    iconOnly ? dimensions[size].width : "px-4",
+    iconOnly ? dimensions[size].width : "pl-3.5 pr-6",
     fullWidth && "w-full max-w-md",
     "transition-all duration-300 ease-out active:scale-95",
     "hover:shadow-lg hover:shadow-[#3644FE]/20 dark:hover:shadow-[#B345ED]/20",

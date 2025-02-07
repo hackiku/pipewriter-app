@@ -20,29 +20,26 @@
       <div class="space-y-6">
         <!-- Header & Form -->
         <div class="space-y-4">
-          <h2 class="text-2xl font-bold">Get the Free Google Doc</h2>
-          <p class="text-muted-foreground">
-            Access the Drive folder with the free doc, tutorials and scripts.
-          </p>
-          <EmailForm 
-            buttonText="Access Drive"
-            size="sm"
-            wrap={false}
-            source="pricing-free-modal"
-          />
+          <h2 class="text-2xl font-bold">Get Your Free UX Template</h2>
+					<EmailForm 
+						source="pricing-free-modal"
+						buttonText="Send Access"
+						isDocDelivery={true}
+						format="gdoc"
+					/>
         </div>
 
         <!-- Direct Access -->
         <div class="space-y-2">
           <div class="h-px bg-border" />
           <p class="text-sm text-center text-muted-foreground">
-            Or check out the doc directly
+            Or get instant access
           </p>
-          <Button variant="outline" class="w-full rounded-full" asChild>
+          <Button variant="outline" class="w-full" asChild>
             <a href={DOC_URL} target="_blank" rel="noopener noreferrer"
                class="flex items-center justify-center gap-2">
               <img src="/tools/gdocs.svg" alt="Google Docs" class="w-4 h-4 opacity-80" />
-              <span>Open Doc</span>
+              <span>Open Template</span>
             </a>
           </Button>
         </div>

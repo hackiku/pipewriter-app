@@ -11,6 +11,11 @@
   export let wrap = defaultProps.wrap;
   export let source = defaultProps.source;
   export let className = defaultProps.className;
+  // New prop to determine if this is for doc delivery
+  export let isDocDelivery = false;
+  // Optional content for doc delivery
+  export let content: any = null;
+  export let format: string = 'text';
 
   let email = '';
   let isSubmitting = false;
@@ -20,7 +25,6 @@
 
   $: isButtonActive = email.trim().length > 0 || isButtonHovered;
 
-
   async function handleSubmit(event: Event) {
     event.preventDefault();
     if (!email || isSubmitting) return;
@@ -29,12 +33,18 @@
     errorMessage = '';
 
     try {
-      const response = await fetch('/api/subscribe', {
+      // Choose endpoint based on whether this is for doc delivery
+      const endpoint = isDocDelivery ? '/api/export' : '/api/subscribe';
+      const payload = isDocDelivery 
+        ? { email, content, format, source }
+        : { email, source };
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, source }),
+        body: JSON.stringify(payload),
       });
 
       const result: SubscribeResponse = await response.json();
@@ -46,7 +56,7 @@
         errorMessage = result.message;
       }
     } catch (error) {
-      console.error('Subscription error:', error);
+      console.error('Submission error:', error);
       errorMessage = 'An error occurred. Please try again.';
     } finally {
       isSubmitting = false;
@@ -95,7 +105,7 @@
       >
         <div class="flex items-center justify-center gap-2 transition-all duration-200"
              class:translate-x-[-8px]={isButtonActive}>
-          <span class="relative">{isSubmitting ? 'Subscribing...' : buttonText}</span>
+          <span class="relative">{isSubmitting ? 'Sending...' : buttonText}</span>
           <div 
             class="transform transition-all duration-200 opacity-0 absolute"
             style="right: -1em"
@@ -128,11 +138,13 @@
     <div class="flex items-center justify-center mb-3">
       <Icon.Check size={24} class="mr-2" />
       <h3 class={size === "default" ? "text-xl font-semibold" : "text-lg"}>
-        You're in!
+        {isDocDelivery ? 'Template sent!' : 'You\'re in!'}
       </h3>
     </div>
     <p class={size === "default" ? "" : "text-sm"}>
-      Check your inbox for a welcome message and exciting updates.
+      {isDocDelivery 
+        ? 'Check your inbox for the template and setup guide.'
+        : 'Check your inbox for a welcome message and exciting updates.'}
     </p>
   </div>
 {/if}
