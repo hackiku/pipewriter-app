@@ -1,12 +1,19 @@
 // src/data/pricing/comparison.ts
 
+export interface Plan {
+	id: string;
+	name: string;
+	price: string;
+	actionText?: string;
+	popular?: boolean;
+	disabled?: boolean;
+	highlight?: string;
+}
+
 export interface Feature {
 	name: string;
 	tooltip: string;
-	free: boolean | string;
-	pro: boolean | string;
-	figma: boolean | string;
-	manual: boolean | string;
+	plans: string[];  // Values for each plan, in order
 }
 
 export interface FeatureCategory {
@@ -14,127 +21,89 @@ export interface FeatureCategory {
 	features: Feature[];
 }
 
+export const PLANS: Plan[] = [
+	{
+		id: "free",
+		name: "Free",
+		price: "$0",
+		actionText: "Get Started"
+	},
+	{
+		id: "pro",
+		name: "Pro",
+		price: "$57",
+		actionText: "Get Pro",
+		popular: true,
+		highlight: "Early bird offer"
+	},
+	{
+		id: "manual",
+		name: "Manual Docs",
+		price: "$0",
+		disabled: true
+	}
+];
+
 export const featureCategories: FeatureCategory[] = [
 	{
-		name: "Core Experience",
+		name: "Writing Experience",
 		features: [
 			{
-				name: "Google Docs Native App",
-				tooltip: "Work directly in Google Docs with a native sidebar app - no context switching",
-				free: true,
-				pro: true,
-				figma: false,
-				manual: true
+				name: "UI Components",
+				tooltip: "Pre-built wireframe components ready to use",
+				plans: ["12", "90+", "✗"]
 			},
 			{
-				name: "Pre-made Components",
-				tooltip: "Ready-to-use UI components like headers, CTAs, forms and more",
-				free: "12 components",
-				pro: "90+ components",
-				figma: "∞",
-				manual: false
+				name: "Docs Sidebar App",
+				tooltip: "Drop components right from Google Docs sidebar",
+				plans: ["✗", "✓", "✗"]
 			},
 			{
-				name: "Dark/Light Themes",
-				tooltip: "Auto-updating themes for both your docs and components",
-				free: false,
-				pro: true,
-				figma: true,
-				manual: false
+				name: "Dark Mode Support",
+				tooltip: "Switch between light and dark themes",
+				plans: ["✗", "✓", "✗"]
 			}
 		]
 	},
 	{
-		name: "Writing Tools",
+		name: "Code & Export",
 		features: [
 			{
-				name: "Word Count",
-				tooltip: "Smart word counting for UX copy and AI prompts",
-				free: true,
-				pro: true,
-				figma: false,
-				manual: true
-			},
-			{
-				name: "Auto Text Styles",
-				tooltip: "Consistent text styles that auto-update everywhere (H1-H6)",
-				free: "Basic",
-				pro: true,
-				figma: true,
-				manual: false
-			},
-			{
-				name: "Comment & Collaborate",
-				tooltip: "Real-time collaboration using Google Docs native features",
-				free: true,
-				pro: true,
-				figma: "Limited",
-				manual: true
-			}
-		]
-	},
-	{
-		name: "Development",
-		features: [
-			{
-				name: "Export to HTML/CSS",
-				tooltip: "Convert your wireframes to production-ready code",
-				free: false,
-				pro: true,
-				figma: true,
-				manual: false
-			},
-			{
-				name: "AI Code Generation",
-				tooltip: "Generate code from your wireframes using AI",
-				free: false,
-				pro: true,
-				figma: false,
-				manual: false
+				name: "HTML Export",
+				tooltip: "Convert wireframes to semantic HTML",
+				plans: ["Basic", "Full", "✗"]
 			},
 			{
 				name: "Custom Scripts",
-				tooltip: "Access and modify the underlying Google Apps Scripts",
-				free: false,
-				pro: true,
-				figma: false,
-				manual: false
+				tooltip: "Access and modify the Apps Scripts",
+				plans: ["Read", "Full", "✗"]
+			},
+			{
+				name: "AI Prompts",
+				tooltip: "Generate code from your wireframes",
+				plans: ["✗", "✓", "✗"]
 			}
 		]
 	},
 	{
-		name: "Templates & Examples",
+		name: "Templates",
 		features: [
 			{
-				name: "Sample Wireframes",
-				tooltip: "Ready-to-use wireframe templates for common pages",
-				free: "2",
-				pro: "13+",
-				figma: "∞",
-				manual: false
+				name: "Landing Pages",
+				tooltip: "Ready-to-use landing page templates",
+				plans: ["2", "13+", "0"]
 			},
 			{
-				name: "Page Layouts",
-				tooltip: "Pre-made page layouts and section templates",
-				free: "5",
-				pro: "All",
-				figma: "∞",
-				manual: false
+				name: "Team Features",
+				tooltip: "Collaboration and sharing features",
+				plans: ["Basic", "Full", "Basic"]
 			}
 		]
 	}
 ];
 
-// Export default 3 rows for initial preview
+// For preview functionality
+export const PREVIEW_ROWS = 3;
 export const previewFeatures = featureCategories
 	.flatMap(cat => cat.features)
-	.slice(0, 3);
-
-// Constants for comparison table
-export const PREVIEW_ROWS = 3;
-export const PLANS = [
-	{ id: "free", name: "Free", price: "$0", actionText: "Get Started" },
-	{ id: "pro", name: "Pro", price: "$59", popular: true, actionText: "Get Pro" },
-	{ id: "figma", name: "Figma", price: "$15/mo", disabled: true },
-	{ id: "manual", name: "Manual", price: "$0", disabled: true }
-];
+	.slice(0, PREVIEW_ROWS);
