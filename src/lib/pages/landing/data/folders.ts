@@ -60,7 +60,7 @@ export const driveRoot: DriveNode = {
 						emoji: "🎯",
 						title: "Live Preview",
 						description: "See changes in real-time as you type",
-						shoutout: "See changes in real-time as you type",
+						shoutout: "writer4",
 						order: 4,
 					}
 				}

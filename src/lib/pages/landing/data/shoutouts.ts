@@ -13,7 +13,6 @@ export const shoutouts: Shoutout[] = [
 		writer: "Eoin Cronolly",
 		role: "SaaS Copywriter",
 		image: "/people/writers/eoin-cronolly.jpeg",
-		// image: "/people/partners/kutay-guler.jpeg",
 		// step: "Collaboration",
 		quote: "Works natively in Docs. No more building table wireframes by hand for five-figure contracts.",
 	},

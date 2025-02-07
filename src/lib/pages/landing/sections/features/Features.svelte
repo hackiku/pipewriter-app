@@ -47,7 +47,7 @@
    		  <DriveViewer />
 
         <!-- Writer Testimonials -->
-        <div class="p-4 pt-12">
+        <div class="p-4 pt-[50%]">
           <WriterShoutout />
         </div>
 

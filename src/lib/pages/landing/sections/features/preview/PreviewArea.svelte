@@ -58,7 +58,7 @@
   }
 </script>
 
-<div class="space-y-8">
+<div class="space-y-8 pt-[35vh] pb-[25vh]">
   {#each previewItems as item}
     <div 
       id="preview-{item.path}"
