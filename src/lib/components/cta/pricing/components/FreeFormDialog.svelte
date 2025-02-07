@@ -1,5 +1,6 @@
 <!-- src/lib/components/cta/pricing/free/FreeFormDialog.svelte -->
-
+<!-- https://docs.google.com/document/d/1VsjRgy_dAccHhRF2iG_jEknv8bQn6t47wX3GD-_uoaQ/ -->
+ 
 <script lang="ts">
 	import * as AlertDialog from "$lib/components/ui/alert-dialog";
 	import { X, RotateCcw } from "lucide-svelte";

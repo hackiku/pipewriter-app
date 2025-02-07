@@ -19,7 +19,7 @@
     <PricingGrid />
 
     <!-- Trust Signals -->
-    <div class="mt-16 text-center">
+    <!-- <div class="mt-16 text-center">
       <p class="text-sm text-muted-foreground mb-4">
         🔒 Secured by Gumroad • 30-day satisfaction guarantee
       </p>
@@ -28,18 +28,13 @@
         <img src="/logos/visa.svg" alt="Visa" class="h-6 opacity-50" />
         <img src="/logos/mastercard.svg" alt="Mastercard" class="h-6 opacity-50" />
       </div>
-    </div>
+    </div> -->
   </div>
 
   <!-- Feature Comparison -->
   <div class="relative">
     <!-- Comparison Header -->
     <div class="text-center mb-12">
-      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full 
-                  bg-primary/10 text-primary border border-primary/20 mb-6">
-        <FileText class="w-4 h-4" />
-        <span class="text-sm font-medium">Feature Comparison</span>
-      </div>
       <h2 class="text-[5vh] md:text-[6vh] lg:text-[7vh] 
                 font-medium leading-[1.1] tracking-tight
                 max-w-[16ch] mx-auto">
