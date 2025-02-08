@@ -33,8 +33,7 @@
 	class="bg-landing dark:bg-[#040D12]
 		fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10"
 >
-	<!-- <StickerBackground /> -->
-	<BackgroundGrid gridSize="48" speed="30s" opacity="0.06" />
+	<BackgroundGrid gridSize="44" speed="10s" opacity="0.45" />
 </div>
 
 <main

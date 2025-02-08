@@ -57,6 +57,12 @@
       }
     };
   }
+
+  // Map videos to specific cards
+  const mediaMap = new Map([
+    ['/App.gdoc', { type: 'image' as const, src: '/demo/videos/wireframing-demo.webp' }],
+    ['/Darkmode.gdoc', { type: 'image' as const, src: '/demo/videos/darkmode.webp' }]
+  ]);
 </script>
 
 <div class="space-y-8 pt-[35vh] pb-[25vh]">
@@ -67,7 +73,11 @@
       use:createObserver
       in:fade={{ duration: 200 }}
     >
-      <PreviewCard {item} isActive={currentPath === item.path} />
+      <PreviewCard 
+        {item} 
+        isActive={currentPath === item.path}
+        media={mediaMap.get(item.path)}
+      />
     </div>
   {/each}
 </div>
