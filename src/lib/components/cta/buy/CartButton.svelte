@@ -1,14 +1,21 @@
 <!-- lib/components/cta/CartButton.svelte -->
 <script lang="ts">
   import { ShoppingCart } from 'lucide-svelte';
+  import { goto } from '$app/navigation';
+  // Or if you prefer using links:
+  // import { Button } from '$lib/components/ui/button';
 
   export let text = "Add to Cart";
   export let className = "";
+
+  const handleClick = () => {
+    goto('/early');
+  }
 </script>
 
 <button 
   class="group relative w-full h-14 rounded-full overflow-hidden {className}"
-  on:click
+  on:click={handleClick}
 >
   <!-- Gradient Border -->
   <div class="absolute inset-0 bg-gradient-to-r from-[#3644FE] to-[#B345ED]" />

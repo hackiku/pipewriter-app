@@ -10,7 +10,7 @@
     <div class="rounded-xl bg-gradient-to-br from-[#3644FE]/15 to-[#B345ED]/20 p-6 ">
       <div class="flex items-center gap-4 mb-6">
         <img
-          src="/people/ivan-karaman.png"
+          src="/people/team/ivan-karaman.png"
           alt="Ivan Karaman"
           class="w-12 h-12 rounded-full border-2 border-white/10"
         />

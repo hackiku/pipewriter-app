@@ -1,7 +1,7 @@
 <!-- src/lib/pages/landing/sections/pricing/Pricing.svelte -->
 <script lang="ts">
   import PricingGrid from "$lib/components/cta/pricing/PricingGrid.svelte";
-  import Compare from "./Compare.svelte";
+  // import Compare from "./Compare.svelte";
 </script>
 
 <div class="space-y-16">
@@ -10,8 +10,7 @@
     <PricingGrid />
   </div>
 
-  <!-- Feature Comparison (Commented for launch) -->
-  <div class="container">
+  <!-- <div class="container">
     <Compare />
-  </div>
+  </div> -->
 </div>

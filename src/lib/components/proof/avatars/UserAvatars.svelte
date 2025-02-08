@@ -1,0 +1,76 @@
+<!-- src/lib/components/proof/avatars/UserAvatars.svelte -->
+<script lang="ts">
+  import { onMount } from 'svelte';
+  import { Mail } from 'lucide-svelte';
+  import { fade } from 'svelte/transition';
+
+  const GROUPS = {
+    reading: {
+      count: '190+',
+      label: 'reading',
+      images: [
+        '/people/writers/jaye-hannah.jpeg',
+        '/people/writers/beatrice-bianchi.jpeg',
+        '/people/writers/zaine-morgan.jpg',
+        '/people/writers/esma-akalin.jpeg',
+      ]
+    },
+    writing: {
+      count: '30+',
+      label: 'writing',
+      images: [
+        '/people/team/ivan-karaman.png',
+        '/people/writers/eoin-cronolly.jpeg',
+        '/people/writers/matthew-szymanski.png',
+        '/people/writers/giorgi-chkoidze.jpeg',
+      ]
+    }
+  } as const;
+
+  export let initialMode: keyof typeof GROUPS = 'reading';
+  export let switchInterval = 4000;
+
+  let currentMode = initialMode;
+
+  onMount(() => {
+    const interval = setInterval(() => {
+      currentMode = currentMode === 'reading' ? 'writing' : 'reading';
+    }, switchInterval);
+    return () => clearInterval(interval);
+  });
+</script>
+
+<div class="inline-flex items-center gap-3 px-2"> 
+  <div class="flex -space-x-2">
+    {#each [0,1,2,3] as i}
+      <div class="w-6 h-6 rounded-full ring-2 ring-background overflow-hidden">
+        {#key currentMode}
+          <img
+            src={GROUPS[currentMode].images[i]}
+            alt="Community member"
+            class="w-full h-full object-cover"
+            in:fade={{ duration: 800 }}
+          />
+        {/key}
+      </div>
+    {/each}
+  </div>
+
+  <div class="w-[120px]">
+    {#key currentMode}
+      <p class="text-sm text-muted-foreground whitespace-nowrap"
+         in:fade={{ duration: 800 }}>
+        <span class="font-medium text-foreground">{GROUPS[currentMode].count}</span> 
+        {GROUPS[currentMode].label}
+        {#if currentMode === 'writing'}
+          <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded-full 
+                     bg-primary/10 text-primary border border-primary/20">
+            beta
+          </span>
+        {:else}
+          <Mail class="ml-1.5 inline-block w-3.5 h-3.5 text-muted-foreground" />
+        {/if}
+      </p>
+    {/key}
+  </div>
+</div>

@@ -3,7 +3,8 @@
 	import { FileText } from "lucide-svelte";
 	import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
 	import StickerBackground from "./StickerBackground.svelte";
-	import ClientAvatars from "$lib/components/proof/avatars/ClientAvatars.svelte";
+	// import ClientAvatars from "$lib/components/proof/avatars/ClientAvatars.svelte";
+	import UserAvatars from "$lib/components/proof/avatars/UserAvatars.svelte";
 	export let HEADLINE: string;
 </script>
 
@@ -46,10 +47,17 @@
 			price="— $97"
 		/>
 
-		<ClientAvatars
+		<!-- <ClientAvatars
 			mode="writer"
 			count={46}
 			label="writers"
+		/> -->
+		
+		<UserAvatars 
+			initialMode="reading"
+			switchInterval={3000}
 		/>
+
+
 	</div>
 </div>

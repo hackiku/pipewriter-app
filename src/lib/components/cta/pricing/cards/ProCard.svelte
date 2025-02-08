@@ -16,15 +16,6 @@
 </script>
 
 
-<!-- <div
-  class="relative p-10 rounded-xl
-         border border-primary/20
-         bg-gradient-to-b from-card/95 to-card/90
-         dark:from-[#0F1520] dark:to-[#0A0F16]
-         hover:shadow-xl hover:shadow-primary/10
-         hover:border-primary/30
-         transition-all duration-300 {className}"
-> -->
 <div
   class="relative p-10 rounded-xl
          border border-primary/20

@@ -103,13 +103,13 @@
 	</section>
 
 	<!-- Pricing -->
-	 <section
-  class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
-         border-t
-         bg-gradient-to-b from-background to-background/95
-         dark:from-zinc-950/60 dark:to-[#0A0F16]/50
-         backdrop-blur-sm"
->
+	<section
+		class="relative py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
+					border-t
+					bg-gradient-to-b from-background/90 to-background/20
+					dark:from-zinc-950/80 dark:to-[#0A0F16]/20
+					bacskdrop-blur-sm"
+	>
 	<!-- <section
 		class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
 					 dark:bg-zinc-950 /60 border-t ___bg-muted-foreground/5"
@@ -131,12 +131,12 @@
 				Wireframe Where you Already Write
 			</h2>
 		</div>
-
 		
 		<Pricing />
-
-		<!-- <div class="py-12">
-			<LogosMarquee />
-		</div> -->
 	</section>
+	
+	
+	<!-- <div class="py-12 bg-blue-200">
+		<LogosMarquee />
+	</div> -->
 </main>
