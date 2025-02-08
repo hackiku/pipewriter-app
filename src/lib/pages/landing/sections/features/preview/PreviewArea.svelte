@@ -4,6 +4,7 @@
   import { driveStore } from '../../../stores/driveStore';
   import { driveRoot, type DriveNode } from '../../../data/folders';
   import { shoutouts } from '../../../data/shoutouts';
+  import PreviewCard from './PreviewCard.svelte';
 
   // Get all previewable items and sort by order
   function getPreviewableItems(node: DriveNode): DriveNode[] {
@@ -62,24 +63,11 @@
   {#each previewItems as item}
     <div 
       id="preview-{item.path}"
-      class="w-full aspect-video rounded-xl overflow-hidden border bg-zinc-950 text-white
-             preview-card transition-all duration-300
-             {currentPath === item.path ? 'border-primary scale-[1.02]' : 'border-white/10'}"
+      class="preview-card"
       use:createObserver
       in:fade={{ duration: 200 }}
     >
-      <div class="relative h-full flex items-center justify-center">
-        <!-- Gradient Overlay -->
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/60" />
-        
-        <div class="relative space-y-8 text-center px-8">
-          <div class="text-6xl">{item.preview?.emoji}</div>
-          <div class="space-y-2">
-            <h3 class="text-2xl font-medium">{item.preview?.title}</h3>
-            <p class="text-white/70">{item.preview?.description}</p>
-          </div>
-        </div>
-      </div>
+      <PreviewCard {item} isActive={currentPath === item.path} />
     </div>
   {/each}
 </div>
