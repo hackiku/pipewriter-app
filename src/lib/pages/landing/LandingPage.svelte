@@ -27,7 +27,7 @@
 	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]";
 </script>
 
-<!-- <ViewportSize /> -->
+<ViewportSize />
 
 <div
 	class="bg-landing dark:bg-[#040D12]
@@ -128,8 +128,8 @@
 		
 		<Pricing />
 
-		<div class="py-12">
+		<!-- <div class="py-12">
 			<LogosMarquee />
-		</div>
+		</div> -->
 	</section>
 </main>

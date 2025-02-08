@@ -21,7 +21,7 @@ export const defaultProps = {
 export const styles: StyleConfig = {
 	form: ({ wrap, size, className = '' }) => cn(
 		"w-full flex",
-		wrap ? "flex-col" : "flex-col items-center sm:flex-row",
+		wrap ? "flex-col" : "flex-col sm:flex-row",
 		"gap-3",
 		size === "default" ? "max-w-2xl" : "max-w-xl",
 		className
