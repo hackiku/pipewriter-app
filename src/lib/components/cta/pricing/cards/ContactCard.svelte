@@ -15,17 +15,22 @@
   }
 </script>
 
-<div class="p-6 rounded-xl border 
-            bg-white/50 hover:bg-white/70
-            dark:bg-zinc-950/70 dark:hover:bg-zinc-950/90
-            transition-all duration-300 backdrop-blur-sm
-            hover:shadow-lg hover:shadow-primary/5">
+<div 
+  class="p-6 rounded-xl
+         border border-border/80 hover:border-border
+         bg-gradient-to-b from-card/50 to-background/50
+         dark:from-[#1A1A1A]/50 dark:to-[#151515]/50
+         hover:from-card/60 hover:to-background/60
+         transition-all duration-300
+         hover:shadow-lg hover:shadow-foreground/5"
+>
+						
   <div class="flex items-start justify-between gap-4">
     <!-- Contact Info -->
     <div class="space-y-4">
       <div class="space-y-1">
         <p class="text-sm text-muted-foreground">
-          Need enterprise or agency solution?
+          Need enterprise or agency solutions?
         </p>
         <div class="flex items-center gap-2">
           <a href="mailto:{email}"

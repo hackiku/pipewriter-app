@@ -14,11 +14,22 @@
   ];
 </script>
 
-<div class="relative p-10 rounded-xl 
+<div 
+  class="relative p-10 rounded-xl
+         border border-border/80 hover:border-border
+         bg-gradient-to-b from-card/50 to-background/50
+         dark:from-[#1A1A1A]/50 dark:to-[#151515]/50
+         hover:from-card/60 hover:to-background/60
+         transition-all duration-300
+         hover:shadow-lg hover:shadow-foreground/5"
+>
+
+
+<!-- <div class="relative p-10 rounded-xl 
             border border-border/40 hover:border-border/60
-            bg-card/50 hover:bg-card/60
+            bg-[#1A1A1A]/50 ___bg-card/50 hover:bg-[#1A1A1A]/70
             transition-all duration-300
-            hover:shadow-lg hover:shadow-primary/5">
+            hover:shadow-lg hover:shadow-primary/5"> -->
   <div class="space-y-8">
     <!-- Header -->
     <div class="flex justify-between items-center">
@@ -55,14 +66,19 @@
     </ul>
 
     <!-- CTA Button -->
-    <Button 
-      variant="outline"
-      class="w-full rounded-full hover:bg-primary/5"
-      on:click={() => showModal = true}
-    >
-      Get Free Template
-    </Button>
-  </div>
+	<Button 
+		variant="outline"
+		class="w-full rounded-full font-medium
+					border border-primary/30 hover:border-primary/40
+					bg-primary/5 hover:bg-primary/10
+					text-primary/90 hover:text-primary
+					shadow hover:shadow-md hover:shadow-primary/10
+					transition-all duration-300"
+		on:click={() => showModal = true}
+	>
+		Get Free Template 
+	</Button>
+	</div>
 </div>
 
 <FreeAccessModal bind:open={showModal} />

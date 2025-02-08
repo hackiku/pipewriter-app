@@ -9,7 +9,7 @@
   export let source = "generic"; // For analytics
 
   function handleCheckout() {
-    window.location.href = "https://app.gumroad.com/checkout?product=qmifdo&quantity=1";
+    window.location.href = "/early";
   }
 </script>
 

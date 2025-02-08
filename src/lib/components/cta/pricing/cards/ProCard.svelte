@@ -15,11 +15,33 @@
 	];
 </script>
 
+
+<!-- <div
+  class="relative p-10 rounded-xl
+         border border-primary/20
+         bg-gradient-to-b from-card/95 to-card/90
+         dark:from-[#0F1520] dark:to-[#0A0F16]
+         hover:shadow-xl hover:shadow-primary/10
+         hover:border-primary/30
+         transition-all duration-300 {className}"
+> -->
 <div
+  class="relative p-10 rounded-xl
+         border border-primary/20
+         bg-gradient-to-r from-[#3644FE]/10 to-[#B345ED]/10
+				 ___bg-gradient-to-b __from-card/95 __to-card/90
+         __dark:from-[#0F1520] __dark:to-[#0A0F16]
+         hover:shadow-xl hover:shadow-primary/10
+         hover:border-primary/30
+         transition-all duration-300 {className}"
+>
+
+
+<!-- <div
 	class="relative p-10 rounded-xl border border-primary/20
             bg-card hover:bg-card/90
             transition-all duration-300 {className}"
->
+> -->
 	<!-- Most Popular Badge -->
 	<div class="absolute -top-3 left-1/2 -translate-x-1/2">
 		<div

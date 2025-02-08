@@ -27,7 +27,7 @@
       class="text-white/50 hover:text-white/90 transition-colors"
       on:click={() => null}
     >
-      My Drive
+      <!-- My Drive -->
       <span class="text-white/30" aria-hidden="true">/</span>
     </button>
 

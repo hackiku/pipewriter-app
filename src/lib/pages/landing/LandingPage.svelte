@@ -33,7 +33,7 @@
 	class="bg-landing dark:bg-[#040D12]
 		fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10"
 >
-	<BackgroundGrid gridSize="44" speed="10s" opacity="0.45" />
+	<BackgroundGrid gridSize="44" speed="10s" opacity="0.4" />
 </div>
 
 <main
@@ -103,10 +103,17 @@
 	</section>
 
 	<!-- Pricing -->
-	<section
+	 <section
+  class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
+         border-t
+         bg-gradient-to-b from-background to-background/95
+         dark:from-zinc-950/60 dark:to-[#0A0F16]/50
+         backdrop-blur-sm"
+>
+	<!-- <section
 		class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
-					 dark:bg-zinc-950/60 border-t ___bg-muted-foreground/5"
-	>
+					 dark:bg-zinc-950 /60 border-t ___bg-muted-foreground/5"
+	> -->
 		<div class="text-center mb-16 ___max-w-lg">
 			<div
 				class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full
