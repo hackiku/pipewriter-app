@@ -9,13 +9,13 @@
 <div class="flex flex-col px-4">
 	<div class="flex bg-white dark:bg-zinc-900 items-center py-2 justify-between">
 		<!-- Logo Column -->
-		<div class="flex items-center gap-3 w-16">
+		<div class="flex items-center gap-2 w-16">
 			<img src="/tools/gdocs.svg" alt="Google Docs" class="h-14 p-2" />
 
 			<!-- Content Column -->
-			<div class="flex flex-col">
+			<div class="flex flex-col mt-1">
 				<!-- Document Title -->
-				<span class="text-md font-medium text-zinc-700 dark:text-zinc-300">
+				<span class="text-md -mb-1 font-medium text-zinc-700 dark:text-zinc-300">
 					Landing Page v1
 				</span>
 

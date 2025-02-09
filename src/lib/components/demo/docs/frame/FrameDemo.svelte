@@ -18,8 +18,8 @@
 
 <div class="flex flex-col h-full bg-gray-100 dark:bg-gray-950 relative">
   <!-- Main Content with Original Dropper -->
-    <div class="h-[40px] bg-[#616161] dark:bg-[#424242] flex items-center justify-between px-4">
-    <span class="text-white text-sm">Pipewriter</span>
+    <div class="h-[34px] bg-[#616161] dark:bg-[#424242] flex items-center justify-between px-4">
+    <span class="text-white font-semibold text-xs">Pipewriter</span>
     <button class="text-white/60 hover:text-white">
       <X class="w-4 h-4" />
     </button>

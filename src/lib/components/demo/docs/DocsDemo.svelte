@@ -21,7 +21,7 @@
 
     <!-- Frame Integration -->
     {#if isFrameOpen}
-      <div class="w-[clamp(280px,25vw,400px)] border-l border-zinc-200 dark:border-zinc-800 
+      <div class="-mt-[38px] w-[clamp(280px,25vw,400px)] border-l border-zinc-200 dark:border-zinc-800 
                   bg-white dark:bg-zinc-900 shadow-xl">
         <FrameDemo />
       </div>
