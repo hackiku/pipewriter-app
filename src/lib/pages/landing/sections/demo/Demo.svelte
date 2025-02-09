@@ -10,7 +10,7 @@
 
 <div class="relative">
   <!-- Demo Container -->
-  <div class="relative w-full aspect-[16/10] rounded-lg border bg-zinc-950 overflow-hidden shadow-xl">
+  <div class="relative w-full aspect-[16/10] rounded-2xl border bg-zinc-950 overflow-hidden shadow-xl">
     <!-- Gradient Overlay for Visual Interest -->
     <div class="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-primary/10 
                 pointer-events-none" />

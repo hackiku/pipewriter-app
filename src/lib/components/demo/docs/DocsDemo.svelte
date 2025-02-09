@@ -3,20 +3,20 @@
   import { onMount } from 'svelte';
   import { FileText } from 'lucide-svelte';
   import FrameDemo from './frame/FrameDemo.svelte';
-  import DocsHeader from './DocsHeader.svelte';
-  import DocsBody from './DocsBody.svelte';
+  import Header from './mock-ui/Header.svelte';
+  import Body from './mock-ui/Body.svelte';
 
   let isFrameOpen = true;
 </script>
 
 <div class="flex flex-col h-full bg-white dark:bg-zinc-900 transition-colors">
-  <DocsHeader />
+  <Header />
 
   <!-- Main Content Area -->
   <div class="flex flex-1 relative">
     <!-- Document Area -->
     <div class="flex-1">
-      <DocsBody />
+      <Body />
     </div>
 
     <!-- Frame Integration -->

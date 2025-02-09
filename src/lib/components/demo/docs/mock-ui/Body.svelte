@@ -1,4 +1,4 @@
-<!-- src/lib/components/demo/docs/DocsBody.svelte -->
+<!-- src/lib/components/demo/docs/mock-ui/Body.svelte -->
 <script lang="ts">
   import { fade } from 'svelte/transition';
   
@@ -20,19 +20,6 @@
 
 <div class="max-w-3xl mx-auto py-16 px-12">
   
-	  <!-- Toolbar -->
-  <div class="h-[42px] border-zinc-200 dark:border-zinc-800 relative">
-    <img 
-      src="/demo/assets/docs-toolbar.svg" 
-      alt="Toolbar" 
-      class="h-full w-full object-contain block dark:hidden"
-    />
-    <img 
-      src="/demo/assets/docs-toolbar-dark.svg" 
-      alt="Toolbar" 
-      class="h-full w-full object-contain hidden dark:block"
-    />
-  </div>
 
 	<div class="prose prose-zinc dark:prose-invert max-w-none">
     <!-- Initial content -->
