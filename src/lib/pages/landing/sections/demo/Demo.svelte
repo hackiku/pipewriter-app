@@ -32,7 +32,7 @@
       on:click={() => isVideoOpen = true}
     >
       <Play class="w-5 h-5 mr-2" />
-      Watch Demo
+      Watch Demo (2 min)
     </Button>
   </div>
 </div>

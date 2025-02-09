@@ -1,6 +1,7 @@
 <!-- src/lib/components/demo/docs/frame/FrameDemo.svelte -->
 <script lang="ts">
   import { fade } from "svelte/transition";
+	import { X } from "lucide-svelte"
   import { writable } from "svelte/store";
   import Dropper from '$lib/iframe/layout/Dropper.svelte';
   import TabsDemo from './TabsDemo.svelte';
@@ -17,7 +18,14 @@
 
 <div class="flex flex-col h-full bg-gray-100 dark:bg-gray-950 relative">
   <!-- Main Content with Original Dropper -->
-  <div class="flex-1 overflow-y-auto">
+    <div class="h-[40px] bg-[#616161] dark:bg-[#424242] flex items-center justify-between px-4">
+    <span class="text-white text-sm">Pipewriter</span>
+    <button class="text-white/60 hover:text-white">
+      <X class="w-4 h-4" />
+    </button>
+  </div>
+
+	<div class="flex-1 overflow-y-auto">
     <div class="h-full relative">
       <Dropper />
     </div>
