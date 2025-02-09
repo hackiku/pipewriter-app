@@ -2,11 +2,11 @@
 export const faqs = [
 	{
 		question: "Why build a UX tool in Google Docs?",
-		answer: "Because that's where writers already work! No need to click 5 times in Figma just to edit a headline (with no word counter to save your life). Pipewriter adds UX superpowers to your existing writing workflow, letting you create wireframes and prototypes without leaving your favorite text editor."
+		answer: "Because that's where we writers already work! No need to click 5 times in Figma just to edit a headline (with no word counter to save your life). Pipewriter adds UX superpowers to your existing writing workflow, letting you create wireframes and prototypes without leaving your favorite text editor."
 	},
 	{
 		question: "What exactly do I get with Pipewriter?",
-		answer: "You get the full Docs extension with 90+ UI components, pre-formatted documents, and conversion scripts - all bound to your documents forever. This includes wireframing tools, HTML export capabilities, and upcoming AI features. Plus, you'll get direct support and free updates during the beta period."
+		answer: "You get the full template system and Docs sidebar app, with 90+ UI components, pre-formatted documents, and a bunch of styling & conversion scripts - all bound to your documents forever. This includes wireframing tools, HTML export capabilities, and upcoming AI features. All in one Drive that I update regularly. Plus, you'll get direct support and free updates during the beta period."
 	},
 	{
 		question: "Is this just another no-code tool?",

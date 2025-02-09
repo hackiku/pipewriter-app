@@ -20,16 +20,16 @@
 				</span>
 
 				<!-- Menu Bar -->
-				<div class="flex items-center gap-3 text-lg">
+				<div class="flex items-center gap-3 text-sm">
 					{#each menuItems as item}
 						{#if item === "Pipewriter"}
 							<Dropdown
 								on:click={() => (isDropdownOpen = !isDropdownOpen)}
-								open={isDropdownOpen}
+
 								on:close={() => (isDropdownOpen = false)}
 							>
 								<button
-									class="_text-[13px] text-zinc-600 hover:text-zinc-900
+									class="text-sm text-zinc-600 hover:text-zinc-900
                           dark:text-zinc-400 dark:hover:text-zinc-200"
 								>
 									{item}
@@ -37,7 +37,7 @@
 							</Dropdown>
 						{:else}
 							<button
-								class="text-[13px] text-zinc-600 hover:text-zinc-900
+								class="text-zinc-600 hover:text-zinc-900
                         dark:text-zinc-400 dark:hover:text-zinc-200"
 							>
 								{item}
