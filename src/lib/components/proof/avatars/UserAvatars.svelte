@@ -9,7 +9,7 @@
       count: '190+',
       label: 'reading',
       images: [
-        '/people/writers/jaye-hannah.jpeg',
+        '/people/writers/steena-marie-pierce.jpeg',
         '/people/writers/beatrice-bianchi.jpeg',
         '/people/writers/zaine-morgan.jpg',
         '/people/writers/esma-akalin.jpeg',
@@ -28,7 +28,7 @@
   } as const;
 
   export let initialMode: keyof typeof GROUPS = 'reading';
-  export let switchInterval = 4000;
+  export let switchInterval = 3000;
 
   let currentMode = initialMode;
 

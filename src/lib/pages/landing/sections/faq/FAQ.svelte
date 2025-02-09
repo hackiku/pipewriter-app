@@ -1,80 +1,42 @@
-<!-- src/lib/pages/landing/sections/proof/Proof.svelte -->
+<!-- src/lib/pages/landing/sections/faq/FAQ.svelte -->
 <script lang="ts">
-	import { userTestimonials } from "$data/proof/testimonials/users";
-	import UserCard from "./UserCard.svelte";
-	import FounderCard from "./FounderCard.svelte";
+  import { faqs } from '../../data/faqs';
+  import * as Accordion from '$lib/components/ui/accordion';
 
-	const maxCards = {
-		mobile: 5, // Total cards for mobile (including founder)
-		md: {
-			leftCol: 3,
-			rightCol: 4, // Including founder
-		},
-		lg: {
-			leftCol: 2,
-			midCol: 2, // Including founder
-			rightCol: 2,
-		},
-	};
+  let value = "item-0";
 </script>
 
-<div class="max-w-7xl mx-auto">
-	<!-- Single Column -->
-	<ul class="md:hidden space-y-6">
-		<li><UserCard testimonial={userTestimonials[0]} /></li>
-		<li><UserCard testimonial={userTestimonials[1]} /></li>
-		<li><FounderCard /></li>
-		{#each userTestimonials.slice(2, maxCards.mobile - 1) as testimonial}
-			<li><UserCard {testimonial} /></li>
-		{/each}
-	</ul>
+<div class="max-w-4xl mx-auto">
+  <div class="text-center mb-16">
+    <h2 class="text-4xl font-semibold leading-[1.1] tracking-tight">
+      Questions & Answers
+    </h2>
+  </div>
 
-	<!-- Two Columns -->
-	<div class="hidden md:block lg:hidden">
-		<div class="grid grid-cols-2 gap-6">
-			<!-- Left Column -->
-			<div class="space-y-6">
-				<UserCard testimonial={userTestimonials[0]} />
-				{#each userTestimonials.slice(2, 2 + maxCards.md.leftCol - 1) as testimonial}
-					<UserCard {testimonial} />
-				{/each}
-			</div>
-			<!-- Right Column -->
-			<div class="space-y-6">
-				<UserCard testimonial={userTestimonials[1]} />
-				<FounderCard />
-				{#each userTestimonials.slice(maxCards.md.leftCol + 1, maxCards.md.leftCol + maxCards.md.rightCol - 2) as testimonial}
-					<UserCard {testimonial} />
-				{/each}
-			</div>
-		</div>
-	</div>
-
-	<!-- Three Columns -->
-	<div class="hidden lg:block">
-		<div class="grid grid-cols-3 gap-6">
-			<!-- Left Column -->
-			<div class="space-y-6">
-				<UserCard testimonial={userTestimonials[0]} />
-				{#each userTestimonials.slice(3, 3 + maxCards.lg.leftCol - 1) as testimonial}
-					<UserCard {testimonial} />
-				{/each}
-			</div>
-			<!-- Middle Column -->
-			<div class="space-y-6">
-				<UserCard testimonial={userTestimonials[1]} />
-				<FounderCard />
-				{#each userTestimonials.slice(maxCards.lg.leftCol + 2, maxCards.lg.leftCol + maxCards.lg.midCol) as testimonial}
-					<UserCard {testimonial} />
-				{/each}
-			</div>
-			<!-- Right Column -->
-			<div class="space-y-6">
-				<UserCard testimonial={userTestimonials[2]} />
-				{#each userTestimonials.slice(maxCards.lg.leftCol + maxCards.lg.midCol, maxCards.lg.leftCol + maxCards.lg.midCol + maxCards.lg.rightCol - 1) as testimonial}
-					<UserCard {testimonial} />
-				{/each}
-			</div>
-		</div>
-	</div>
+  <Accordion.Root value={value} onValueChange={(v) => value = v} type="single" collapsible>
+    {#each faqs as faq, i}
+      <Accordion.Item 
+        value={`item-${i}`} 
+        class="border-b border-primary/10 last:border-none
+               data-[state=open]:bg-gradient-to-r data-[state=open]:from-[#3644FE]/10 data-[state=open]:to-[#B345ED]/10 
+               rounded-2xl transition-all duration-300"
+      >
+        <Accordion.Trigger 
+          class="flex w-full py-8 px-8 text-left group [&[data-state=open]>svg]:rotate-180"
+          data-state-chevron-size="24"
+        >
+          <span class="text-xl md:text-2xl font-medium 
+                     group-hover:text-primary transition-colors">
+            {faq.question}
+          </span>
+        </Accordion.Trigger>
+        <Accordion.Content 
+          class="px-8 pb-8 text-lg text-foreground/60
+                 prose prose-gray dark:prose-invert max-w-none"
+        >
+          {faq.answer}
+        </Accordion.Content>
+      </Accordion.Item>
+    {/each}
+  </Accordion.Root>
 </div>

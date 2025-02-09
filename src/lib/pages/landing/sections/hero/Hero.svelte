@@ -56,7 +56,7 @@
 		<UserAvatars 
 			initialMode="reading"
 			switchInterval={3000}
-		/>
+			/>
 
 
 	</div>

@@ -8,17 +8,14 @@
 	import Demo from "./sections/demo/Demo.svelte";
 	// import DocsDemo from "$lib/components/demo/docs/DocsDemo.svelte";
 	import Features from "./sections/features/Features.svelte";
+	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
 	import Proof from "./sections/proof/Proof.svelte";
 	// import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
 	import PricingGrid from "$lib/components/cta/pricing/PricingGrid.svelte";
 	// import Compare from "$lib/components/cta/pricing/comparison/Compare.svelte";
 	import Pricing from "./sections/pricing/Pricing.svelte";
-
-	// proof
-	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
-	// import WriterStep from "./sections/features/proof/WriterStep.svelte";
-	import FounderCard from "./sections/proof/FounderCard.svelte";
-
+	import FAQ from "./sections/faq/FAQ.svelte";
+	
 	// dev & design
 	import BackgroundGrid from "$lib/components/BackgroundGrid.svelte";
 	import ViewportSize from "$lib/components/dev/ViewportSize.svelte";
@@ -33,7 +30,7 @@
 	class="bg-landing dark:bg-[#040D12]
 		fixed inset-0 min-w-screen min-h-screen overflow-hidden -z-10"
 >
-	<BackgroundGrid gridSize="44" speed="10s" opacity="0.4" />
+	<BackgroundGrid gridSize="44" speed="10s" opacity="0.3" />
 </div>
 
 <main
@@ -135,6 +132,9 @@
 		<Pricing />
 	</section>
 	
+	<section class="pb-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+		<FAQ />	
+	</section>
 	
 	<!-- <div class="py-12 bg-blue-200">
 		<LogosMarquee />
