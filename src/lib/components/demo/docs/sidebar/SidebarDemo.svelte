@@ -1,19 +1,34 @@
 <!-- src/lib/components/demo/docs/sidebar/SidebarDemo.svelte -->
-
 <script lang="ts">
-	import { fade } from "svelte/transition";
+  import { fade } from "svelte/transition";
   import { X } from "lucide-svelte";
   import { writable } from "svelte/store";
-  // import Dropper from './Dropper.svelte';
   import TopBar from "$lib/iframe/layout/TopBar.svelte";
-	import Dropper from '$lib/iframe/layout/Dropper.svelte';
+  import Dropper from '$lib/iframe/layout/Dropper.svelte';
+  import { createEventDispatcher } from 'svelte';
   
-  // Simplified stores just for demo
+  const dispatch = createEventDispatcher();
   const activeTab = writable<string | null>(null);
   const showInfo = writable(true);
 
+  // Intercept Dropper events and transform them
   function handleElementSelect(event: CustomEvent<{ elementId: string }>) {
-    console.log('Selected element:', event.detail.elementId);
+    // Map the original element IDs to our section types
+    const sectionMap = {
+      'layout-1': 'zigzag-left',
+      'layout-2': 'zigzag-right',
+      'layout-3': 'horizontal-blurbs',
+      // Add more mappings as needed
+    };
+
+    const sectionType = sectionMap[event.detail.elementId] || event.detail.elementId;
+    
+    // Forward the transformed event to parent
+    dispatch('addSection', {
+      id: crypto.randomUUID(),
+      type: sectionType,
+      // Add any default content as needed
+    });
   }
 </script>
 
@@ -26,23 +41,14 @@
     </button>
   </div>
 
-
-	<section class="flex-none px-2 border-b bg-white dark:bg-background h-11">
+  <section class="flex-none px-2 border-b bg-white dark:bg-background h-11">
     <TopBar />
   </section>
 
   <!-- Main Content Area -->
   <div class="flex-1 relative overflow-clip">
-		<div class="absolute inset-0 -mr-3 sh-3/5">
-      <!-- <div class="p-4"> -->
-        <Dropper on:elementSelect={handleElementSelect} />
-			</div>
-		</div>
-		<!-- <div 
-			class="absolute bottom-0 w-full h-[100%]
-						 bg-gradient-to-t from-gray-100 dark:from-background to-transparent 
-						 pointer-events-none"
-		/> -->
-    
-    <!-- Bottom Fade -->
+    <div class="absolute inset-0 -mr-3">
+      <Dropper on:elementSelect={handleElementSelect} />
+    </div>
+  </div>
 </div>

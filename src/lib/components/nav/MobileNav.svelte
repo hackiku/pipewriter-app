@@ -35,15 +35,15 @@
 {#if isMenuOpen}
   <div 
     transition:slide={{ duration: 200 }}
-    class="md:hidden px-4 py-2 border-t"
+    class="md:hidden absolute top-full right-0 w-2/3 mt-2 bg-background/95 
+           backdrop-blur-sm border shadow-lg"
   >
-    <div class="space-y-2">
+    <nav class="flex flex-col py-2">
       {#each mainNavItems as item}
         <a
           href={item.href}
-          class="block w-full text-left px-3 py-2 text-sm font-medium 
-                 text-foreground hover:bg-accent rounded-md
-                 transition-colors duration-200"
+          class="px-4 py-2 text-sm font-medium text-foreground 
+                 hover:bg-accent transition-colors duration-200"
           on:click={(e) => {
             if (item.onClick) {
               e.preventDefault();
@@ -56,7 +56,7 @@
         </a>
       {/each}
 
-      <div class="px-3 space-y-2">
+      <div class="px-4 pt-2">
         <BuyButton 
           size="default"  
           fullWidth={true}
@@ -65,17 +65,16 @@
           source="nav-mobile"
         />
       </div>
-    </div>
+    </nav>
   </div>
 {/if}
 
 <style>
   /* Prevent body scroll when menu is open */
-  body {
+  :global(body) {
     overflow-y: auto;
   }
-	/* rempoved global to avoid conflicts around webapp */
-  body.menu-open {
+  :global(body.menu-open) {
     overflow-y: hidden;
   }
 </style>

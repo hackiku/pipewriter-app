@@ -14,14 +14,14 @@ export const faqs = [
 	},
 	{
 		question: "How does the HTML export work?",
-		answer: "Select any section of your document and run our export script. It converts your wireframe into clean, semantic HTML with proper accessibility markup. This makes it easy to collaborate with developers or quickly prototype ideas. Perfect for going from copy doc to ~90% ready-to-deploy website."
+		answer: "Wireframes are built with styled headings 1-6. There are Docs scripts to convert them to HTML code that AI can understand. Use the selected prompts to get AI help writing and even converting this code to a live website. You can also add comments in the wireframe to increase precision. I'm actively working on improving these integrations. <a href='https://www.loom.com/share/2dd12f155c834c83bdaa3f9e2cb1e011' target='_blank' class='text-primary hover:underline'>Check out this video</a> for a quick demo."
 	},
 	{
 		question: "Can I use this for client work?",
-		answer: "Absolutely! Many writers use Pipewriter to level up from $500 to $5k projects. The professional wireframes and UX deliverables help you charge more and reduce revision rounds. It's perfect for freelancers and agencies - use it for as many client projects as you want."
+		answer: "Absolutely! It's why I built it for myself. The professional wireframes and UX deliverables help you charge more and reduce revision rounds. It's perfect for freelancers and agencies - use it for as many client projects as you want."
 	},
 	{
-		question: "What happens when you launch the add-on?",
-		answer: "Early access buyers get the best deal! You'll keep lifetime access to all current features through the bound scripts, plus get several months of pro membership when we launch the official Google Docs add-on. The scripts are open-source, so you can even customize them."
+		question: "What does 'lifetime deal' mean exactly?",
+		answer: "You get permanent access to everything in the current version: all templates, bound scripts, and updates. Once I launch the Google Docs add-on and webapp, you'll keep access to these foundation features forever, plus get several months of pro membership in the add-on. The core scripts are open-source and bound to your docs, so you can even customize them. Current early-bird price is $57 (reg. $97) until February 28th — after that, the lifetime deal goes up permanently."
 	}
 ];

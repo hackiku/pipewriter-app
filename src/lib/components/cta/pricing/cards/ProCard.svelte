@@ -3,6 +3,8 @@
 	import { Button } from "$lib/components/ui/button";
 	import { Check, ArrowRight, Lock } from "lucide-svelte";
 	import ProductStat from "../components/ProductStat.svelte";
+	import Timer from "../components/Timer.svelte";
+  import LifetimeTooltip from "../components/LifetimeTooltip.svelte";
 	import CartButton from "$lib/components/cta/buy/CartButton.svelte";
 
 	export let className = "";
@@ -35,12 +37,7 @@
 > -->
 	<!-- Most Popular Badge -->
 	<div class="absolute -top-3 left-1/2 -translate-x-1/2">
-		<div
-			class="px-3 py-1 text-sm font-medium bg-primary/10 text-primary
-                rounded-full border border-primary/20"
-		>
-			Most Popular
-		</div>
+		<Timer />
 	</div>
 
 	<!-- <div class="absolute top-2 right-4 flex gap-2">
@@ -65,11 +62,12 @@
 		<!-- Pricing -->
 		<div class="relative ml-8 mb-8">
 			<div class="flex items-baseline gap-2">
-				<span class="text-5xl font-semibold">$57</span>
+				<span class="text-5xl font-semibold">$59</span>
 				<span class="text-xl text-muted-foreground">lifetime</span>
+				<LifetimeTooltip />
 			</div>
-			<div class="absolute -top-4 -left-10 rotate-[-12deg]">
-				<span class="text-3xl font-medium text-foreground/40 relative">
+			<div class="absolute -top-7 -left-10 rotate-[-12deg]">
+				<span class="text-4xl font-medium text-foreground/40 relative">
 					$97
 					<div
 						class="absolute inset-0 w-[120%] -left-[10%] top-1/2 h-[3px]

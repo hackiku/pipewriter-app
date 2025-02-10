@@ -34,7 +34,7 @@
           class="px-8 pb-8 text-lg text-foreground/60
                  prose prose-gray dark:prose-invert max-w-none"
         >
-          {faq.answer}
+          {@html faq.answer}
         </Accordion.Content>
       </Accordion.Item>
     {/each}

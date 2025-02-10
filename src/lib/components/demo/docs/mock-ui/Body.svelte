@@ -36,15 +36,15 @@
   }
 </script>
 
-<div class="max-w-3xl mx-auto py-24 px-20">
+<div class="max-w-3xl mx-auto py-32 px-20">
   <div class="prose prose-zinc dark:prose-invert max-w-none">
     <!-- Initial content -->
     <h1 class="text-4xl font-semibold mb-6 text-zinc-900 dark:text-white">
-      Looks like this in Docs 
+      Sidebar app in Docs 
     </h1>
     
     <p class="text-xl text-zinc-500 dark:text-zinc-400 mb-12">
-      Click "Insert" then choose a layout to begin...
+      Looks quite like this. Interactive demo coming soon.
     </p>
     
     <!-- Dynamic sections -->
