@@ -2,32 +2,33 @@
 import { pageSEO } from '$data/seo/pages';
 import { seoConfig } from '$data/seo/config';
 import type { RequestHandler } from './$types';
+import { dev } from '$app/environment';
 import path from 'path';
 import fs from 'fs/promises';
 
-interface SitemapEntry {
-	url: string;
-	lastmod: string;
-	priority: number;
-	changefreq: 'always' | 'hourly' | 'daily' | 'weekly' | 'monthly' | 'yearly' | 'never';
-}
-
-async function getBlogPosts(): Promise<SitemapEntry[]> {
+async function getBlogPosts() {
 	try {
-		const contentDir = path.join(process.cwd(), 'src/lib/blog/content');
-		const entries = await fs.readdir(contentDir, { withFileNumbers: true });
+		// Determine the correct content directory path based on environment
+		const contentDir = dev
+			? path.join(process.cwd(), 'src/lib/blog/content')
+			: path.join(process.cwd(), 'build/client/blog/content');
 
+		try {
+			await fs.access(contentDir);
+		} catch (e) {
+			console.warn(`Blog content directory not found at ${contentDir}`);
+			return [];
+		}
+
+		const entries = await fs.readdir(contentDir, { withFileTypes: true });
 		const posts = [];
+
 		for (const entry of entries) {
-			// Skip hidden directories and draft posts
-			if (entry.startsWith('.') || entry.startsWith('_')) continue;
-
-			const postDir = path.join(contentDir, entry);
-			const stats = await fs.stat(postDir);
-
-			if (stats.isDirectory()) {
-				// Check for markdown files that aren't drafts
+			if (entry.isDirectory()) {
+				const postDir = path.join(contentDir, entry.name);
 				const files = await fs.readdir(postDir);
+
+				// Look for published markdown files
 				const mdFile = files.find(file =>
 					file.endsWith('.md') &&
 					!file.includes('xxx') &&
@@ -37,33 +38,33 @@ async function getBlogPosts(): Promise<SitemapEntry[]> {
 				if (mdFile) {
 					const fileStats = await fs.stat(path.join(postDir, mdFile));
 					posts.push({
-						url: `${seoConfig.baseUrl}/blog/${entry}`,
+						url: `${seoConfig.baseUrl}/blog/${entry.name}`,
 						lastmod: fileStats.mtime.toISOString().split('T')[0],
-						priority: 0.6,
-						changefreq: 'monthly'
+						changefreq: 'monthly',
+						priority: 0.6
 					});
 				}
 			}
 		}
+
 		return posts;
 	} catch (error) {
 		console.error('Error reading blog posts:', error);
+		// Return empty array instead of failing completely
 		return [];
 	}
 }
 
 export const GET: RequestHandler = async () => {
 	try {
-		// Define priorities and change frequencies for different types of pages
 		const pageMetadata = {
 			'/': { priority: 1.0, changefreq: 'weekly' },
 			'/blog': { priority: 0.8, changefreq: 'daily' },
-			'/about': { priority: 0.7, changefreq: 'monthly' },
-			'/pricing': { priority: 0.9, changefreq: 'weekly' }
+			'/about': { priority: 0.7, changefreq: 'monthly' }
 		} as const;
 
 		// Process static pages
-		const staticPages: SitemapEntry[] = Object.entries(pageSEO)
+		const staticPages = Object.entries(pageSEO)
 			.filter(([path]) => {
 				return !path.includes('[') &&
 					!path.includes('(space)') &&
@@ -78,7 +79,7 @@ export const GET: RequestHandler = async () => {
 				changefreq: pageMetadata[path]?.changefreq || 'monthly'
 			}));
 
-		// Get blog posts
+		// Get blog posts with better error handling
 		const blogPosts = await getBlogPosts();
 
 		// Combine all entries
@@ -121,4 +122,4 @@ ${allEntries.map(entry => `  <url>
 			}
 		});
 	}
-};
+}
