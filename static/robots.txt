@@ -1,0 +1,47 @@
+# /static/robots.txt
+
+# Global rules
+User-agent: *
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+Disallow: /iframe/
+Disallow: /(space)/
+Disallow: /space/
+
+# AI Crawler Configuration
+User-agent: GPTBot
+Allow: /
+Allow: /blog/
+Allow: /about/
+Allow: /pricing/
+Disallow: /api/
+Disallow: /(space)/
+Disallow: /space/
+Disallow: /early/
+
+User-agent: ChatGPT-User
+Allow: /
+Allow: /blog/
+Allow: /about/
+Allow: /pricing/
+Disallow: /api/
+Disallow: /(space)/
+Disallow: /space/
+Disallow: /early/
+
+# Search Engine Specific
+User-agent: Googlebot
+Allow: /*.js$
+Allow: /*.css$
+Allow: /*.svg$
+Allow: /*.png$
+Allow: /*.jpg$
+Disallow: /(space)/
+Disallow: /space/
+
+# Sitemap Configuration
+Sitemap: https://pipewriter.io/sitemap.xml
+
+# Crawl Optimization
+Crawl-delay: 1
