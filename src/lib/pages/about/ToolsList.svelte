@@ -1,6 +1,6 @@
 <!-- $lib/pages/about/ToolsList.svelte -->
 <script lang="ts">
-  import { tools } from "$lib/data/assets/tools";
+  import { tools } from "$data/assets/tools";
 </script>
 
 <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-8">
