@@ -13,10 +13,10 @@
 
 </script>
 
-  <ComingSoon 
+  <!-- <ComingSoon 
     title="About Us Coming Soon"
     description="Indie-founding this FTW, pls have patience."
-  />
+  /> -->
 
 <Nav />
 

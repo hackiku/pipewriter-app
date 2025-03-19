@@ -8,7 +8,7 @@
   <!-- Full-width image -->
   <div class="absolute inset-0">
     <img 
-      src="/images/caples-ad.webp"
+      src="/pages/about/caples-ad.webp"
       alt="John Caples Famous Piano Ad"
       class="w-full h-full object-cover opacity-20"
     />

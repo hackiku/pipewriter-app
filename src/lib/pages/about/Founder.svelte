@@ -30,7 +30,7 @@
       <div class="absolute bottom-4 -right-2 md:bottom-8 md:-right-4 w-3/5 aspect-square">
         <div class="relative w-full h-full rotate-3 shadow-xl">
           <img 
-            src="/images/gifs/kermit-typewriter.webp"
+            src="/pages/about/kermit-typewriter.webp"
             alt="Kermit typing gif"
             class="w-full h-full object-cover rounded-2xl bg-muted"
           />
