@@ -12,7 +12,7 @@
   import ToolsGrid from "$lib/components/proof/ToolsGrid.svelte";
   import GumroadSection from "./GumroadSection.svelte";
   import { Sparkles } from "lucide-svelte";
-  import { tools } from "$lib/data/assets/tools";
+  import { tools } from "$data/assets/tools";
 
   const toolsToShow = [
     tools.googleDocs,

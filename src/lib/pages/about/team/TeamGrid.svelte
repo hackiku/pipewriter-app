@@ -1,6 +1,6 @@
-<!-- $lib/pages/about/TeamGrid.svelte -->
+<!-- $lib/pages/about/team/TeamGrid.svelte -->
 <script lang="ts">
-  import { team } from "./data/team";
+  import { team } from "../data/team";
   import { fade } from "svelte/transition";
   import { 
     Card,

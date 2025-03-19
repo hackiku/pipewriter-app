@@ -1,11 +1,11 @@
 <!-- routes/(website)/about/+page.svelte -->
 <script lang="ts">
 	import { Sparkles } from "lucide-svelte";
-  import Nav from "$lib/components/Nav.svelte";
-  import Founder from "$lib/pages/about/Founder.svelte";
+  // import AboutPage from "$lib/pages/about/AboutPage.svelte";
+  import Founder from "$lib/pages/about/team/Founder.svelte";
   import PlayPiano from "$lib/pages/about/PlayPiano.svelte";
 	import CaplesAbout from "$lib/pages/about/CaplesAbout.svelte";
-  import TeamGrid from "$lib/pages/about/TeamGrid.svelte";
+  import TeamGrid from "$lib/pages/about/team/TeamGrid.svelte";
   import ToolsList from "$lib/pages/about/ToolsList.svelte";
   import AboutCTA from "$lib/pages/about/AboutCTA.svelte";
 
@@ -17,8 +17,6 @@
     title="About Us Coming Soon"
     description="Indie-founding this FTW, pls have patience."
   /> -->
-
-<Nav />
 
 <main class="bg-background text-foreground">
 
@@ -46,17 +44,17 @@
   </section>
 
   <!-- Each component is now self-contained with its own section wrapper -->
-  <!-- <PlayPiano /> -->
+  <PlayPiano />
   
-	<!-- <CaplesAbout /> -->
+	<CaplesAbout />
 
   <!-- Team section with title -->
-  <!-- <section class="container py-24 border-t">
+  <section class="container py-24 border-t">
     <h2 class="text-3xl font-bold mb-12">Thanks for helping it to life 🫶</h2>
     <TeamGrid />
-  </section> -->
+  </section>
   
-  <!-- <Founder /> -->
+  <Founder />
   
   <!-- Tools section -->
   <section class="container py-24 border-t">

@@ -19,7 +19,7 @@ export const team: TeamMember[] = [
 		lastName: "Karaman",
 		profession: "Technical Writer",
 		role: "Copywriter turned coder Pipewriter to help fellow UX- & copy-writers create beautiful wireframes.",
-		image: "images/people/ivan-karaman.png",
+		image: "/people/team/ivan-karaman.png",
 		fallback: "IK",
 		link: {
 			text: "Get Pipewriter",
@@ -31,7 +31,7 @@ export const team: TeamMember[] = [
 		lastName: "Klyuch",
 		profession: "Apps Script Developer",
 		role: "Created the core Google Docs integration using Apps Script. Made the magic of tables-to-wireframes possible.",
-		image: "images/people/yuri-kluych.png",
+		image: "/people/team/yuri-kluych.png",
 		fallback: "YK",
 		link: {
 			text: "Hire Yury",
@@ -55,7 +55,7 @@ export const team: TeamMember[] = [
 		lastName: "Chkoidze",
 		profession: "Copywriter",
 		role: "Early beta tester and writing buddy. Provided invaluable feedback on UX writing workflows.",
-		image: "images/people/giorgi-chkoidze.png",
+		image: "/people/writers/giorgi-chkoidze.png",
 		fallback: "GC",
 		link: {
 			text: "Hire Giorgi",
@@ -67,7 +67,7 @@ export const team: TeamMember[] = [
 		lastName: "Void",
 		profession: "Cat",
 		role: "Chief nap officer and keyboard warmer. Occasionally provides feedback by walking across keyboards.",
-		image: "images/people/public-void.png",
+		image: "/people/team/public-void.png",
 		fallback: "PV",
 		link: {
 			text: "Long story...",
