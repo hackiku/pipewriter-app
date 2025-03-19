@@ -1,7 +1,7 @@
 <!-- routes/privacy/+page.svelte -->
 
 <script>
-  import EmailForm from '$lib/components/cta/EmailForm.svelte';
+  import EmailForm from '$lib/components/cta/email/EmailForm.svelte';
   const lastUpdated = 'Jun 3, 2024';
 </script>
 

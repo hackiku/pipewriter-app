@@ -23,16 +23,16 @@
             <h3 class="text-2xl font-semibold">Pipewriter</h3>
           </div>
           <p class="text-muted-foreground text-sm max-w-xs">
-            Professional website copy decks in Google Docs. Design-ready templates + sidebar app.
+            UX app for writers in Google Docs
           </p>
-          <div class="pt-2">
+          <!-- <div class="pt-2">
 						<BuyButton
 							size="sm"
 							text="Get Access"
 							source="footer"
 							className="w-fit font-normal"
 						/>
-          </div>
+          </div> -->
         </div>
 
         <!-- Social Icons with improved spacing -->
@@ -90,9 +90,9 @@
     </div>
 
     <!-- Copyright with consistent spacing -->
-    <div class="mt-8 pt-4 border-t border-gray-200 dark:border-gray-800">
-      <div class="text-sm text-muted-foreground">
-        <span>Copyalright © {year} Pipewriter</span>
+    <div class="mt-8 pt-4 __border-t border-gray-200 dark:border-gray-800">
+      <div class="text-xs text-muted-foreground/50">
+        <span>Copyalright © {year}</span>
         <span class="mx-2">|</span>
         <a href="/terms" class="hover:underline">Terms</a>
         <span class="mx-2">|</span>
