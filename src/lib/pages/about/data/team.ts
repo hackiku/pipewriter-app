@@ -35,7 +35,7 @@ export const team: TeamMember[] = [
 		fallback: "YK",
 		link: {
 			text: "Hire Yury",
-			url: "https://www.upwork.com/freelancers/~01c23777388000f1ce"
+			url: "https://www.linkedin.com/in/yury-klyuch"
 		}
 	},
 	{
@@ -65,7 +65,7 @@ export const team: TeamMember[] = [
 	{
 		firstName: "Public",
 		lastName: "Void",
-		profession: "Cat",
+		profession: "Test Pilot",
 		role: "Chief nap officer and keyboard warmer. Occasionally provides feedback by walking across keyboards.",
 		image: "/people/team/public-void.png",
 		fallback: "PV",
