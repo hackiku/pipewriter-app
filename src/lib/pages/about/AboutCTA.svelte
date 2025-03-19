@@ -1,6 +1,8 @@
 <!-- $lib/pages/about/AboutCTA.svelte -->
 <script lang="ts">
-  import EarlyButton from "$lib/components/EarlyButton.svelte";
+  // import EarlyButton from "$lib/components/EarlyButton.svelte";
+  import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
+
 </script>
 
 <section class="container py-24 px-4">
@@ -22,7 +24,7 @@
         </p>
 
         <div class="flex flex-col items-center gap-4 pt-6">
-          <EarlyButton size="lg" />
+          <BuyButton size="lg" />
           
           <p class="text-sm text-muted-foreground">
             Beta Launch Special — $59 One-Time (Until Jan 1st)

@@ -2,8 +2,8 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { Clock } from 'lucide-svelte';
-  import EmailForm from '$lib/components/cta/EmailForm.svelte';
-  import EarlyAccessButton from '$lib/components/cta/EarlyAccessButton.svelte';
+  import EmailForm from "$lib/components/cta/email/EmailForm.svelte";
+  import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
   import { cn } from '$lib/utils';
 
   export let title = "Coming Soon";
@@ -46,11 +46,10 @@
 				<hr>
 
 				<div class="md:w-3/4">
-					<EarlyAccessButton 
+					<BuyButton 
 						text="Get Early Access"
 						showIcon={true}
-						showPrice={true}
-						size='md'
+						showPrice={false}
 					/>
 				</div>
 				

@@ -1,9 +1,9 @@
-<!-- $lib/pages/about/Founder.svelte -->
+<!-- $lib/pages/about/team/Founder.svelte -->
 <script lang="ts">
   import { Button } from "$lib/components/ui/button";
   import { ExternalLink, Linkedin, Rocket, Pen } from "lucide-svelte";
-  import ContactButton from "$lib/components/ContactButton.svelte";
-  import ContactModal from "$lib/components/ContactModal.svelte";
+  import ContactButton from "$lib/components/cta/contact/ContactButton.svelte";
+  import ContactModal from "$lib/components/cta/contact/ContactModal.svelte";
 
   let showContactModal = false;
 </script>

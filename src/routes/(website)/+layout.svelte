@@ -8,7 +8,7 @@
   import Footer from "$lib/components/Footer.svelte";
   import SEO from "$lib/components/SEO.svelte";
 	import BuyDrawer from "$lib/components/cta/buy/BuyDrawer.svelte";
-  import ContactModal from "$lib/components/ContactModal.svelte";
+  // import ContactModal from "$lib/components/cta/contact/ContactModal.svelte";
 
   import { ModeWatcher } from "mode-watcher";
   import { buyStore } from '$lib/stores/buyStore';
@@ -66,5 +66,5 @@
 </div>
 
 {#if $contactModalStore}
-  <ContactModal on:close={() => $contactModalStore = false} />
+  <!-- <ContactModal on:close={() => $contactModalStore = false} /> -->
 {/if}
