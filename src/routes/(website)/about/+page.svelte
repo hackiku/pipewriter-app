@@ -3,8 +3,8 @@
 	import { Sparkles } from "lucide-svelte";
   // import AboutPage from "$lib/pages/about/AboutPage.svelte";
   import Founder from "$lib/pages/about/team/Founder.svelte";
-  import PlayPiano from "$lib/pages/about/PlayPiano.svelte";
-	import CaplesAbout from "$lib/pages/about/CaplesAbout.svelte";
+  import PlayPiano from "$lib/pages/about/piano/PlayPiano.svelte";
+	import CaplesAbout from "$lib/pages/about/piano/CaplesAbout.svelte";
   import TeamGrid from "$lib/pages/about/team/TeamGrid.svelte";
   import ToolsList from "$lib/pages/about/ToolsList.svelte";
   import AboutCTA from "$lib/pages/about/AboutCTA.svelte";
