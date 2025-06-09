@@ -1,48 +1,22 @@
-<!-- src/lib/blog/components/LegalPost.svelte -->
+<!-- src/lib/pages/legal/LegalPage.svelte -->
 <script lang="ts">
-  import { Stars } from "lucide-svelte";
-  import EmailOptin from "$lib/blog/components/cta/EmailOptin.svelte";
-  export let post;
+	import type { LegalPolicy } from './utils/policies';
+	
+	export let policy: LegalPolicy;
 </script>
 
-<article class="container text-foreground md:max-w-3xl smx-auto mt-32">
-	<!-- Header section stays the same -->
-	<header class="space-y-8 mb-16">
-		<div class="space-y-2">
-			{#if post.category}
-				<div class="inline-flex items-center gap-1.5 px-3 py-1 
-										rounded-full bg-primary/10 text-primary border border-primary/20">
-					<Stars class="w-4 h-4" />
-					<span class="text-sm font-medium">{post.category}</span>
-				</div>
-			{/if}
+<article class="container mx-auto max-w-4xl px-4 py-32">
+	<!-- <header class="mb-12 space-y-4">
+		<h1 class="text-4xl font-bold text-foreground">
+			{policy.title}
+		</h1>
+		<p class="text-muted-foreground">
+			Last updated: {policy.lastUpdated}
+		</p>
+	</header> -->
 
-			<div class="flex items-center gap-3 text-sm text-muted-foreground">
-				{#if post.date}
-					<span>{post.date}</span>
-				{/if}
-				{#if post.readingTime}
-					<span>·</span>
-					<span>{post.readingTime}</span>
-				{/if}
-			</div>
-
-			<h1 class="text-4xl sm:text-5xl font-medium leading-tight">
-				{post.title}
-			</h1>
-
-			{#if post.excerpt}
-				<p class="text-xl text-muted-foreground">
-					{post.excerpt}
-				</p>
-			{/if}
-		</div>
-	</header>
-
-	<!-- Content section with minimal prose styling -->
-	<div class="prose prose-zinc dark:prose-invert max-w-none">
-		<svelte:component this={post.content} />
+	<div class="prose prose-zinc dark:prose-invert max-w-none 
+		prose-headings:font-semibold prose-h1:text-5xl md:prose-h1:text-6xl prose-h2:text-2xl prose-h3:text-xl">
+		<svelte:component this={policy.content} />
 	</div>
-
-	<EmailOptin />
 </article>
