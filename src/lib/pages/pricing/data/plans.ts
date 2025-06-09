@@ -3,64 +3,92 @@ import type { Plan } from '../types';
 
 export const plans: Plan[] = [
 	{
-		id: 'lite',
-		name: 'Pipewriter Lite',
-		description: 'Essential tools to start wireframing in Google Docs',
+		id: 'free',
+		name: 'Free',
+		description: 'Get started with essential wireframing tools',
 		price: {
-			amount: 1,
-			period: 'one-time'
+			amount: 0,
+			period: 'forever'
 		},
 		features: [
-			'Single document template',
-			'Basic UX components',
-			'Docs to code/AI scripts',
-			'Drive folder setup'
+			'Basic wireframe elements',
+			'Light/dark mode templates',
+			'Google Docs integration',
+			'Community support'
 		],
 		cta: {
-			text: 'Try for $1',
+			text: 'Start Free',
 			variant: 'outline',
-			href: 'https://gumroad.com/l/pipewriter-lite'
-		}
+			href: 'https://workspace.google.com/marketplace/app/pipewriter/123456789' // Replace with real marketplace URL
+		},
+		badge: 'Always Free'
 	},
 	{
-		id: 'suite',
-		name: 'Writer Suite',
-		description: 'Complete toolkit for UX writing and wireframes',
+		id: 'pro',
+		name: 'Pro',
+		description: 'Full access to professional wireframing toolkit',
 		price: {
-			amount: 89,
-			period: 'one-time'
+			amount: 15,
+			period: 'monthly'
 		},
 		features: [
-			'Everything in Lite',
-			'Full Google Docs sidebar app',
-			'84+ UI components & templates',
-			'AI-ready design system comments',
-			'Code export (HTML/React/Svelte)'
+			'Everything in Free',
+			'84+ premium elements',
+			'Advanced color schemes',
+			'Table & document backgrounds',
+			'AI-powered prompts',
+			'Export capabilities',
+			'Priority support'
 		],
-		badge: 'Most Popular',
+		badge: '14-Day Free Trial',
 		cta: {
-			text: 'Get Suite Access',
+			text: 'Start 14-Day Trial',
 			variant: 'default',
-			href: 'https://gumroad.com/l/pipewriter'
-		}
+			href: 'https://workspace.google.com/marketplace/app/pipewriter/123456789'
+		},
+		highlight: true
 	},
 	{
-		id: 'coming-soon',
-		name: 'Coming Soon',
-		description: 'AI-powered design systems & web editor',
+		id: 'bundle',
+		name: 'Starter Bundle',
+		description: '3 months Pro + premium template collection',
 		price: {
-			amount: null
+			amount: 59,
+			period: 'one-time',
+			savings: 'Save $26'
 		},
 		features: [
-			'Browser-based editor',
-			'AI design system generation',
-			'Team collaboration',
-			'Priority access to beta'
+			'3 months Pro subscription',
+			'100+ premium wireframe templates',
+			'Industry-specific bundles',
+			'SaaS, eCommerce & B2B templates',
+			'Agency-ready deliverables',
+			'Lifetime template access',
+			'VIP onboarding call'
 		],
 		cta: {
-			text: 'Join Waitlist',
+			text: 'Get Bundle',
 			variant: 'secondary',
-			href: '/waitlist'
-		}
+			href: '/early' 
+		},
+		badge: 'Best Value'
+	}
+];
+
+export const annualPlans: Plan[] = [
+	{
+		...plans[0] // Free stays the same
+	},
+	{
+		...plans[1],
+		price: {
+			amount: 144, // $12/month billed annually
+			period: 'annually',
+			monthlyEquivalent: 12
+		},
+		badge: 'Save 20%'
+	},
+	{
+		...plans[2] // Bundle stays the same
 	}
 ];

@@ -2,52 +2,163 @@
 export interface Feature {
 	name: string;
 	description: string;
-	writer: boolean;  // Lite
-	agency: boolean;  // Suite
-	enterprise: boolean;  // Web App
+	free: boolean;
+	pro: boolean;
+	bundle: boolean;
 }
 
-export const features: Feature[] = [
+export const featureCategories = [
 	{
-		name: 'UX Writing Template',
-		description: 'Basic wireframing template to get started',
-		writer: true,
-		agency: true,
-		enterprise: true
+		name: 'Core Elements',
+		features: [
+			{
+				name: 'Basic wireframe elements',
+				description: 'Essential layout components and text blocks',
+				free: true,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Premium element library',
+				description: '84+ advanced components, forms, and layouts',
+				free: false,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'One-click insertion',
+				description: 'Click or Enter/Space to insert at cursor',
+				free: true,
+				pro: true,
+				bundle: true
+			}
+		]
 	},
 	{
-		name: 'Drive Integration',
-		description: 'Work directly in Google Docs with our bound scripts',
-		writer: true,
-		agency: true,
-		enterprise: true
+		name: 'Design & Theming',
+		features: [
+			{
+				name: 'Light/dark mode',
+				description: 'Professional document themes',
+				free: true,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Premium color schemes',
+				description: 'Advanced color palettes and branding',
+				free: false,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Document backgrounds',
+				description: 'Custom backgrounds and table styling',
+				free: false,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Typography controls',
+				description: 'Professional text styles and spacing',
+				free: true,
+				pro: true,
+				bundle: true
+			}
+		]
 	},
 	{
-		name: 'Component Library',
-		description: 'Full access to 84+ UI components and layouts',
-		writer: false,
-		agency: true,
-		enterprise: true
+		name: 'AI & Automation',
+		features: [
+			{
+				name: 'Basic prompts',
+				description: 'Simple content generation helpers',
+				free: false,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Advanced AI prompts',
+				description: 'Custom prompts for your workflow',
+				free: false,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Content generation',
+				description: 'AI-powered wireframe content',
+				free: false,
+				pro: true,
+				bundle: true
+			}
+		]
 	},
 	{
-		name: 'Code Export',
-		description: 'Convert docs to HTML, React, or Svelte components',
-		writer: false,
-		agency: true,
-		enterprise: true
+		name: 'Export & Integration',
+		features: [
+			{
+				name: 'Google Docs integration',
+				description: 'Native sidebar app experience',
+				free: true,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Basic export',
+				description: 'Copy wireframes to other documents',
+				free: false,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Advanced export',
+				description: 'HTML, React component generation',
+				free: false,
+				pro: true,
+				bundle: true
+			}
+		]
 	},
 	{
-		name: 'Design Systems',
-		description: 'Pre-built design systems with AI conversion',
-		writer: false,
-		agency: false,
-		enterprise: true
-	},
-	{
-		name: 'Web Editor',
-		description: 'Browser-based visual editor with real-time preview',
-		writer: false,
-		agency: false,
-		enterprise: true
+		name: 'Templates & Support',
+		features: [
+			{
+				name: 'Basic templates',
+				description: 'Starter wireframe templates',
+				free: true,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Premium template library',
+				description: '100+ industry-specific templates',
+				free: false,
+				pro: false,
+				bundle: true
+			},
+			{
+				name: 'Community support',
+				description: 'Email and community forums',
+				free: true,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'Priority support',
+				description: 'Direct access and faster response',
+				free: false,
+				pro: true,
+				bundle: true
+			},
+			{
+				name: 'VIP onboarding',
+				description: 'Personal setup call with founder',
+				free: false,
+				pro: false,
+				bundle: true
+			}
+		]
 	}
 ];
+
+export const features: Feature[] = featureCategories.flatMap(category => category.features);

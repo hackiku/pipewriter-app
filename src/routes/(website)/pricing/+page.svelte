@@ -1,7 +1,6 @@
-<!-- src/routes/(website)/blog/+page.svelte -->
+<!-- src/routes/(website)/pricing/+page.svelte -->
 <script lang="ts">
   import PricingPage from "$lib/pages/pricing/PricingPage.svelte";
-  export let data;
 </script>
 
 <PricingPage />
