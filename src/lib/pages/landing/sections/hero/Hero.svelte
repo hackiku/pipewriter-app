@@ -31,12 +31,11 @@
               max-w-[40ch] mb-2"
 		> -->
 		<p
-			class="text-xl sm:text-[3vw] md:text-2xl lg:text-[2.5vw]
+			class="text-xl sm:text-[3vw] md:text-2xl lg:text-[2.25vw]
               text-muted-foreground md:leading-relaxed
-              max-w-[40ch] mb-4"
+              max-w-[30ch] mb-4"
 		>
-			Wireframes in Google Docs + AI workflows. Prototype where you write and charge
-			more for deliverables.
+			Wireframes in Google Docs to prototype right where you write.
 		</p>
 
 		<BuyButton

@@ -17,13 +17,16 @@
     <div class="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:gap-12">
       <!-- Brand & Social - Optimized for all screen sizes -->
       <div class="lg:col-span-5 flex flex-col justify-between">
-        <div class="space-y-4">
+        <div class="space-y-1">
           <div class="flex items-center gap-1">
             <div>✍️</div>
             <h3 class="text-2xl font-semibold">Pipewriter</h3>
           </div>
-          <p class="text-muted-foreground text-sm max-w-xs">
+          <p class="text-muted-foreground text-md max-w-xs">
             UX app for writers in Google Docs
+          </p>
+          <p class="text-muted-foreground text-md max-w-xs">
+					<span>Copyalright © {year}</span>
           </p>
           <!-- <div class="pt-2">
 						<BuyButton
@@ -58,12 +61,12 @@
 
       <!-- Quick Links - Improved responsive behavior -->
       <div class="lg:col-span-3">
-        <h4 class="text-lg font-medium mb-4">Quick Links</h4>
+        <h4 class="text-xs text-muted-foreground font-medium mb-4 uppercase">Links</h4>
         <nav class="grid gap-2 text-sm">
           {#each mainNavItems as item}
             <a
               href={item.href}
-              class="text-muted-foreground hover:text-foreground transition-colors w-fit"
+              class="text-lg text-foreground/90 hover:text-foreground transition-colors w-fit"
               on:click={(e) => {
                 if (item.onClick) {
                   e.preventDefault();
@@ -79,12 +82,12 @@
 
       <!-- Newsletter - Better spacing and alignment -->
       <div class="lg:col-span-4">
-        <h4 class="text-lg font-bold mb-4">UX-up your inbox</h4>
+        <h4 class="text-lg font-semibold mb-4">UX-up your inbox</h4>
         <EmailForm 
 				  source="footer" 
-				  buttonText="Loop me in" 
+				  buttonText="Subscribe" 
 					size="sm"
-					wrap={true}
+					wrap={false}
 				/>
       </div>
     </div>

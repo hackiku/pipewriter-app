@@ -15,7 +15,7 @@
 	// import Compare from "$lib/components/cta/pricing/comparison/Compare.svelte";
 	import Pricing from "./sections/pricing/Pricing.svelte";
 	import FAQ from "./sections/faq/FAQ.svelte";
-	
+
 	// dev & design
 	import BackgroundGrid from "$lib/components/BackgroundGrid.svelte";
 	import ViewportSize from "$lib/components/dev/ViewportSize.svelte";
@@ -54,11 +54,37 @@
 		</div>
 	</section>
 
-	<!-- <FounderCard /> -->
+	<!-- Features Section -->
+	<section
+		class="relative pt-24 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
+	>
+		<h2
+			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
+              font-bold leading-[1.3] tracking-tight mb-16
+              max-w-[20ch] mx-auto text-center
+							{HEADLINE}"
+		>
+			10× Your Copy Decks <br />(yes, in GDocs)
+		</h2>
+
+		<div class="flex space-between w-full gap-12">
+			<div class="aspect-video w-2/3 bg-neutral-900/30">
+				
+			</div>
+			
+			<h3 class="text-xl text-center font-medium text-foreground/60">
+				Battle-tested writing for the bestest
+			</h3>
+
+		</div>
+		
+	</section>
+	
+	<LogosMarquee />
 
 	<!-- Features Section -->
 	<section
-		class="relative py-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
+		class="relative py-24 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
 	>
 		<h2
 			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
@@ -69,23 +95,18 @@
 			Write 10× Copy Decks <br />in Google Docs
 		</h2>
 
+
 		<Features />
 	</section>
 
-	<div class="_py-12">
+
+	
+	<div class="__py-12">
 		<h3 class="text-center font-medium text-foreground/60">
 			Battle-tested writing for the bestest
 		</h3>
 		<LogosMarquee />
-		<!-- <LogosMarquee /> -->
 	</div>
-
-	<!-- App Demo Section -->
-	<!-- <section class="relative pt-24 border-t max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-    <div class="min-h-[80vh]">
-      <AppDemo />
-    </div>
-  </section> -->
 
 	<!-- Social Proof -->
 	<!-- <section class="py-24 bg-red-800/20"> -->
@@ -107,7 +128,7 @@
 					dark:from-zinc-950/80 dark:to-[#0A0F16]/20
 					bacskdrop-blur-sm"
 	>
-	<!-- <section
+		<!-- <section
 		class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
 					 dark:bg-zinc-950 /60 border-t ___bg-muted-foreground/5"
 	> -->
@@ -128,14 +149,14 @@
 				Wireframe Where you Already Write
 			</h2>
 		</div>
-		
+
 		<Pricing />
 	</section>
-	
+
 	<section class="pb-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-		<FAQ />	
+		<FAQ />
 	</section>
-	
+
 	<!-- <div class="py-12 bg-blue-200">
 		<LogosMarquee />
 	</div> -->

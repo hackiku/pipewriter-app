@@ -12,7 +12,7 @@ import { contactModalStore } from '$lib/stores/contactModalStore';
 export const mainNavItems: NavItem[] = [
 	// { href: "/product", label: "Product" },
 	{ href: "/about", label: "About" },
-	{ href: "/ai", label: "AI" },
+	// { href: "/ai", label: "AI" },
 	{ href: "/pricing", label: "Pricing" },
 	{ href: "/blog", label: "Blog" },
 	// {	href: "",	label: "Contact",
