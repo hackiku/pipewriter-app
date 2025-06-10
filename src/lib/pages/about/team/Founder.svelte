@@ -41,8 +41,8 @@
     <!-- Content -->
     <div class="space-y-8">
       <div class="space-y-3">
-        <h2 class="text-3xl font-bold">Hi I'm Ivan 👋</h2>
-        <p class="text-lg text-primary font-medium">Copywriter turned Product Developer</p>
+        <h2 class="text-3xl font-bold">Hi I'm Ivan</h2>
+        <p class="text-lg text-primary font-medium">Copyrighter turned engineer</p>
       </div>
 
       <div class="space-y-4 text-muted-foreground">

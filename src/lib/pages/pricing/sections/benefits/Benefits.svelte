@@ -1,65 +1,143 @@
 <!-- src/lib/pages/pricing/sections/benefits/Benefits.svelte -->
 <script lang="ts">
-	const sections = [
+  import { FileText, Zap, Users, ArrowRight } from "lucide-svelte";
+  
+  const benefits = [
     {
-      title: "Start in Google Docs",
-      subtitle: "Where Writers Feel at Home",
-      description: "No more juggling between Figma, Notion, and endless video calls. Write and wireframe in the environment you already know. Our sidebar app adds UX superpowers to your documents.",
-      align: "right"
+      id: 'native',
+      icon: FileText,
+      badge: 'Native Integration',
+      title: 'Wireframe Where You Already Write',
+      description: 'No more juggling between Figma, Notion, and endless video calls. Create professional wireframes directly in Google Docs with our sidebar app.',
+      testimonial: {
+        quote: "I've never seen a tool like this that works natively in Docs. This changes everything for us UX writers.",
+        author: "Eoin Cronolly",
+        role: "SaaS Copywriter",
+        image: "/people/writers/eoin-cronolly.jpeg"
+      },
+      align: 'left'
     },
     {
-      title: "Export to Reality",
-      subtitle: "From Doc to Development",
-      description: "Generate production-ready code that developers actually want to use. Export to HTML, React, or Svelte with our AI-powered design system integration.",
-      align: "left"
+      id: 'speed',
+      icon: Zap,
+      badge: 'Lightning Fast',
+      title: 'Click or Enter/Space to Insert',
+      description: 'Professional wireframe elements at your fingertips. Build complete landing page wireframes in minutes, not hours.',
+      testimonial: {
+        quote: "Going from copy doc to a website that's around 90% ready to deploy is the exact thing I've been looking for.",
+        author: "Matthew Szymanski", 
+        role: "Copywriter & Dev",
+        image: "/people/writers/matthew-szymanski.png"
+      },
+      align: 'right'
     },
     {
-      title: "Own Your Process",
-      subtitle: "No More Design By Committee",
-      description: "Lead product development with words first. Create high-fidelity wireframes that communicate your vision clearly, before a single pixel is pushed.",
-      align: "right"
+      id: 'results',
+      icon: Users,
+      badge: 'Client Results',
+      title: 'Charge More, Revise Less',
+      description: 'Professional deliverables that clients understand immediately. Fewer revision rounds, higher project values.',
+      testimonial: {
+        quote: "Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask.",
+        author: "Giorgi C.",
+        role: "Freelance Copywriter", 
+        image: "/people/writers/giorgi-chkoidze.png"
+      },
+      align: 'left'
     }
   ];
 </script>
 
-<section class="relative py-32 border-t border-border/50">
-  <div class="absolute inset-0 bg-grid-white/[0.02] bg-[size:32px]" />
+<div class="container mx-auto">
   
-  {#each sections as section, i}
-    <div class="container mb-32 last:mb-0">
+  <!-- Benefits Zigzag -->
+  <div class="space-y-32 max-w-7xl mx-auto">
+    {#each benefits as benefit, i}
       <div class="grid lg:grid-cols-2 gap-16 items-center">
-        {#if section.align === 'left'}
-          <div class="relative aspect-square lg:aspect-auto lg:h-[32rem] bg-gradient-to-tr from-primary/10 to-primary/5 rounded-lg overflow-hidden">
-            <!-- Image placeholder -->
-          </div>
-        {/if}
         
-        <div class="space-y-8 {section.align === 'right' ? 'lg:order-first' : ''}">
-          <div class="space-y-2">
-            <h4 class="text-sm tracking-wide text-primary/80 uppercase">
-              {section.subtitle}
-            </h4>
-            <h3 class="text-4xl md:text-5xl font-light tracking-tight leading-tight">
-              {section.title}
-            </h3>
+        <!-- Content -->
+        <div class="space-y-8 {benefit.align === 'right' ? 'lg:order-2' : ''}">
+          
+          <!-- Badge & Icon -->
+          <div class="flex items-center gap-4">
+            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
+              <svelte:component this={benefit.icon} class="w-6 h-6 text-primary" />
+            </div>
+            <span class="px-3 py-1 text-sm font-medium rounded-full
+                         bg-primary/10 text-primary border border-primary/20">
+              {benefit.badge}
+            </span>
           </div>
-          <p class="text-xl text-muted-foreground leading-relaxed">
-            {section.description}
-          </p>
+          
+          <!-- Title & Description -->
+          <div class="space-y-4">
+            <h3 class="text-3xl md:text-4xl font-semibold leading-tight">
+              {benefit.title}
+            </h3>
+            <p class="text-xl text-muted-foreground leading-relaxed">
+              {benefit.description}
+            </p>
+          </div>
+          
+          <!-- Testimonial Card -->
+          <div class="relative p-6 rounded-xl border bg-card/50 backdrop-blur-sm">
+            <blockquote class="text-lg font-medium mb-4 text-muted-foreground">
+              "{benefit.testimonial.quote}"
+            </blockquote>
+            <div class="flex items-center gap-3">
+              <img 
+                src={benefit.testimonial.image} 
+                alt={benefit.testimonial.author}
+                class="w-10 h-10 rounded-full"
+              />
+              <div>
+                <div class="font-medium">{benefit.testimonial.author}</div>
+                <div class="text-sm text-muted-foreground">{benefit.testimonial.role}</div>
+              </div>
+            </div>
+          </div>
+          
         </div>
         
-        {#if section.align === 'right'}
-          <div class="relative aspect-square lg:aspect-auto lg:h-[32rem] bg-gradient-to-tr from-primary/10 to-primary/5 rounded-lg overflow-hidden">
-            <!-- Image placeholder -->
+        <!-- Visual -->
+        <div class="relative {benefit.align === 'right' ? 'lg:order-1' : ''}">
+          <div class="aspect-square rounded-2xl 
+                      bg-gradient-to-br from-primary/5 to-primary/10
+                      border border-primary/10 overflow-hidden
+                      flex items-center justify-center">
+            
+            <!-- Placeholder for future demos/screenshots -->
+            <div class="text-center space-y-4 p-8">
+              <svelte:component this={benefit.icon} class="w-16 h-16 text-primary/30 mx-auto" />
+              <div class="text-sm text-muted-foreground">
+                {benefit.badge} Preview
+              </div>
+            </div>
+            
           </div>
-        {/if}
+        </div>
+        
       </div>
-    </div>
-  {/each}
-</section>
+    {/each}
+  </div>
 
-<style>
-  .bg-grid-white {
-    background-image: radial-gradient(circle, currentColor 1px, transparent 1px);
-  }
-</style>
+  <!-- Bottom CTA -->
+  <div class="text-center mt-24 p-12 rounded-2xl 
+              bg-gradient-to-r from-primary/5 to-primary/10 
+              border border-primary/10">
+    <h3 class="text-2xl font-semibold mb-4">
+      Ready to Transform Your Writing Workflow?
+    </h3>
+    <p class="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
+      Join hundreds of copywriters and UX writers who've upgraded their deliverables
+    </p>
+    <a href="https://workspace.google.com/marketplace/app/pipewriter/123456789"
+       class="inline-flex items-center gap-2 px-8 py-4 rounded-lg
+              bg-gradient-to-r from-[#3644FE] to-[#B345ED] text-white
+              hover:shadow-xl transition-all text-lg font-medium">
+      Start 14-Day Free Trial
+      <ArrowRight class="w-5 h-5" />
+    </a>
+  </div>
+  
+</div>

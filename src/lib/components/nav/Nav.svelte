@@ -5,8 +5,11 @@
   import Logo from "./Logo.svelte";
   import MobileNav from "./MobileNav.svelte";
   import ModeToggle from "./ModeToggle.svelte";
-  import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
+  import { GetStartedButton, MarketplaceButton } from "$lib/components/cta/signin";
   import { mainNavItems } from "$data/navigation";
+
+  // Control when to show marketplace button (set to true after approval)
+  export let showMarketplaceButton = false;
 
   let isMenuOpen = false;
   let isVisible = true;
@@ -79,14 +82,24 @@
         </div>
 
         <!-- Desktop Actions -->
-        <div class="hidden md:flex items-center gap-4">
+        <div class="hidden md:flex items-center gap-3">
           <ModeToggle />
-          <BuyButton
-            size="default"
-            iconOnly={false}
-            text="Early Access"
-            source="nav"
-          />
+          
+          <div class="flex items-center gap-2">
+            {#if showMarketplaceButton}
+              <MarketplaceButton 
+                variant="icon"
+                size="sm"
+                source="nav-marketplace"
+              />
+            {/if}
+            
+            <GetStartedButton
+              size="default"
+              text="Get Started"
+              source="nav"
+            />
+          </div>
         </div>
 
         <!-- Mobile Navigation -->
