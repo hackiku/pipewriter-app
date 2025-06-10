@@ -16,7 +16,7 @@
 <div class="container mx-auto px-4">
 	
 	<!-- Billing Toggle -->
-	<div class="flex items-center justify-center mb-16">
+	<!-- <div class="flex items-center justify-center mb-16">
 		<div class="flex items-center gap-4 p-1 rounded-full border bg-muted/30">
 			<label class="flex items-center gap-3 px-4 py-3 rounded-full cursor-pointer
 										{!isAnnual ? 'bg-background shadow-sm' : 'text-muted-foreground'} 
@@ -48,7 +48,7 @@
 				</span>
 			</label>
 		</div>
-	</div>
+	</div> -->
 
 	<!-- Plans Grid -->
 	<div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
