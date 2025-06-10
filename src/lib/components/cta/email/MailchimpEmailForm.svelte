@@ -2,7 +2,7 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import * as Icon from 'lucide-svelte';
-  import type { SubscribeResponse } from '$lib/server/email/types';
+  import type { SubscribeResponse } from '$lib/server/subscribe';
   import WriterPlaceholder from './WriterPlaceholder.svelte';
   import { styles, defaultProps, type Size } from './styles';
 
@@ -34,7 +34,7 @@
 
     try {
       // Choose endpoint based on whether this is for doc delivery
-      const endpoint = isDocDelivery ? '/api/export' : '/api/email/subscribe';
+      const endpoint = isDocDelivery ? '/api/export' : '/api/subscribe';
       const payload = isDocDelivery 
         ? { email, content, format, source }
         : { email, source };
