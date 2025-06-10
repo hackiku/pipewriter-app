@@ -55,13 +55,12 @@
     <Benefits />
   </section>
   
-<SignUpForm 
-  variant="compact"
-  showBenefits={false}
-  showSocialProof={true}
-  className="max-w-md mx-auto"
-/>
-
+	<SignUpForm 
+		variant="compact"
+		showBenefits={false}
+		showSocialProof={true}
+		className="max-w-md mx-auto"
+	/>
 
   <!-- Comparison Section -->
   <section class="py-24 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">

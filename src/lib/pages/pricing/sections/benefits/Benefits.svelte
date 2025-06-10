@@ -120,24 +120,5 @@
       </div>
     {/each}
   </div>
-
-  <!-- Bottom CTA -->
-  <div class="text-center mt-24 p-12 rounded-2xl 
-              bg-gradient-to-r from-primary/5 to-primary/10 
-              border border-primary/10">
-    <h3 class="text-2xl font-semibold mb-4">
-      Ready to Transform Your Writing Workflow?
-    </h3>
-    <p class="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
-      Join hundreds of copywriters and UX writers who've upgraded their deliverables
-    </p>
-    <a href="https://workspace.google.com/marketplace/app/pipewriter/123456789"
-       class="inline-flex items-center gap-2 px-8 py-4 rounded-lg
-              bg-gradient-to-r from-[#3644FE] to-[#B345ED] text-white
-              hover:shadow-xl transition-all text-lg font-medium">
-      Start 14-Day Free Trial
-      <ArrowRight class="w-5 h-5" />
-    </a>
-  </div>
   
 </div>

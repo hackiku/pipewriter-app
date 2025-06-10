@@ -42,7 +42,7 @@ export const plans: Plan[] = [
 		],
 		badge: '14-Day Free Trial',
 		cta: {
-			text: 'Start 14-Day Trial',
+			text: 'Start Free Trial',
 			variant: 'default',
 			href: 'https://workspace.google.com/marketplace/app/pipewriter/123456789'
 		},

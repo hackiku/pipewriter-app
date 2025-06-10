@@ -43,7 +43,7 @@
   <!-- Popular badge -->
   {#if plan.badge && isPopular}
     <div class="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-      <div class="px-4 py-2 rounded-full text-sm font-medium
+      <div class="px-4 py-2 rounded-full text-xs font-medium
                   bg-gradient-to-r from-[#3644FE] to-[#B345ED] text-white
                   shadow-lg">
         {plan.badge}
