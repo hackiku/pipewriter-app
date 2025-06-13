@@ -4,7 +4,7 @@
 
 ## Who We Are
 
-Pipewriter is built by writers, for writers. We're a small team (okay, mostly just me - Ivan) who believes that copywriters, UX writers, and content strategists deserve product development tools as sophisticated as those used by designers and developers. After all, great products start with great words.
+Pipewriter is built by writers, for writers. "We" a small team of one (it's a-me, Ivan) who believes that copywriters, UX writers, and content strategists deserve product development tools as sophisticated as those used by designers and developers. After all, great products start with great words. Even movie films have screenplays, after all. 
 
 **Company Details:** Pipewriter OÜ, registered at Sepapaja 6, Tallinn 15551, Estonia, reg. no. 14904870. We're incorporated in Estonia but serve writers worldwide who want to create better documents in Google Docs.
 
@@ -16,16 +16,42 @@ Our add-on provides pre-made elements (tables, layouts, components) that you can
 
 ## Information We Collect
 
-### When You Sign In
-We use Google's authentication system (OAuth) to verify who you are. When you install our add-on, we receive your name, email address, and basic Google account information. We don't get your password - Google handles all the security stuff because they're much better at it than a solo developer who needs sleep (being a biological entity and all).
-
 ### How Our Add-On Works
-Here's the technical bit: our add-on requires permission to "view and manage your Google Docs documents." This sounds broader than it is. In practice, we only access documents where you've specifically opened our sidebar. We use this permission to insert our pre-made elements at your cursor position - think of it like a really sophisticated copy-paste operation.
 
-**Important clarification:** We cannot and do not read the content of your documents. Our add-on copies tables and layouts from template documents in our Google Drive and pastes them into your document where you click. It's a one-way operation - content flows from our templates to your document, never the other way around.
+Here's the technical bit: our add-on requires permission to "view and manage your Google Docs documents." This sounds broader than it is. In practice, we only access documents where you've specifically opened our sidebar or used our menu features. We use this permission to insert our pre-made elements at your cursor position - think of it like a really sophisticated copy-paste operation. 
+
+We also provide HTML conversion and AI prompt features that process your document content, but crucially, this processing happens entirely within Google's infrastructure using Google Apps Script. When you use our HTML export feature or insert AI prompts, your document content is processed locally within Google's servers and never transmitted to our external servers. The conversion logic runs as part of Google's platform, reads your document headings and text, transforms them according to our formatting rules, and either inserts the results back into your document or copies them to your clipboard - all without your content ever leaving Google's secure environment.
+
+**Important clarification:** We cannot and do not read your documents for any purpose other than the specific features you activate. When you insert an element, we're copying from our template library to your document. When you use HTML conversion, Google's servers are processing your content locally according to our formatting scripts, not sending your data to external services.
+
+### Google OAuth Permissions Explained
+
+Our add-on requests three specific Google permissions:
+
+**Current Document Editing** (`https://www.googleapis.com/auth/documents.currentonly`): This scope is essential for modifying the document you’re actively working on in terms of design, look, feel and wireframing functionality:
+- changing background colors
+- editing table format to simulate designing wireframes
+- formatting headings and text
+- transforming selected sections into HTML for AI integrations.
+
+Because it’s limited to the “current document only,” this scope cannot access any of your other Google Docs. It ensures Pipewriter only touches the doc you’re actively working on.
+
+**Document Access (Template Injection)** (`https://www.googleapis.com/auth/documents`): This allows us to insert content into your Google Docs and process document content for features you explicitly activate. While the permission name sounds broad, we use it only for the specific purpose of copying pre-designed elements from our template library and pasting them where you click. These elements are kept in a separate Google Doc owned by Pipewriter; what the permission does is essentially just give you access to the template document from the document you are working on.
+
+**Sidebar Interface** (`https://www.googleapis.com/auth/script.container.ui`): This displays our element picker, AI tools, color customization, and other features in Google Docs' sidebar.
+
+**Technical Reality:** Our add-on operates through Google Apps Script, which means all document processing happens within Google's secure infrastructure. We read from template documents in *our* Google Drive (not yours) to insert elements, and we process *your* document content only for the specific features you activate - but this processing occurs locally within Google's servers, not on our external servers. We cannot access your other Google Drive files, monitor your documents when our add-on isn't active, or retrieve your document content for any purpose beyond the immediate feature you're using.
+
+**Data Flow Guarantee:** Your document content never leaves Google's infrastructure when using our HTML conversion, prompt insertion, or any other processing features. All text analysis, formatting, and content generation happens through Google Apps Script running within Google's secure environment, ensuring your confidential content remains within Google's privacy and security boundaries at all times.
+
 
 ### Usage and Preferences
-We collect information about how you use our add-on to make it better. This includes which elements you insert most often, your preferred themes (light or dark), and any customization settings you choose. We also store any custom prompts or preferences you create within our service to provide you with a personalized experience.
+
+We collect information about how you use our add-on to make it better. This includes which elements you insert most often, your preferred themes (light or dark), and any customization settings you choose. 
+
+**Personal Prompt Library**: To get you started quickly, we provide a curated set of default AI prompts for common writing tasks (like "polish copy" or "write a feature description"). These starter prompts are copied to your personal prompt library when you first sign up, where you can edit them, create new ones, or delete any you don't need. Your prompt library is stored securely in your individual account space - think of it like having your own private collection of writing templates that travels with you across devices.
+
+We designed this system so you can build a personalized set of AI prompts that match your writing style and client needs, starting from our professionally crafted defaults. Your custom prompts remain in your private account and are only used when you explicitly choose to apply them to your documents.
 
 If you purchase our premium templates, we keep records of your purchases and download activity. For subscription users, we track usage patterns to ensure our service remains fast and reliable.
 
@@ -66,7 +92,7 @@ You can also revoke our add-on's access to your Google account at any time throu
 
 When you purchase our premium templates, you're buying the right to use them in your projects. The templates themselves remain our intellectual property, but any content you add to them is yours. You can use our templates for client work, internal projects, or personal use, but you can't resell or redistribute the templates themselves.
 
-Any custom prompts, settings, or modifications you create within Pipewriter belong to you. We may analyze usage patterns across all users to improve our service, but we don't read individual custom content or share it with anyone.
+Any custom prompts, settings, or modifications you create within Pipewriter belong to you. We may analyze usage patterns across all users to improve our service, but we don't read individual custom content or share it with anyone. In fact, we have no way to access your content, since it's secured by Google Docs.
 
 ## AI and Future Features
 
