@@ -53,15 +53,10 @@
 
 <div class="space-y-6">
   <!-- Section Header -->
-  <div class="text-center">
-    <h3 class="text-lg font-medium text-muted-foreground mb-4">
-      See more examples
-    </h3>
-  </div>
 
   <!-- Interactive Marquee -->
   <button 
-    class="w-full overflow-hidden py-8"
+    class="w-full overflow-hidden py-2"
     on:mouseenter={handleMouseEnter}
     on:mouseleave={handleMouseLeave}
   >

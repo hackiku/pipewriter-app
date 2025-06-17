@@ -8,7 +8,8 @@
   export let fullWidth = false;
   export let text = "Get Started";
   export let subtext = "";
-  export let href = "https://app.pipewriter.io";
+  // export let href = "https://app.pipewriter.io";
+  export let href = "/waitlist";
   export let source = "default";
   export let variant: "primary" | "outline" | "minimal" = "primary";
   export let showIcon = true;

@@ -11,19 +11,26 @@
 
 <div class="relative h-full flex items-start justify-center pt-[22vh]">
 	
-	<div class="-z-10">
+	<!-- <div class="-z-10">
 		<StickerBackground opacity="0.6" />
-	</div>
+	</div> -->
 
 	<div class="flex flex-col gap-4 items-center text-center">
 
 
-		<h1
+		<!-- <h1
 			class="{HEADLINE} text-[7vh] md:text-[10vh] lg:text-[12vh]
               font-medium leading-[1.1] tracking-tight
               max-w-[20ch] mx-auto"
 		>
-			Wireframes in Google Docs
+			Wireframes in <br />Google Docs
+		</h1> -->
+		<h1
+			class="{HEADLINE} text-[7vh] md:text-[10vh] lg:text-[10vh]
+              font-medium leading-[1.1] tracking-tight
+              max-w-[20ch] mx-auto"
+		>
+			Wireframes for Writers <br />in Google Docs
 		</h1>
 
 		<!-- <p
