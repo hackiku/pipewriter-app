@@ -1,7 +1,8 @@
 <!-- src/lib/pages/landing/sections/hero/Hero.svelte -->
 <script lang="ts">
-	import { FileText } from "lucide-svelte";
+	import { FileText, Hourglass } from "lucide-svelte";
 	import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
+	import GetStartedButton from "$lib/components/cta/signin/GetStartedButton.svelte";
 	import StickerBackground from "./StickerBackground.svelte";
 	// import ClientAvatars from "$lib/components/proof/avatars/ClientAvatars.svelte";
 	import UserAvatars from "$lib/components/proof/avatars/UserAvatars.svelte";
@@ -22,7 +23,7 @@
               font-medium leading-[1.1] tracking-tight
               max-w-[20ch] mx-auto"
 		>
-			UX App for Writers
+			Wireframes in Google Docs
 		</h1>
 
 		<!-- <p
@@ -35,28 +36,29 @@
               text-muted-foreground md:leading-relaxed
               max-w-[30ch] mb-4"
 		>
-			Wireframes in Google Docs to prototype right where you write.
+			Writer-native add-on + templates to prototype right where you write.
 		</p>
 
-		<BuyButton
+		<GetStartedButton
 			size="lg"
 			text="Early Access"
-			showPrice={false}
 			source="hero"
-			price="— $97"
 		/>
 
+		<div class="text-xs text-foreground/50">
+			<!-- <Hourglass class="w-6 h-6" /> -->
+			⏳ pending Google Marketplace approval
+		</div>
 		<!-- <ClientAvatars
 			mode="writer"
 			count={46}
 			label="writers"
 		/> -->
 		
-		<UserAvatars 
+		<!-- <UserAvatars 
 			initialMode="reading"
 			switchInterval={3000}
-			/>
-
+			/> -->
 
 	</div>
 </div>

@@ -46,28 +46,39 @@
 	</section>
 
 	<!-- Demo Section -->
-	<!-- <section
+	<section
 		class="relative -mt-[10vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
 	>
 		<Demo />
+		<!-- <DocsDemo /> -->
 		<div class="max-w-sm mx-auto my-6">
+			<!-- <WriterStep /> -->
 		</div>
-	</section> -->
+	</section>
 
 	<!-- Features Section -->
 	<section
-		class="relative _pt-24 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
+		class="relative pt-24 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
 	>
+		<h2
+			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
+              font-bold leading-[1.3] tracking-tight mb-16
+              max-w-[20ch] mx-auto text-center
+							{HEADLINE}"
+		>
+			10× Your Copy Decks with the power of UX
+		</h2>
 
-		<Samples />
-
-		<!-- <div class="flex space-between w-full gap-12">
+		<div class="flex space-between w-full gap-12">
 			<div class="aspect-video w-2/3 bg-neutral-900/30">
+				
 			</div>
+			
 			<h3 class="text-xl text-center font-medium text-foreground/60">
 				Battle-tested writing for the bestest
 			</h3>
-		</div> -->
+
+		</div>
 		
 	</section>
 	
@@ -83,7 +94,7 @@
               max-w-[20ch] mx-auto text-center
 							{HEADLINE}"
 		>
-			Write 10× Copy Decks <br/> <span class="text-2xl italic font-medium">(with the power of UX ✨)</span> 
+			Write 10× Copy Decks <br />in Google Docs
 		</h2>
 
 
