@@ -1,59 +1,37 @@
 // $data/navigation/index.ts
 
-import {
-	GithubIcon,
-	LinkedinIcon,
-	Instagram,
-	ShoppingBag
-} from 'lucide-svelte';
 import type { NavItem, SocialLink } from './types';
 import { contactModalStore } from '$lib/stores/contactModalStore';
 
 export const mainNavItems: NavItem[] = [
-	// { href: "/product", label: "Product" },
 	{ href: "/about", label: "About" },
-	// { href: "/ai", label: "AI" },
 	{ href: "/pricing", label: "Pricing" },
 	{ href: "/blog", label: "Blog" },
-	// {	href: "",	label: "Contact",
-	// 	onClick: () => contactModalStore.set(true)
-	// }
 ];
 
 export const socialLinks: SocialLink[] = [
 	{
-		name: "Gumroad",
-		url: "https://pipewriter.gumroad.com",
-		svg: "icons/gumroad.svg",
-		icon: ShoppingBag,
-		ariaLabel: "Get Pipewriter on Gumroad",
-	},
-	{
 		name: "LinkedIn",
 		url: "https://linkedin.com/in/ivankaraman",
-		svg: "icons/linkedin.svg",
-		icon: LinkedinIcon,
+		svg: "/icons/linkedin.svg",
 		ariaLabel: "Connect on LinkedIn",
 	},
 	{
-		name: "GitHub",
-		url: "https://github.com/hackiku",
-		svg: "icons/github.svg",
-		icon: GithubIcon,
-		ariaLabel: "View projects on GitHub",
+		name: "Twitter",
+		url: "https://x.com/ivan_karaman",
+		svg: "/icons/x.svg", // You'll need to add this SVG
+		ariaLabel: "Follow on Twitter",
 	},
 	{
 		name: "TikTok",
 		url: "https://www.tiktok.com/@pipewriter.io",
-		svg: "icons/tiktok.svg",
-		icon: GithubIcon,
+		svg: "/icons/tiktok.svg",
 		ariaLabel: "Follow on TikTok",
 	},
 	{
 		name: "Instagram",
-		url: "https://instagram.com/free2lance",
-		svg: "icons/instagram.svg",
-		icon: Instagram,
+		url: "https://instagram.com/pipewriter.io",
+		svg: "/icons/instagram.svg",
 		ariaLabel: "Follow on Instagram",
 	}
 ];

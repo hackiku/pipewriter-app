@@ -4,8 +4,9 @@
 	import { dev } from '$app/environment';
   import "../../app.css";
   import BackgroundPattern from '$lib/components/BackgroundPattern.svelte';
-	import Nav from "$lib/components/nav/Nav.svelte";
-  import Footer from "$lib/components/Footer.svelte";
+	// import Nav from "$lib/components/nav/Nav.svelte";
+	import Nav from "$lib/components/navigation/Nav.svelte";
+  import Footer from "$lib/components/navigation/Footer.svelte";
   import SEO from "$lib/components/SEO.svelte";
 	import BuyDrawer from "$lib/components/cta/buy/BuyDrawer.svelte";
   // import ContactModal from "$lib/components/cta/contact/ContactModal.svelte";

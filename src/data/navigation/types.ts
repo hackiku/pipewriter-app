@@ -1,4 +1,4 @@
-// $lib/data/navigation/types.ts
+// $data/navigation/types.ts
 
 export interface NavItem {
 	href: string;
@@ -10,7 +10,6 @@ export interface SocialLink {
 	name: string;
 	url: string;
 	svg: string;
-	icon: any; // Lucide icon component type
 	ariaLabel: string;
 }
 
