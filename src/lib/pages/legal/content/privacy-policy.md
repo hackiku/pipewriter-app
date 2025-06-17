@@ -36,7 +36,7 @@ Our add-on requests three specific Google permissions:
 
 Because it’s limited to the “current document only,” this scope cannot access any of your other Google Docs. It ensures Pipewriter only touches the doc you’re actively working on.
 
-**Document Access (Template Injection)** (`https://www.googleapis.com/auth/documents`): This allows us to insert content into your Google Docs and process document content for features you explicitly activate. While the permission name sounds broad, we use it only for the specific purpose of copying pre-designed elements from our template library and pasting them where you click. These elements are kept in a separate Google Doc owned by Pipewriter; what the permission does is essentially just give you access to the template document from the document you are working on.
+**Document Access (Template Injection)** (`https://www.googleapis.com/auth/documents`): This allows us to insert content into your Google Docs and process document content for features you explicitly activate. While the permission name sounds broad, we use it only for the specific purpose of copying pre-designed elements from our template library and pasting them where you click.These elements are kept in specific template documents owned by Pipewriter; what the permission does is essentially just give you access to the template document from the document you are working on.
 
 **Sidebar Interface** (`https://www.googleapis.com/auth/script.container.ui`): This displays our element picker, AI tools, color customization, and other features in Google Docs' sidebar.
 
@@ -96,7 +96,7 @@ Any custom prompts, settings, or modifications you create within Pipewriter belo
 
 ## AI and Future Features
 
-We're building AI-powered features to help writers create better content faster. Currently, this includes custom prompt management and planned content generation features. When we add AI capabilities, we may share your prompts with AI service providers, but only the specific text you choose to process - never your entire documents.
+We're building AI-powered features to help writers create better content faster. Currently, this includes custom prompt management and planned content generation features. Currently, our AI features involve inserting pre-written prompts into your documents - no external AI processing occurs. Future AI capabilities may involve external services, and we'll update this policy accordingly.
 
 We're also developing a web-based editor that will complement our Google Docs add-on. When this launches, it will be covered by this privacy policy with any necessary updates clearly communicated to users.
 
