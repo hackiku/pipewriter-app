@@ -2,7 +2,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import PreviewSection from "./PreviewSection.svelte";
-  import WriterShoutout from "./WriterShoutout.svelte";
   import ActionBar from "./ActionBar.svelte";
   import VideoPlayer from "./video/VideoPlayer.svelte";
 
@@ -55,11 +54,6 @@
     onTimestampVideo={openVideoAtTimestamp}
     on:stepChange={handlePreviewStepChange}
   />
-
-  <!-- Sticky Writer Shoutout - Desktop Only, Bottom Left -->
-  <div class="hidden md:block sticky bottom-2 left-4 sm:left-6 md:left-12 lg:left-16 xl:left-24 2xl:left-32 z-30 w-80">
-    <WriterShoutout />
-  </div>
 
 </div>
 

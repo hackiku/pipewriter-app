@@ -57,16 +57,16 @@
       on:stepChange
     >
       
-      <!-- Desktop: 2-Column Grid (Wider video column) -->
-      <div class="hidden md:grid md:grid-cols-5 md:gap-16 items-center">
+      <!-- Desktop: 2-Column Grid (Narrower text column, wider video) -->
+      <div class="hidden md:grid md:grid-cols-7 md:gap-12 items-center">
         
-        <!-- Left: Step Info (2/5 width) -->
+        <!-- Left: Step Info (2/7 width - narrower) -->
         <div class="col-span-2 space-y-6">
           <!-- Step Number & Title Row -->
-          <div class="flex items-center justify-between gap-4">
-            <div class="flex items-center gap-4">
+          <div class="flex flex-col gap-4">
+            <div class="flex items-center gap-3">
               <div class={cn(
-                "w-12 h-12 rounded-xl border-2 flex items-center justify-center text-lg font-bold transition-all",
+                "w-10 h-10 rounded-xl border-2 flex items-center justify-center text-lg font-bold transition-all",
                 currentStep === index
                   ? "bg-primary border-primary text-primary-foreground shadow-lg"
                   : index < currentStep
@@ -76,7 +76,7 @@
                 {index + 1}
               </div>
               <h3 class={cn(
-                "text-2xl font-semibold transition-colors",
+                "text-xl font-semibold transition-colors",
                 currentStep === index ? "text-primary" : "text-foreground"
               )}>
                 {step.title}
@@ -86,7 +86,7 @@
             <!-- Timestamp Button -->
             <button
               class={cn(
-                "inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium",
+                "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium w-fit",
                 "transition-all duration-200 hover:scale-105 shrink-0",
                 currentStep === index
                   ? "bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20"
@@ -94,19 +94,19 @@
               )}
               on:click={() => onTimestampVideo(step.timestamp)}
             >
-              <Clock class="w-4 h-4" />
+              <Clock class="w-3 h-3" />
               <span>{formatTimestamp(step.timestamp)}</span>
             </button>
           </div>
 
           <!-- Description -->
-          <p class="text-lg text-muted-foreground leading-relaxed">
+          <p class="text-base text-muted-foreground leading-relaxed">
             {step.description}
           </p>
         </div>
 
-        <!-- Right: Preview Card (3/5 width - wider) -->
-        <div class="col-span-3 relative">
+        <!-- Right: Preview Card (5/7 width - wider) -->
+        <div class="col-span-5 relative">
           <PreviewCard 
             {step}
             isActive={currentStep === index}

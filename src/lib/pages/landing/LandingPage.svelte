@@ -77,7 +77,7 @@
 
 	<!-- Features Section -->
 	<section
-		class="relative py-12 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
+		class="relative pt-12 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 border-b-2"
 	>
 		<h2
 			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
