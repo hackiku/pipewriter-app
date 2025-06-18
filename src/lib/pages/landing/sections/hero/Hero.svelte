@@ -26,11 +26,11 @@
 			Wireframes in <br />Google Docs
 		</h1> -->
 		<h1
-			class="{HEADLINE} text-[7vh] md:text-[10vh] lg:text-[10vh]
+			class="{HEADLINE} text-[7vh] md:text-[12vh] lg:text-[14vh]
               font-medium leading-[1.1] tracking-tight
               max-w-[20ch] mx-auto"
 		>
-			Wireframes for Writers <br />in Google Docs
+			UX App for Writers <br />in Google Docs
 		</h1>
 
 		<!-- <p
@@ -43,7 +43,7 @@
               text-muted-foreground md:leading-relaxed
               max-w-[30ch] mb-4"
 		>
-			Writer-native add-on + templates to prototype right where you write.
+			Native add-on + templates to prototype right where you write.
 		</p>
 
 		<GetStartedButton

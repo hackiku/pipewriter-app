@@ -12,21 +12,31 @@
 	const samples = [
 		{
 			id: "saas",
-			name: "SaaS Landing",
-			company: "TechCorp",
+			name: "Web copy",
+			company: "Redocly",
 			description: "From wireframe copy to conversion-focused landing page",
+			logo: "/logos/redocly.svg",
 		},
 		{
 			id: "ecommerce",
-			name: "E-commerce",
+			name: "Learnforce",
 			company: "ShopFlow",
 			description: "Product pages that drive purchases",
+			// logo: "/logos/learnforce.svg",
 		},
 		{
-			id: "b2b",
-			name: "B2B Platform",
-			company: "DataSync",
+			id: "agency",
+			name: "UX Agency Website",
+			company: "Orizon",
 			description: "Enterprise messaging that converts decision makers",
+			logo: "/logos/orizon.svg",
+		},
+		{
+			id: "blockchain",
+			name: "Blockchain Agency",
+			company: "Omicron",
+			description: "Enterprise messaging that converts decision makers",
+			// awwwards honorable mention badge svg
 		},
 	];
 
@@ -72,11 +82,7 @@
 
 <div class="space-y-16">
 	<!-- Sample Info -->
-	<h3 class="text-xl text-center font-medium text-foreground/60">
-		Battle-tested writing for the bestest
-	</h3>
-
-	<LogosMarquee />
+	
 	<!-- Before/After Slider -->
 	<button
 		bind:this={containerRef}
@@ -219,4 +225,7 @@
 		{currentSample}
 		on:sampleChange={(e) => handleSampleChange(e.detail)}
 	/>
+
+
+
 </div>

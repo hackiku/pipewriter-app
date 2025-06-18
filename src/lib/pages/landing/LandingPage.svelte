@@ -64,14 +64,17 @@
 		<!-- <div class="flex space-between w-full gap-12">
 			<div class="aspect-video w-2/3 bg-neutral-900/30">
 			</div>
-			<h3 class="text-xl text-center font-medium text-foreground/60">
-				Battle-tested writing for the bestest
-			</h3>
 		</div> -->
 		
 	</section>
 	
-	<LogosMarquee />
+	<div class="mt-12 space-y-10">
+
+		<h3 class="text-xl text-center font-medium text-foreground/60">
+			Battle-tested writing for the bestest
+		</h3>
+		<LogosMarquee />
+	</div>
 
 	<!-- Features Section -->
 	<section
