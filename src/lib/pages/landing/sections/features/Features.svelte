@@ -1,76 +1,140 @@
 <!-- src/lib/pages/landing/sections/features/Features.svelte -->
 <script lang="ts">
   import { onMount } from "svelte";
-  import { driveStore } from '../../stores/driveStore';
-  import AddToCart from "$lib/components/cta/buy/AddToCart.svelte";
-  import DriveViewer from "./drive/DriveViewer.svelte";
-  import PreviewArea from "./preview/PreviewArea.svelte";
+  import { cn } from "$lib/utils";
+  import ProcessMenu from "./process/ProcessMenu.svelte";
   import WriterShoutout from "./WriterShoutout.svelte";
+  import PreviewArea from "./video/PreviewArea.svelte";
+  import VideoPlayer from "./video/VideoPlayer.svelte";
+  import { processSteps } from "./processData";
 
-  // Reference to container for intersection observer
-  let previewContainer: HTMLElement;
+  // State
+  let currentStep = 0;
+  let isVideoOpen = false;
+  let videoStartTime = 0;
+  let isCompact = false;
+  let isMobile = false;
 
   onMount(() => {
-    // Set up intersection observer for preview cards
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const path = entry.target.id.replace('preview-', '');
-            driveStore.navigate(path);
-          }
-        });
-      },
-      {
-        root: null,
-        threshold: 0.5,
-        rootMargin: "-20% 0px -30% 0px",
-      }
-    );
+    const checkMobile = () => {
+      isMobile = window.innerWidth < 768;
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
 
-    // Observe all preview cards
-    document.querySelectorAll(".preview-card").forEach((card) => {
-      observer.observe(card);
-    });
-
-    return () => observer.disconnect();
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+    };
   });
+
+  // Handle step changes
+  function handleStepChange(stepIndex: number) {
+    currentStep = stepIndex;
+  }
+
+  // Handle video actions
+  function openFullVideo() {
+    videoStartTime = 0;
+    isVideoOpen = true;
+  }
+
+  function openVideoAtTimestamp(timestamp: number) {
+    videoStartTime = timestamp;
+    isVideoOpen = true;
+  }
+
+  function closeVideo() {
+    isVideoOpen = false;
+  }
+
+  // Handle scroll-based step changes from PreviewArea
+  function handlePreviewStepChange(event: CustomEvent) {
+    currentStep = event.detail.stepIndex;
+  }
+
+  // Toggle compact mode for mobile sticky behavior
+  function toggleCompact() {
+    isCompact = !isCompact;
+  }
+
+  // Update writer shoutout based on current step
+  $: {
+    if (typeof window !== 'undefined') {
+      const currentStepData = processSteps[currentStep];
+      window.dispatchEvent(new CustomEvent('stepChanged', { 
+        detail: { shoutoutId: currentStepData?.shoutoutId } 
+      }));
+    }
+  }
 </script>
 
 <div class="relative">
   <!-- Desktop Layout -->
   <div class="hidden md:grid grid-cols-6 gap-8">
-    <!-- Left Column: Drive Folder & CTA -->
+    
+    <!-- Left Column: Process Menu + Writer Testimonials -->
     <div class="col-span-2">
       <div class="sticky top-4 space-y-6 z-50 pb-12">
-
-   		  <DriveViewer />
+        
+        <!-- Process Menu -->
+        <ProcessMenu
+          {currentStep}
+          onStepChange={handleStepChange}
+          {isCompact}
+        />
 
         <!-- Writer Testimonials -->
-        <div class="p-4 pt-[50%]">
+        <div class="px-4 pt-[20%]">
           <WriterShoutout />
         </div>
-
       </div>
     </div>
 
-    <!-- Right Column: Preview Cards -->
-    <div class="col-span-4" bind:this={previewContainer}>
-      <PreviewArea />
+    <!-- Right Column: Preview Area -->
+    <div class="col-span-4">
+      <PreviewArea
+        {currentStep}
+        onFullVideo={openFullVideo}
+        onTimestampVideo={openVideoAtTimestamp}
+        on:stepChange={handlePreviewStepChange}
+      />
     </div>
   </div>
 
   <!-- Mobile Layout -->
   <div class="md:hidden">
-    <!-- Sticky Header with Drive Folder -->
+    
+    <!-- Sticky Header with Process Menu -->
     <div class="sticky top-4 z-[999] bg-background/80 backdrop-blur-sm pb-6">
-      <DriveViewer />
+      <ProcessMenu
+        {currentStep}
+        onStepChange={handleStepChange}
+        isCompact={true}
+      />
     </div>
 
-    <!-- Preview Cards -->
-    <div class="mt-6 pb-20"> <!-- Added padding for mobile CTA -->
-      <PreviewArea />
+    <!-- Writer Testimonials - Between menu and preview -->
+    <div class="px-4 py-6">
+      <WriterShoutout />
     </div>
 
+    <!-- Preview Area -->
+    <div class="px-4">
+      <PreviewArea
+        {currentStep}
+        onFullVideo={openFullVideo}
+        onTimestampVideo={openVideoAtTimestamp}
+        on:stepChange={handlePreviewStepChange}
+      />
+    </div>
   </div>
 </div>
+
+<!-- Video Modal -->
+{#if isVideoOpen}
+  <VideoPlayer 
+    onClose={closeVideo}
+    startTime={videoStartTime}
+  />
+{/if}
