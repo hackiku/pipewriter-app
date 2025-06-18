@@ -9,24 +9,16 @@
 	export let HEADLINE: string;
 </script>
 
-<div class="relative h-full flex items-start justify-center pt-[22vh]">
+<div class="relative h-full flex items-start justify-center pt-[18vh]">
 	
-	<!-- <div class="-z-10">
+	<div class="-z-10">
 		<StickerBackground opacity="0.6" />
-	</div> -->
+	</div>
 
 	<div class="flex flex-col gap-4 items-center text-center">
 
-
-		<!-- <h1
-			class="{HEADLINE} text-[7vh] md:text-[10vh] lg:text-[12vh]
-              font-medium leading-[1.1] tracking-tight
-              max-w-[20ch] mx-auto"
-		>
-			Wireframes in <br />Google Docs
-		</h1> -->
 		<h1
-			class="{HEADLINE} text-[7vh] md:text-[12vh] lg:text-[14vh]
+			class="{HEADLINE} text-[3em] sm:text-[4.5em] md:text-[5em] lg:text-[5.5em]
               font-medium leading-[1.1] tracking-tight
               max-w-[20ch] mx-auto"
 		>

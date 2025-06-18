@@ -2,26 +2,18 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   
-  interface SliderProps {
-    beforeImage?: string;
-    afterImage?: string;
-    beforeLabel?: string;
-    afterLabel?: string;
-    vertical?: boolean; // For mobile
-  }
+  // Props - SvelteKit 4 style
+  export let beforeImage: string = '';
+  export let afterImage: string = '';
+  export let beforeLabel: string = 'Google Docs';
+  export let afterLabel: string = 'Live Website';
+  export let vertical: boolean = false; // For mobile
   
-  const {
-    beforeImage = '',
-    afterImage = '',
-    beforeLabel = 'Google Docs',
-    afterLabel = 'Live Website',
-    vertical = false
-  }: SliderProps = $props();
-  
-  let sliderPosition = $state(50); // Percentage
+  // State variables
+  let sliderPosition = 50; // Percentage
   let containerRef: HTMLDivElement;
-  let isDragging = $state(false);
-  let isMobile = $state(false);
+  let isDragging = false;
+  let isMobile = false;
   
   onMount(() => {
     const checkMobile = () => {
@@ -31,7 +23,19 @@
     checkMobile();
     window.addEventListener('resize', checkMobile);
     
-    return () => window.removeEventListener('resize', checkMobile);
+    // Add event listeners
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleEnd);
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleEnd);
+    
+    return () => {
+      window.removeEventListener('resize', checkMobile);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleEnd);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleEnd);
+    };
   });
   
   function handleMouseDown(event: MouseEvent) {
@@ -80,21 +84,7 @@
     sliderPosition = percentage;
   }
   
-  onMount(() => {
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleEnd);
-    document.addEventListener('touchmove', handleTouchMove, { passive: false });
-    document.addEventListener('touchend', handleEnd);
-    
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleEnd);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleEnd);
-    };
-  });
-  
-  // Dynamic clip path based on orientation
+  // Reactive statements for dynamic styles
   $: clipPath = vertical || isMobile
     ? `polygon(0 0, 100% 0, 100% ${sliderPosition}%, 0 ${sliderPosition}%)`
     : `polygon(${sliderPosition}% 0, 100% 0, 100% 100%, ${sliderPosition}% 100%)`;
@@ -106,11 +96,14 @@
   $: handleStyles = vertical || isMobile
     ? `top: ${sliderPosition}%; left: 50%; transform: translate(-50%, -50%);`
     : `left: ${sliderPosition}%; top: 50%; transform: translate(-50%, -50%);`;
+    
+  // Mobile-friendly aspect ratio
+  $: aspectRatio = isMobile ? 'aspect-[4/3]' : 'aspect-[16/9]';
 </script>
 
 <div
   bind:this={containerRef}
-  class="relative w-full aspect-[16/9] rounded-2xl overflow-hidden border-2 border-border
+  class="relative w-full {aspectRatio} rounded-2xl overflow-hidden border-2 border-border
          bg-gradient-to-br from-muted/20 to-muted/40 cursor-crosshair select-none
          transition-all duration-200 hover:border-primary/20"
   on:mousedown={handleMouseDown}

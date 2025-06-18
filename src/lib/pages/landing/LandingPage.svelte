@@ -13,7 +13,7 @@
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
 	import Proof from "./sections/proof/Proof.svelte";
 	// import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
-	import PricingGrid from "$lib/components/cta/pricing/PricingGrid.svelte";
+
 	// import Compare from "$lib/components/cta/pricing/comparison/Compare.svelte";
 	import Pricing from "./sections/pricing/Pricing.svelte";
 	import FAQ from "./sections/faq/FAQ.svelte";
@@ -40,23 +40,15 @@
 >
 	<!-- Hero Section -->
 	<section
-		class="relative __pt-32 __md:pt-40 h-[90vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
+		class="relative __pt-32 __md:pt-40 h-[85vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
 	>
 		<Hero {HEADLINE} />
 	</section>
 
-	<!-- Demo Section -->
-	<!-- <section
-		class="relative -mt-[10vh] max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
-	>
-		<Demo />
-		<div class="max-w-sm mx-auto my-6">
-		</div>
-	</section> -->
 
 	<!-- Features Section -->
 	<section
-		class="relative _pt-24 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
+		class="relative __pt-12 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
 	>
 
 		<Samples />
@@ -68,9 +60,16 @@
 		
 	</section>
 	
-	<div class="mt-12 space-y-10">
+	<!-- <div class="mt-12 space-y-10">
 
 		<h3 class="text-xl text-center font-medium text-foreground/60">
+			Battle-tested writing for the bestest
+		</h3>
+		<LogosMarquee />
+	</div> -->
+
+		<div class="py-12">
+		<h3 class="text-center font-medium text-foreground/60">
 			Battle-tested writing for the bestest
 		</h3>
 		<LogosMarquee />
@@ -78,7 +77,7 @@
 
 	<!-- Features Section -->
 	<section
-		class="relative py-24 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
+		class="relative py-12 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32"
 	>
 		<h2
 			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
@@ -95,16 +94,9 @@
 
 
 	
-	<div class="__py-12">
-		<h3 class="text-center font-medium text-foreground/60">
-			Battle-tested writing for the bestest
-		</h3>
-		<LogosMarquee />
-	</div>
 
 	<!-- Social Proof -->
-	<!-- <section class="py-24 bg-red-800/20"> -->
-	<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+	<section class="py-12 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
 		<div class="text-center mb-16 max-w-lg mx-auto">
 			<h2 class="text-4xl font-semibold mb-4">
 				Made with 🫶, ⏱️, and <br />Oxford comma
@@ -114,39 +106,7 @@
 		<Proof />
 	</section>
 
-	<!-- Pricing -->
-	<section
-		class="relative py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
-					border-t
-					bg-gradient-to-b from-background/90 to-background/20
-					dark:from-zinc-950/80 dark:to-[#0A0F16]/20
-					bacskdrop-blur-sm"
-	>
-		<!-- <section
-		class="relative pt-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32
-					 dark:bg-zinc-950 /60 border-t ___bg-muted-foreground/5"
-	> -->
-		<div class="text-center mb-16 ___max-w-lg">
-			<div
-				class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full
-                bg-primary/10 text-primary border border-primary/20 mb-6"
-			>
-				<FileText class="w-4 h-4" />
-				<span class="text-sm font-medium">Pricing</span>
-			</div>
-			<h2
-				class="text-[5vh] md:text-[6vh] lg:text-[7vh]
-      	        font-semibold leading-[1.1] tracking-tight
-        	      max-w-[16ch] mx-auto text-center"
-			>
-				<!-- Take Writer Wireframes for a Ride -->
-				Wireframe Where you Already Write
-			</h2>
-		</div>
-
-		<Pricing />
-	</section>
-
+	
 	<section class="pb-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
 		<FAQ />
 	</section>

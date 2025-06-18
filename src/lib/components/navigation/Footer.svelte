@@ -39,8 +39,7 @@
         <div class="lg:col-span-2 space-y-6">
           <LogoSystem size="lg" />
           <p class="text-muted-foreground leading-relaxed max-w-sm">
-            Professional wireframes in Google Docs. 
-            Build better UX deliverables where you already write.
+            Wireframes for writers in Google Docs
           </p>
           
           <!-- Social links -->
@@ -53,10 +52,10 @@
           <!-- Email form on mobile (after social links) -->
           <div class="lg:hidden">
             <div class="space-y-4">
-              <h3 class="text-lg font-semibold">Stay in the Loop</h3>
-              <p class="text-muted-foreground text-sm">
+              <h3 class="text-2xl font-semibold">UX-up your inbox</h3>
+              <!-- <p class="text-muted-foreground text-sm">
                 Get updates on new features, templates, and UX writing tips.
-              </p>
+              </p> -->
               <EmailForm 
                 buttonText="Subscribe"
                 size="sm"
@@ -110,10 +109,10 @@
         <!-- Email form on desktop (bottom-right, inline with social) -->
         <div class="hidden lg:block">
           <div class="space-y-4">
-            <h3 class="text-lg font-semibold">Stay in the Loop</h3>
-            <p class="text-muted-foreground text-sm leading-relaxed">
+            <h3 class="text-2xl font-semibold">UX-up your inbox</h3>
+            <!-- <p class="text-muted-foreground text-sm leading-relaxed">
               Get updates on new features, templates, and UX writing tips.
-            </p>
+            </p> -->
             <EmailForm 
               buttonText="Subscribe"
               size="sm"
