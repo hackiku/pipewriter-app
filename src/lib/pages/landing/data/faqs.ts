@@ -1,36 +1,63 @@
-// data/faqs.ts
-
+// src/lib/pages/landing/sections/faq/faqs.ts
 export const faqs = [
 	{
 		question: "Why the heck do UX in Google Docs?",
 		answer: "Because that's where We the Writers make the words happen. I couldn't stand clicking 5 times in Figma just to edit a headline (with no word counter to save my life). So I started making fancier and fancier wires in GDocs. Clients liked them, designers got a bit jelly, and I kept going. Now you can too."
 	},
 	{
-		question: "What's a Pipewriter and why shoud I care?",
-		answer: "The full writer-first wireframing system: 90+ UI components, pre-formatted documents with proper typography, and a bunch of styling scripts - all right where you write. This includes the sidebar app with one-click element insertion, light/dark themes, client-ready deliverables, and HTML export capabilities. It's my jar of hearts of ADHD scripts, hacks and tricks, productized for your writerly enjoyment."
+		question: "What's a Pipewriter and why should I care?",
+		answer: "It's a writer-first wireframing system that lives where you already work – Google Docs. The sidebar app lets you instantly insert UI components, style headings, change background colors, manage tables, and prototype UX directly in your document. It's my jar of hearts of ADHD scripts, hacks and tricks, productized for your writerly enjoyment. They can AI all they like, but writing will always be the heart of product design."
+	},
+	{
+		question: "How does the free trial work?",
+		answer: "You get full access to all Pro features for 14 days – no credit card required. Just install the add-on from Google Workspace Marketplace and you're in. Test all 90+ wireframe elements, AI prompts, HTML export, and styling tools. When the trial ends, you can continue with the free version (with limited elements) or upgrade to Pro for the full experience."
+	},
+	{
+		question: "What's included in the free vs. Pro version?",
+		answer: "The <strong>free version</strong> includes the core add-on with 24 basic wireframe elements and essential styling tools – perfect for trying out the workflow.<br><br>The <strong>Pro version</strong> ($10/month) unlocks everything: all 90+ wireframe elements, AI-powered HTML export, specialized prompts, background styling, and regular updates. Plus, Pro subscribers get first access to new features and priority support."
+	},
+	{
+		question: "What's included in the Pipewriter ecosystem?",
+		answer: "<ul class='list-disc pl-6 space-y-2'><li><strong>The Sidebar App</strong> – Google Docs add-on with wireframe elements and styling tools</li><li><strong>Pro Template Pack</strong> – 100+ additional wireframe elements in light/dark modes</li><li><strong>Template Store</strong> – Specialized landing pages and document structures for specific industries</li></ul><p class='mt-4'>Think of it as different levels of wireframing power: the app gives you the tools, the template pack gives you the building blocks, and the store gives you ready-to-customize layouts.</p>"
+	},
+	{
+		question: "How do the wireframe elements actually work?",
+		answer: "Pure Google Docs magic – but actually just clever table formatting! Each element uses headings 1-6 for structure (which update globally if you change styles), carefully designed tables, and proper whitespace. No images needed. One click or keyboard shortcut inserts the element at your cursor position. Everything's responsive in the sense that it adapts to document width changes. Plus, you can toggle between light and dark modes to match your design system."
+	},
+	{
+		question: "Tell me about the HTML export thing...",
+		answer: "It's my favorite Pipewriter party trick! Since your wireframes use structured headings and clean formatting, they can be programmatically converted to HTML with a single click. The app then gives you options to:<br><br>1. Copy the raw HTML code<br>2. Use built-in AI prompts to convert your wireframe to functional code<br>3. Download the HTML file directly<br><br>I've included specialist prompts optimized for different frameworks and use cases. One prompt, two clicks, and your wireframe becomes a functioning website. (Check the Loom video on the site for a quick demo!)"
 	},
 	{
 		question: "Can I use this for client work?",
-		answer: "Absolutely! That's exactly why I built it for myself. Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask. The professional deliverables help you charge premium rates and reduce revision rounds - perfect for freelancers and agencies working on multiple client projects."
-	},
-	{
-		question: "Is this just another no-code tool?",
-		answer: "Nope! Most no-code tools are built for developers who don't want to code, not writers who need to prototype content. Unlike Webflow or Wix which focus on final websites, Pipewriter helps you create professional UX deliverables directly in Google Docs - the app you already use every day. Perfect for content strategy, UX writing, and those juicy five-figure copywriting projects."
-	},
-	{
-		question: "How does the HTML export work?",
-		answer: "Magic! (Okay, not really). Your wireframes are built with styled headings and tables. Pipewriter includes scripts to convert them to clean HTML that AI can understand. You can then use the included prompts to get AI help converting this code to a fully functional website. Add comments in your wireframe to increase precision, then export to HTML with a couple of clicks. I'm actively working on making this process even smoother."
+		answer: "That's EXACTLY why I built it! Clients immediately get the vision when they see the wireframe structure. Revisions become much easier or they don't even ask at all. Plus, designers actually appreciate having thought-out content wireframes instead of the typical 'Lorem Ipsum + Button' situation. The professional deliverables help you charge premium rates ($5K+ projects) and reduce revision rounds."
 	},
 	{
 		question: "Who is Pipewriter perfect for?",
 		answer: "<ul class='list-disc pl-6 space-y-2'><li><strong>Copywriters</strong> – Level up from $500 to $5k+ projects with pro-grade deliverables that look as good as they convert.</li><li><strong>UX Writers</strong> – Break into tech without learning Figma. Create proper UX deliverables without touching code.</li><li><strong>Content Strategists</strong> – Lead with content-first design that doesn't look like an afterthought.</li><li><strong>Designer/Writer hybrids</strong> – Give UI-free wireframing a shot. Words first, pixels later.</li></ul>"
 	},
 	{
-		question: "What's the difference between the addon and templates?",
-		answer: "The Pipewriter addon lives in your Google Docs sidebar for quick access to all wireframe elements. Templates are pre-made document structures for specific uses (landing pages, full websites, product pages) that you can copy and customize. The addon helps you build from scratch, while templates give you a headstart with professionally structured documents."
+		question: "Is this just another no-code tool?",
+		answer: "Nope! Most no-code tools are built for developers who don't want to code, not writers who need to prototype content. Unlike Webflow or Wix which focus on final websites, Pipewriter helps you create professional UX deliverables directly in Google Docs - the app you already use every day. Going from copy doc to a website that's around 90% ready to deploy is the exact thing I've been looking for. Perfect for content strategy, UX writing, and those juicy five-figure copywriting projects."
 	},
 	{
 		question: "Do I need design experience to use Pipewriter?",
-		answer: "Not at all! Pipewriter is built specifically for writers who understand that words are the heart of product development. If you can use Google Docs, you can create professional wireframes with Pipewriter. The templates give you just the right amount of design thinking (without the design degree) - in a polished package clients will pay more for."
+		answer: "Not at all! If you can use Google Docs, you can create professional wireframes with Pipewriter. The templates give you just the right amount of design thinking (without the design degree) - in a polished package clients will pay more for. The styles are pre-defined, the spacing is consistent, and the elements just work together. It's like having design guardrails that keep you looking professional without needing to learn design principles."
+	},
+	{
+		question: "What if I decide to cancel my subscription?",
+		answer: "No problem at all. You can cancel anytime with no hassle. You'll keep Pro access until the end of your billing period, then automatically switch to the free version. Any template packs you've purchased separately remain yours forever. Your documents will continue to work – you just won't have access to Pro-only features for creating new wireframes."
+	},
+	{
+		question: "What's the difference between the addon and Pro Template Pack?",
+		answer: "The addon is your wireframing studio – it lives in your Google Docs sidebar giving you instant access to UI elements plus all the styling tools, background colors, and export features.<br><br>The Pro Template Pack is like your component library – it's a mega-document with 100+ additional pre-made elements (accordions, testimonials, pricing tables, forms, etc.) in both light and dark variants that you can copy and paste into your own docs. The addon helps you build from scratch, while templates give you a professional headstart."
+	},
+	{
+		question: "And what about the Template Store?",
+		answer: "While the Pro Template Pack gives you individual components, the Template Store offers complete, ready-to-customize document structures. These are essentially battle-tested wireframes from real client projects – landing pages, full websites, product pages, etc. – that you can purchase individually or in bundles. They're perfect when you need a specific type of page quickly or want inspiration for a particular industry. Think of them as premium shortcuts."
+	},
+	{
+		question: "Is this all actually done in Google Docs?",
+		answer: "100% yes! Everything you see is built using native Google Docs capabilities - tables, headings, styles, and Apps Script. There's no external design tool involved. The magic happens by leveraging Docs' built-in formatting in ways most people never explore. It's the UX writer's secret weapon - your clients get clean, professional wireframes, and you never have to leave your writing environment."
 	}
 ];
