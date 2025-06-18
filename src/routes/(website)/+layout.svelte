@@ -37,7 +37,7 @@
   <div slot="trigger" />
 </BuyDrawer>
 
-<ModeWatcher />
+<ModeWatcher defaultMode={"dark"}/>
 
 {#if !isIframe && !overrideNav}
   <Nav />

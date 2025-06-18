@@ -108,6 +108,16 @@
 
 	
 	<section class="pb-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+
+				<h2
+			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
+              font-bold leading-[1.3] tracking-tight mb-16
+              max-w-[20ch] mx-auto text-center
+							{HEADLINE}"
+		>
+			Questionably Frequent
+		</h2>
+
 		<FAQ />
 	</section>
 
