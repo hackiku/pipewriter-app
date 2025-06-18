@@ -58,125 +58,104 @@
   class:translate-y-4={isVisible}
   class:translate-y-[-100%]={!isVisible}
 >
-  <!-- Gradient glow container -->
-  <div class="relative rounded-full">
-    <!-- Subtle gradient glow -->
-    <div
-      class="absolute inset-0 rounded-full opacity-30 dark:opacity-30 blur-xl -z-10"
-      style="
-        background: radial-gradient(
-          circle at 50% 50%,
-          rgba(54, 68, 254, 0.08),
-          rgba(179, 69, 237, 0.08),
-          transparent 70%
-        );
-      "
-    />
+  <!-- Main nav container -->
+  <div
+    class="bg-white dark:bg-neutral-950 border-[1.5px] border-border rounded-3xl sm:rounded-full transition-all duration-300 pl-1 md:pl-4"
+  >
+    <!-- Top bar (always visible) -->
+    <div class="flex items-center justify-between py-3 px-4">
+      <!-- Logo - smaller on mobile -->
+      <LogoSystem 
+        size={isMobile ? 'sm' : 'md'} 
+        variant="full"
+        className="flex-shrink-0" 
+      />
 
-    <!-- Main nav container -->
-    <div
-      class="bg-white/40 dark:bg-black/40 backdrop-blur-[6px] border border-border/5 
-             shadow-sm rounded-full transition-all duration-300"
-      class:rounded-2xl={isMenuOpen && isMobile}
-      class:px-1={!isMenuOpen}
-      class:md:px-4={!isMenuOpen}
-      class:p-4={isMenuOpen && isMobile}
-    >
-      <!-- Top bar (always visible) -->
-      <div class="flex items-center justify-between py-3 px-4">
-        <!-- Logo - use square when mobile menu is open, otherwise auto -->
-        <LogoSystem 
-          size="md" 
-          variant={isMenuOpen && isMobile ? 'square' : 'auto'}
-          className="flex-shrink-0" 
+      <!-- Desktop Navigation (hidden on mobile) -->
+      <div class="hidden md:flex items-center gap-6">
+        {#each mainNavItems as item}
+          <a
+            href={item.href}
+            class="text-muted-foreground hover:text-foreground font-medium 
+                   transition-colors duration-200"
+            on:click={(e) => {
+              if (item.onClick) {
+                e.preventDefault();
+                item.onClick();
+              }
+            }}
+          >
+            {item.label}
+          </a>
+        {/each}
+      </div>
+
+      <!-- Desktop Actions -->
+      <div class="hidden md:flex items-center gap-3">
+        <ModeToggle />
+        <GetStartedButton
+          size="default"
+          text="Get Started"
+          source="nav"
         />
+      </div>
 
-        <!-- Desktop Navigation (hidden on mobile) -->
-        <div class="hidden md:flex items-center gap-6">
+      <!-- Mobile Actions -->
+      <div class="md:hidden flex items-center gap-2">
+        <ModeToggle />
+        <button 
+          on:click={toggleMenu}
+          class="relative p-2 hover:text-[#3644FE] dark:hover:text-[#B345ED]
+                 transition-colors duration-200 rounded-lg hover:bg-foreground/5"
+          aria-label="Toggle mobile menu"
+          aria-expanded={isMenuOpen}
+        >
+          {#if isMenuOpen}
+            <X class="w-6 h-6" />
+          {:else}
+            <Menu class="w-6 h-6" />
+          {/if}
+        </button>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu (expanded within the same container) -->
+    {#if isMenuOpen && isMobile}
+      <div 
+        transition:slide={{ duration: 250 }}
+        class="border-t border-border/20 pt-4 px-4 pb-4"
+      >
+        <!-- Navigation items -->
+        <nav class="space-y-2 mb-6">
           {#each mainNavItems as item}
             <a
               href={item.href}
-              class="text-muted-foreground hover:text-foreground font-medium 
-                     transition-colors duration-200"
+              class="block px-4 py-3 text-lg font-medium text-foreground 
+                     hover:bg-muted rounded-xl transition-colors duration-200"
               on:click={(e) => {
                 if (item.onClick) {
                   e.preventDefault();
                   item.onClick();
                 }
+                closeMenu();
               }}
             >
               {item.label}
             </a>
           {/each}
-        </div>
+        </nav>
 
-        <!-- Desktop Actions -->
-        <div class="hidden md:flex items-center gap-3">
-          <ModeToggle />
-          <GetStartedButton
-            size="default"
+        <!-- CTA Section -->
+        <div class="pt-4 border-t border-border/20">
+          <GetStartedButton 
+            size="default"  
+            fullWidth={true}
             text="Get Started"
-            source="nav"
+            source="nav-mobile"
+            className="w-full"
           />
         </div>
-
-        <!-- Mobile Actions -->
-        <div class="md:hidden flex items-center gap-2">
-          <ModeToggle />
-          <button 
-            on:click={toggleMenu}
-            class="relative p-2 hover:text-[#3644FE] dark:hover:text-[#B345ED]
-                   transition-colors duration-200 rounded-lg hover:bg-foreground/5"
-            aria-label="Toggle mobile menu"
-            aria-expanded={isMenuOpen}
-          >
-            {#if isMenuOpen}
-              <X class="w-6 h-6" />
-            {:else}
-              <Menu class="w-6 h-6" />
-            {/if}
-          </button>
-        </div>
       </div>
-
-      <!-- Mobile Menu (expandable content) -->
-      {#if isMenuOpen && isMobile}
-        <div 
-          transition:slide={{ duration: 200 }}
-          class="border-t border-border/20 pt-4"
-        >
-          <!-- Navigation items -->
-          <nav class="space-y-2 mb-6">
-            {#each mainNavItems as item}
-              <a
-                href={item.href}
-                class="block px-4 py-3 text-lg font-medium text-foreground 
-                       hover:bg-muted rounded-xl transition-colors duration-200"
-                on:click={(e) => {
-                  if (item.onClick) {
-                    e.preventDefault();
-                    item.onClick();
-                  }
-                  closeMenu();
-                }}
-              >
-                {item.label}
-              </a>
-            {/each}
-          </nav>
-
-          <!-- CTA Section -->
-          <div class="pt-4 border-t border-border/20">
-            <GetStartedButton 
-              size="default"  
-              fullWidth={true}
-              text="Get Started"
-              source="nav-mobile"
-              className="w-full"
-            />
-          </div>
-        </div>
-      {/if}
-    </div>
+    {/if}
   </div>
 </nav>

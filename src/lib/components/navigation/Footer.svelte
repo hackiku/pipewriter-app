@@ -18,11 +18,6 @@
     { href: '/privacy', label: 'Privacy Policy' },
     { href: '/terms', label: 'Terms of Service' },
   ];
-  
-  const productLinks = [
-    { href: 'https://workspace.google.com/marketplace', label: 'Google Workspace', external: true },
-    { href: '/early', label: 'Early Access' },
-  ];
 </script>
 
 <footer class="relative bg-background border-t border-border/50">
@@ -31,48 +26,23 @@
   
   <div class="relative max-w-[1920px] mx-auto px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
     
-    <!-- Main footer content -->
+    <!-- Main footer content - 3 columns -->
     <div class="py-16">
-      <div class="grid grid-cols-1 lg:grid-cols-4 gap-12">
-        
-        <!-- Brand column -->
-        <div class="lg:col-span-2 space-y-6">
-          <LogoSystem size="lg" />
-          <p class="text-muted-foreground leading-relaxed max-w-sm">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+        <!-- Column 1: Logo and description -->
+        <div>
+          <LogoSystem size="lg" variant="full" />
+          <p class="text-muted-foreground leading-relaxed max-w-sm mt-4">
             Wireframes for writers in Google Docs
           </p>
-          
-          <!-- Social links -->
-          <div class="flex items-center gap-4">
-            {#each socialLinks as social}
-              <SocialLink {...social} />
-            {/each}
-          </div>
-
-          <!-- Email form on mobile (after social links) -->
-          <div class="lg:hidden">
-            <div class="space-y-4">
-              <h3 class="text-2xl font-semibold">UX-up your inbox</h3>
-              <!-- <p class="text-muted-foreground text-sm">
-                Get updates on new features, templates, and UX writing tips.
-              </p> -->
-              <EmailForm 
-                buttonText="Subscribe"
-                size="sm"
-                wrap={true}
-                source="Footer Mobile"
-                className="max-w-sm"
-              />
-            </div>
-          </div>
         </div>
         
-        <!-- Navigation columns -->
+        <!-- Column 2: Links organized in two sections -->
         <div class="grid grid-cols-2 gap-8 text-sm">
           <!-- Company column -->
           <div class="space-y-4">
             <h3 class="text-xs font-semibold uppercase tracking-wider text-foreground">
-              Company
+              COMPANY
             </h3>
             <nav class="space-y-2">
               {#each companyLinks as link}
@@ -90,7 +60,7 @@
           <!-- Legal column -->
           <div class="space-y-4">
             <h3 class="text-xs font-semibold uppercase tracking-wider text-foreground">
-              Legal
+              LEGAL
             </h3>
             <nav class="space-y-2">
               {#each legalLinks as link}
@@ -105,63 +75,36 @@
             </nav>
           </div>
         </div>
-
-        <!-- Email form on desktop (bottom-right, inline with social) -->
-        <div class="hidden lg:block">
-          <div class="space-y-4">
-            <h3 class="text-2xl font-semibold">UX-up your inbox</h3>
-            <!-- <p class="text-muted-foreground text-sm leading-relaxed">
-              Get updates on new features, templates, and UX writing tips.
-            </p> -->
+        
+        <!-- Column 3: Email signup -->
+        <div>
+          <h3 class="text-xl font-semibold">UX-up your inbox</h3>
+          <div class="mt-4">
             <EmailForm 
               buttonText="Subscribe"
-              size="sm"
+              size="xs"
               wrap={true}
-              source="Footer Desktop"
+              source="Footer"
               className="max-w-sm"
             />
           </div>
         </div>
       </div>
-
-      <!-- Product row (on its own on smaller screens) -->
-      <!-- <div class="mt-12 pt-8 border-t border-border/20">
-        <div class="space-y-4">
-          <h3 class="text-xs font-semibold uppercase tracking-wider text-foreground">
-            Product
-          </h3>
-          <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-            {#each productLinks as link}
-              <a
-                href={link.href}
-                class="flex items-center gap-1 text-muted-foreground hover:text-foreground
-                       transition-colors duration-200 group"
-                {...(link.external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-              >
-                {link.label}
-                {#if link.external}
-                  <ExternalLink class="w-3 h-3 opacity-0 group-hover:opacity-100 transition-opacity" />
-                {/if}
-              </a>
-            {/each}
-          </nav>
-        </div>
-      </div> -->
     </div>
     
-    <!-- Bottom bar -->
+    <!-- Bottom bar with copyright and social icons -->
     <div class="py-8 border-t border-border/20">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <!-- Copyright -->
         <p class="text-sm text-muted-foreground">
           Copyalright © {currentYear} Pipewriter. All rights reserved.
         </p>
         
-        <div class="flex items-center gap-6 text-sm text-muted-foreground">
-          <span class="flex items-center gap-2">
-            <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-            All systems operational
-          </span>
-          <span>Made with ❤️ for writers</span>
+        <!-- Social icons -->
+        <div class="flex items-center gap-4">
+          {#each socialLinks as social}
+            <SocialLink {...social} />
+          {/each}
         </div>
       </div>
     </div>
