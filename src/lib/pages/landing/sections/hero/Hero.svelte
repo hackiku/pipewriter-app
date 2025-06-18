@@ -11,7 +11,7 @@
 
 <div class="relative h-full flex items-start justify-center pt-[18vh]">
 	
-	<div class="-z-10">
+	<div class="-z-10 hidden md:block">
 		<StickerBackground opacity="0.6" />
 	</div>
 
@@ -54,10 +54,14 @@
 			label="writers"
 		/> -->
 		
-		<!-- <UserAvatars 
+	</div>
+	
+	<div class="absolute bottom-20 md:right-[10%] md:bottom-32 md:-rotate-6">
+		<UserAvatars 
 			initialMode="reading"
 			switchInterval={3000}
-			/> -->
+		/>
 
 	</div>
+
 </div>

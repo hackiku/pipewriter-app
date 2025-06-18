@@ -40,7 +40,7 @@
   });
 </script>
 
-<div class="inline-flex items-center gap-3 px-2"> 
+<div class="flex flex-col align-center gap-3 px-2"> 
   <div class="flex -space-x-2">
     {#each [0,1,2,3] as i}
       <div class="w-6 h-6 rounded-full ring-2 ring-background overflow-hidden">
@@ -62,14 +62,14 @@
          in:fade={{ duration: 800 }}>
         <span class="font-medium text-foreground">{GROUPS[currentMode].count}</span> 
         {GROUPS[currentMode].label}
-        {#if currentMode === 'writing'}
+        <!-- {#if currentMode === 'writing'}
           <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded-full 
                      bg-primary/10 text-primary border border-primary/20">
             beta
           </span>
         {:else}
           <Mail class="ml-1.5 inline-block w-3.5 h-3.5 text-muted-foreground" />
-        {/if}
+        {/if} -->
       </p>
     {/key}
   </div>
