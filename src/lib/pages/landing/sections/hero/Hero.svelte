@@ -43,7 +43,7 @@
               text-muted-foreground md:leading-relaxed
               max-w-[30ch] mb-4"
 		>
-			Native add-on + templates to prototype right where you write.
+			Prototype right where you write with native add-on + templates.
 		</p>
 
 		<GetStartedButton

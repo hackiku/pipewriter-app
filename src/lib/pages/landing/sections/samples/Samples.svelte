@@ -2,7 +2,7 @@
 <script lang="ts">
 	import { onMount } from "svelte";
 	import SampleMarquee from "./SampleMarquee.svelte";
-	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
+
 
 	let sliderPosition = 50; // Percentage from left
 	let containerRef: HTMLDivElement;

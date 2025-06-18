@@ -26,7 +26,7 @@
 
 {#if dev}
   <button
-    class="fixed top-4 right-4 z-[9999] 
+    class="fixed bottom-10 -right-2 z-[9999] 
            rounded-lg border bg-background/95 px-3 py-2 
            backdrop-blur supports-[backdrop-filter]:bg-background/60
            hover:bg-accent transition-colors"
