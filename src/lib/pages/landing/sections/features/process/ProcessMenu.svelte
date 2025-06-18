@@ -2,136 +2,88 @@
 <script lang="ts">
   import { cn } from "$lib/utils";
   import { processSteps } from "../processData";
+  import { ArrowRight } from "lucide-svelte";
   
   export let currentStep: number = 0;
   export let onStepChange: (index: number) => void;
-  export let isCompact: boolean = false;
+  export let onSubmenuToggle: (index: number) => void;
   
-  const menuItems = [
-    ...processSteps,
-    {
-      id: 'get-started',
-      title: 'Get Started',
-      description: 'Join the waitlist for early access',
-      isLink: true,
-      href: '/waitlist'
-    }
-  ];
-  
-  function handleItemClick(index: number, item: any) {
-    if (item.isLink) {
-      window.location.href = item.href;
-      return;
-    }
-    onStepChange(index);
+  function handleItemClick(index: number) {
+    onSubmenuToggle(index);
   }
   
-  function getItemStyles(index: number, item: any) {
-    const isActive = !item.isLink && index === currentStep;
-    const isGetStarted = item.isLink;
-    
-    if (isGetStarted) {
-      return cn(
-        "text-primary hover:text-primary/80",
-        "border-primary/20 hover:border-primary/40 hover:bg-primary/5",
-        "transition-all duration-200"
-      );
-    }
-    
-    if (isActive) {
-      return cn(
-        "bg-white/10 border-border text-foreground",
-        "hover:bg-white/15"
-      );
-    }
-    
-    return cn(
-      "hover:bg-white/5 border-border/50 text-muted-foreground",
-      "hover:text-foreground hover:border-border",
-      "transition-all duration-200"
-    );
+  function handleGetStartedClick() {
+    window.location.href = '/waitlist';
   }
 </script>
 
-<div class={cn(
-  "process-menu-container rounded-xl border overflow-hidden",
-  "bg-zinc-950 text-white shadow-lg",
-  "transition-all duration-300"
-)}>
+<!-- Clean menu without wrapper -->
+<div class="space-y-2">
   
-  <!-- Header -->
-  <div class="flex items-center gap-2 px-4 py-3 border-b border-white/10 bg-zinc-900">
-    <div class="w-5 h-5 rounded bg-gradient-to-br from-[#3644FE] to-[#B345ED]" />
-    <span class="text-sm font-medium">Pipewriter Process</span>
+  <!-- Desktop: Vertical Stack -->
+  <div class="hidden sm:block space-y-1">
+    {#each processSteps as step, index}
+      <button
+        class={cn(
+          "flex items-center gap-3 px-3 py-2 w-full text-left rounded-lg",
+          "transition-all duration-200 hover:bg-white/5"
+        )}
+        on:click={() => handleItemClick(index)}
+      >
+        <div class={cn(
+          "w-3 h-3 rounded-full border-2 transition-colors",
+          index <= currentStep
+            ? "bg-primary border-primary" 
+            : "border-white/30"
+        )} />
+        
+        <span class="text-sm font-medium text-white">{step.title}</span>
+      </button>
+    {/each}
+    
+    <!-- Get Started - Desktop -->
+    <button
+      class="flex items-center gap-2 px-3 py-2 text-sm font-medium text-primary 
+             hover:text-primary/80 transition-colors mt-4"
+      on:click={handleGetStartedClick}
+    >
+      <ArrowRight class="w-3 h-3" />
+      <span>Get Started</span>
+    </button>
   </div>
 
-  <!-- Menu Items -->
-  <div class={cn(
-    "overflow-hidden transition-all duration-300",
-    isCompact ? "max-h-[60px] overflow-y-auto" : ""
-  )}>
+  <!-- Mobile: Horizontal + Get Started Below -->
+  <div class="sm:hidden space-y-3">
     
-    <!-- Desktop/Expanded: Vertical Stack -->
-    <div class="hidden sm:block">
-      {#each menuItems as item, index}
+    <!-- Process Steps - Horizontal -->
+    <div class="flex gap-2 text-xs">
+      {#each processSteps as step, index}
         <button
           class={cn(
-            "flex items-center gap-3 px-4 py-3 w-full text-left",
-            "border-b border-white/5 last:border-none",
-            getItemStyles(index, item),
-            item.isLink ? "font-medium" : ""
+            "flex items-center gap-2 px-2 py-1 rounded-md border transition-all",
+            index <= currentStep
+              ? "bg-primary/20 border-primary/40 text-primary"
+              : "border-white/20 text-white/80 hover:bg-white/5"
           )}
-          on:click={() => handleItemClick(index, item)}
+          on:click={() => handleItemClick(index)}
         >
-          {#if item.isLink}
-            <div class="w-4 h-4 rounded-full bg-primary/20 flex items-center justify-center">
-              <span class="text-xs">→</span>
-            </div>
-          {:else}
-            <div class={cn(
-              "w-4 h-4 rounded-full border-2",
-              index === currentStep && !item.isLink
-                ? "bg-primary border-primary" 
-                : "border-white/30"
-            )} />
-          {/if}
-          
-          <div class="flex-1 min-w-0">
-            <div class="text-sm font-medium truncate">{item.title}</div>
-            {#if !isCompact && item.description}
-              <div class="text-xs text-white/60 truncate mt-0.5">
-                {item.description}
-              </div>
-            {/if}
-          </div>
+          <div class={cn(
+            "w-2 h-2 rounded-full",
+            index <= currentStep ? "bg-primary" : "bg-white/30"
+          )} />
+          <span class="font-medium">{step.title}</span>
         </button>
       {/each}
     </div>
-
-    <!-- Mobile: Horizontal Scroll -->
-    <div class="sm:hidden flex overflow-x-auto p-2 gap-2 scrollbar-hide">
-      {#each menuItems as item, index}
-        <button
-          class={cn(
-            "flex-shrink-0 px-3 py-2 rounded-lg border text-sm font-medium",
-            "min-w-max transition-all duration-200",
-            getItemStyles(index, item)
-          )}
-          on:click={() => handleItemClick(index, item)}
-        >
-          {item.title}
-        </button>
-      {/each}
-    </div>
+    
+    <!-- Get Started - Mobile (New Line) -->
+    <button
+      class="flex items-center gap-2 text-xs font-medium text-primary 
+             hover:text-primary/80 transition-colors"
+      on:click={handleGetStartedClick}
+    >
+      <ArrowRight class="w-3 h-3" />
+      <span>Get Started</span>
+    </button>
   </div>
 </div>
-
-<style>
-  .scrollbar-hide {
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-  }
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-</style>
