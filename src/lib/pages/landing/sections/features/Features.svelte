@@ -1,32 +1,15 @@
 <!-- src/lib/pages/landing/sections/features/Features.svelte -->
 <script lang="ts">
   import { onMount } from "svelte";
-  import { cn } from "$lib/utils";
-  import ProcessMenu from "./process/ProcessMenu.svelte";
+  import PreviewSection from "./PreviewSection.svelte";
   import WriterShoutout from "./WriterShoutout.svelte";
-  import PreviewArea from "./video/PreviewArea.svelte";
+  import ActionBar from "./ActionBar.svelte";
   import VideoPlayer from "./video/VideoPlayer.svelte";
-  import { processSteps } from "./processData";
 
   // State
   let currentStep = 0;
   let isVideoOpen = false;
   let videoStartTime = 0;
-  let isCompact = false;
-  let isMobile = false;
-
-  onMount(() => {
-    const checkMobile = () => {
-      isMobile = window.innerWidth < 768;
-    };
-    
-    checkMobile();
-    window.addEventListener('resize', checkMobile);
-
-    return () => {
-      window.removeEventListener('resize', checkMobile);
-    };
-  });
 
   // Handle step changes
   function handleStepChange(stepIndex: number) {
@@ -48,88 +31,44 @@
     isVideoOpen = false;
   }
 
-  // Handle scroll-based step changes from PreviewArea
+  // Handle scroll-based step changes from PreviewSection
   function handlePreviewStepChange(event: CustomEvent) {
     currentStep = event.detail.stepIndex;
-  }
-
-  // Toggle compact mode for mobile sticky behavior
-  function toggleCompact() {
-    isCompact = !isCompact;
   }
 
   // Update writer shoutout based on current step
   $: {
     if (typeof window !== 'undefined') {
-      const currentStepData = processSteps[currentStep];
+      const shoutoutId = `writer${currentStep + 1}`;
       window.dispatchEvent(new CustomEvent('stepChanged', { 
-        detail: { shoutoutId: currentStepData?.shoutoutId } 
+        detail: { shoutoutId } 
       }));
     }
   }
 </script>
 
 <div class="relative">
-  <!-- Desktop Layout -->
-  <div class="hidden md:grid grid-cols-6 gap-8">
-    
-    <!-- Left Column: Process Menu + Writer Testimonials -->
-    <div class="col-span-2">
-      <div class="sticky top-4 space-y-6 z-50 pb-12">
-        
-        <!-- Process Menu -->
-        <ProcessMenu
-          {currentStep}
-          onStepChange={handleStepChange}
-          {isCompact}
-        />
+  
+  <!-- Main Preview Section -->
+  <PreviewSection
+    {currentStep}
+    onTimestampVideo={openVideoAtTimestamp}
+    on:stepChange={handlePreviewStepChange}
+  />
 
-        <!-- Writer Testimonials -->
-        <div class="px-4 pt-[20%]">
-          <WriterShoutout />
-        </div>
-      </div>
-    </div>
-
-    <!-- Right Column: Preview Area -->
-    <div class="col-span-4">
-      <PreviewArea
-        {currentStep}
-        onFullVideo={openFullVideo}
-        onTimestampVideo={openVideoAtTimestamp}
-        on:stepChange={handlePreviewStepChange}
-      />
-    </div>
+  <!-- Sticky Writer Shoutout - Desktop Only, Bottom Left -->
+  <div class="hidden md:block sticky bottom-2 left-4 sm:left-6 md:left-12 lg:left-16 xl:left-24 2xl:left-32 z-30 w-80">
+    <WriterShoutout />
   </div>
 
-  <!-- Mobile Layout -->
-  <div class="md:hidden">
-    
-    <!-- Sticky Header with Process Menu -->
-    <div class="sticky top-4 z-[999] bg-background/80 backdrop-blur-sm pb-6">
-      <ProcessMenu
-        {currentStep}
-        onStepChange={handleStepChange}
-        isCompact={true}
-      />
-    </div>
-
-    <!-- Writer Testimonials - Between menu and preview -->
-    <div class="px-4 py-6">
-      <WriterShoutout />
-    </div>
-
-    <!-- Preview Area -->
-    <div class="px-4">
-      <PreviewArea
-        {currentStep}
-        onFullVideo={openFullVideo}
-        onTimestampVideo={openVideoAtTimestamp}
-        on:stepChange={handlePreviewStepChange}
-      />
-    </div>
-  </div>
 </div>
+
+<!-- Sticky Action Bar -->
+<ActionBar
+  {currentStep}
+  onStepChange={handleStepChange}
+  onFullVideo={openFullVideo}
+/>
 
 <!-- Video Modal -->
 {#if isVideoOpen}
