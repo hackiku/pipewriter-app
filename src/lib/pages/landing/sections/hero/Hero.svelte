@@ -56,7 +56,7 @@
 		
 	</div>
 	
-	<div class="absolute bottom-20 md:right-[10%] md:bottom-32 md:-rotate-6">
+	<div class="absolute bottom-20 md:right-[15%] md:bottom-[18vh] md:-rotate-6">
 		<UserAvatars 
 			initialMode="reading"
 			switchInterval={3000}

@@ -29,18 +29,27 @@
 
   export let initialMode: keyof typeof GROUPS = 'reading';
   export let switchInterval = 3000;
+  export let className = '';
 
   let currentMode = initialMode;
+  let mounted = false;
 
   onMount(() => {
+    mounted = true;
     const interval = setInterval(() => {
-      currentMode = currentMode === 'reading' ? 'writing' : 'reading';
+      if (mounted) {
+        currentMode = currentMode === 'reading' ? 'writing' : 'reading';
+      }
     }, switchInterval);
-    return () => clearInterval(interval);
+    
+    return () => {
+      mounted = false;
+      clearInterval(interval);
+    };
   });
 </script>
 
-<div class="flex flex-col align-center gap-3 px-2"> 
+<div class="flex flex-col items-center gap-2 {className}"> 
   <div class="flex -space-x-2">
     {#each [0,1,2,3] as i}
       <div class="w-6 h-6 rounded-full ring-2 ring-background overflow-hidden">
@@ -49,27 +58,23 @@
             src={GROUPS[currentMode].images[i]}
             alt="Community member"
             class="w-full h-full object-cover"
-            in:fade={{ duration: 800 }}
+            in:fade={{ duration: 300 }}
           />
         {/key}
       </div>
     {/each}
+    
+    <!-- <div class="flex items-center ml-2">
+      <Mail class="w-3.5 h-3.5 text-muted-foreground" />
+    </div> -->
   </div>
 
-  <div class="w-[120px]">
+  <div class="text-center">
     {#key currentMode}
       <p class="text-sm text-muted-foreground whitespace-nowrap"
-         in:fade={{ duration: 800 }}>
+         in:fade={{ duration: 300 }}>
         <span class="font-medium text-foreground">{GROUPS[currentMode].count}</span> 
         {GROUPS[currentMode].label}
-        <!-- {#if currentMode === 'writing'}
-          <span class="ml-1.5 text-xs px-1.5 py-0.5 rounded-full 
-                     bg-primary/10 text-primary border border-primary/20">
-            beta
-          </span>
-        {:else}
-          <Mail class="ml-1.5 inline-block w-3.5 h-3.5 text-muted-foreground" />
-        {/if} -->
       </p>
     {/key}
   </div>
