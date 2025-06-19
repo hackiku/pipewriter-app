@@ -17,12 +17,21 @@
   let lastScrollY = 0;
   let isMobile = false;
 
-  // Check if current page matches nav item
-  $: currentPath = $page.url.pathname;
-  
-  function isActivePage(href: string): boolean {
-    if (href === '/') return currentPath === '/';
-    return currentPath.startsWith(href);
+  // Check if current page matches nav item - using $page directly for better reactivity
+  function isActivePage(href: string, currentPath: string): boolean {
+    // Handle root path exactly
+    if (href === '/') {
+      return currentPath === '/';
+    }
+    
+    // For other paths, check exact match or sub-path match
+    if (currentPath === href) {
+      return true;
+    }
+    
+    // Check if current path starts with href followed by '/' to avoid partial matches
+    // e.g., /about matches /about/team but not /about-us
+    return currentPath.startsWith(href + '/');
   }
 
   onMount(() => {
@@ -83,7 +92,7 @@
       <!-- Desktop Navigation - centered to screen -->
       <div class="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         {#each mainNavItems as item}
-          {@const isActive = isActivePage(item.href)}
+          {@const isActive = isActivePage(item.href, $page.url.pathname)}
           <a
             href={item.href}
             class="relative font-medium transition-colors duration-200 py-2
@@ -101,9 +110,11 @@
             
             <!-- Active indicator line -->
             {#if isActive}
-              <div class="absolute -bottom-1 left-0 right-0 h-0.5 
+              <div class="absolute bottom-0.5 left-0 right-0 h-0.5 
+                          bg-foreground rounded-full transition-all duration-300"></div>
+              <!-- <div class="absolute bottom-1 left-0 right-0 h-0.5 
                           bg-gradient-to-r from-[#3644FE] to-[#B345ED] 
-                          rounded-full transition-all duration-300"></div>
+                          rounded-full transition-all duration-300"></div> -->
             {/if}
           </a>
         {/each}
@@ -147,7 +158,7 @@
         <!-- Navigation items -->
         <nav class="space-y-2 mb-6">
           {#each mainNavItems as item}
-            {@const isActive = isActivePage(item.href)}
+            {@const isActive = isActivePage(item.href, $page.url.pathname)}
             <a
               href={item.href}
               class="block px-4 py-3 text-lg font-medium rounded-xl transition-colors duration-200
