@@ -6,13 +6,13 @@
 
 <svelte:head>
 	<title>{data.policy.title}</title>
-	<meta name="description" content="Terms of service for our website and services." />
+	<meta name="description" content="Terms of service for Pipewriter website and product." />
 </svelte:head>
 
 <LegalPage policy={data.policy} />
 
 <img src="/fun/objection.webp"
 	alt="objection penguin gif"
-	class="-z-10 absolute rotate-6 rounded-xl 
+	class="z-10 absolute rotate-6 rounded-xl 
 	w-32 top-52 right-8 md:top-32 md:right-12 md:w-52 lg:right-64"
 />

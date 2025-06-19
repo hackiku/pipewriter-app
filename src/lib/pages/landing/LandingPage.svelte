@@ -13,7 +13,7 @@
 	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
 	import Proof from "./sections/proof/Proof.svelte";
 	// import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
-
+	import PricingCTA from "$lib/components/cta/pricing/PricingCTA.svelte";
 	// import Compare from "$lib/components/cta/pricing/comparison/Compare.svelte";
 	import Pricing from "./sections/pricing/Pricing.svelte";
 	import FAQ from "./sections/faq/FAQ.svelte";
@@ -21,6 +21,7 @@
 	// dev & design
 	import BackgroundGrid from "$lib/components/BackgroundGrid.svelte";
 	import ViewportSize from "$lib/components/dev/ViewportSize.svelte";
+    import PricingCta from "../pricing/components/cta/PricingCTA.svelte";
 	// import Frame from '$lib/iframe/Frame.svelte';
 
 	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]";
@@ -91,12 +92,12 @@
 
 		<Features />
 	</section>
-
-
+	
+	
 	
 
 	<!-- Social Proof -->
-	<section class="py-12 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+	<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
 		<div class="text-center mb-16 max-w-lg mx-auto">
 			<h2 class="text-4xl font-semibold mb-4">
 				Made with 🫶, ⏱️, and <br />Oxford comma
@@ -105,7 +106,12 @@
 
 		<Proof />
 	</section>
-
+	
+	
+	
+	<section class="py-12 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+		<PricingCTA HEADLINE={HEADLINE} />
+	</section>
 	
 	<section class="pb-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
 

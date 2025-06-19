@@ -4,7 +4,7 @@
 
 ## Who We Are
 
-Pipewriter is built by writers, for writers. "We" a small team of one (it's a-me, Ivan) who believes that copywriters, UX writers, and content strategists deserve product development tools as sophisticated as those used by designers and developers. After all, great products start with great words. Even movie films have screenplays, after all. 
+Pipewriter is built by writers, for writers. "We" are a small team... of one (it's a-me, Ivan) who believes that copywriters, UX writers, and content strategists deserve product development tools as sophisticated as those used by designers and developers. After all, great products start with great words. Even movie films have screenplays, after all. 
 
 **Company Details:** Pipewriter OÜ, registered at Sepapaja 6, Tallinn 15551, Estonia, reg. no. 14904870. We're incorporated in Estonia but serve writers worldwide who want to create better documents in Google Docs.
 
