@@ -1,205 +1,203 @@
-<!-- src/lib/pages/landing/sections/samples/SampleTabs.svelte -->
+<!-- src/lib/pages/landing/sections/samples/BeforeAfterSlider.svelte -->
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { spring } from 'svelte/motion';
   
-  interface Sample {
-    id: string;
-    name: string;
-    company: string;
-    description: string;
-    logo?: string;
-    beforeImage?: string;
-    afterImage?: string;
-  }
+  // Props
+  export let beforeImage: string = '';
+  export let afterImage: string = '';
+  export let beforeLabel: string = 'Google Docs';
+  export let afterLabel: string = 'Live Website';
   
-  const {
-    samples,
-    currentSample = 0,
-    onSampleChange
-  }: {
-    samples: Sample[];
-    currentSample: number;
-    onSampleChange: (index: number) => void;
-  } = $props();
+  // State variables
+  let sliderPosition = 50; // Percentage
+  let containerRef: HTMLDivElement;
+  let isDragging = false;
+  let isMobile = false;
+  let animationFrame: number;
   
-  let tabsContainer: HTMLDivElement;
-  let activeTabElement: HTMLButtonElement | null = null;
-  let autoRotateInterval: number;
-  
-  // Spring animation for tab movement
-  const tabPosition = spring({ x: 0, width: 0 }, {
-    stiffness: 0.2,
-    damping: 0.8
-  });
-  
-  // Auto-rotate samples
   onMount(() => {
-    startAutoRotate();
+    const checkMobile = () => {
+      isMobile = window.innerWidth < 768; // md breakpoint
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    
+    // Add event listeners
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleEnd);
+    document.addEventListener('touchmove', handleTouchMove, { passive: false });
+    document.addEventListener('touchend', handleEnd);
+    
     return () => {
-      if (autoRotateInterval) clearInterval(autoRotateInterval);
+      window.removeEventListener('resize', checkMobile);
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleEnd);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleEnd);
     };
   });
   
-  function startAutoRotate() {
-    if (autoRotateInterval) clearInterval(autoRotateInterval);
+  function handleMouseDown(event: MouseEvent) {
+    isDragging = true;
+    updateSliderPosition(event);
+    event.preventDefault();
+  }
+  
+  function handleTouchStart(event: TouchEvent) {
+    isDragging = true;
+    updateSliderPosition(event.touches[0]);
+    event.preventDefault();
+  }
+  
+  function handleMouseMove(event: MouseEvent) {
+    if (!isDragging) return;
+    updateSliderPosition(event);
+  }
+  
+  function handleTouchMove(event: TouchEvent) {
+    if (!isDragging) return;
+    updateSliderPosition(event.touches[0]);
+    event.preventDefault();
+  }
+  
+  function handleEnd() {
+    isDragging = false;
+  }
+  
+  function updateSliderPosition(event: MouseEvent | Touch) {
+    if (!containerRef) return;
     
-    autoRotateInterval = setInterval(() => {
-      const nextIndex = (currentSample + 1) % samples.length;
-      onSampleChange(nextIndex);
-    }, 5000); // Auto-change every 5 seconds
-  }
-  
-  function handleTabClick(index: number) {
-    onSampleChange(index);
-    // Reset auto-rotate timer when user interacts
-    startAutoRotate();
-  }
-  
-  // Update tab position animation when currentSample changes
-  $effect(() => {
-    if (tabsContainer && currentSample >= 0) {
-      const tabElements = tabsContainer.querySelectorAll('[data-tab]') as NodeListOf<HTMLButtonElement>;
-      const activeTab = tabElements[currentSample];
+    // Cancel any pending animation frame
+    if (animationFrame) {
+      cancelAnimationFrame(animationFrame);
+    }
+    
+    // Use requestAnimationFrame for smooth updates
+    animationFrame = requestAnimationFrame(() => {
+      const rect = containerRef.getBoundingClientRect();
+      let percentage: number;
       
-      if (activeTab) {
-        activeTabElement = activeTab;
-        const containerRect = tabsContainer.getBoundingClientRect();
-        const tabRect = activeTab.getBoundingClientRect();
-        
-        tabPosition.set({
-          x: tabRect.left - containerRect.left,
-          width: tabRect.width
-        });
+      if (isMobile) {
+        // Vertical sliding for mobile (up/down)
+        const y = event.clientY - rect.top;
+        percentage = Math.max(0, Math.min(100, (y / rect.height) * 100));
+      } else {
+        // Horizontal sliding for desktop (left/right)
+        const x = event.clientX - rect.left;
+        percentage = Math.max(0, Math.min(100, (x / rect.width) * 100));
       }
-    }
-  });
-  
-  // Logo placeholder function
-  function getLogoPlaceholder(company: string): string {
-    const colors = [
-      'bg-gradient-to-br from-blue-500 to-blue-600',
-      'bg-gradient-to-br from-green-500 to-green-600', 
-      'bg-gradient-to-br from-purple-500 to-purple-600',
-      'bg-gradient-to-br from-orange-500 to-orange-600'
-    ];
-    
-    const index = samples.findIndex(s => s.company === company);
-    return colors[index % colors.length];
+      
+      sliderPosition = percentage;
+      
+      // Update CSS custom properties for hardware acceleration
+      containerRef.style.setProperty('--slider-position', `${percentage}%`);
+    });
   }
   
-  // Tab connection styles - the leftmost tab gets the "connected" look
-  function getTabStyles(index: number): string {
-    const isActive = index === currentSample;
-    const isLeftmost = index === 0;
+  // Reactive statements for dynamic styles
+  $: clipPath = isMobile
+    ? `polygon(0 0, 100% 0, 100% ${sliderPosition}%, 0 ${sliderPosition}%)`
+    : `polygon(${sliderPosition}% 0, 100% 0, 100% 100%, ${sliderPosition}% 100%)`;
+  
+  $: sliderStyles = isMobile
+    ? `top: ${sliderPosition}%; left: 0; right: 0; height: 2px;`
+    : `left: ${sliderPosition}%; top: 0; bottom: 0; width: 2px;`;
     
-    if (isActive && isLeftmost) {
-      // Connected tab style - like the app tabs
-      return `relative z-10 rounded-t-3xl bg-background border-b-0 border-l border-r border-t 
-              border-border shadow-lg transform translate-y-1`;
-    }
+  $: handleStyles = isMobile
+    ? `top: ${sliderPosition}%; left: 50%; transform: translate(-50%, -50%);`
+    : `left: ${sliderPosition}%; top: 50%; transform: translate(-50%, -50%);`;
     
-    if (isActive) {
-      // Active but not leftmost - highlight style
-      return `relative z-20 bg-primary/10 border border-primary/20 rounded-2xl
-              transform scale-105 shadow-lg`;
-    }
-    
-    // Inactive tab
-    return `relative z-0 bg-card hover:bg-muted border border-border rounded-2xl
-            hover:border-primary/20 transition-all duration-200`;
-  }
+  // Mobile gets vertical aspect ratio
+  $: aspectRatio = isMobile ? 'aspect-[3/4]' : 'aspect-[16/9]';
 </script>
 
-<div class="space-y-0 relative">
-  <!-- Tabs Container -->
-  <div 
-    bind:this={tabsContainer}
-    class="flex gap-4 px-4 relative"
-  >
-    <!-- Animated background indicator (optional alternative to individual tab styling) -->
-    <!-- <div 
-      class="absolute top-0 bottom-0 bg-primary/5 border border-primary/20 rounded-2xl
-             transition-all duration-300 ease-out z-0"
-      style="left: {$tabPosition.x}px; width: {$tabPosition.width}px;"
-    ></div> -->
-    
-    {#each samples as sample, index}
-      <button
-        data-tab={index}
-        class="flex-1 p-4 transition-all duration-300 ease-out {getTabStyles(index)}
-               hover:shadow-md group"
-        on:click={() => handleTabClick(index)}
-        disabled={currentSample === index}
-      >
-        <div class="flex flex-col items-center space-y-3">
-          <!-- Logo/Icon -->
-          {#if sample.logo}
-            <img src={sample.logo} alt="{sample.company} logo" class="w-12 h-12 rounded-xl" />
-          {:else}
-            <div class="w-12 h-12 rounded-xl {getLogoPlaceholder(sample.company)}
-                        flex items-center justify-center text-white font-bold text-lg
-                        group-hover:scale-105 transition-transform">
-              {sample.company.charAt(0)}
-            </div>
-          {/if}
-          
-          <!-- Content -->
-          <div class="text-center space-y-1">
-            <h4 class="font-semibold text-sm text-foreground 
-                       {currentSample === index ? 'text-primary' : 'group-hover:text-primary'}
-                       transition-colors">
-              {sample.company}
-            </h4>
-            <p class="text-xs text-muted-foreground">
-              {sample.name}
-            </p>
-            
-            <!-- Active indicator dot -->
-            {#if currentSample === index}
-              <div class="flex justify-center mt-2">
-                <div class="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-              </div>
-            {/if}
-          </div>
-        </div>
-      </button>
-    {/each}
+<div
+  bind:this={containerRef}
+  class="relative w-full {aspectRatio} rounded-2xl overflow-hidden 
+         cursor-crosshair select-none transition-all duration-200"
+  on:mousedown={handleMouseDown}
+  on:touchstart={handleTouchStart}
+  role="slider"
+  tabindex="0"
+  aria-label="Before and after comparison slider"
+  aria-valuenow={sliderPosition}
+  aria-valuemin={0}
+  aria-valuemax={100}
+>
+  <!-- Before Content -->
+  <div class="absolute inset-0">
+    {#if beforeImage}
+      <img src={beforeImage} alt="Before - {beforeLabel}" class="w-full h-full object-cover" />
+    {:else}
+      <!-- Simple placeholder for future image -->
+      <div class="w-full h-full bg-gradient-to-br from-zinc-100 to-zinc-200 dark:from-zinc-800 dark:to-zinc-900">
+        <!-- This will be replaced with actual image -->
+      </div>
+    {/if}
   </div>
   
-  <!-- Connection indicator for leftmost tab -->
-  {#if currentSample === 0}
-    <div class="absolute top-full left-4 w-24 h-1 bg-background border-l border-r border-border
-                transform -translate-y-0.5 z-0"></div>
-  {/if}
+  <!-- After Content -->
+  <div 
+    class="absolute inset-0"
+    style="clip-path: {clipPath}"
+  >
+    {#if afterImage}
+      <img src={afterImage} alt="After - {afterLabel}" class="w-full h-full object-cover" />
+    {:else}
+      <!-- Simple placeholder for future image -->
+      <div class="w-full h-full bg-gradient-to-br from-primary/10 to-primary/20">
+        <!-- This will be replaced with actual image -->
+      </div>
+    {/if}
+  </div>
   
-  <!-- Navigation dots (mobile alternative) -->
-  <div class="flex justify-center gap-2 mt-6 sm:hidden">
-    {#each samples as _, index}
-      <button
-        class="w-2 h-2 rounded-full transition-all duration-300
-               {index === currentSample 
-                 ? 'bg-primary w-6' 
-                 : 'bg-muted hover:bg-primary/50'
-               }"
-        on:click={() => handleTabClick(index)}
-        aria-label="View sample {index + 1}"
-      />
-    {/each}
+  <!-- Slider Line -->
+  <div 
+    class="absolute bg-gradient-to-r from-[#3644FE] to-[#B345ED] z-10 pointer-events-none
+           shadow-lg"
+    style={sliderStyles}
+  ></div>
+  
+  <!-- Slider Handle -->
+  <div 
+    class="absolute w-12 h-12 bg-white dark:bg-zinc-900 rounded-full border-2
+           border-primary shadow-xl flex items-center justify-center z-20
+           hover:scale-110 transition-all duration-200 cursor-grab active:cursor-grabbing
+           {isDragging ? 'scale-110 shadow-2xl' : ''}"
+    style={handleStyles}
+  >
+    {#if isMobile}
+      <!-- Vertical handle icon for mobile (up/down drag) -->
+      <div class="flex flex-col gap-1">
+        <div class="w-5 h-0.5 bg-primary rounded-full"></div>
+        <div class="w-5 h-0.5 bg-primary rounded-full"></div>
+        <div class="w-5 h-0.5 bg-primary rounded-full"></div>
+      </div>
+    {:else}
+      <!-- Horizontal handle icon for desktop (left/right drag) -->
+      <div class="flex gap-1">
+        <div class="w-0.5 h-5 bg-primary rounded-full"></div>
+        <div class="w-0.5 h-5 bg-primary rounded-full"></div>
+        <div class="w-0.5 h-5 bg-primary rounded-full"></div>
+      </div>
+    {/if}
+  </div>
+  
+  <!-- Labels -->
+  <div class="absolute bottom-4 left-4 px-4 py-2 bg-black/70 backdrop-blur-sm
+              rounded-full text-white text-sm font-medium shadow-lg">
+    {beforeLabel}
+  </div>
+  <div class="absolute bottom-4 right-4 px-4 py-2 bg-black/70 backdrop-blur-sm
+              rounded-full text-white text-sm font-medium shadow-lg">
+    {afterLabel}
+  </div>
+  
+  <!-- Interaction Hint -->
+  <div class="absolute top-4 left-1/2 -translate-x-1/2 px-3 py-1 
+              bg-black/50 backdrop-blur-sm rounded-full text-white text-xs
+              opacity-0 hover:opacity-100 transition-opacity pointer-events-none">
+    {isMobile ? 'Drag up/down' : 'Drag left/right'}
   </div>
 </div>
-
-<style>
-  /* Ensure smooth transitions for tab movement */
-  [data-tab] {
-    transform-origin: center;
-    will-change: transform;
-  }
-  
-  /* Optional: Add slight shadow to connected tab to emphasize depth */
-  .connected-tab {
-    box-shadow: 
-      0 -4px 6px -1px rgb(0 0 0 / 0.1),
-      0 -2px 4px -2px rgb(0 0 0 / 0.1);
-  }
-</style>

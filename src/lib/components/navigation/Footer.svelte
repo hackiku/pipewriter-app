@@ -97,7 +97,7 @@
       <div class="flex flex-col md:flex-row items-center justify-between gap-6">
         <!-- Copyright -->
         <p class="text-sm text-muted-foreground">
-          Copyalright © {currentYear} Pipewriter. All rights reserved.
+          Copyalright © {currentYear} Pipewriter
         </p>
         
         <!-- Social icons -->

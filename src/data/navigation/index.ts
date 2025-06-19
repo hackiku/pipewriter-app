@@ -4,9 +4,10 @@ import type { NavItem, SocialLink } from './types';
 import { contactModalStore } from '$lib/stores/contactModalStore';
 
 export const mainNavItems: NavItem[] = [
-	{ href: "/about", label: "About" },
 	{ href: "/pricing", label: "Pricing" },
+	{ href: "/about", label: "About" },
 	{ href: "/blog", label: "Blog" },
+	{ href: "/contact", label: "Contact" },
 ];
 
 export const socialLinks: SocialLink[] = [
