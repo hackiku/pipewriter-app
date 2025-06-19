@@ -16,20 +16,20 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="relative overflow-hidden -mr-44 -space-y-3">
+    <div class="relative overflow-hidden -mr-44 -space-y-3 md:-space-y-2">
       
       <!-- Container for both texts -->
       <div class="flex items-baseline">
         
         <!-- Static "writing" -->
-        <h1 class="relative z-20 text-6xl md:text-8xl lg:text-9xl font-normal 
+        <h1 class="relative z-20 text-6xl sm:text-7xl lg:text-8xl font-normal 
                    text-primary leading-relaxed py-1">
           writing
         </h1>
 
         <!-- Sliding text starts right after "writing" -->
         <div class="relative z-10 overflow-hidden ml-4 py-1">
-          <div class="whitespace-nowrap text-6xl md:text-8xl lg:text-9xl
+          <div class="whitespace-nowrap text-6xl sm:text-7xl lg:text-8xl
                       font-normal leading-none text-primary/20 animate-slide-left">
             writing on writing on writing on writing on writing on writing
           </div>
@@ -37,7 +37,7 @@
 				
       </div>
 			<div class="relative z-10 overflow-hidden ml-4 py-1">
-				<div class="whitespace-nowrap text-6xl md:text-8xl lg:text-9xl
+				<div class="whitespace-nowrap text-6xl sm:text-7xl lg:text-8xl
 										font-normal leading-none text-primary/20 animate-slide-left">
 					on writing on writing on writing on writing on writing on writing
 				</div>

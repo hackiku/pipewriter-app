@@ -2,6 +2,7 @@
 <script lang="ts">
   import { onMount } from "svelte";
   import { browser } from '$app/environment';
+  import { page } from '$app/stores';
   import { slide } from 'svelte/transition';
   import { Menu, X } from "lucide-svelte";
   import LogoSystem from "../branding/LogoSystem.svelte";
@@ -15,6 +16,14 @@
   let isVisible = true;
   let lastScrollY = 0;
   let isMobile = false;
+
+  // Check if current page matches nav item
+  $: currentPath = $page.url.pathname;
+  
+  function isActivePage(href: string): boolean {
+    if (href === '/') return currentPath === '/';
+    return currentPath.startsWith(href);
+  }
 
   onMount(() => {
     if (!browser) return;
@@ -71,13 +80,16 @@
         className="flex-shrink-0" 
       />
 
-      <!-- Desktop Navigation (hidden on mobile) -->
-      <div class="hidden md:flex items-center gap-6">
+      <!-- Desktop Navigation - centered to screen -->
+      <div class="hidden md:flex items-center gap-8 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
         {#each mainNavItems as item}
+          {@const isActive = isActivePage(item.href)}
           <a
             href={item.href}
-            class="text-muted-foreground hover:text-foreground font-medium 
-                   transition-colors duration-200"
+            class="relative font-medium transition-colors duration-200 py-2
+                   {isActive 
+                     ? 'text-foreground' 
+                     : 'text-muted-foreground hover:text-foreground'}"
             on:click={(e) => {
               if (item.onClick) {
                 e.preventDefault();
@@ -86,6 +98,13 @@
             }}
           >
             {item.label}
+            
+            <!-- Active indicator line -->
+            {#if isActive}
+              <div class="absolute -bottom-1 left-0 right-0 h-0.5 
+                          bg-gradient-to-r from-[#3644FE] to-[#B345ED] 
+                          rounded-full transition-all duration-300"></div>
+            {/if}
           </a>
         {/each}
       </div>
@@ -128,10 +147,13 @@
         <!-- Navigation items -->
         <nav class="space-y-2 mb-6">
           {#each mainNavItems as item}
+            {@const isActive = isActivePage(item.href)}
             <a
               href={item.href}
-              class="block px-4 py-3 text-lg font-medium text-foreground 
-                     hover:bg-muted rounded-xl transition-colors duration-200"
+              class="block px-4 py-3 text-lg font-medium rounded-xl transition-colors duration-200
+                     {isActive 
+                       ? 'text-foreground bg-primary/10 border border-primary/20' 
+                       : 'text-foreground hover:bg-muted'}"
               on:click={(e) => {
                 if (item.onClick) {
                   e.preventDefault();

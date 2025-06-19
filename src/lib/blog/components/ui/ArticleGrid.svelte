@@ -55,7 +55,7 @@
     
     <!-- Category Filter -->
     <div class="flex items-center gap-3">
-      <Filter class="w-4 h-4 text-muted-foreground" />
+      <!-- <Filter class="w-4 h-4 text-muted-foreground" /> -->
       <div class="flex flex-wrap gap-2">
         {#each categories as category}
           <button

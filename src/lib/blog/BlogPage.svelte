@@ -8,17 +8,21 @@
   
   export let posts: BlogPost[];
   $: regularPosts = posts;
+
+	import ViewportSize from "$lib/components/dev/ViewportSize.svelte";
 </script>
 
+<ViewportSize />
+
 <main class="text-foreground relative overflow-x-hidden">
-  <section class="relative pt-28 md:pt-36">
+  <section class="relative pt-40 md:pt-32">
     <div class="relative z-10">
       <Title className="mb-6" />
 
       <div class="container md:px-20 lg:px-20 xl:px-44">
         <div class="space-y-6">
           <p class="text-xl md:text-2xl text-muted-foreground/80 font-normal">
-            Thoughts, devlogs, and the occasional off-the-rails engineering rant.
+            Thoughts, devlogs, and the occasional aero+space rant nobody asked for.
           </p>
 
           <EmailForm 

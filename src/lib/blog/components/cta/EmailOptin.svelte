@@ -14,7 +14,7 @@
   
   <EmailForm 
     buttonText="Subscribe"
-    size="sm" 
+    size="lg" 
     className="max-w-md mx-auto" 
     wrap={false}
   />

@@ -2,12 +2,12 @@
 title: "Can It Run Doom? The Writer's Edition"
 date: "January 25, 2025"
 category: "Building in Public"
-excerpt: "How I turned Google Docs into a UX tool and accidentally learned to code along the way. A story about wireframes, rocket science, and making things do what they weren't supposed to."
+excerpt: "How I forced Google Docs to do design and accidentally learned to engineering along the way. A story about wireframes, rocket science, and making things do what they weren't supposed to."
 ---
 
 ## The First Launch (2023)
 
-Two years ago, I made a Webflow template that let writers prototype websites in Google Docs. Nothing fancy - just a bunch of tables that looked like UI components. Put it up for free, forgot about it.
+Couple years back ago, I made a Google Docs template that let writers prototype websites in Google Docs. Nothing fancy - just a bunch of tables that looked like UI components. Put it up for free, forgot about it.
 
 400 downloads later, I realized I had stumbled onto something. Writers were using my janky template for five-figure contracts. They were building entire UX workflows in _Google Docs_ of all places.
 

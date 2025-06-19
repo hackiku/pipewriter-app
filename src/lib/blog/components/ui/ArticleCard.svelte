@@ -42,7 +42,7 @@
     href="/blog/{post.slug}" 
     class="group relative block overflow-hidden rounded-xl border bg-card p-6
            -rotate-[0.5deg] odd:rotate-[0.5deg] transition-all duration-300 
-           hover:shadow-xl hover:shadow-primary/10 float-on-hover"
+           hover:shadow-lg hover:shadow-muted/70 float-on-hover"
     style="--rotation: {Math.random() > 0.5 ? '0.5deg' : '-0.5deg'}"
   >
     <div class="relative space-y-6">
