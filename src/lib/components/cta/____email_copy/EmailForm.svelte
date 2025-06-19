@@ -11,6 +11,11 @@
   export let wrap = defaultProps.wrap;
   export let source = defaultProps.source;
   export let className = defaultProps.className;
+  // New prop to determine if this is for doc delivery
+  export let isDocDelivery = false;
+  // Optional content for doc delivery
+  export let content: any = null;
+  export let format: string = 'text';
 
   let email = '';
   let isSubmitting = false;
@@ -28,12 +33,18 @@
     errorMessage = '';
 
     try {
-      const response = await fetch('/api/email/subscribe', {
+      // Choose endpoint based on whether this is for doc delivery
+      const endpoint = isDocDelivery ? '/api/export' : '/api/email/subscribe';
+      const payload = isDocDelivery 
+        ? { email, content, format, source }
+        : { email, source };
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email, source }),
+        body: JSON.stringify(payload),
       });
 
       const result: SubscribeResponse = await response.json();
@@ -64,7 +75,7 @@
     on:submit={handleSubmit} 
     class={styles.form({ wrap, size, className })}
   >
-    <div class="relative flex-1">
+    <div class="sm:flex-1 items-center relative">
       <input
         type="email"
         bind:value={email}
@@ -74,7 +85,7 @@
       <div class="absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none">
         <Icon.Mail 
           class="text-gray-300 dark:text-gray-700" 
-          size={size === "lg" ? 22 : size === "xl" ? 24 : 20}
+          size={size === "default" ? 20 : 18}
         />
       </div>
       {#if !email}
@@ -100,7 +111,7 @@
             style="right: -1em"
             class:opacity-100={isButtonActive}
           >
-            <Icon.ArrowRight size={size === "lg" ? 22 : size === "xl" ? 24 : 20} />
+            <Icon.ArrowRight size={20} />
           </div>
         </div>
       </button>
@@ -127,11 +138,13 @@
     <div class="flex items-center justify-center mb-3">
       <Icon.Check size={24} class="mr-2" />
       <h3 class={size === "default" ? "text-xl font-semibold" : "text-lg"}>
-        You're in!
+        {isDocDelivery ? 'Template sent!' : 'You\'re in!'}
       </h3>
     </div>
     <p class={size === "default" ? "" : "text-sm"}>
-      Check your inbox for a welcome message and exciting updates.
+      {isDocDelivery 
+        ? 'Check your inbox for the template and setup guide.'
+        : 'Check your inbox for a welcome message and exciting updates.'}
     </p>
   </div>
 {/if}

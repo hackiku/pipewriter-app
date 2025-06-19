@@ -34,12 +34,11 @@ export const styles: StyleConfig = {
 		"focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
 		"placeholder:text-gray-400 dark:placeholder:text-gray-600",
 		"transition-shadow duration-200",
-		// Fixed heights to match button exactly
-		size === "xs" ? "pr-3 py-2 text-sm h-8" :
-			size === "sm" ? "pr-4 py-2.5 text-base h-9" :
-				size === "default" || size === "md" ? "pr-6 py-3.5 text-lg h-11" :
-					size === "lg" ? "pr-8 py-4 text-xl h-12" :
-						"pr-8 py-4.5 text-2xl h-14"  // xl
+		size === "default" || size === "md" ? "pr-6 py-3.5 text-lg" :
+			size === "xs" ? "pr-3 py-2 text-sm" :
+				size === "sm" ? "pr-4 py-2.5 text-base" :
+					size === "lg" ? "pr-8 py-4 text-xl" :
+						"pr-8 py-4 text-2xl"  // xl
 	),
 
 	button: (size, wrap) => cn(
@@ -48,16 +47,14 @@ export const styles: StyleConfig = {
 		"hover:shadow-lg hover:shadow-primary/20",
 		"focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2",
 		"transition-all duration-200 ease-out",
-		"disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:shadow-none",
+		"disabled:opacity-100 disabled:cursor-not-allowed disabled:hover:shadow-none", // Changed from opacity-50
 		wrap ? "w-full" : "w-full sm:w-auto",
-		// Matching heights with input
-		size === "xs" ? "px-4 text-sm h-8" :
-			size === "sm" ? "px-6 text-base h-9" :
-				size === "default" || size === "md" ? "px-8 text-lg h-11" :
-					size === "lg" ? "px-10 text-xl h-12" :
-						"px-12 text-2xl h-14"  // xl
+		size === "default" || size === "md" ? "px-8 py-3 text-lg" :
+			size === "xs" ? "px-4 py-1.5 text-sm" :
+				size === "sm" ? "px-6 py-2 text-base" :
+					size === "lg" ? "px-10 py-3.5 text-xl" :
+						"px-12 py-4 text-2xl"  // xl
 	),
-
 	success: (size) => cn(
 		"w-full p-6 rounded-lg",
 		"bg-gradient-to-r from-[#3644FE] to-[#B345ED]",

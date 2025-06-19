@@ -1,4 +1,4 @@
-<!-- src/lib/components/cta/pricing/PricingCTA.svelte -->
+<!-- src/lib/components/pricing/PricingCta.svelte -->
 <script lang="ts">
   import { Clock, Zap, Check } from "lucide-svelte";
   import GetStartedButton from "$lib/components/cta/signin/GetStartedButton.svelte";

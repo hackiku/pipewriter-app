@@ -16,7 +16,7 @@
       ]
     },
     writing: {
-      count: '30+',
+      count: '20-ish',
       label: 'writing',
       images: [
         '/people/team/ivan-karaman.png',

@@ -1,29 +1,20 @@
 <!-- src/lib/pages/landing/LandingPage.svelte -->
 <script lang="ts">
 	// import { dev } from "$app/environment";
-	import { FileText } from "lucide-svelte";
-
 	// sections
 	import Hero from "./sections/hero/Hero.svelte";
-	import Demo from "./sections/demo/Demo.svelte";
-
 	import Samples from "./sections/samples/Samples.svelte";
-	// import DocsDemo from "$lib/components/demo/docs/DocsDemo.svelte";
 	import Features from "./sections/features/Features.svelte";
-	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
-	import Proof from "./sections/proof/Proof.svelte";
-	// import AppDemo from "$lib/components/demo/app/AppDemo.svelte";
-	import PricingCTA from "$lib/components/cta/pricing/PricingCTA.svelte";
-	// import Compare from "$lib/components/cta/pricing/comparison/Compare.svelte";
-	import Pricing from "./sections/pricing/Pricing.svelte";
+	import Proof from "./sections/proof/Proof.svelte";	
+	// import PricingCta from "$lib/components/pricing/PricingCta.svelte";
+  import WaitlistCta from "$lib/components/pricing/WaitlistCta.svelte";
 	import FAQ from "./sections/faq/FAQ.svelte";
-
+	
 	// dev & design
 	import BackgroundGrid from "$lib/components/BackgroundGrid.svelte";
 	import ViewportSize from "$lib/components/dev/ViewportSize.svelte";
-    import PricingCta from "../pricing/components/cta/PricingCTA.svelte";
-	// import Frame from '$lib/iframe/Frame.svelte';
-
+	import LogosMarquee from "$lib/components/proof/LogosMarquee.svelte";
+  
 	export const HEADLINE = "text-[#171717] dark:text-[#CFCFCF]";
 </script>
 
@@ -110,9 +101,12 @@
 	
 	
 	<section class="py-12 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-		<PricingCTA HEADLINE={HEADLINE} />
+		<!-- <PricingCta /> -->
+		<WaitlistCta />
 	</section>
 	
+
+
 	<section class="pb-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
 
 				<h2
@@ -121,7 +115,7 @@
               max-w-[20ch] mx-auto text-center
 							{HEADLINE}"
 		>
-			Questionably Frequent
+			Questionably Frequent Queries
 		</h2>
 
 		<FAQ />
