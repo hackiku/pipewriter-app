@@ -16,7 +16,7 @@
     </div>
 
     <!-- Main Content Area -->
-    <div class="relative overflow-hidden -mr-44 -space-y-2">
+    <div class="relative overflow-hidden -mr-44 -space-y-3">
       
       <!-- Container for both texts -->
       <div class="flex items-baseline">

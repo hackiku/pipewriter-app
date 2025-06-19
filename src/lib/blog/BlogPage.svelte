@@ -18,15 +18,15 @@
       <div class="container md:px-20 lg:px-20 xl:px-44">
         <div class="space-y-6">
           <p class="text-xl md:text-2xl text-muted-foreground/80 font-normal">
-            Thoughts, devlogs, and the occasional existential crisis.
+            Thoughts, devlogs, and the occasional off-the-rails engineering rant.
           </p>
 
           <EmailForm 
             buttonText="Subscribe"
-            size="md"
+            size="lg"
             wrap={false}
             source="Blog"
-            className="max-w-sm"
+            className="max-w-lg"
           />
         </div>
       </div>
