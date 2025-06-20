@@ -7,7 +7,8 @@
   export let startTime: number = 0;
   
   // Loom video ID - update this with your actual video
-  const LOOM_VIDEO_ID = "2dd12f155c834c83bdaa3f9e2cb1e011";
+  // const LOOM_VIDEO_ID = "2dd12f155c834c83bdaa3f9e2cb1e011"; // old 2-min vid
+  const LOOM_VIDEO_ID = "8139bde5d3e140e988b48bb32914d068";
   
   // Build Loom URL with timestamp
   $: loomUrl = `https://www.loom.com/embed/${LOOM_VIDEO_ID}?autoplay=1${startTime > 0 ? `&t=${startTime}` : ''}`;

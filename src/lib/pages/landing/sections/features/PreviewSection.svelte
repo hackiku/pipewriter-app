@@ -44,10 +44,108 @@
     const secs = seconds % 60;
     return `${mins}:${String(secs).padStart(2, '0')}`;
   }
+  
+  // Handle step navigation click
+  function handleStepClick(index: number) {
+    const targetElement = document.querySelector(`[data-step="${index}"]`);
+    if (targetElement) {
+      targetElement.scrollIntoView({ 
+        behavior: 'smooth', 
+        block: 'center' 
+      });
+    }
+  }
 </script>
 
-<!-- Preview Sections -->
-<div class="space-y-24 md:space-y-32 pb-32 md:pb-24">
+<!-- Desktop: Sticky Sidebar + Scrolling Preview -->
+<div class="hidden md:block">
+  <div class="flex gap-12 items-start">
+    
+    <!-- Left: Sticky Steps Navigation -->
+    <div class="w-80 sticky top-24 space-y-8">
+      
+      <!-- 1. Button Row -->
+      <!-- <div class="flex items-center gap-3">
+        {#each processSteps as step, index}
+          <button
+            class={cn(
+              "rounded-full border flex items-center justify-center text-sm font-bold transition-all duration-200",
+              currentStep === index
+                ? "w-8 h-8 bg-primary border-primary text-primary-foreground shadow-lg"
+                : "w-6 h-6 scale-75 border-muted-foreground/30 text-muted-foreground hover:bg-muted hover:border-primary/30"
+            )}
+            on:click={() => handleStepClick(index)}
+          >
+            {index + 1}
+          </button>
+        {/each}
+      </div> -->
+      
+      <!-- 2. Current Step Content -->
+      {#each processSteps as step, index}
+        {#if currentStep === index}
+          <div class="space-y-6" in:fade={{ duration: 200 }}>
+            
+            <!-- 2. Headline -->
+            <div class="space-y-2">
+              <h3 class="text-2xl font-semibold text-primary">
+                {step.title}
+              </h3>
+              
+              <!-- Timestamp Button -->
+              <button
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20 transition-all duration-200 hover:scale-105"
+                on:click={() => onTimestampVideo(step.timestamp)}
+              >
+                <Clock class="w-3 h-3" />
+                <span>{formatTimestamp(step.timestamp)}</span>
+              </button>
+            </div>
+
+            <!-- 3. Description -->
+            <p class="text-base text-muted-foreground leading-relaxed">
+              {step.description}
+            </p>
+            
+            <!-- 4. Bullets -->
+            {#if step.features}
+              <ul class="space-y-3">
+                {#each step.features as feature}
+                  <li class="flex items-center gap-3 text-sm text-muted-foreground">
+                    <!-- Custom Gradient Bullet -->
+                    <div class="w-2 h-2 rounded-full bg-gradient-to-r from-[#3644FE] to-[#B345ED] flex-shrink-0"></div>
+                    <span>{feature}</span>
+                  </li>
+                {/each}
+              </ul>
+            {/if}
+          </div>
+        {/if}
+      {/each}
+    </div>
+
+    <!-- Right: Scrolling Preview Cards -->
+    <div class="flex-1 space-y-32">
+      {#each processSteps as step, index}
+        <div 
+          class="preview-section min-h-[80vh] flex items-center"
+          data-step={index}
+          use:createObserver
+          in:fade={{ duration: 200 }}
+          on:stepChange
+        >
+          <PreviewCard 
+            {step}
+            isActive={currentStep === index}
+          />
+        </div>
+      {/each}
+    </div>
+  </div>
+</div>
+
+<!-- Mobile: Keep Existing Layout But Add Features -->
+<div class="md:hidden space-y-24 pb-32">
   {#each processSteps as step, index}
     <div 
       class="preview-section"
@@ -56,120 +154,70 @@
       in:fade={{ duration: 200 }}
       on:stepChange
     >
+      <!-- Step Number & Title Row -->
+      <div class="flex items-center justify-between gap-4 px-4 mb-6">
+        <div class="flex items-center gap-3">
+          <div class={cn(
+            "w-10 h-10 rounded-lg border-2 flex items-center justify-center text-sm font-bold transition-all",
+            currentStep === index
+              ? "bg-primary border-primary text-primary-foreground"
+              : index < currentStep
+              ? "bg-primary/20 border-primary text-primary"
+              : "border-muted-foreground/30 text-muted-foreground"
+          )}>
+            {index + 1}
+          </div>
+          <h3 class={cn(
+            "text-xl font-semibold transition-colors",
+            currentStep === index ? "text-primary" : "text-foreground"
+          )}>
+            {step.title}
+          </h3>
+        </div>
+
+        <!-- Timestamp Button -->
+        <button
+          class={cn(
+            "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium",
+            "transition-all duration-200 shrink-0",
+            currentStep === index
+              ? "bg-primary/10 border border-primary/30 text-primary"
+              : "bg-muted/50 border border-border hover:bg-muted"
+          )}
+          on:click={() => onTimestampVideo(step.timestamp)}
+        >
+          <Clock class="w-3 h-3" />
+          <span>{formatTimestamp(step.timestamp)}</span>
+        </button>
+      </div>
+
+      <!-- Description -->
+      <p class="text-base text-muted-foreground leading-relaxed px-4 mb-4">
+        {step.description}
+      </p>
       
-      <!-- Desktop: 2-Column Grid (Narrower text column, wider video) -->
-      <div class="hidden md:grid md:grid-cols-7 md:gap-12 items-center">
-        
-        <!-- Left: Step Info (2/7 width - narrower) -->
-        <div class="col-span-2 space-y-6">
-          <!-- Step Number & Title Row -->
-          <div class="flex flex-col gap-4">
-            <div class="flex items-center gap-3">
-              <div class={cn(
-                "w-10 h-10 rounded-xl border-2 flex items-center justify-center text-lg font-bold transition-all",
-                currentStep === index
-                  ? "bg-primary border-primary text-primary-foreground shadow-lg"
-                  : index < currentStep
-                  ? "bg-primary/20 border-primary text-primary"
-                  : "border-muted-foreground/30 text-muted-foreground"
-              )}>
-                {index + 1}
-              </div>
-              <h3 class={cn(
-                "text-xl font-semibold transition-colors",
-                currentStep === index ? "text-primary" : "text-foreground"
-              )}>
-                {step.title}
-              </h3>
-            </div>
-
-            <!-- Timestamp Button -->
-            <button
-              class={cn(
-                "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium w-fit",
-                "transition-all duration-200 hover:scale-105 shrink-0",
-                currentStep === index
-                  ? "bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20"
-                  : "bg-muted/50 border border-border hover:bg-muted hover:border-primary/20"
-              )}
-              on:click={() => onTimestampVideo(step.timestamp)}
-            >
-              <Clock class="w-3 h-3" />
-              <span>{formatTimestamp(step.timestamp)}</span>
-            </button>
-          </div>
-
-          <!-- Description -->
-          <p class="text-base text-muted-foreground leading-relaxed">
-            {step.description}
-          </p>
+      <!-- Features for Mobile -->
+      {#if step.features}
+        <div class="px-4 mb-6">
+          <ul class="space-y-2">
+            {#each step.features as feature}
+              <li class="flex items-center gap-3 text-sm text-muted-foreground">
+                <!-- Custom Gradient Bullet -->
+                <div class="w-2 h-2 rounded-full bg-gradient-to-r from-[#3644FE] to-[#B345ED] flex-shrink-0"></div>
+                <span>{feature}</span>
+              </li>
+            {/each}
+          </ul>
         </div>
+      {/if}
 
-        <!-- Right: Preview Card (5/7 width - wider) -->
-        <div class="col-span-5 relative">
-          <PreviewCard 
-            {step}
-            isActive={currentStep === index}
-          />
-        </div>
-
+      <!-- Preview Card -->
+      <div class="px-4">
+        <PreviewCard 
+          {step}
+          isActive={currentStep === index}
+        />
       </div>
-
-      <!-- Mobile: Single Column -->
-      <div class="md:hidden space-y-6">
-        
-        <!-- Step Number & Title Row -->
-        <div class="flex items-center justify-between gap-4 px-4">
-          <div class="flex items-center gap-3">
-            <div class={cn(
-              "w-10 h-10 rounded-lg border-2 flex items-center justify-center text-sm font-bold transition-all",
-              currentStep === index
-                ? "bg-primary border-primary text-primary-foreground"
-                : index < currentStep
-                ? "bg-primary/20 border-primary text-primary"
-                : "border-muted-foreground/30 text-muted-foreground"
-            )}>
-              {index + 1}
-            </div>
-            <h3 class={cn(
-              "text-xl font-semibold transition-colors",
-              currentStep === index ? "text-primary" : "text-foreground"
-            )}>
-              {step.title}
-            </h3>
-          </div>
-
-          <!-- Timestamp Button -->
-          <button
-            class={cn(
-              "inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium",
-              "transition-all duration-200 shrink-0",
-              currentStep === index
-                ? "bg-primary/10 border border-primary/30 text-primary"
-                : "bg-muted/50 border border-border hover:bg-muted"
-            )}
-            on:click={() => onTimestampVideo(step.timestamp)}
-          >
-            <Clock class="w-3 h-3" />
-            <span>{formatTimestamp(step.timestamp)}</span>
-          </button>
-        </div>
-
-        <!-- Description -->
-        <p class="text-base text-muted-foreground leading-relaxed px-4">
-          {step.description}
-        </p>
-
-        <!-- Preview Card -->
-        <div class="px-4">
-          <PreviewCard 
-            {step}
-            isActive={currentStep === index}
-          />
-        </div>
-
-      </div>
-
     </div>
   {/each}
 </div>

@@ -44,7 +44,7 @@ export const processSteps: ProcessStep[] = [
 		title: 'Theming',
 		description: 'Light/dark modes with automatic text style updates',
 		videoFrame: '/demo/videos/darkmode.webp',
-		timestamp: 120,
+		timestamp: 275,
 		shoutoutId: 'writer3',
 		features: [
 			'Light/dark themes',
@@ -58,7 +58,7 @@ export const processSteps: ProcessStep[] = [
 		title: 'Code',
 		description: 'Export wireframes to HTML, React, and live websites',
 		videoFrame: '/demo/videos/code-export.webp',
-		timestamp: 180,
+		timestamp: 366,
 		shoutoutId: 'writer4',
 		features: [
 			'HTML export',
