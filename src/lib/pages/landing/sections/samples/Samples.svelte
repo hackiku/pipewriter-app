@@ -75,7 +75,7 @@
 
 <div class="space-y-0">
   <!-- Main Slider -->
-  <div class="relative rounded-3xl overflow-hidden p-2 border-2 border-border bg-gradient-to-br from-muted/5 to-muted/15">
+  <div class="relative bg-background rounded-3xl overflow-hidden p-2 border-2 border-border bg-gradient-to-br from-muted/5 to-muted/15">
     <BeforeAfterSlider
       beforeImage={currentImages.before}
       afterImage={currentImages.after}
