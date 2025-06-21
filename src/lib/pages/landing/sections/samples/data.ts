@@ -28,7 +28,7 @@ export const samples: Sample[] = [
 	{
 		id: "wordagents",
 		company: "WordAgents",
-		logo: "/logos/wordagents.svg",
+		logo: "/logos/redocly.svg",
 		tag: "Flash Sale",
 		testimonial: {
 			name: "Tommy Joiner",
@@ -38,18 +38,20 @@ export const samples: Sample[] = [
 			text: "We hit $960k/mo from $250k average thanks to Ivan's flash sale landing page."
 		},
 		beforeImage: {
-			desktop: "/samples/wordagents-before-desktop.jpg",
-			mobile: "/samples/wordagents-before-mobile.jpg"
+			desktop: "/samples/gdocs.png",
+			mobile: "/samples/gdocs.png"
 		},
 		afterImage: {
-			desktop: "/samples/wordagents-after-desktop.jpg",
-			mobile: "/samples/wordagents-after-mobile.jpg"
+			desktop: "/samples/live.png",
+			mobile: "/samples/live.png"
+			// desktop: "/samples/wordagents-after-desktop.jpg",
+			// mobile: "/samples/wordagents-after-mobile.jpg"
 		}
 	},
 	{
 		id: "summaup",
 		company: "SummaUp",
-		logo: "/logos/summaup.svg",
+		logo: "/logos/uploadcare.svg",
 		tag: "Investment",
 		testimonial: {
 			name: "Dr Jameson Day",
@@ -59,33 +61,34 @@ export const samples: Sample[] = [
 			text: "Ivan mixes right brain and left brain - analytical with high Emotional IQ delivery."
 		},
 		beforeImage: {
-			desktop: "/samples/summaup-before-desktop.jpg",
-			mobile: "/samples/summaup-before-mobile.jpg"
+			desktop: "/samples/gdocs.png",
+			mobile: "/samples/gdocs.png"
 		},
 		afterImage: {
-			desktop: "/samples/summaup-after-desktop.jpg",
-			mobile: "/samples/summaup-after-mobile.jpg"
+			desktop: "/samples/live.png",
+			mobile: "/samples/live.png"
 		}
 	},
 	{
-		id: "suada",
-		company: "Suada",
-		logo: "/logos/suada.svg",
+		id: "stoovo",
+		company: "Stoovo",
+		logo: "/logos/stoovo.svg",
 		tag: "SaaS",
 		testimonial: {
 			name: "David Thomson",
-			role: "Founder",
+			role: "Co-Founder",
 			company: "Suada",
-			photo: "/people/clients/david-thomson.jpeg",
-			text: "This guy is incredible — level above & beyond anything I could have hoped for."
+			photo: "/people/clients/hantz-fevry.png",
+			// photo: "/people/clients/david-thomson.jpeg",
+			text: "Ivan's wireframe docs are a collab godsend. We iterate website copy in hours and go straight to design."
 		},
 		beforeImage: {
-			desktop: "/samples/suada-before-desktop.jpg",
-			mobile: "/samples/suada-before-mobile.jpg"
+			desktop: "/samples/gdocs.png",
+			mobile: "/samples/gdocs.png"
 		},
 		afterImage: {
-			desktop: "/samples/suada-after-desktop.jpg",
-			mobile: "/samples/suada-after-mobile.jpg"
+			desktop: "/samples/live.png",
+			mobile: "/samples/live.png"
 		}
 	}
 ];

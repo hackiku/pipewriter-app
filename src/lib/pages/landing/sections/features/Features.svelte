@@ -1,6 +1,7 @@
 <!-- src/lib/pages/landing/sections/features/Features.svelte -->
 <script lang="ts">
   import { onMount } from "svelte";
+	// import LoomTest from "./video/LoomTest.svelte";
   import PreviewSection from "./PreviewSection.svelte";
   import ActionBar from "./ActionBar.svelte";
   import VideoPlayer from "./video/VideoPlayer.svelte";

@@ -2,6 +2,7 @@
 <script lang="ts">
   import { ExternalLink } from 'lucide-svelte';
   import LogoSystem from '../branding/LogoSystem.svelte';
+	import GetStartedButton from '../cta/signin/GetStartedButton.svelte';
   import SocialLink from '../branding/SocialLink.svelte';
   import EmailForm from '../cta/email/EmailForm.svelte';
   import { mainNavItems, socialLinks } from '$data/navigation';
@@ -12,6 +13,7 @@
     { href: '/about', label: 'About' },
     { href: '/pricing', label: 'Pricing' },
     { href: '/blog', label: 'Blog' },
+    { href: '/contact', label: 'Contact' },
   ];
   
   const legalLinks = [
@@ -30,11 +32,17 @@
     <div class="py-16">
       <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
         <!-- Column 1: Logo and description -->
-        <div>
-          <LogoSystem size="lg" variant="full" />
-          <p class="text-muted-foreground leading-relaxed max-w-sm mt-4">
+        <div class="space-y-4">
+          <LogoSystem size="lg" variant="full"/>
+          <p class="text-muted-foreground leading-relaxed max-w-sm">
             Wireframes for writers in Google Docs
           </p>
+
+					<GetStartedButton 
+						text="Start Free"
+						size="sm"
+					/>
+					
         </div>
         
         <!-- Column 2: Links organized in two sections -->
