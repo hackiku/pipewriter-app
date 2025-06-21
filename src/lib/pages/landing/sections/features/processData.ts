@@ -14,27 +14,27 @@ export const processSteps: ProcessStep[] = [
 	{
 		id: 'addon',
 		title: 'Add-on',
-		description: 'Native Google Docs sidebar with 90+ wireframe elements',
+		description: 'Turn Google Docs into a writer-first design app. For reals',
 		videoFrame: '/demo/videos/wireframing-demo.webp',
 		timestamp: 0,
 		shoutoutId: 'writer1',
 		features: [
-			'One-click element insertion',
-			'90+ wireframe components',
-			'Native Google Docs integration'
+			'Click to insert UI elements',
+			'Edit backgrounds, fonts, tables',
+			'Drop, copy, save AI prompts'
 		]
 	},
 	{
 		id: 'templates',
 		title: 'Templates',
-		description: 'Industry-specific wireframe systems and layouts',
+		description: 'Unlock 100+ wireframing components in hyper-organized docs',
 		videoFrame: '/demo/videos/templates-demo.webp',
 		timestamp: 60,
 		shoutoutId: 'writer2',
 		features: [
-			'SaaS landing pages',
-			'eCommerce flows',
-			'Copy-paste ready'
+			'Dark & light mode',
+			'Copy-paste away',
+			'Updated on the reg'
 		]
 	},
 	{
@@ -53,14 +53,14 @@ export const processSteps: ProcessStep[] = [
 	{
 		id: 'code',
 		title: 'Code',
-		description: 'Export wireframes to HTML, React, and live websites',
+		description: 'Export wireframes to code. Build pages in minutes with fancy AI prompts',
 		videoFrame: '/demo/videos/code-export.webp',
 		timestamp: 366,
 		shoutoutId: 'writer4',
 		features: [
-			'HTML export',
-			'AI code generation',
-			'Dev handoff ready'
+			'GDocs to HTML',
+			'Writing & code prompts',
+			'Ready for dev handoff'
 		]
 	}
 ];
