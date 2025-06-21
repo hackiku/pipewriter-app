@@ -38,12 +38,12 @@ export const samples: Sample[] = [
 			text: "We hit $960k/mo from $250k average thanks to Ivan's flash sale landing page."
 		},
 		beforeImage: {
-			desktop: "/samples/gdocs.png",
-			mobile: "/samples/gdocs.png"
+			desktop: "/samples/redocly/redocly-gdocs.png",
+			mobile: "/samples/redocly/redocly-gdocs.png"
 		},
 		afterImage: {
-			desktop: "/samples/live.png",
-			mobile: "/samples/live.png"
+			desktop: "/samples/redocly/redocly-live.png",
+			mobile: "/samples/redocly/redocly-live.png"
 			// desktop: "/samples/wordagents-after-desktop.jpg",
 			// mobile: "/samples/wordagents-after-mobile.jpg"
 		}
@@ -57,7 +57,8 @@ export const samples: Sample[] = [
 			name: "Dr Jameson Day",
 			role: "Investor",
 			company: "SummaUp",
-			photo: "/people/clients/jameson-day.jpeg",
+			// photo: "/people/clients/jameson-day.jpeg",
+			photo: "/people/clients/anton-nesterov.jpg",
 			text: "Ivan mixes right brain and left brain - analytical with high Emotional IQ delivery."
 		},
 		beforeImage: {
