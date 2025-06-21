@@ -81,7 +81,7 @@
   }
   
   // Aspect ratios
-  $: aspectRatio = isMobile ? 'aspect-[3/4]' : 'aspect-[16/10]';
+  $: aspectRatio = isMobile ? 'aspect-[3/4]' : 'aspect-[16/9]';
     
   // Handle positioning
   $: handleStyle = isMobile
@@ -111,7 +111,7 @@
     class="absolute top-3 left-3 bottom-3 rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 shadow-lg"
     style={isMobile 
       ? `right: 12px; height: calc(${position}% - 15px);` 
-      : `width: calc(${position}% - 20px); right: auto;`}
+      : `width: calc(${position}% - 22px); right: auto;`}
   >
     {#if beforeImage}
       <img 
@@ -132,7 +132,7 @@
     class="absolute top-3 right-3 bottom-3 rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 shadow-lg"
     style={isMobile 
       ? `left: 12px; height: calc(${100 - position}% - 15px); top: calc(${position}% + 3px);` 
-      : `width: calc(${100 - position}% - 20px); left: calc(${position}% + 3px);`}
+      : `width: calc(${100 - position}% - 22px); left: calc(${position}% + 3px);`}
   >
     {#if afterImage}
       <img 
