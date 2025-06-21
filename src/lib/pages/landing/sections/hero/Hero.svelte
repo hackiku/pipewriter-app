@@ -18,12 +18,15 @@
 	<div class="flex flex-col gap-4 items-center text-center">
 
 		<h1
-			class="{HEADLINE} text-[3em] sm:text-[4.5em] md:text-[5em] lg:text-[5.5em]
+			class="{HEADLINE} text-[4em] sm:text-[4.5em] md:text-[5em] lg:text-[5.5em]
               font-medium leading-[1.1] tracking-tight
               max-w-[20ch] mx-auto"
 		>
-			UX App for Writers <br />in Google Docs
+			UX App for Writers
+			<br />
+			<span class="hidden md:block">in Google Docs</span>
 		</h1>
+		<span class="{HEADLINE} -mt-2 font-medium md:hidden text-4xl __font-bold sm:text-5xl md:text-6xl lg:text-6xl">(in Google Docs)</span>
 
 		<!-- <p
 			class="text-[4.5vw] sm:text-[3vw] md:text-[2vw] lg:text-[2vw]
@@ -35,7 +38,7 @@
               text-muted-foreground md:leading-relaxed
               max-w-[30ch] mb-4"
 		>
-			Prototype right where you write with native add-on + templates.
+			Prototype right where you write, with native add-on + templates.
 		</p>
 
 		<GetStartedButton
