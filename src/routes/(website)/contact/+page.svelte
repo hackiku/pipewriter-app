@@ -38,7 +38,7 @@
             Say Hi 👋
           </h1>
           <p class="text-xl text-muted-foreground leading-relaxed">
-            Or say "You're Hired" if you need UX copywriting, design, or dev work.
+            Or say "You're Hired" if you need UX, copywriting, dev or aerospace work.
           </p>
         </div>
 
@@ -73,7 +73,7 @@
 
         <!-- Quick Info -->
         <div class="space-y-3 text-muted-foreground">
-          <p>🚀 Aerospace engineer turned SaaS copywriter</p>
+          <p>🚀 SaaS copywriter turned engineer</p>
           <p>⚙️ Full-stack developer</p>
           <p>✍️ 10+ years writing for tech companies</p>
         </div>
