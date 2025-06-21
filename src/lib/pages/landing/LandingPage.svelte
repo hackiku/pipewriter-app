@@ -108,25 +108,26 @@
 	
 
 
-	<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
 
-		<div class="border rounded-full h-16 w-16">
-			<MessageCircleQuestion class="w-10 h-10 mx-auto" />
+	<div class="flex justify-center mb-8">
+		<div class="w-16 h-16 rounded-full bg-gradient-to-r from-[#3644FE]/30 to-[#B345ED]/30 
+		            flex items-center justify-center shadow-lg">
+			<MessageCircleQuestion class="w-8 h-8 text-foreground/60" />
 		</div>
-		
-		<h2
-			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
+	</div>
+	
+	<h2
+		class="text-[5vh] md:text-[6vh] lg:text-[7vh]
               font-bold leading-[1.3] tracking-tight mb-16
               max-w-[20ch] mx-auto text-center
-							{HEADLINE}"
-		>
-			Questionably Frequent Queries
-		</h2>
+			{HEADLINE}"
+	>
+		Unquestionably Frequent
+	</h2>
 
-		<FAQ />
-	</section>
-
-	<!-- <div class="py-12 bg-blue-200">
+	<FAQ />
+</section>	<!-- <div class="py-12 bg-blue-200">
 		<LogosMarquee />
 	</div> -->
 </div>

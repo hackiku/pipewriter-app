@@ -41,10 +41,10 @@
 
     {#if testimonial.hire}
       <Button 
-        variant="outline" 
+        variant="secondary" 
         size="sm"
         class="absolute -bottom-8 -right-8 -rotate-[8deg] text-sm font-medium 
-							group hover:bg-primary hover:text-primary-foreground transform "
+							group hover:bg-primary hover:text-primary-foreground transform"
         href={testimonial.hire.url}
         target="_blank"
         rel="noopener noreferrer"

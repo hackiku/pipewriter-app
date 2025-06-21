@@ -38,7 +38,7 @@
               text-muted-foreground md:leading-relaxed
               max-w-[30ch] mb-4"
 		>
-			Prototype right where you write, with native add-on + templates.
+			Prototype right where you write, with GDocs native add-on + templates.
 		</p>
 
 		<GetStartedButton

@@ -1,6 +1,6 @@
 <!-- src/lib/pages/landing/sections/proof/FounderCard.svelte -->
 <script lang="ts">
-	import BuyButton from "$lib/components/cta/buy/BuyButton.svelte";
+	import GetStartedButton from "$lib/components/cta/signin/GetStartedButton.svelte";
 	
 </script>
 
@@ -23,19 +23,16 @@
       <div class="space-y-4 text-md mb-6">
 				<p class="text-muted-foreground">
 					I built Pipewriter to survive years of SaaS copy gigs. 
-					It's my jar of hearts of ADHD scripts, hacks and tricks, productized
+					It's my jar of hearts of scripts, hacks and tricks, productized
 					for your writerly enjoyment. They can AI all they like, but writing will
 					always be the the <span class="inline-block animate-heartbeat">💜</span> of product design.
 				</p>
 				<!-- TODO: change heart on button hover -->
       </div>
 
-			<BuyButton
+			<GetStartedButton
 				size="sm"
 				text="Get Pipewriter"
-				showPrice={false}
-				source="hero"
-				price="— $97"
 			/>
 
     </div>
