@@ -10,6 +10,7 @@
   let autoRotateInterval: number;
   let isMobile = false;
   let sliderPosition = 60; // Control slider position as percentage
+  let isUserInteracting = false; // Track user interaction
 
   onMount(() => {
     const checkMobile = () => {
@@ -26,28 +27,58 @@
     };
   });
 
-  // Auto-rotate samples
+  // Auto-rotate samples (slower and pauses during interaction)
   function startAutoRotate() {
     if (autoRotateInterval) clearInterval(autoRotateInterval);
     
     autoRotateInterval = setInterval(() => {
-      currentSample = (currentSample + 1) % samples.length;
-    }, 6000);
+      if (!isUserInteracting) {
+        currentSample = (currentSample + 1) % samples.length;
+      }
+    }, 10000); // Slower: 10 seconds instead of 6
   }
 
   // Handle tab click
   function handleTabClick(index: number) {
+    isUserInteracting = true;
     currentSample = index;
-    startAutoRotate();
+    
+    // Resume auto-rotation after a delay
+    setTimeout(() => {
+      isUserInteracting = false;
+      startAutoRotate();
+    }, 3000);
+  }
+
+  // Handle slider interaction
+  function handleSliderInteractionStart() {
+    isUserInteracting = true;
+  }
+
+  function handleSliderInteractionEnd() {
+    // Resume auto-rotation after user stops interacting
+    setTimeout(() => {
+      isUserInteracting = false;
+    }, 2000);
   }
 
   // Handle label clicks to change position
   function handleBeforeLabelClick() {
+    isUserInteracting = true;
     sliderPosition = 95; // Show mostly before
+    
+    setTimeout(() => {
+      isUserInteracting = false;
+    }, 2000);
   }
   
   function handleAfterLabelClick() {
+    isUserInteracting = true;
     sliderPosition = 5; // Show mostly after
+    
+    setTimeout(() => {
+      isUserInteracting = false;
+    }, 2000);
   }
 
   // Current sample data
@@ -69,7 +100,7 @@
 
 <div class="space-y-0">
   <!-- Main Slider with Active Styling, Labels, and Testimonial -->
-  <div class="relative rounded-3xl overflow-hidden p-2 border-2 border-border 
+  <div class="relative rounded-3xl overflow-hidden p-0 border-2 border-border 
               bg-neutral-100 dark:bg-neutral-900 
               transition-all duration-300">
     
@@ -78,6 +109,8 @@
       beforeImage={currentImages.before}
       afterImage={currentImages.after}
       bind:position={sliderPosition}
+      onInteractionStart={handleSliderInteractionStart}
+      onInteractionEnd={handleSliderInteractionEnd}
     />
     
     <!-- Before Label - Positioned at wrapper level -->
@@ -119,8 +152,8 @@
           on:click={() => handleTabClick(index)}
         >
           <!-- Logo Container - No wrapper, just logo -->
-          <div class="relative w-full max-w-[120px] h-12 flex items-center justify-center transition-all duration-200 {isActive ? 'scale-105' : 'group-hover:scale-[1.02]'}">
-            <img 
+          <div class="relative w-full max-w-22 h-10 flex items-center justify-center transition-all duration-200 {isActive ? 'scale-105' : 'group-hover:scale-[1.02]'}">
+					<img 
               src={sample.logo} 
               alt="{sample.company} logo" 
               class="max-w-full max-h-full object-contain transition-all duration-200"
@@ -134,24 +167,11 @@
             {sample.tag}
           </div>
 
-          <!-- Connection Line (for active tab) -->
-          {#if isActive}
-            <div class="absolute -top-[2px] left-6 right-6 h-[2px] bg-neutral-100 dark:bg-neutral-900"></div>
-          {/if}
+
         </button>
       </div>
     {/each}
   </div>
 
-  <!-- Mobile Navigation Dots -->
-  <div class="flex justify-center gap-2 mt-6 md:hidden">
-    {#each samples as _, index}
-      {@const isActive = index === currentSample}
-      <button
-        class="transition-all duration-300 rounded-full {isActive ? 'w-8 h-3 bg-primary' : 'w-3 h-3 bg-muted hover:bg-primary/50'}"
-        on:click={() => handleTabClick(index)}
-        aria-label="View sample {index + 1}"
-      />
-    {/each}
-  </div>
+  
 </div>
