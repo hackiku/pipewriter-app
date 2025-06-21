@@ -1,6 +1,7 @@
 <!-- src/lib/pages/landing/LandingPage.svelte -->
 <script lang="ts">
 	// import { dev } from "$app/environment";
+	import { MessageCircleQuestion } from "lucide-svelte";
 	// sections
 	import Hero from "./sections/hero/Hero.svelte";
 	import Samples from "./sections/samples/Samples.svelte";
@@ -107,9 +108,13 @@
 	
 
 
-	<section class="pb-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
+	<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
 
-				<h2
+		<div class="border rounded-full h-16 w-16">
+			<MessageCircleQuestion class="w-10 h-10 mx-auto" />
+		</div>
+		
+		<h2
 			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
               font-bold leading-[1.3] tracking-tight mb-16
               max-w-[20ch] mx-auto text-center
