@@ -61,7 +61,7 @@
       <div class="space-y-3">
         <!-- <h2 class="text-2xl font-semibold">Get Notified First</h2> -->
         <p class="text-muted-foreground">
-          Join <span class="font-semibold text-foreground">200+</span> writers waiting for launch day
+          Join <span class="font-semibold text-foreground">200-ish</span> writers waiting for launch day
         </p>
       </div>
 

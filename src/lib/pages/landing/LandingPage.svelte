@@ -61,8 +61,8 @@
 		<LogosMarquee />
 	</div> -->
 
-		<div class="py-12">
-		<h3 class="text-center font-medium text-foreground/60">
+		<div class="pt-12">
+		<h3 class="text-center font-medium text-foreground/60 mb-6">
 			Battle-tested writing for the bestest
 		</h3>
 		<LogosMarquee />
@@ -70,7 +70,7 @@
 
 	<!-- Features Section -->
 	<section
-		class="relative pt-12 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 border-b-2"
+		class="relative pt-24 max-w-[1920px] px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32 border-b-2"
 	>
 		<h2
 			class="text-[5vh] md:text-[6vh] lg:text-[7vh]
@@ -90,9 +90,9 @@
 
 	<!-- Social Proof -->
 	<section class="py-24 px-4 sm:px-6 md:px-12 lg:px-16 xl:px-24 2xl:px-32">
-		<div class="text-center mb-16 max-w-lg mx-auto">
-			<h2 class="text-4xl font-semibold mb-4">
-				Made with 🫶, ⏱️, and <br />Oxford comma
+		<div class="text-center mb-16 max-w-md mx-auto">
+			<h2 class="text-4xl sm:text-5xl font-semibold mb-4">
+				Made with 🫶, ⏱️, and Oxford Comma
 			</h2>
 		</div>
 
