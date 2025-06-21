@@ -10,7 +10,7 @@
   const currentYear = new Date().getFullYear();
   
   const companyLinks = [
-    { href: '/about', label: 'About' },
+    // { href: '/about', label: 'About' },
     { href: '/pricing', label: 'Pricing' },
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contact' },

@@ -147,12 +147,12 @@
       <div class="transition-all duration-200 ease-out {isActive ? 'pt-0 -mt-[2px] z-10' : 'pt-4 -mt-[2px] z-0'}">
         <button
           class="relative flex flex-col items-center gap-3 px-4 py-4 border-2 transition-all duration-200 group max-w-[200px] {isActive 
-            ? 'border-l-border border-r-border border-b-border border-t-0 bg-neutral-100 dark:bg-neutral-900 rounded-t-none rounded-b-3xl' 
-            : 'border-border bg-card hover:bg-muted/50 rounded-3xl hover:scale-[1.02] opacity-75'}"
+            ? 'border-l-border border-r-border border-b-border border-t-0 bg-neutral-100 dark:bg-neutral-900 rounded-t-none rounded-b-2xl' 
+            : 'border-border bg-card hover:bg-muted/50 rounded-2xl hover:scale-[1.02] opacity-75'}"
           on:click={() => handleTabClick(index)}
         >
           <!-- Logo Container - No wrapper, just logo -->
-          <div class="relative w-full max-w-22 h-10 flex items-center justify-center transition-all duration-200 {isActive ? 'scale-105' : 'group-hover:scale-[1.02]'}">
+          <div class="relative md:p-1 w-full max-w-22 h-10 flex items-center justify-center transition-all duration-200 {isActive ? 'scale-105' : 'group-hover:scale-[1.02]'}">
 					<img 
               src={sample.logo} 
               alt="{sample.company} logo" 
@@ -161,11 +161,11 @@
           </div>
           
           <!-- Tag Badge -->
-          <div class="px-3 py-1 rounded-full text-[0.6em] font-medium transition-all duration-200 {isActive 
+          <!-- <div class="px-3 py-1 rounded-full text-[0.6em] font-medium transition-all duration-200 {isActive 
             ? 'bg-gradient-to-r from-primary/20 to-primary/30 text-primary border border-primary/30' 
             : 'bg-muted/80 text-muted-foreground group-hover:bg-primary/10 group-hover:text-primary group-hover:border-primary/20 border border-transparent'}">
             {sample.tag}
-          </div>
+          </div> -->
 
 
         </button>
