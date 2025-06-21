@@ -9,7 +9,7 @@
     <!-- Blog Badge Row -->
     <div class="flex items-center gap-6 mb-1">
       <div class="px-6 py-2 rounded-full bg-primary/10 text-primary 
-                  border border-primary/20 text-xl font-medium hover:scale-105 
+                  border border-primary/20 text-md font-medium hover:scale-105 
                   transition-transform inline-flex items-center">
         Blog
       </div>

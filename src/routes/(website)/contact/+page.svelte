@@ -106,17 +106,30 @@
         </div>
       </div>
 
-      <!-- Right: Decorative -->
-      <div class="flex justify-center lg:justify-end">
-        <div class="w-full max-w-[300px] aspect-[350/480] rounded-2xl overflow-hidden">
-          <iframe 
-            src="https://giphy.com/embed/yFgSFDgjLveZL3mFNe" 
-            width="100%" 
-            height="100%" 
-            class="giphy-embed" 
-            title="Decorative animation"
-            aria-hidden="true"
-          ></iframe>
+      <!-- Right: Layered Images (HOTFIX) -->
+      <div class="flex justify-center lg:justify-end mt-36">
+        <div class="relative w-full max-w-[250px]">
+          
+          <!-- Background: Kermit Typewriter (behind, top-left-ish, opposite rotation) -->
+          <div class="absolute -top-32 -left-8 w-48 h-48 -rotate-6 z-10">
+            <img 
+              src="/fun/kermit-typewriter.webp" 
+              alt="" 
+              class="w-full h-full object-cover rounded-2xl opacity-80"
+              loading="lazy"
+              aria-hidden="true"
+            />
+          </div>
+          
+          <!-- Foreground: Call Ivan (rotated, on top) -->
+          <div class="relative z-0 rounded-2xl overflow-hidden bg-muted/20 rotate-6">
+            <img 
+              src="/fun/call-ivan.webp" 
+              alt="Call Ivan" 
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
         </div>
       </div>
     </div>

@@ -15,7 +15,7 @@
 <ViewportSize />
 
 <main class="text-foreground relative overflow-x-hidden">
-  <section class="relative pt-40 md:pt-32">
+  <section class="relative pt-28 md:pt-32">
     <div class="relative z-10">
       <Title className="mb-6" />
 
@@ -44,7 +44,7 @@
     </div>
   </section>
 
-  <section class="container z-50 md:px-20 lg:px-20 xl:px-44 py-12 overflow-hidden">
+  <section class="container z-50 py-24 md:px-20 lg:px-20 xl:px-44 overflow-hidden">
     <ArticleGrid posts={regularPosts} />
   </section>
   

@@ -1,7 +1,7 @@
 <!-- routes/(website)/about/+page.svelte -->
 <script lang="ts">
 	import { Sparkles } from "lucide-svelte";
-  // import AboutPage from "$lib/pages/about/AboutPage.svelte";
+  import AboutPage from "$lib/pages/about/AboutPage.svelte";
   
 
 </script>
@@ -11,4 +11,4 @@
     description="Indie-founding this FTW, pls have patience."
   /> -->
 
-<!-- <AboutPage /> -->
+<AboutPage />
