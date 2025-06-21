@@ -49,25 +49,25 @@ export const samples: Sample[] = [
 		}
 	},
 	{
-		id: "summaup",
-		company: "SummaUp",
+		id: "uploadcare",
+		company: "Uploadcare",
 		logo: "/logos/uploadcare.svg",
 		tag: "Investment",
 		testimonial: {
-			name: "Dr Jameson Day",
-			role: "Investor",
-			company: "SummaUp",
+			name: "Anton Nesterov",
+			role: "Design Lead",
+			company: "Uploadcare",
 			// photo: "/people/clients/jameson-day.jpeg",
 			photo: "/people/clients/anton-nesterov.jpg",
 			text: "Ivan mixes right brain and left brain - analytical with high Emotional IQ delivery."
 		},
 		beforeImage: {
-			desktop: "/samples/gdocs.png",
-			mobile: "/samples/gdocs.png"
+			desktop: "/samples/uploadcare/uploadcare-gdocs.png",
+			mobile: "/samples/uploadcare/uploadcare-gdocs-mobile.png"
 		},
 		afterImage: {
-			desktop: "/samples/live.png",
-			mobile: "/samples/live.png"
+			desktop: "/samples/uploadcare/uploadcare-live.png",
+			mobile: "/samples/uploadcare/uploadcare-live-mobile.png"
 		}
 	},
 	{

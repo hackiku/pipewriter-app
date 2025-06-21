@@ -6,11 +6,11 @@ export const faqs = [
 	},
 	{
 		question: "What's a Pipewriter and why should I care?",
-		answer: "It's a writer-first wireframing system that lives where you already work – Google Docs. The sidebar app lets you instantly insert UI components, style headings, change background colors, manage tables, and prototype UX directly in your document. It's my jar of hearts of ADHD scripts, hacks and tricks, productized for your writerly enjoyment. They can AI all they like, but writing will always be the heart of product design."
+		answer: "It's a writer-first wireframing system that lives where you already work – Google Docs. The sidebar app lets you instantly insert UI components, style headings, change background colors, manage tables, and prototype UX directly in your document. Battle-tested in ~a decade of banging UX copy for SaaS, startups, techbros/sis's and design agencies."
 	},
 	{
 		question: "How does the free trial work?",
-		answer: "You get full access to all Pro features for 14 days – no credit card required. Just install the add-on from Google Workspace Marketplace and you're in. Test all 90+ wireframe elements, AI prompts, HTML export, and styling tools. When the trial ends, you can continue with the free version (with limited elements) or upgrade to Pro for the full experience."
+		answer: "You get full access to the sidebar app full experience for 14 days – no credit card required. Just install the add-on from Google Workspace Marketplace and you're in. Test all wireframing elements, AI prompts, HTML export, and styling tools. When the trial ends, you can continue with the free version (with limited features) or upgrade for the full experience."
 	},
 	{
 		question: "What's included in the free vs. Pro version?",

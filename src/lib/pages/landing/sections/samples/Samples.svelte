@@ -9,7 +9,7 @@
   let currentSample = 0;
   let autoRotateInterval: number;
   let isMobile = false;
-  let sliderSizes = [60, 40]; // Control slider from here - proper initialization
+  let sliderPosition = 60; // Control slider position as percentage
 
   onMount(() => {
     const checkMobile = () => {
@@ -41,13 +41,13 @@
     startAutoRotate();
   }
 
-  // Handle label clicks to change sizes
+  // Handle label clicks to change position
   function handleBeforeLabelClick() {
-    sliderSizes = [95, 5]; // Almost full width for before
+    sliderPosition = 95; // Show mostly before
   }
   
   function handleAfterLabelClick() {
-    sliderSizes = [5, 95]; // Almost full width for after
+    sliderPosition = 5; // Show mostly after
   }
 
   // Current sample data
@@ -61,9 +61,9 @@
   $: beforeLabelClasses = isMobile ? 'top-4 left-4' : 'top-4 left-4';
   $: afterLabelClasses = isMobile ? 'bottom-4 left-4' : 'top-4 right-4';
 
-  // Update slider sizes when switching between samples or mobile/desktop
-  $: if (currentSample !== undefined || isMobile !== undefined) {
-    sliderSizes = [60, 40]; // Reset to default when changing samples
+  // Reset position when switching samples
+  $: if (currentSample !== undefined) {
+    sliderPosition = 60; // Reset to default when changing samples
   }
 </script>
 
@@ -77,7 +77,7 @@
     <BeforeAfterSlider
       beforeImage={currentImages.before}
       afterImage={currentImages.after}
-      bind:sizes={sliderSizes}
+      bind:position={sliderPosition}
     />
     
     <!-- Before Label - Positioned at wrapper level -->
@@ -104,11 +104,6 @@
         testimonial={currentSampleData.testimonial} 
         {isMobile} 
       />
-    </div>
-    
-    <!-- Interaction Hint -->
-    <div class="absolute top-4 left-1/2 -translate-x-1/2 px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full text-white text-xs opacity-0 hover:opacity-100 transition-opacity pointer-events-none z-20">
-      {isMobile ? 'Drag up/down' : 'Drag left/right'}
     </div>
   </div>
 
