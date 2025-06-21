@@ -230,9 +230,9 @@
   {/each}
 
   <!-- Mobile Free Doc Button -->
-  <div class="px-4">
+  <!-- <div class="px-4">
     <FreeGoogleDoc />
-  </div>
+  </div> -->
 </div>
 
 <style>
