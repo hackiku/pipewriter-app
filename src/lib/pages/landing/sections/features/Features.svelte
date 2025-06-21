@@ -48,7 +48,6 @@
 </script>
 
 <div class="relative">
-  
   <!-- Main Preview Section -->
   <PreviewSection
     {currentStep}
