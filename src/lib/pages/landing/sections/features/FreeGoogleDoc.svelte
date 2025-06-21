@@ -30,7 +30,7 @@
 > -->
 <Button 
   on:click={handleTriggerClick}
-  class="w-4/5 bg-card border-2 border-border
+  class="h-8 bg-card border-2 border-border
          hover:bg-gradient-to-r hover:from-[#3644FE]/90 hover:to-[#B345ED]/90
          text-white rounded-full py-5 px-5 text-base font-semibold
          shadow-lg hover:shadow-xl transition-all duration-200
@@ -41,8 +41,8 @@
 		<img src="/icons/google-docs.svg" alt="Google Docs Icon Logo"
 			class="w-5 h-5"
 		/>
-      <div class="text-md font-normal opacity-90">
-        Get Free Demo Doc
+      <div class="text-sm font-normal opacity-90">
+        Get Free Doc
       </div>
   </div>
 </Button>
@@ -51,7 +51,7 @@
 <Dialog.Root bind:open={dialogOpen}>
   <!-- Custom Dark Overlay -->
   {#if dialogOpen}
-    <div 
+    <button 
       class="fixed inset-0 z-40 bg-black/80 backdrop-blur-sm"
       on:click={() => dialogOpen = false}
       transition:fade={{ duration: 200 }}

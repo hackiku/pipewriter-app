@@ -21,7 +21,6 @@ export const processSteps: ProcessStep[] = [
 		features: [
 			'One-click element insertion',
 			'90+ wireframe components',
-			'Enter/Space shortcuts',
 			'Native Google Docs integration'
 		]
 	},
@@ -35,7 +34,6 @@ export const processSteps: ProcessStep[] = [
 		features: [
 			'SaaS landing pages',
 			'eCommerce flows',
-			'Agency portfolios',
 			'Copy-paste ready'
 		]
 	},
@@ -49,7 +47,6 @@ export const processSteps: ProcessStep[] = [
 		features: [
 			'Light/dark themes',
 			'Auto text updates',
-			'Color customization',
 			'Professional formatting'
 		]
 	},
@@ -62,7 +59,6 @@ export const processSteps: ProcessStep[] = [
 		shoutoutId: 'writer4',
 		features: [
 			'HTML export',
-			'React components',
 			'AI code generation',
 			'Dev handoff ready'
 		]

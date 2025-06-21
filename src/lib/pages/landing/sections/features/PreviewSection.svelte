@@ -2,13 +2,21 @@
 <script lang="ts">
   import { fade } from 'svelte/transition';
   import { cn } from "$lib/utils";
-  import { Clock } from "lucide-svelte";
+  import { Clock, Zap, Package, Palette, Code } from "lucide-svelte";
   import PreviewCard from './video/PreviewCard.svelte';
-  import FreeGoogleDoc from './FreeGoogleDoc.svelte';
+  // import FreeGoogleDoc from './FreeGoogleDoc.svelte';
   import { processSteps } from './processData';
   
   export let currentStep: number = 0;
   export let onTimestampVideo: (timestamp: number) => void;
+
+  // Icon mapping for each step
+  const stepIcons = {
+    'addon': Zap,
+    'templates': Package,
+    'theming': Palette,
+    'code': Code
+  };
 
   // Create observer to update current step on scroll
   function createObserver(node: HTMLElement) {
@@ -67,7 +75,7 @@
 <div class="hidden md:block">
   <div class="flex gap-8 items-start">
     
-    <!-- Left: Sticky Steps Navigation (Reduced width) -->
+    <!-- Left: Sticky Steps Navigation -->
     <div class="w-72 sticky top-24 flex flex-col min-h-[80vh]">
       
       <!-- Current Step Content -->
@@ -83,13 +91,13 @@
                 </h3>
                 
                 <!-- Timestamp Button -->
-                <button
+                <!-- <button
                   class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium bg-primary/10 border border-primary/30 text-primary hover:bg-primary/20 transition-all duration-200 hover:scale-105"
                   on:click={() => onTimestampVideo(step.timestamp)}
                 >
                   <Clock class="w-3 h-3" />
                   <span>{formatTimestamp(step.timestamp)}</span>
-                </button>
+                </button> -->
               </div>
 
               <!-- Description -->
@@ -97,13 +105,13 @@
                 {step.description}
               </p>
               
-              <!-- Bullets -->
+              <!-- Features with Icons -->
               {#if step.features}
                 <ul class="space-y-3">
                   {#each step.features as feature}
+                    {@const IconComponent = stepIcons[step.id] || Zap}
                     <li class="flex items-center gap-3 text-sm text-muted-foreground">
-                      <!-- Custom Gradient Bullet -->
-                      <div class="w-2 h-2 rounded-full bg-gradient-to-r from-[#3644FE] to-[#B345ED] flex-shrink-0"></div>
+                      <svelte:component this={IconComponent} class="w-4 h-4 text-primary flex-shrink-0" />
                       <span>{feature}</span>
                     </li>
                   {/each}
@@ -115,12 +123,12 @@
       </div>
 
       <!-- Free Google Doc Button (Bottom with clearance) -->
-      <div class="mt-auto mb-24">
+      <!-- <div class="mt-auto mb-24">
         <FreeGoogleDoc />
-      </div>
+      </div> -->
     </div>
 
-    <!-- Right: Scrolling Preview Cards (More space) -->
+    <!-- Right: Scrolling Preview Cards -->
     <div class="flex-1 space-y-32">
       {#each processSteps as step, index}
         <div 
@@ -142,7 +150,7 @@
   </div>
 </div>
 
-<!-- Mobile: Keep Existing Layout But Add Features -->
+<!-- Mobile: Keep Existing Layout with Icons -->
 <div class="md:hidden space-y-24 pb-32">
   {#each processSteps as step, index}
     <div 
@@ -194,14 +202,14 @@
         {step.description}
       </p>
       
-      <!-- Features for Mobile -->
+      <!-- Features with Icons for Mobile -->
       {#if step.features}
         <div class="px-4 mb-6">
           <ul class="space-y-2">
             {#each step.features as feature}
+              {@const IconComponent = stepIcons[step.id] || Zap}
               <li class="flex items-center gap-3 text-sm text-muted-foreground">
-                <!-- Custom Gradient Bullet -->
-                <div class="w-2 h-2 rounded-full bg-gradient-to-r from-[#3644FE] to-[#B345ED] flex-shrink-0"></div>
+                <svelte:component this={IconComponent} class="w-4 h-4 text-primary flex-shrink-0" />
                 <span>{feature}</span>
               </li>
             {/each}

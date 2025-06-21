@@ -14,7 +14,7 @@ export const faqs = [
 	},
 	{
 		question: "What's included in the Pipewriter, uhm, ecosystem?",
-		answer: "Full disclaimer: contrary to every founder's deepest desires, no user really uses the word 'ecosystem'. But we'll still roll with it for... tradition? <ul class='list-disc pl-6 space-y-2'><li><strong>The Sidebar App</strong> – Google Docs add-on with wireframe elements and styling tools</li><li><strong>Pro Template Pack</strong> – 100+ additional wireframe elements in light/dark modes</li><li><strong>Template Store</strong> – Specialized landing pages and document structures for specific industries</li></ul><p class='mt-4'>Think of it as different levels of wireframing power: the app gives you the tools, the template pack gives you the building blocks, and the store gives you ready-to-customize layouts.</p>"
+		answer: "Disclaimer: contrary to every founder's desires, no user really uses the word 'ecosystem'. And yet we'll roll with it: <ul class='list-disc pl-6 space-y-2'><li><strong>The Sidebar App</strong> – Google Docs add-on with wireframe elements and styling tools</li><li><strong>Pro Template Pack</strong> – 100+ additional wireframe elements in light/dark modes</li><li><strong>Template Store</strong> – Specialized landing pages and document structures for specific industries</li></ul><p class='mt-4'>Think of it as different levels of wireframing power: the app gives you the tools, the template pack gives you the building blocks, and the store gives you ready-to-customize layouts.</p>"
 	},
 	{
 		question: "Can I use this for client work?",

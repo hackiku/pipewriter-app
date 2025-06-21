@@ -4,6 +4,7 @@
   import { Play, ArrowRight } from "lucide-svelte";
   import { processSteps } from "./processData";
   import WriterShoutout from "./WriterShoutout.svelte";
+	import FreeGoogleDoc from "./FreeGoogleDoc.svelte";
   
   export let currentStep: number = 0;
   export let onStepChange: (index: number) => void;
@@ -87,7 +88,8 @@
                     </button>
 
                     <!-- Try Pipewriter -->
-                    <button
+										<FreeGoogleDoc />
+                    <!-- <button
                       class={cn(
                         "flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium",
                         "border border-border hover:border-primary/30",
@@ -98,7 +100,7 @@
                     >
                       <span>Try Pipewriter</span>
                       <ArrowRight class="w-4 h-4" />
-                    </button>
+                    </button> -->
                   </div>
                 </div>
               </div>
@@ -124,15 +126,7 @@
   <div class="md:hidden">
     <div class="bg-neutral-200 dark:bg-neutral-900 border-2 border-border border-b-0 rounded-t-2xl =mx-4">
       
-      <!-- Rounded Progress Bar -->
-      <div class="px-4 pt-4">
-        <div class="h-1 bg-border/30 rounded-full">
-          <div 
-            class="h-full bg-gradient-to-r from-[#3644FE] to-[#B345ED] rounded-full transition-all duration-500"
-            style="width: {((currentStep + 1) / processSteps.length) * 100}%"
-          ></div>
-        </div>
-      </div>
+      
 
       <!-- Mobile Action Bar Content - Two rows -->
       <div class="px-4 py-3">
@@ -160,7 +154,7 @@
           <!-- Watch Demo - Same copy as desktop -->
           <button
             class={cn(
-              "flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium",
+              "flex-1 flex items-center justify-center gap-1.5 px-3 py-2 rounded-full text-sm font-medium",
               "bg-gradient-to-r from-[#3644FE] to-[#B345ED]",
               "text-white shadow-lg",
               "transition-all duration-200 active:scale-95"
@@ -172,7 +166,8 @@
           </button>
 
           <!-- Try Pipewriter - Same copy as desktop -->
-          <button
+					         <FreeGoogleDoc />
+          <!-- <button
             class="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium
 						border border-border hover:border-primary/30
 						bg-background hover:bg-muted transition-all duration-200
@@ -181,7 +176,17 @@
           >
             <span>Try Free</span>
             <ArrowRight class="w-4 h-4" />
-          </button>
+          </button> -->
+        </div>
+      </div>
+
+			<!-- Rounded Progress Bar -->
+      <div class="px-4 py-3">
+        <div class="h-1 bg-border/30 rounded-full">
+          <div 
+            class="h-full bg-gradient-to-r from-[#3644FE] to-[#B345ED] rounded-full transition-all duration-500"
+            style="width: {((currentStep + 1) / processSteps.length) * 100}%"
+          ></div>
         </div>
       </div>
     </div>
