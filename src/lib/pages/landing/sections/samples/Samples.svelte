@@ -100,7 +100,7 @@
 
 <div class="space-y-0">
   <!-- Main Slider with Active Styling, Labels, and Testimonial -->
-  <div class="relative rounded-3xl overflow-hidden p-0 border-2 border-border 
+  <div class="relative rounded-3xl overflow-hidden p-0 border-2
               bg-neutral-100 dark:bg-neutral-900 
               transition-all duration-300">
     

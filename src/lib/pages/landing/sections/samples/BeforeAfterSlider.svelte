@@ -1,6 +1,8 @@
 <!-- src/lib/pages/landing/sections/samples/BeforeAfterSlider.svelte -->
+<!-- Improved BeforeAfterSlider.svelte - Keeping the Beautiful Islands! -->
 <script lang="ts">
   import { onMount } from 'svelte';
+	import { ChevronLeft, ChevronRight, ChevronDown, ChevronUp } from 'lucide-svelte';
   
   // Props
   export let beforeImage: string = '';
@@ -13,6 +15,11 @@
   let isMobile = false;
   let isDragging = false;
   let containerRef: HTMLDivElement;
+  
+  // Constants for cleaner calculations
+  const PADDING = 12; // px - padding inside container
+  const ISLAND_GAP = 12; // px - gap between islands
+  const HANDLE_SIZE = 48; // px
   
   onMount(() => {
     const checkMobile = () => {
@@ -27,7 +34,6 @@
     };
   });
   
-  // Simplified drag handling with better performance
   function handlePointerDown(event: PointerEvent) {
     if (!containerRef) return;
     
@@ -59,11 +65,9 @@
     let newPosition: number;
     
     if (isMobile) {
-      // Vertical dragging for mobile
       const y = event.clientY - rect.top;
       newPosition = Math.max(10, Math.min(90, (y / rect.height) * 100));
     } else {
-      // Horizontal dragging for desktop
       const x = event.clientX - rect.left;
       newPosition = Math.max(10, Math.min(90, (x / rect.width) * 100));
     }
@@ -71,18 +75,39 @@
     position = newPosition;
   }
   
-  // Handle label clicks to jump to positions
-  function jumpToBefore() {
-    position = 85;
-  }
-  
-  function jumpToAfter() {
-    position = 15;
-  }
-  
-  // Aspect ratios
+  // Computed styles - much cleaner than the original calc() madness
   $: aspectRatio = isMobile ? 'aspect-[3/4]' : 'aspect-[16/9]';
-    
+  
+  // Before island positioning (left/top portion)
+  $: beforeIslandStyle = isMobile 
+    ? `
+        left: ${PADDING}px; 
+        right: ${PADDING}px; 
+        top: ${PADDING}px; 
+        height: calc(${position}% - ${PADDING + ISLAND_GAP/2}px);
+      ` 
+    : `
+        left: ${PADDING}px; 
+        top: ${PADDING}px; 
+        bottom: ${PADDING}px; 
+        width: calc(${position}% - ${PADDING + ISLAND_GAP/2}px);
+      `;
+  
+  // After island positioning (right/bottom portion)  
+  $: afterIslandStyle = isMobile 
+    ? `
+        left: ${PADDING}px; 
+        right: ${PADDING}px; 
+        bottom: ${PADDING}px; 
+        height: calc(${100 - position}% - ${PADDING + ISLAND_GAP/2}px);
+      ` 
+    : `
+        right: ${PADDING}px; 
+        top: ${PADDING}px; 
+        bottom: ${PADDING}px; 
+        width: calc(${100 - position}% - ${PADDING + ISLAND_GAP/2}px);
+      `;
+  
   // Handle positioning
   $: handleStyle = isMobile
     ? `top: ${position}%; left: 50%; transform: translate(-50%, -50%);`
@@ -105,13 +130,11 @@
   aria-valuemax={90}
 >
   
-  
   <!-- Before Island - Shows left/top portion -->
   <div 
-    class="absolute top-3 left-3 bottom-3 rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 shadow-lg"
-    style={isMobile 
-      ? `right: 12px; height: calc(${position}% - 15px);` 
-      : `width: calc(${position}% - 22px); right: auto;`}
+    class="absolute rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 shadow-lg 
+           transition-all duration-75 ease-out"
+    style={beforeIslandStyle}
   >
     {#if beforeImage}
       <img 
@@ -129,10 +152,9 @@
   
   <!-- After Island - Shows right/bottom portion -->
   <div 
-    class="absolute top-3 right-3 bottom-3 rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 shadow-lg"
-    style={isMobile 
-      ? `left: 12px; height: calc(${100 - position}% - 15px); top: calc(${position}% + 3px);` 
-      : `width: calc(${100 - position}% - 22px); left: calc(${position}% + 3px);`}
+    class="absolute rounded-2xl overflow-hidden bg-white dark:bg-zinc-900 shadow-lg
+           transition-all duration-75 ease-out"
+    style={afterIslandStyle}
   >
     {#if afterImage}
       <img 
@@ -152,24 +174,23 @@
   <div 
     class="absolute w-12 h-12 bg-white dark:bg-zinc-900 rounded-full 
            border-2 border-neutral-300 dark:border-neutral-700
-           shadow-sm flex items-center justify-center z-30 pointer-events-none
-           transition-transform duration-100"
+           shadow-lg flex items-center justify-center z-30 pointer-events-none
+           transition-all duration-100 ease-out"
     class:scale-110={isDragging}
+    class:shadow-xl={isDragging}
     style={handleStyle}
   >
     {#if isMobile}
       <!-- Vertical handle indicator -->
-      <div class="flex flex-col gap-0.5">
-        <div class="w-4 h-0.5 bg-neutral-500 dark:bg-neutral-400 rounded-full"></div>
-        <div class="w-4 h-0.5 bg-neutral-500 dark:bg-neutral-400 rounded-full"></div>
-        <div class="w-4 h-0.5 bg-neutral-500 dark:bg-neutral-400 rounded-full"></div>
+      <div class="flex flex-col -gap-4">
+				<ChevronUp class="h-5 w-5"/>
+				<ChevronDown class="h-5 w-5"/>
       </div>
     {:else}
       <!-- Horizontal handle indicator -->
-      <div class="flex gap-0.5">
-        <div class="w-0.5 h-4 bg-neutral-500 dark:bg-neutral-400 rounded-full"></div>
-        <div class="w-0.5 h-4 bg-neutral-500 dark:bg-neutral-400 rounded-full"></div>
-        <div class="w-0.5 h-4 bg-neutral-500 dark:bg-neutral-400 rounded-full"></div>
+      <div class="flex -gap-1">
+				<ChevronLeft />
+				<ChevronRight />
       </div>
     {/if}
   </div>
