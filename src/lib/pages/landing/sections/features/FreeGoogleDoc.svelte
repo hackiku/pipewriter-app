@@ -20,22 +20,30 @@
 </script>
 
 <!-- Trigger Button -->
-<Button 
+<!-- <Button 
   on:click={handleTriggerClick}
   class="w-full bg-gradient-to-r from-[#3644FE] to-[#B345ED] 
          hover:from-[#3644FE]/90 hover:to-[#B345ED]/90
-         text-white border-0 rounded-xl py-6 px-6 text-base font-semibold
+         text-white border-0 rounded-full py-6 px-6 text-base font-semibold
+         shadow-lg hover:shadow-xl transition-all duration-200
+         hover:scale-[1.02] active:scale-[0.98]"
+> -->
+<Button 
+  on:click={handleTriggerClick}
+  class="w-4/5 bg-card border-2 border-border
+         hover:bg-gradient-to-r hover:from-[#3644FE]/90 hover:to-[#B345ED]/90
+         text-white rounded-full py-5 px-5 text-base font-semibold
          shadow-lg hover:shadow-xl transition-all duration-200
          hover:scale-[1.02] active:scale-[0.98]"
 >
   <div class="flex items-center gap-3">
-    <FileText class="w-5 h-5" />
-    <div class="text-left">
-      <div class="font-bold">Try Free Demo Doc</div>
-      <div class="text-sm font-normal opacity-90">
-        See Pipewriter in action
+    <!-- <FileText class="w-5 h-5" /> -->
+		<img src="/icons/google-docs.svg" alt="Google Docs Icon Logo"
+			class="w-5 h-5"
+		/>
+      <div class="text-md font-normal opacity-90">
+        Get Free Demo Doc
       </div>
-    </div>
   </div>
 </Button>
 
